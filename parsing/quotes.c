@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/12 17:49:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/12 20:33:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ int main(void)
 			free (ret);
 		}
 		printf("-----\n");
+		free (ret);
 		free (input);
 	}
     return 0;
 }
+		
