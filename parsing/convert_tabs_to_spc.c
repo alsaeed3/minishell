@@ -6,11 +6,13 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/12 20:29:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/16 20:52:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+
+
 
 void	conv_tabs2spcs(char **str)
 {
