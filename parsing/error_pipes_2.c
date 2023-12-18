@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 20:52:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/16 21:42:27 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/17 17:28:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,20 @@ bool check_end_pipe_redir(char *str)
 	int 	i;
 	int		j;
 	bool	trigger;
+	int		len;
 	
+	len = ft_strlen(str);
 	i = -1;
 	trigger = false;
-	while (++i < ft_strlen(str))
+	while (++i < len)
 	{
-		if (str[i] == '|' || str[i] == '<' || str[i] == '>')
+		j = i;
+		while (++j < len)
 		{
-			j = i;
-			while (++j < ft_strlen(str + i))
-			{
-				if (str[j] != ' ')
-					trigger = true;
-				else if ((str[j + 1] == '\0' || str[j + 1] == '|' || str[j + 1] == '<' || str[j + 1] == '>')  && !trigger)
-					return (true);
-			}
+			if (str[j] != ' ' && str[j] != '\t')
+				trigger = true;
+			else if ((str[j + 1] == '\0' || str[j + 1] == '|' || str[j + 1] == '<' || str[j + 1] == '>')  && !trigger)
+				return (true);
 		}
 	}
 	return (false);
@@ -68,7 +67,7 @@ int main(void)
 	while (1)
 	{
 		str = readline("> ");
-		if (check_duo_pipe(str))
+		if (check_pipe_red_2(str))
 			printf("error\n");
 		else
 			printf("correct\n");

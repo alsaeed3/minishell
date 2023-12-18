@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:32:06 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/07/24 15:51:39 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/17 16:17:33 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,19 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 	}
 	if (i != n)
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (0);
+}
+
+int ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (1);
+		i++;
+	}
 	return (0);
 }

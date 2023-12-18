@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/12 20:33:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/18 14:24:47 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ bool	check_quotes(char *str, int *char_num)
 	j = 0;
 	trigger = 0;
 	flag = false;
+
 	while (++i < ft_strlen(str))
 	{
 		if (str[i] == '\'' || str[i] == '"')
@@ -47,7 +48,7 @@ bool	check_quotes(char *str, int *char_num)
 	return (flag);
 }
 
-void	get_str_quotes(char *str, char **ret, int char_num)
+void	remove_str_quotes(char *str, char **ret, int char_num)
 {
 	int	i;
 	int	j;
@@ -94,7 +95,6 @@ int main(void)
 			free (ret);
 		}
 		printf("-----\n");
-		free (ret);
 		free (input);
 	}
     return 0;

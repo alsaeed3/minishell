@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:20:59 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/10/12 16:34:59 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/17 16:18:27 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int			ft_tolower(int c);
 char		*ft_strchr(char *s, size_t c);
 char		*ft_strrchr(char *s, size_t c);
 int			ft_strncmp(char *s1, char *s2, size_t n);
+int			ft_strcmp(char *s1, char *s2);
 void		*ft_memchr(void *s, int c, size_t n);
 int			ft_memcmp(void *s1, void *s2, size_t n);
 char		*ft_strnstr(char *haystack, char *needle, size_t len);
