@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/18 14:24:47 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/20 14:47:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,25 +78,25 @@ void	remove_str_quotes(char *str, char **ret, int char_num)
 	(*ret)[++k] = '\0';
 }
 
-int main(void)
-{
-	int	char_num = 0;
-	char *ret;
+// int main(void)
+// {
+// 	int	char_num = 0;
+// 	char *ret;
 
-	while(1)
-	{
-		char *input = readline("Enter something: ");
-		if (check_quotes(input, &char_num))
-			printf("Error\n");
-		else
-		{
-			get_str_quotes(input, &ret, char_num);
-			printf("%s\n", ret);
-			free (ret);
-		}
-		printf("-----\n");
-		free (input);
-	}
-    return 0;
-}
+// 	while(1)
+// 	{
+// 		char *input = readline("Enter something: ");
+// 		if (check_quotes(input, &char_num))
+// 			printf("Error\n");
+// 		else
+// 		{
+// 			get_str_quotes(input, &ret, char_num);
+// 			printf("%s\n", ret);
+// 			free (ret);
+// 		}
+// 		printf("-----\n");
+// 		free (input);
+// 	}
+//     return 0;
+// }
 		

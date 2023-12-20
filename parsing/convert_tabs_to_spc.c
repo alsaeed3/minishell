@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/18 17:36:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/20 14:47:18 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ char	*conv_tabs2spcs(char *str)
 	return(ret);
 }
 
-int main(void)
-{
-	char *str;
-	char *hell;
+// int main(void)
+// {
+// 	char *str;
+// 	char *hell;
 
-	while (1)
-	{
-		str = readline("> ");
-		hell = conv_tabs2spcs(str);
-		free(str);
-		printf("%s\n", hell);
-		free(hell);
-	}
-	return (0);
-}
+// 	while (1)
+// 	{
+// 		str = readline("> ");
+// 		hell = conv_tabs2spcs(str);
+// 		free(str);
+// 		printf("%s\n", hell);
+// 		free(hell);
+// 	}
+// 	return (0);
+// }

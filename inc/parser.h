@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/12 14:39:00 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/20 14:01:00 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,21 @@
 # include <limits.h>      			// PATH_MAX
 # include <readline/readline.h>
 # include <readline/history.h>
+
+char	*conv_tabs2spcs(char *str);
+bool	check_end_pipe(char *str);
+bool	check_redir_end(char *str);
+bool	check_pipe_red_2(char *str);
+bool	check_pipe_redir(char *line);
+int		*find_infiles_heredocs_num(char *str, int pipes_num);
+void	find_char_num(char *cmd_line, int *char_num, int *reach);
+int		**find_inputs_chars_num(char *cmd_line, int	pipes_num, int *inputs_num);
+int		find_outfiles_appends_num(char *str, int *outfiles_num, int *appends_num);
+int		find_pipes_num(char *str);
+bool	malloc_inputs(char ***inputs ,int pipes_num, int *each_part_inputs_num, int **file_name_chars_num);
+void	free_inputs(char ***inputs ,int pipes_num, int *each_part_inputs_num, int **file_name_chars_num);
+bool	check_quotes(char *str, int *char_num);
+void	remove_str_quotes(char *str, char **ret, int char_num);
+
 
 #endif

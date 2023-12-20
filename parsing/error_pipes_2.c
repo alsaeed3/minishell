@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 20:52:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/20 12:34:06 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/20 15:36:47 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool check_redir_end(char *str)
 	len = ft_strlen(str);
 	trigger = false;
 	i = -1;
-	if (str[i] == '<' || str[i] == '>')
+	if (str[0] == '<' || str[0] == '>')
 		i = 0;
 	while (++i < len)
 	{
@@ -78,19 +78,4 @@ bool	check_pipe_red_2(char *str)
 		}
 	}
 	return (false);
-}
-
-int main(void)
-{
-	char *str;
-	while (1)
-	{
-		str = readline("> ");
-		if (check_pipe_red_2(str))
-			printf("error\n");
-		else
-			printf("correct\n");
-		free(str);
-	}
-	return (0);
 }
