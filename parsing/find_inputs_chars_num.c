@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:29:14 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/20 15:41:33 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/21 21:40:39 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,14 @@ void	find_char_num(char *cmd_line, int *char_num, int *reach)
 	int		len;
 
 	len = ft_strlen(cmd_line);
-	i = -1;
-	if (cmd_line[0] == '>' || cmd_line[0] == '<')
-		i = 0;
-	if (cmd_line[++i] == ' ')
-	{
-		while (++i < len)
-		{
-			if (cmd_line[i] != ' ')
-				break;
-		}
-	}
-	else
-		i--;
+	i = 0;
+	if ((cmd_line[0] == '<' || cmd_line[0] == ' '))
+		i = 1;
+	if ((cmd_line[0] == '<' && cmd_line[1] == ' '))
+		i = 2;
 	while (i < len)
 	{
-		if (cmd_line[i] == ' ' || cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == '|')
+		if (cmd_line[i] == '|' || cmd_line[i] == '>' || cmd_line[i] != ' ' || cmd_line[i] != '<')
 		{
 			*reach = i;
 			return ;
@@ -47,43 +39,82 @@ void	find_char_num(char *cmd_line, int *char_num, int *reach)
 	}
 }
 
-int	**find_infiles_heredocs_num(char *cmd_line, int pipes_num, int *inputs_num)
+int	**find_icm_num(char *cmd_line, int pipes_num, int *inputs_num)
 {
 	int	i;
-	int	j;
+	int j;
 	int	k;
-	int	reach;
-	int	char_num;
 	int	len;
+	bool	trigger;
+	int	char_num;
 	int **icm;
 
-	i = -1;
-	j = 0;
-	char_num = 0;
-	reach = 0;
-	len = ft_strlen(cmd_line);
 	icm = ft_calloc(pipes_num, sizeof(int *));
-	while(++i < len)
+	len = ft_strlen(cmd_line);
+	i = -1;
+	while (++i < pipes_num)
+		icm[i] = ft_calloc(inputs_num[i], sizeof(int));
+	trigger = false;
+	i = -1;
+	k = 0;
+	j = 0;
+	while (++i < len)
 	{
-		icm[j] = ft_calloc(inputs_num[j], sizeof(int));
-		k = 0;
 		if (cmd_line[i] == '|')
-			j++;
-		if ((cmd_line[i] == '<' && cmd_line[i + 1] != '<') || (cmd_line[i] == '<' && cmd_line[i + 1] == '<'))
 		{
-			find_char_num(cmd_line + (i + 1), &char_num, &reach);
-			icm[j][k] = char_num;
-			k++;
-			i = reach;
+			k = 0;
+			j++;
+		}
+		// else if (cmd_line[i] == '>' || cmd_line[i] == '\'' || cmd_line[i] == '"')
+		// 	jump_over_out(cmd_line + i ,&i);
+		else if ((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && cmd_line[i - 1] != '<') && !trigger)
+		{
+			char_num = 0;
+			trigger = true;
+			if (cmd_line[i + 1] == ' ')
+				i++;
+		}
+		else if ((cmd_line[i] == '<' && cmd_line[i + 1] == '<') && !trigger)
+		{
+			char_num = 0;
+			trigger = true;
+			i++;
+			if (cmd_line[i + 1] == ' ')
+				i++;
+		}
+		else if ((cmd_line[i] != '<' || cmd_line[i] != ' ' || cmd_line[i] != '|') && trigger)
+			char_num++;
+		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && trigger)
+		{
+			icm[j][k++] = char_num;
+			trigger = false;
 		}
 	}
 	return (icm);
 }
 
-// int main(void)
-// {
-// 	int	i = -1;
-// 	int j = -2;
-	
-	
-// }
+int main()
+{
+		char *cmd_line = readline("$> ");
+		int pipes_num = find_pipes_num(cmd_line);
+		int *inh = find_infiles_heredocs_num(cmd_line, pipes_num);
+		int **icm = find_icm_num(cmd_line, pipes_num, inh);
+		free(cmd_line);
+		int i = -1;
+		int j;
+		while (++i < pipes_num)
+		{
+			j = -1;
+			while (++j < inh[i])
+			{
+				printf("part: %d, redir: %d, chars: %d\n", i, j, icm[i][j]);
+			}
+		}
+		for (int i = 0; i < pipes_num; i++)
+		{
+			free(icm[i]);
+		}
+		free(icm);
+		free(inh);
+    return 0;
+}

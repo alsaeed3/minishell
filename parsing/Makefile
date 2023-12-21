@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2023/12/20 16:01:27 by alsaeed          ###   ########.fr        #
+#    Updated: 2023/12/20 17:12:16 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME =	../minishell
 
 SRCS =	convert_tabs_to_spc.c error_pipes_2.c error_pipes.c \
 		find_infiles_heredocs_num.c find_inputs_chars_num.c \
-		find_outfiles_appends_num.c find_pipes_num.c malloc_infile_heredocs.c \
+		find_outfiles_appends_num.c find_pipes_num.c malloc_infile_heredocs.c del_excess_spcs.c\
 		quotes.c
 
 OBJS_DIR = objs/
