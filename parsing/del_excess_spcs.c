@@ -6,11 +6,61 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/20 16:51:19 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 01:49:06 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+
+void	jump_over_spaces(char *cmd_line, int *i)
+{
+	(*i)++;
+	while (cmd_line[*i] == ' ')
+		(*i)++;
+	(*i)--;
+}
+
+int size_without_spcs(char *cmd_line)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	trigger;
+	int		size;
+
+	len = ft_strlen(cmd_line);
+	j = -1;
+	i = -1;
+	size = 0;
+	if (cmd_line[0] == ' ')
+			jump_over_spaces(cmd_line, &i);
+	while (++i < len)
+	{
+		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
+		{
+			size++;
+			trigger = cmd_line[i++];
+			while (cmd_line[i] != trigger)
+			{
+				size++;
+				i++;
+			}
+			size++;
+		}
+		else if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ')
+		{
+			size++;
+			while (cmd_line[i] == ' ')
+				i++;
+			i--;
+		}
+		else
+			size++;
+	}
+	if (cmd_line[len - 1] == ' ')
+		size--;
+	return (size);
+}
 
 char	*delete_excess_spcs(char *cmd_line)
 {
@@ -21,9 +71,11 @@ char	*delete_excess_spcs(char *cmd_line)
 	char	*ret;
 
 	len = ft_strlen(cmd_line);
-	ret = ft_calloc(len + 1, sizeof(char));
+	ret = ft_calloc(size_without_spcs(cmd_line) + 1, sizeof(char));
 	j = -1;
 	i = -1;
+	if (cmd_line[0] == ' ')
+			jump_over_spaces(cmd_line, &i);
 	while (++i < len)
 	{
 		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
@@ -32,29 +84,52 @@ char	*delete_excess_spcs(char *cmd_line)
 			trigger = cmd_line[i++];
 			while (cmd_line[i] != trigger)
 				ret[++j] = cmd_line[i++];
+			ret[++j] = trigger;
 		}
-		if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ')
+		else if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ')
 		{
-			ret[++j] = ' ';
+			ret[++j] = cmd_line[i];
 			while (cmd_line[i] == ' ')
 				i++;
+			i--;
 		}
-		ret[++j] = cmd_line[i];
+		else
+			ret[++j] = cmd_line[i];
 	}
-	ret[++j] = '\0';
+	if (ret[j] == ' ')
+		ret[j] = '\0';
+	else
+		ret[++j] = '\0';
 	return (ret);
 }
 
+/* To test delete_excess_spcs function */
+int main(void)
+{
+	int	i;
+	char *str;
+	while(1)
+	{
+		char *input = readline("$> ");
+		// char *input = "  <  '1     23'  |  << '  12 ' ";
+		str = delete_excess_spcs(input);
+		free(input);
+		printf("%s\n",str);
+		free(str);
+	}
+}
+
+/* To test size_without_spcs function */
 // int main(void)
 // {
 // 	int	i;
-// 	char *str;
+// 	int size;
+// 	size = 0;
 // 	while(1)
 // 	{
 // 		char *input = readline("$> ");
-// 		str = delete_excess_spcs(input);
+// 		size = size_without_spcs(input);
 // 		free(input);
-// 		printf("%s\n", str);
-// 		free(str);
+// 		printf("%d\n",size);
 // 	}
 // }
