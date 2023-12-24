@@ -6,31 +6,41 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 13:11:01 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/20 14:47:35 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/24 22:21:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	find_outfiles_appends_num(char *str, int *outfiles_num, int *appends_num)
+int	*find_outfiles_appends_num(char *str, int pipes_num)
 {
-	int	i;
-	int	outfiles_appends_num;
+	int		i;
+	int		j;
+	int		len;
+	char	trigger;
+	int		*outfiles_appends_num;
 
 	i = -1;
-	outfiles_appends_num = 0;
-	while (++i < ft_strlen(str))
+	j = 0;
+	len = ft_strlen(str);
+	outfiles_appends_num = ft_calloc(pipes_num + 1 ,sizeof(int));
+	while (++i < len)
 	{
+		if (str[i] == '|')
+			j++;
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			trigger = str[i];
+			while (++i < len)
+			{
+				if (str[i] == trigger)
+					break;
+			}
+		}
 		if (str[i] == '>' && str[i + 1] != '>' && str[i - 1] != '>')
-		{
-			(*outfiles_num)++;
-			outfiles_appends_num++;
-		}
+			outfiles_appends_num[j]++;
 		else if (str[i] == '>' && str[i + 1] == '>' && str[i - 1] != '>' && str[i + 2] != '>')
-		{
-			(*appends_num)++;
-			outfiles_appends_num++;
-		}
+			outfiles_appends_num[j]++;
 	}
 	return (outfiles_appends_num);
 }

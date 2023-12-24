@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "/home/alsaeed/Desktop/minishell/parsing/a.out",
-			"args": [],
+			"args": ["<\"123\""],
 			"cwd": "/home/alsaeed/Desktop/minishell/parsing"
 		}
 	]
