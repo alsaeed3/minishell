@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/24 22:23:06 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 18:42:40 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ bool	check_pipe_redir(char *line);
 int		*find_infiles_heredocs_num(char *str, int pipes_num);
 void	find_ichar_num(char *cmd_line, int *char_num, int *reach);
 void	find_ochar_num(char *cmd_line, int *char_num, int *reach);
-int		**find_icm_num(char *cmd_line, int pipes_num, int *inputs_num);
+int		**find_ic_num(char *cmd_line, int pipes_num, int *inputs_num);
+int		**tokenize_inputs(char *cmd_line, int pipes_num, int *redir_num);
+int		**tokenize_outputs(char *cmd_line, int pipes_num, int *redir_num);
 int		*find_outfiles_appends_num(char *str, int pipes_num);
 int		**find_oc_num(char *cmd_line, int pipes_num, int *inputs_num);
 int		find_pipes_num(char *str);
