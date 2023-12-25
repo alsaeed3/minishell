@@ -2,7 +2,10 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   find_inputs_chars_num.c                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
+/*                                                    +:+ +:	if (ret[j] == ' ')
+		ret[j] = '\0';
+	else
+		ret[++j] = '\0';+         +:+     */
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:29:14 by alsaeed           #+#    #+#             */
@@ -68,10 +71,10 @@ int	**find_ic_num(char *cmd_line, int pipes_num, int *inputs_num)
 	int	char_num;
 	int **icm;
 
-	icm = ft_calloc(pipes_num, sizeof(int *));
+	icm = ft_calloc(pipes_num + 1, sizeof(int *));
 	len = ft_strlen(cmd_line);
 	i = -1;
-	while (++i < pipes_num)
+	while (++i < pipes_num + 1)
 		icm[i] = ft_calloc(inputs_num[i], sizeof(int));
 	redi_trigger = false;
 	quo_trigger = false;
@@ -133,14 +136,14 @@ int main()
 		free(cmd_line);
 		int j;
 		int i = -1;
-		while (++i < pipes_num)
+		while (++i < pipes_num + 1)
 		{
 			j = -1;
 			while (++j < inh[i])
 				printf("part: %d, redir: %d, chars: %d\n", i, j, icm[i][j]);
 		}
 		i = -1;
-		while (++i < pipes_num)
+		while (++i < pipes_num + 1)
 			free(icm[i]);
 		free(icm);
 		free(inh);

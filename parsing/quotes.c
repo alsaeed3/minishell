@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/20 18:14:38 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 15:26:25 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,9 @@ bool	check_quotes(char *str)
 					flag = false;
 					break;
 				}
-				// (*char_num)++;
 			}
 			i = j;
 		}
-		// if (str[i] != ' ' && str[i] != '\'' && str[i] != '"')
-			// (*char_num)++;
 	}
 	return (flag);
 }
