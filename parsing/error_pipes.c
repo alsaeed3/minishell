@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 20:10:41 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 16:28:18 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 23:57:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,14 @@ bool	check_pipe_redir(char *line)
 {
 	int	i;
 	int len;
-	char last_two[3];
 
 	len = ft_strlen(line);
-	last_two[0] = line[len - 2];
-	last_two[1] = line[len - 1];
-	last_two[2] = '\0';
 	i = -1;
 	while (++i < len)
 	{
 		if (line[0] == '|' || line[len - 1] == '|')
 			return (true);
-		else if (line[len - 1] == '<' || line[len - 1] == '>')
-			return (true);
-		else if (!ft_strcmp(last_two, "<<") || !ft_strcmp(last_two, ">>"))
+		else if ((line[i] == '<' || line[i] == '>') && line[i + 1] == '\0')
 			return (true);
 	}
 	return (false);
