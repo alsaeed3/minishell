@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 21:02:21 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 21:39:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,20 @@ bool	check_quotes(char *str)
 	int		len;
 	char	trigger;
 	bool	flag;
-	bool	in_quote;
 	
 	i = -1;
 	flag = false;
-	in_quote = false;
 	len = ft_strlen(str);
 	while (++i < len)
 	{
-		if ((str[i] == '\'' || str[i] == '"') && !in_quote)
+		if ((str[i] == '\'' || str[i] == '"') && !flag)
 		{
-			in_quote = true;	
 			flag = true;
 			trigger = str[i];
 			while (++i < len)
 			{
 				if (str[i] == trigger)
 				{
-					in_quote = false;
 					flag = false;
 					break;
 				}
@@ -48,7 +44,6 @@ bool	check_quotes(char *str)
 void	remove_str_quotes(char *str, char **ret, int char_num)
 {
 	int	i;
-	int	j;
 	int	k;
 	int trigger;
 	int	len;
@@ -62,14 +57,12 @@ void	remove_str_quotes(char *str, char **ret, int char_num)
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			trigger = (int)str[i];
-			j = i;
-			while (++j < len)
+			while (++i < len)
 			{
-				if (str[j] == trigger)
+				if (str[i] == trigger)
 					break;
-				(*ret)[++k] = str[j];
+				(*ret)[++k] = str[i];
 			}
-			i = j;
 		}
 		if (str[i] != ' ' && str[i] != '\'' && str[i] != '"')
 			(*ret)[++k] = str[i];

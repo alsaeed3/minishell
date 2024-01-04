@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 21:01:48 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 21:12:11 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	***hold_input_file_names(char *cmd_line, int parts_num, int *inputs_num, in
 	char	***redir_names;
 
 	redir_names = malloc_inputs(parts_num, inputs_num, ic_num);
-	if (redir_names)
+	if (!redir_names)
 		return (NULL);
 	redi_trigger = false;
 	quo_trigger = false;

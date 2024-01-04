@@ -8,9 +8,9 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "/home/alsaeed/Desktop/minishell/parsing/a.out",
-			"args": ["<\"123\""],
-			"cwd": "/home/alsaeed/Desktop/minishell/parsing"
+			"program": "/Users/alsaeed/Desktop/minishell_upd/minishell",
+			"args": ["< 123"],
+			"cwd": "/Users/alsaeed/Desktop/minishell_upd"
 		}
 	]
 }
