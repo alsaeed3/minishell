@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_outputs_chars_num.c                           :+:      :+:    :+:   */
+/*   mallocing_out_redir_file_names.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/24 22:12:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/05 00:43:53 by alsaeed          ###   ########.fr       */
+/*   Created: 2024/01/05 00:44:49 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/01/05 00:48:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
+char	***hold_output_file_names(char *cmd_line, int parts_num, int *outputs_num, int ** oc_num)
 {
 	int	i;
 	int j;
 	int	k;
+	int	l;
 	int	len;
 	bool	redi_trigger;
 	bool	quo_trigger;
 	char	quo_char;
-	int	char_num;
-	int **ocm;
+	char	***redir_names;
 
-	ocm = ft_calloc(parts_num, sizeof(int *));
-	len = ft_strlen(cmd_line);
-	i = -1;
-	while (++i < parts_num)
-		ocm[i] = ft_calloc(outputs_num[i], sizeof(int));
+	redir_names = malloc_outputs(parts_num, outputs_num, oc_num);
+	if (!redir_names)
+		return (NULL);
 	redi_trigger = false;
 	quo_trigger = false;
 	i = -1;
 	k = 0;
 	j = 0;
+	l = 0;
+	len = (int)ft_strlen(cmd_line);
 	while (++i < len)
 	{
 		if (cmd_line[i] == '|' && !quo_trigger && !redi_trigger)
@@ -51,57 +51,31 @@ int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
 			quo_trigger = false;
 		else if (((cmd_line[i] == '"' || cmd_line[i] == '\'' || cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == '|')) && redi_trigger && quo_trigger)
-			char_num++;
+			redir_names[j][k][l++] = cmd_line[i];;
 		if ((cmd_line[i] == '>' && cmd_line[i + 1] != '>' && cmd_line[i - 1] != '>') && !redi_trigger && !quo_trigger)
 		{
-			char_num = 0;
+			l = 0;
 			redi_trigger = true;
 			if (cmd_line[i + 1] == ' ')
 				i++;
 		}
 		if ((cmd_line[i] == '>' && cmd_line[i + 1] == '>') && !redi_trigger && !quo_trigger)
 		{
-			char_num = 0;
+			l = 0;
 			redi_trigger = true;
 			i++;
 			if (cmd_line[i + 1] == ' ')
 				i++;
 		}
 		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && redi_trigger))
-			char_num++;
+			redir_names[j][k][l++] = cmd_line[i];;
 		if (cmd_line[i] == ' ' && redi_trigger && quo_trigger)
-			char_num++;
+			redir_names[j][k][l++] = cmd_line[i];
 		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
 		{
-			ocm[j][k++] = char_num;
+			redir_names[j][k++][l] = '\0';
 			redi_trigger = false;
 		}
 	}
-	return (ocm);
+	return (redir_names);
 }
-
-// int main()
-// {
-// 	while (1)
-// 	{
-// 		char *cmd_line = readline("$> ");
-// 		int parts_num = find_parts_num(cmd_line);
-// 		int *oan = find_outfiles_appends_num(cmd_line, parts_num);
-// 		int **oc = find_oc_num(cmd_line, parts_num, oan);
-// 		free(cmd_line);
-// 		int j;
-// 		int i = -1;
-// 		while (++i < parts_num)
-// 		{
-// 			j = -1;
-// 			while (++j < oan[i])
-// 				printf("part: %d, redir: %d, chars: %d\n", i, j, oc[i][j]);
-// 		}
-// 		i = -1;
-// 		while (++i < parts_num)
-// 			free(oc[i]);
-// 		free(oc);
-// 		free(oan);
-// 	}
-//     return 0;
-// }

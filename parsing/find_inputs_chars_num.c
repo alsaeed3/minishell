@@ -18,30 +18,6 @@
 // to find each infile/heredoc file name characters and store them into
 // a double pointer to use it later in mallocing
 
-// static void	find_ichar_num(char *cmd_line, int *char_num, int *reach)
-// {
-// 	int		i;
-// 	int		len;
-
-// 	len = ft_strlen(cmd_line);
-// 	i = 0;
-// 	if ((cmd_line[0] == '<' || cmd_line[0] == ' '))
-// 		i = 1;
-// 	if ((cmd_line[0] == '<' && cmd_line[1] == ' '))
-// 		i = 2;
-// 	while (i < len)
-// 	{
-// 		if (cmd_line[i] == '|' || cmd_line[i] == '>' || cmd_line[i] != ' ' || cmd_line[i] != '<')
-// 		{
-// 			*reach = i;
-// 			return ;
-// 		}
-// 		else
-// 			(*char_num)++;
-// 		i++;
-// 	}
-// }
-
 int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 {
 	int	i;
