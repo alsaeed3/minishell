@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_infiles_heredocs_num.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/25 22:05:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 16:28:51 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   find_outputs_chars_num.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 22:12:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/25 22:05:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 20:58:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-void	find_ochar_num(char *cmd_line, int *char_num, int *reach)
-{
-	int		i;
-	int		len;
+// static void	find_ochar_num(char *cmd_line, int *char_num, int *reach)
+// {
+// 	int		i;
+// 	int		len;
 
-	len = ft_strlen(cmd_line);
-	i = 0;
-	if ((cmd_line[0] == '>' || cmd_line[0] == ' '))
-		i = 1;
-	if ((cmd_line[0] == '>' && cmd_line[1] == ' '))
-		i = 2;
-	while (i < len)
-	{
-		if (cmd_line[i] == '|' || cmd_line[i] == '>' || cmd_line[i] != ' ' || cmd_line[i] != '<')
-		{
-			*reach = i;
-			return ;
-		}
-		else
-			(*char_num)++;
-		i++;
-	}
-}
+// 	len = ft_strlen(cmd_line);
+// 	i = 0;
+// 	if ((cmd_line[0] == '>' || cmd_line[0] == ' '))
+// 		i = 1;
+// 	if ((cmd_line[0] == '>' && cmd_line[1] == ' '))
+// 		i = 2;
+// 	while (i < len)
+// 	{
+// 		if (cmd_line[i] == '|' || cmd_line[i] == '>' || cmd_line[i] != ' ' || cmd_line[i] != '<')
+// 		{
+// 			*reach = i;
+// 			return ;
+// 		}
+// 		else
+// 			(*char_num)++;
+// 		i++;
+// 	}
+// }
 
 void	jump_over_quote(char *cmd_line, int *i, int len)
 {
@@ -121,28 +121,28 @@ int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 	return (ocm);
 }
 
-int main()
-{
-	while (1)
-	{
-		char *cmd_line = readline("$> ");
-		int parts_num = find_parts_num(cmd_line);
-		int *oan = find_outfiles_appends_num(cmd_line, parts_num);
-		int **oc = find_oc_num(cmd_line, parts_num, oan);
-		free(cmd_line);
-		int j;
-		int i = -1;
-		while (++i < parts_num)
-		{
-			j = -1;
-			while (++j < oan[i])
-				printf("part: %d, redir: %d, chars: %d\n", i, j, oc[i][j]);
-		}
-		i = -1;
-		while (++i < parts_num)
-			free(oc[i]);
-		free(oc);
-		free(oan);
-	}
-    return 0;
-}
+// int main()
+// {
+// 	while (1)
+// 	{
+// 		char *cmd_line = readline("$> ");
+// 		int parts_num = find_parts_num(cmd_line);
+// 		int *oan = find_outfiles_appends_num(cmd_line, parts_num);
+// 		int **oc = find_oc_num(cmd_line, parts_num, oan);
+// 		free(cmd_line);
+// 		int j;
+// 		int i = -1;
+// 		while (++i < parts_num)
+// 		{
+// 			j = -1;
+// 			while (++j < oan[i])
+// 				printf("part: %d, redir: %d, chars: %d\n", i, j, oc[i][j]);
+// 		}
+// 		i = -1;
+// 		while (++i < parts_num)
+// 			free(oc[i]);
+// 		free(oc);
+// 		free(oan);
+// 	}
+//     return 0;
+// }

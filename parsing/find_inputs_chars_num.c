@@ -18,46 +18,29 @@
 // to find each infile/heredoc file name characters and store them into
 // a double pointer to use it later in mallocing
 
-void	find_ichar_num(char *cmd_line, int *char_num, int *reach)
-{
-	int		i;
-	int		len;
+// static void	find_ichar_num(char *cmd_line, int *char_num, int *reach)
+// {
+// 	int		i;
+// 	int		len;
 
-	len = ft_strlen(cmd_line);
-	i = 0;
-	if ((cmd_line[0] == '<' || cmd_line[0] == ' '))
-		i = 1;
-	if ((cmd_line[0] == '<' && cmd_line[1] == ' '))
-		i = 2;
-	while (i < len)
-	{
-		if (cmd_line[i] == '|' || cmd_line[i] == '>' || cmd_line[i] != ' ' || cmd_line[i] != '<')
-		{
-			*reach = i;
-			return ;
-		}
-		else
-			(*char_num)++;
-		i++;
-	}
-}
-
-void	jump_over_quote(char *cmd_line, int *i, int len)
-{
-	char	quo_char;
-
-	quo_char = cmd_line[*i];
-	(*i)++;
-	while (*i < len)
-	{
-		if (cmd_line[*(i)] == quo_char)
-		{
-			(*i)++;
-			break;
-		}
-		(*i)++;
-	}
-}
+// 	len = ft_strlen(cmd_line);
+// 	i = 0;
+// 	if ((cmd_line[0] == '<' || cmd_line[0] == ' '))
+// 		i = 1;
+// 	if ((cmd_line[0] == '<' && cmd_line[1] == ' '))
+// 		i = 2;
+// 	while (i < len)
+// 	{
+// 		if (cmd_line[i] == '|' || cmd_line[i] == '>' || cmd_line[i] != ' ' || cmd_line[i] != '<')
+// 		{
+// 			*reach = i;
+// 			return ;
+// 		}
+// 		else
+// 			(*char_num)++;
+// 		i++;
+// 	}
+// }
 
 int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 {
@@ -127,28 +110,28 @@ int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 	return (icm);
 }
 
-int main()
-{
-	while (1)
-	{
-		char *cmd_line = readline("$> ");
-		int parts_num = find_parts_num(cmd_line);
-		int *inh = find_infiles_heredocs_num(cmd_line, parts_num);
-		int **icm = find_ic_num(cmd_line, parts_num, inh);
-		free(cmd_line);
-		int j;
-		int i = -1;
-		while (++i < parts_num)
-		{
-			j = -1;
-			while (++j < inh[i])
-				printf("part: %d, redir: %d, chars: %d\n", i, j, icm[i][j]);
-		}
-		i = -1;
-		while (++i < parts_num)
-			free(icm[i]);
-		free(icm);
-		free(inh);
-	}
-    return 0;
-}
+// int main()
+// {
+// 	while (1)
+// 	{
+// 		char *cmd_line = readline("$> ");
+// 		int parts_num = find_parts_num(cmd_line);
+// 		int *inh = find_infiles_heredocs_num(cmd_line, parts_num);
+// 		int **icm = find_ic_num(cmd_line, parts_num, inh);
+// 		free(cmd_line);
+// 		int j;
+// 		int i = -1;
+// 		while (++i < parts_num)
+// 		{
+// 			j = -1;
+// 			while (++j < inh[i])
+// 				printf("part: %d, redir: %d, chars: %d\n", i, j, icm[i][j]);
+// 		}
+// 		i = -1;
+// 		while (++i < parts_num)
+// 			free(icm[i]);
+// 		free(icm);
+// 		free(inh);
+// 	}
+//     return 0;
+// }

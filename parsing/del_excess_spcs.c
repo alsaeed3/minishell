@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   del_excess_spcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/25 16:23:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 16:27:24 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-void	jump_over_spaces(char *cmd_line, int *i)
+static void	jump_over_spaces(char *cmd_line, int *i)
 {
 	(*i)++;
 	while (cmd_line[*i] == ' ')
@@ -20,7 +20,7 @@ void	jump_over_spaces(char *cmd_line, int *i)
 	(*i)--;
 }
 
-int size_without_spcs(char *cmd_line)
+static int size_without_spcs(char *cmd_line)
 {
 	int		i;
 	int		j;
@@ -104,20 +104,20 @@ char	*delete_excess_spcs(char *cmd_line)
 }
 
 /* To test delete_excess_spcs function */
-int main(void)
-{
-	int	i;
-	char *str;
-	while(1)
-	{
-		char *input = readline("$> ");
-		// char *input = "  <  '1     23'  |  << '  12 ' ";
-		str = delete_excess_spcs(input);
-		free(input);
-		printf("%s\n",str);
-		free(str);
-	}
-}
+// int main(void)
+// {
+// 	int	i;
+// 	char *str;
+// 	while(1)
+// 	{
+// 		char *input = readline("$> ");
+// 		// char *input = "  <  '1     23'  |  << '  12 ' ";
+// 		str = delete_excess_spcs(input);
+// 		free(input);
+// 		printf("%s\n",str);
+// 		free(str);
+// 	}
+// }
 
 /* To test size_without_spcs function */
 // int main(void)

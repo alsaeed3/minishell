@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_outfiles_appends_num.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 13:11:01 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/25 22:05:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 17:45:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

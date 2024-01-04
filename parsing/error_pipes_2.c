@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error_pipes_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 20:52:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/25 22:18:51 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 20:57:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-bool check_end_pipe(char *str)
+static bool check_end_pipe(char *str)
 {
 	int		i;
 	bool	trigger;
@@ -31,7 +31,7 @@ bool check_end_pipe(char *str)
 	return (false);
 }
 
-bool check_redir_end(char *str)
+static bool check_redir_end(char *str)
 {
 	int	i;
 	bool	trigger;
@@ -58,17 +58,19 @@ bool	check_pipe_red_2(char *str)
 {
 	int		i;
 	bool	quo_trigger;
+	int		len;
 	
+	len = ft_strlen(str);
 	quo_trigger = false;
 	i = -1;
-	while (++i < ft_strlen(str))
+	while (++i < len)
 	{
 		if ((str[i] == '\'' || str[i] == '"'))
 		{
 			if (!quo_trigger)
 			{
 				quo_trigger = true;
-				jump over
+				jump_over_quote(str, &i, len);
 			}
 			else 
 				quo_trigger = false;
@@ -76,7 +78,7 @@ bool	check_pipe_red_2(char *str)
 		if ((str[i] == '<' && str[i + 1] == '>') || (str[i] == '>' && str[i + 1] == '<'))
 			return (true);
 		else if ((str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<') \
-				|| str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
+				|| (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>'))
 			return (true);
 		else if ((str[i] == '<' || str[i] == '>'))
 		{

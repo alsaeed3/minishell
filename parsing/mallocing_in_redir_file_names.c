@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mallocing_in_redir_file_names.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/26 12:13:28 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 21:01:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,18 @@ char	***hold_input_file_names(char *cmd_line, int parts_num, int *inputs_num, in
 	bool	redi_trigger;
 	bool	quo_trigger;
 	char	quo_char;
-	int	char_num;
 	char	***redir_names;
 
-	redir_names = ft_calloc(parts_num + 1, sizeof(char **));
-	i = -1;
-	while(++i < parts_num + 1)
-		redir_names[i] = ft_calloc(inputs_num[i] + 1, sizeof(char *));
-	i = -1;
-	while (++i < parts_num + 1)
-	{
-		j = -1;
-		while (++j < inputs_num[i] + 1)
-			ft_calloc(ic_num[i][j] + 1, sizeof(char));
-	}
+	redir_names = malloc_inputs(parts_num, inputs_num, ic_num);
+	if (redir_names)
+		return (NULL);
 	redi_trigger = false;
 	quo_trigger = false;
 	i = -1;
 	k = 0;
 	j = 0;
 	l = 0;
+	len = (int)ft_strlen(cmd_line);
 	while (++i < len)
 	{
 		if (cmd_line[i] == '|' && !quo_trigger && !redi_trigger)
@@ -107,13 +99,4 @@ char	***hold_input_file_names(char *cmd_line, int parts_num, int *inputs_num, in
 		}
 	}
 	return (redir_names);
-}
-
-int main(void)
-{
-	char	*input = readline("$ ");
-	int		parts_num = find_parts_num(input);
-	int		*ihn = find_infiles_heredocs_num(input, parts_num);
-	int		**icn = find_ic_num(input, parts_num, ihn);
-	char	***
 }

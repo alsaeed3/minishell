@@ -3,24 +3,35 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2023/12/25 22:03:16 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/04 20:56:56 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =	../minishell
 
-SRCS =	convert_tabs_to_spc.c error_parts_2.c error_parts.c \
-		find_infiles_heredocs_num.c find_inputs_chars_num.c \
-		find_outfiles_appends_num.c find_parts_num.c malloc_infile_heredocs.c del_excess_spcs.c\
-		quotes.c
+SRCS =	convert_tabs_to_spc.c \
+		del_excess_spcs.c \
+		error_pipes_2.c \
+		error_pipes.c \
+		find_infiles_heredocs_num.c \
+		find_inputs_chars_num.c \
+		find_outfiles_appends_num.c \
+		find_outputs_chars_num.c \
+		find_parts_num.c \
+		malloc_infile_heredocs.c \
+		mallocing_in_redir_file_names.c \
+		quotes.c \
+		tokenize_in_redir.c \
+		tokenize_out_redir.c \
+		main.c
 
 OBJS_DIR = objs/
-OBJS = $(addprefix $(OBJS_DIR), $(SRCS=.c:.o))
-
-CFLAGS = -Wall -Werror -Wextra -lreadline
+OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
+CFLAGS = -Wall -Wextra -Werror -I include -g3
+LDFLAGS = -lreadline
 
 LIBFT_DIR = ../libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
@@ -32,8 +43,8 @@ $(OBJS_DIR)%.o: %.c
 	@cc $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@cc $(CFLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME)
-	@echo "minishell Compilation: \033[1;32OK\n\033[0m"
+	@cc $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME)
+	@echo "minishell Compilation: \033[1;32mOK\n\033[0m"
 
 $(LIBFT_LIB):
 	@make -C $(LIBFT_DIR)

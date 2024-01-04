@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 20:10:41 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/25 22:03:16 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/04 16:28:18 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,20 @@ bool	check_pipe_redir(char *line)
 	return (false);
 }
 
-int main(void)
-{
-	int		i;
-	bool	check;
+// int main(void)
+// {
+// 	int		i;
+// 	bool	check;
 
-	while (1)
-	{
-		char *input = readline("Enter line: ");
-		check = check_pipe_redir(input);
-		if (!check)
-			printf("Correct\n");
-		else if (check == true)
-			printf("Error\n");
-		printf("-----\n");
-		free(input);
-	}
-}
+// 	while (1)
+// 	{
+// 		char *input = readline("Enter line: ");
+// 		check = check_pipe_redir(input);
+// 		if (!check)
+// 			printf("Correct\n");
+// 		else if (check == true)
+// 			printf("Error\n");
+// 		printf("-----\n");
+// 		free(input);
+// 	}
+// }
