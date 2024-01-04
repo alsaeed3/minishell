@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 22:12:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/24 22:20:01 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 22:05:14 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	jump_over_quote(char *cmd_line, int *i, int len)
 	}
 }
 
-int	**find_oc_num(char *cmd_line, int pipes_num, int *inputs_num)
+int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 {
 	int	i;
 	int j;
@@ -63,13 +63,13 @@ int	**find_oc_num(char *cmd_line, int pipes_num, int *inputs_num)
 	bool	quo_trigger;
 	char	quo_char;
 	int	char_num;
-	int **icm;
+	int **ocm;
 
-	icm = ft_calloc(pipes_num, sizeof(int *));
+	ocm = ft_calloc(parts_num, sizeof(int *));
 	len = ft_strlen(cmd_line);
 	i = -1;
-	while (++i < pipes_num)
-		icm[i] = ft_calloc(inputs_num[i], sizeof(int));
+	while (++i < parts_num)
+		ocm[i] = ft_calloc(outputs_num[i], sizeof(int));
 	redi_trigger = false;
 	quo_trigger = false;
 	i = -1;
@@ -84,7 +84,7 @@ int	**find_oc_num(char *cmd_line, int pipes_num, int *inputs_num)
 		}
 		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
 		{
-			quo_char = cmd_line[i];
+			quo_char = cmd_line[i++];
 			quo_trigger = true;
 		}
 		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && !redi_trigger)
@@ -110,13 +110,15 @@ int	**find_oc_num(char *cmd_line, int pipes_num, int *inputs_num)
 		}
 		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && redi_trigger))
 			char_num++;
+		if (cmd_line[i] == ' ' && redi_trigger && quo_trigger)
+			char_num++;
 		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
 		{
-			icm[j][k++] = char_num;
+			ocm[j][k++] = char_num;
 			redi_trigger = false;
 		}
 	}
-	return (icm);
+	return (ocm);
 }
 
 int main()
@@ -124,23 +126,23 @@ int main()
 	while (1)
 	{
 		char *cmd_line = readline("$> ");
-		int pipes_num = find_pipes_num(cmd_line);
-		int *inh = find_outfiles_appends_num(cmd_line, pipes_num);
-		int **icm = find_oc_num(cmd_line, pipes_num, inh);
+		int parts_num = find_parts_num(cmd_line);
+		int *oan = find_outfiles_appends_num(cmd_line, parts_num);
+		int **oc = find_oc_num(cmd_line, parts_num, oan);
 		free(cmd_line);
 		int j;
 		int i = -1;
-		while (++i < pipes_num)
+		while (++i < parts_num)
 		{
 			j = -1;
-			while (++j < inh[i])
-				printf("part: %d, redir: %d, chars: %d\n", i, j, icm[i][j]);
+			while (++j < oan[i])
+				printf("part: %d, redir: %d, chars: %d\n", i, j, oc[i][j]);
 		}
 		i = -1;
-		while (++i < pipes_num)
-			free(icm[i]);
-		free(icm);
-		free(inh);
+		while (++i < parts_num)
+			free(oc[i]);
+		free(oc);
+		free(oan);
 	}
     return 0;
 }

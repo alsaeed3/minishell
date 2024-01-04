@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 20:52:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/20 15:36:47 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 22:18:51 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,23 @@ bool check_redir_end(char *str)
 // error: double pipe or more (next to each other), if (< < or > > or >>> or <<<) or more
 bool	check_pipe_red_2(char *str)
 {
-	int	i;
+	int		i;
+	bool	quo_trigger;
 	
+	quo_trigger = false;
 	i = -1;
 	while (++i < ft_strlen(str))
 	{
+		if ((str[i] == '\'' || str[i] == '"'))
+		{
+			if (!quo_trigger)
+			{
+				quo_trigger = true;
+				jump over
+			}
+			else 
+				quo_trigger = false;
+		}
 		if ((str[i] == '<' && str[i + 1] == '>') || (str[i] == '>' && str[i + 1] == '<'))
 			return (true);
 		else if ((str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<') \

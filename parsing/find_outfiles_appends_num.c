@@ -6,13 +6,13 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 13:11:01 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/24 22:21:21 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 22:05:14 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	*find_outfiles_appends_num(char *str, int pipes_num)
+int	*find_outfiles_appends_num(char *str, int parts_num)
 {
 	int		i;
 	int		j;
@@ -23,7 +23,7 @@ int	*find_outfiles_appends_num(char *str, int pipes_num)
 	i = -1;
 	j = 0;
 	len = ft_strlen(str);
-	outfiles_appends_num = ft_calloc(pipes_num + 1 ,sizeof(int));
+	outfiles_appends_num = ft_calloc(parts_num ,sizeof(int));
 	while (++i < len)
 	{
 		if (str[i] == '|')

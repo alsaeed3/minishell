@@ -6,13 +6,13 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/20 21:23:54 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 22:05:14 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	*find_infiles_heredocs_num(char *str, int pipes_num)
+int	*find_infiles_heredocs_num(char *str, int parts_num)
 {
 	int		i;
 	int		j;
@@ -23,7 +23,7 @@ int	*find_infiles_heredocs_num(char *str, int pipes_num)
 	i = -1;
 	j = 0;
 	len = ft_strlen(str);
-	infiles_heredocs_num = ft_calloc(pipes_num + 1 ,sizeof(int));
+	infiles_heredocs_num = ft_calloc(parts_num ,sizeof(int));
 	while (++i < len)
 	{
 		if (str[i] == '|')
@@ -51,11 +51,11 @@ int	*find_infiles_heredocs_num(char *str, int pipes_num)
 // 	{
 // 		int *infiles_heredocs_num;
 // 		char *input = readline("$> ");
-// 		int pipes_num = find_pipes_num(input);
-// 		infiles_heredocs_num = find_infiles_heredocs_num(input, pipes_num);
+// 		int parts_num = find_parts_num(input);
+// 		infiles_heredocs_num = find_infiles_heredocs_num(input, parts_num);
 // 		free (input);
 // 		int i = -1;
-// 		while (++i < (pipes_num + 1))
+// 		while (++i < (parts_num))
 // 			printf("part %d: %d\n", i, infiles_heredocs_num[i]);
 // 		free (infiles_heredocs_num);
 // 	}

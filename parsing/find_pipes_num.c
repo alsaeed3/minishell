@@ -6,25 +6,25 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/25 16:06:13 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 22:03:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	find_pipes_num(char *str)
+int	find_parts_num(char *str)
 {
 	int	i;
-	int	pipes_num;
+	int	parts_num;
 
 	i = -1;
-	pipes_num = 0;
+	parts_num = 1;
 	while (++i < ft_strlen(str))
 	{
 		if (str[i] == '|')
-			pipes_num++;
+			parts_num++;
 	}
-	return (pipes_num);
+	return (parts_num);
 }
 
 // int main(void)
@@ -32,7 +32,7 @@ int	find_pipes_num(char *str)
 // 	while (1)
 // 	{
 // 		char *input = readline("$> ");
-// 		int char_num = find_pipes_num(input);
+// 		int char_num = find_parts_num(input);
 // 		free (input);
 // 		printf("%d\n", char_num);
 // 	}

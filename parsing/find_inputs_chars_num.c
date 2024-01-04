@@ -59,7 +59,7 @@ void	jump_over_quote(char *cmd_line, int *i, int len)
 	}
 }
 
-int	**find_ic_num(char *cmd_line, int pipes_num, int *inputs_num)
+int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 {
 	int	i;
 	int j;
@@ -71,10 +71,10 @@ int	**find_ic_num(char *cmd_line, int pipes_num, int *inputs_num)
 	int	char_num;
 	int **icm;
 
-	icm = ft_calloc(pipes_num + 1, sizeof(int *));
+	icm = ft_calloc(parts_num, sizeof(int *));
 	len = ft_strlen(cmd_line);
 	i = -1;
-	while (++i < pipes_num + 1)
+	while (++i < parts_num)
 		icm[i] = ft_calloc(inputs_num[i], sizeof(int));
 	redi_trigger = false;
 	quo_trigger = false;
@@ -90,7 +90,7 @@ int	**find_ic_num(char *cmd_line, int pipes_num, int *inputs_num)
 		}
 		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
 		{
-			quo_char = cmd_line[i];
+			quo_char = cmd_line[i++];
 			quo_trigger = true;
 		}
 		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && !redi_trigger)
@@ -116,6 +116,8 @@ int	**find_ic_num(char *cmd_line, int pipes_num, int *inputs_num)
 		}
 		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && redi_trigger))
 			char_num++;
+		if (cmd_line[i] == ' ' && redi_trigger && quo_trigger)
+			char_num++;
 		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
 		{
 			icm[j][k++] = char_num;
@@ -130,20 +132,20 @@ int main()
 	while (1)
 	{
 		char *cmd_line = readline("$> ");
-		int pipes_num = find_pipes_num(cmd_line);
-		int *inh = find_infiles_heredocs_num(cmd_line, pipes_num);
-		int **icm = find_ic_num(cmd_line, pipes_num, inh);
+		int parts_num = find_parts_num(cmd_line);
+		int *inh = find_infiles_heredocs_num(cmd_line, parts_num);
+		int **icm = find_ic_num(cmd_line, parts_num, inh);
 		free(cmd_line);
 		int j;
 		int i = -1;
-		while (++i < pipes_num + 1)
+		while (++i < parts_num)
 		{
 			j = -1;
 			while (++j < inh[i])
 				printf("part: %d, redir: %d, chars: %d\n", i, j, icm[i][j]);
 		}
 		i = -1;
-		while (++i < pipes_num + 1)
+		while (++i < parts_num)
 			free(icm[i]);
 		free(icm);
 		free(inh);

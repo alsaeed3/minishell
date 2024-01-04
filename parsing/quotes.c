@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/25 15:26:25 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 23:00:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,32 @@
 
 bool	check_quotes(char *str)
 {
-	int	i;
-	int j;
-	int trigger;
-	bool flag;
+	int		i;
+	int		len;
+	char	trigger;
+	bool	flag;
+	bool	in_quote;
 	
 	i = -1;
-	j = 0;
-	trigger = 0;
 	flag = false;
-
-	while (++i < ft_strlen(str))
+	in_quote = false;
+	len = ft_strlen(str);
+	while (++i < len)
 	{
-		if (str[i] == '\'' || str[i] == '"')
+		if ((str[i] == '\'' || str[i] == '"') && !in_quote)
 		{
+			in_quote = true;	
 			flag = true;
-			trigger = (int)str[i];
-			j = i;
-			while (++j < (ft_strlen(str)))
+			trigger = str[i];
+			while (++i < len)
 			{
-				if (str[j] == trigger)
+				if (str[i] == trigger)
 				{
+					in_quote = false;
 					flag = false;
 					break;
 				}
 			}
-			i = j;
 		}
 	}
 	return (flag);
@@ -82,7 +82,7 @@ int main(void)
 
 	while(1)
 	{
-		char *input = readline("Enter something: ");
+		char *input = readline("$ ");
 		if (check_quotes(input))
 			printf("Error\n");
 		else

@@ -6,13 +6,13 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:39:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/25 18:41:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2023/12/25 22:05:14 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	**tokenize_outputs(char *cmd_line, int pipes_num, int *redir_num)
+int	**tokenize_outputs(char *cmd_line, int parts_num, int *redir_num)
 {
 	int	**out_tokens;
 	int	i;
@@ -20,9 +20,9 @@ int	**tokenize_outputs(char *cmd_line, int pipes_num, int *redir_num)
 	int	k;
 	int	len;
 
-	out_tokens = ft_calloc(pipes_num + 1, sizeof(int *));
+	out_tokens = ft_calloc(parts_num, sizeof(int *));
 	i = -1;
-	while (++i < pipes_num + 1)
+	while (++i < parts_num)
 		out_tokens[i] = ft_calloc(redir_num[i], sizeof(int));
 	len = ft_strlen(cmd_line);
 	i = -1;
@@ -49,13 +49,13 @@ int main(void)
 	while (1)
 	{
 		char *input = readline("$> ");
-		int	pipes_num = find_pipes_num(input);
-		int *redir_num = find_outfiles_appends_num(input, pipes_num);
-		int **out_tokens = tokenize_outputs(input, pipes_num, redir_num);
+		int	parts_num = find_parts_num(input);
+		int *redir_num = find_outfiles_appends_num(input, parts_num);
+		int **out_tokens = tokenize_outputs(input, parts_num, redir_num);
 		free (input);
 		int i = -1;
 		int	j;
-		while (++i < pipes_num + 1)
+		while (++i < parts_num)
 		{
 			j = -1;
 			while (++j < redir_num[i])
@@ -63,7 +63,7 @@ int main(void)
 		}
 		free (redir_num);
 		i = -1;
-		while (++i < pipes_num + 1)
+		while (++i < parts_num)
 			free (out_tokens[i]);
 		free (out_tokens);
 	}
