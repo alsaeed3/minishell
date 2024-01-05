@@ -2,21 +2,36 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   find_inputs_chars_num.c                            :+:      :+:    :+:   */
-/*                                                    +:+ +:	if (ret[j] == ' ')
-		ret[j] = '\0';
-	else
-		ret[++j] = '\0';+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 19:29:14 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/24 22:21:00 by alsaeed          ###   ########.fr       */
+/*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/01/05 06:49:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../inc/parser.h"
 
 // to find each infile/heredoc file name characters and store them into
 // a double pointer to use it later in mallocing
+
+void	jump_over_quote(char *cmd_line, int *i, int len)
+{
+	char	quo_char;
+
+	quo_char = cmd_line[*i];
+	(*i)++;
+	while (*i < len)
+	{
+		if (cmd_line[*(i)] == quo_char)
+		{
+			(*i)++;
+			break;
+		}
+		(*i)++;
+	}
+}
 
 int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 {

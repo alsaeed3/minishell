@@ -6,13 +6,14 @@
 #    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/04 20:56:56 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/05 01:33:55 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =	../minishell
 
 SRCS =	convert_tabs_to_spc.c \
+		quotes.c \
 		del_excess_spcs.c \
 		error_pipes_2.c \
 		error_pipes.c \
@@ -23,9 +24,11 @@ SRCS =	convert_tabs_to_spc.c \
 		find_parts_num.c \
 		malloc_infile_heredocs.c \
 		mallocing_in_redir_file_names.c \
-		quotes.c \
+		malloc_outfiles_appends.c \
+		mallocing_out_redir_file_names.c \
 		tokenize_in_redir.c \
 		tokenize_out_redir.c \
+		convert_redir_to_spc.c \
 		main.c
 
 OBJS_DIR = objs/

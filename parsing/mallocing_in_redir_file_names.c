@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 22:51:20 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/05 06:35:11 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ char	***hold_input_file_names(char *cmd_line, int parts_num, int *inputs_num, in
 		}
 		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && !redi_trigger)
 			jump_over_quote(cmd_line, &i, len);
-		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
+		else if((cmd_line[i] == quo_char) && redi_trigger && quo_trigger)
 			quo_trigger = false;
 		else if (((cmd_line[i] == '"' || cmd_line[i] == '\'' || cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == '|')) && redi_trigger && quo_trigger)
-			redir_names[j][k][l++] = cmd_line[i];;
+			redir_names[j][k][l++] = cmd_line[i];
 		if ((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && cmd_line[i - 1] != '<') && !redi_trigger && !quo_trigger)
 		{
 			l = 0;

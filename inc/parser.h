@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 21:00:55 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/05 01:30:23 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,16 @@ int		*find_outfiles_appends_num(char *str, int parts_num);
 int		**find_oc_num(char *cmd_line, int parts_num, int *outputs_num);
 int		find_parts_num(char *str);
 char	***malloc_inputs(int parts_num, int *each_part_inputs_num, int **file_name_chars_num);
+char	***malloc_outputs(int parts_num, int *each_part_outputs_num, int **file_name_chars_num);
 void	free_inputs(char ***inputs ,int parts_num, int *each_part_inputs_num);
+void	free_outputs(char ***outputs ,int parts_num, int *each_part_outputs_num);
 char	***hold_input_file_names(char *cmd_line, int parts_num, int *inputs_num, int ** ic_num);
+char	***hold_output_file_names(char *cmd_line, int parts_num, int *outputs_num, int ** oc_num);
 bool	check_quotes(char *str);
 void	remove_str_quotes(char *str, char **ret, int char_num);
 int		**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num);
 int		**tokenize_outputs(char *cmd_line, int parts_num, int *redir_num);
+char	*conv_redir2spcs(char *cmd_line);
 
 // struct red
 // {
