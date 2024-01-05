@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/05 01:33:55 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/06 02:53:27 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS =	convert_tabs_to_spc.c \
 
 OBJS_DIR = objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-CFLAGS = -Wall -Wextra -Werror -I include -g3
+CFLAGS = -Wall -Wextra -Werror -g3
 LDFLAGS = -lreadline
 
 LIBFT_DIR = ../libft
@@ -43,14 +43,14 @@ all: $(LIBFT_LIB) $(NAME)
 
 $(OBJS_DIR)%.o: %.c
 	@mkdir -p $(OBJS_DIR)
-	@cc $(CFLAGS) -c $< -o $@
+	@clang $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@cc $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME)
+	@clang $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME)
 	@echo "minishell Compilation: \033[1;32mOK\n\033[0m"
 
 $(LIBFT_LIB):
-	@make -C $(LIBFT_DIR)
+	@make -sC $(LIBFT_DIR)
 
 norm:
 	norminette

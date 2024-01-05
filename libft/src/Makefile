@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 14:48:47 by alsaeed           #+#    #+#              #
-#    Updated: 2023/10/12 15:59:45 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/06 02:55:01 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS =			ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 OBJS_DIR =		objs/
 OBJS = 			$(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
-CFLAGS =		-Wall -Wextra -Werror -ggdb3
+CFLAGS =		-Wall -Wextra -Werror -g3
 RM = 			rm -f
 ARFLAGS = 		ar -rcs
 
@@ -37,7 +37,7 @@ all: 			$(NAME)
 
 $(OBJS_DIR)%.o: %.c
 	@mkdir -p $(OBJS_DIR)
-	@cc $(CFLAGS) -c $< -o $@
+	@clang $(CFLAGS) -c $< -o $@
 
 $(NAME): 		$(OBJS)
 	@$(ARFLAGS) $(NAME) $(OBJS)

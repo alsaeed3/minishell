@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_excess_spcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/05 00:29:57 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 02:55:31 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ static void	jump_over_spaces(char *cmd_line, int *i)
 static int size_without_spcs(char *cmd_line)
 {
 	int		i;
-	int		j;
 	int		len;
 	char	trigger;
 	int		size;
 
 	len = ft_strlen(cmd_line);
-	j = -1;
 	i = -1;
 	size = 0;
 	if (cmd_line[0] == ' ')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/05 07:00:25 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 02:57:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(void)
 		char *outdup = ft_strdup(input);
 		outdup = conv_tabs2spcs(outdup);
 		outdup = delete_excess_spcs(outdup);
-		if (/* check_pipe_redir(outdup) || check_pipe_red_2(outdup) ||  */check_quotes(outdup))
+		if (check_pipe_redir(outdup) || check_pipe_red_2(outdup) || check_quotes(outdup))
 		{
 			printf("Error\n");
 			continue ;

@@ -6,19 +6,19 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 20:07:00 by alsaeed           #+#    #+#              #
-#    Updated: 2023/12/20 15:36:03 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/06 02:53:57 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 $(NAME):	all
 
 all:
-	@make all -C parsing
+	@make all -sC parsing
 
 clean: 
-	@make clean -C parsing
+	@make clean -sC parsing
  
 fclean: clean
-	@make fclean -C parsing
+	@make fclean -sC parsing
 
 re: fclean all
