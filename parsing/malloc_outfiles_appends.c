@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_outfiles_appends.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:45:27 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/05 00:59:37 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 04:50:58 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,32 @@ char	***malloc_outputs(int parts_num, int *each_part_outputs_num, int **file_nam
 	return (outputs);
 }
 
-void	free_outputs(char ***outputs ,int parts_num, int *each_part_outputs_num)
+void	free_char_triple_pointer(char ***pointer)
 {
 	int		i;
 	int		j;
 
-	if (outputs)
+	if (pointer)
 	{
 		i = -1;
-		while (++i < (parts_num))
+		while (pointer[++i])
 		{
-			if (outputs[i])
+			j = -1;
+			while (pointer[i][++j])
 			{
-				j = -1;
-				while (++j < each_part_outputs_num[i])
+				if (pointer[i][j])
 				{
-					if (outputs[i][j])
-					{
-						free (outputs[i][j]);
-						outputs[i][j] = NULL;
-					}
+					free (pointer[i][j]);
+					pointer[i][j] = NULL;
 				}
-				free (outputs[i]);
-				outputs[i] = NULL;
+			}
+			if (pointer[i])
+			{
+				free (pointer[i]);
+				pointer[i] = NULL;
 			}
 		}
-		free (outputs);
-		outputs = NULL;
+		free (pointer);
+		pointer = NULL;
 	}
 }

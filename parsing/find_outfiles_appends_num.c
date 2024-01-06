@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_outfiles_appends_num.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 13:11:01 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/05 00:40:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 04:35:59 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	*find_outfiles_appends_num(char *str, int parts_num)
 					break;
 			}
 		}
-		if (str[i] == '>' && str[i + 1] != '>' && str[i - 1] != '>')
+		if ((i <= len - 1) && str[i] == '>' && str[i + 1] != '>' && (i == 0 || str[i - 1] != '>'))
 			outfiles_appends_num[j]++;
-		else if (str[i] == '>' && str[i + 1] == '>' && str[i - 1] != '>' && str[i + 2] != '>')
+		else if ((i <= len - 2) && str[i] == '>' && str[i + 1] == '>' && str[i + 2] != '>')
 			outfiles_appends_num[j]++;
 	}
 	return (outfiles_appends_num);
@@ -49,14 +49,13 @@ int	*find_outfiles_appends_num(char *str, int parts_num)
 // {
 // 	while (1)
 // 	{
-// 		int outfiles_num = 0;
-// 		int appends_num = 0;
-// 		int outfiles_appends_num = 0;
 // 		char *input = readline("$> ");
-// 		outfiles_appends_num = find_outfiles_appends_num(input, &outfiles_num, &appends_num);
-// 		printf("outfiles_num = %d\n", outfiles_num);
-// 		printf("appends_num = %d\n", appends_num);
-// 		printf("outfiles_appends_num = %d\n", outfiles_appends_num);
+// 		char *outdup = ft_strdup(input);
 // 		free(input);
+// 		int		parts_num = find_parts_num(outdup);
+// 		int *outfiles_appends_num = find_outfiles_appends_num(outdup, parts_num);
+// 		for (int i = 0; i < parts_num; i++)
+// 			printf("outfiles_appends_num[%d] = %d\n", i, outfiles_appends_num[i]);
+// 		free (outfiles_appends_num);
 // 	}
 // }

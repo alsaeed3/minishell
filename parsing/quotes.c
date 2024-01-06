@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 21:39:08 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-bool	check_quotes(char *str)
+t_bool	check_quotes(char *str)
 {
 	int		i;
 	int		len;
 	char	trigger;
-	bool	flag;
+	t_bool	flag;
 	
 	i = -1;
-	flag = false;
+	flag = FALSE;
 	len = ft_strlen(str);
 	while (++i < len)
 	{
 		if ((str[i] == '\'' || str[i] == '"') && !flag)
 		{
-			flag = true;
+			flag = TRUE;
 			trigger = str[i];
 			while (++i < len)
 			{
 				if (str[i] == trigger)
 				{
-					flag = false;
+					flag = FALSE;
 					break;
 				}
 			}

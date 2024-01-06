@@ -3,65 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   error_pipes_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 20:52:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 20:57:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-static bool check_end_pipe(char *str)
+static t_bool check_end_pipe(char *str)
 {
 	int		i;
-	bool	trigger;
+	t_bool	trigger;
 	int		len;
 	
 	len = ft_strlen(str);
-	trigger = false;
+	trigger = FALSE;
 	i = -1;
 	while (++i < len)
 	{
 		if (str[i] != ' ' && str[i] != '\t')
-			trigger = true;
+			trigger = TRUE;
 		else if ((str[i + 1] == '\0' || str[i + 1] == '|') && !trigger)
-			return (true);
+			return (TRUE);
 	}
-	return (false);
+	return (FALSE);
 }
 
-static bool check_redir_end(char *str)
+static t_bool check_redir_end(char *str)
 {
 	int	i;
-	bool	trigger;
+	t_bool	trigger;
 	int		len;
 	
 	len = ft_strlen(str);
-	trigger = false;
+	trigger = FALSE;
 	i = -1;
 	if (str[0] == '<' || str[0] == '>')
 		i = 0;
 	while (++i < len)
 	{
 		if (str[i] != ' ' && str[i] != '\t' && str[i] != '<' && str[i] != '>' && str[i] != '|')
-			trigger = true;
+			trigger = TRUE;
 		else if ((str[i] == '\0' || str[i] == '<'\
 			|| str[i] == '>' || str[i] == '|') && !trigger)
-			return (true);
+			return (TRUE);
 	}
-	return (false);
+	return (FALSE);
 }
 
 // error: double pipe or more (next to each other), if (< < or > > or >>> or <<<) or more
-bool	check_pipe_red_2(char *str)
+t_bool	check_pipe_red_2(char *str)
 {
 	int		i;
-	bool	quo_trigger;
+	t_bool	quo_trigger;
 	int		len;
 	
 	len = ft_strlen(str);
-	quo_trigger = false;
+	quo_trigger = FALSE;
 	i = -1;
 	while (++i < len)
 	{
@@ -69,27 +69,27 @@ bool	check_pipe_red_2(char *str)
 		{
 			if (!quo_trigger)
 			{
-				quo_trigger = true;
+				quo_trigger = TRUE;
 				jump_over_quote(str, &i, len);
 			}
 			else 
-				quo_trigger = false;
+				quo_trigger = FALSE;
 		}
 		if ((str[i] == '<' && str[i + 1] == '>') || (str[i] == '>' && str[i + 1] == '<'))
-			return (true);
+			return (TRUE);
 		else if ((str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<') \
 				|| (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>'))
-			return (true);
+			return (TRUE);
 		else if ((str[i] == '<' || str[i] == '>'))
 		{
 			if (str[i + 1] == '|' || str[i + 1] == '\0' || check_redir_end(str + (i + 1)))
-				return (true);
+				return (TRUE);
 		}
 		else if (str[i] == '|')
 		{
 			if (str[i + 1] == '|' || str[i + 1] == '\0' || check_end_pipe(str + (i + 1)))
-				return (true);
+				return (TRUE);
 		}
 	}
-	return (false);
+	return (FALSE);
 }

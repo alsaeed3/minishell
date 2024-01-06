@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 14:48:47 by alsaeed           #+#    #+#              #
-#    Updated: 2023/09/26 16:19:05 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/06 03:52:53 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 $(NAME): all
 
 all: 
-	@make all -C src
+	@make all -sC src
 	
 clean:
-	@make clean -C src
+	@make clean -sC src
 
 fclean: clean
-	@make fclean -C src
+	@make fclean -sC src
 
 re: fclean all

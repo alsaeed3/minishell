@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_redir_to_spc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/05 01:30:04 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ char *conv_redir2spcs(char *cmd_line)
 	char *no_redir;
 	int	len;
 	int i;
-	bool	redi_trigger;
-	bool	quo_trigger;
+	t_bool	redi_trigger;
+	t_bool	quo_trigger;
 	char	quo_char;
 
-	redi_trigger = false;
-	quo_trigger = false;
+	redi_trigger = FALSE;
+	quo_trigger = FALSE;
 	len = ft_strlen(cmd_line);
 	no_redir = ft_calloc((len + 1), sizeof(char));
 	i = -1;
@@ -34,16 +34,16 @@ char *conv_redir2spcs(char *cmd_line)
 		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
 		{
 			quo_char = cmd_line[i];
-			quo_trigger = true;
+			quo_trigger = TRUE;
 		}
 		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
-			quo_trigger = false;
+			quo_trigger = FALSE;
 		else if ((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && cmd_line[i - 1] != '<') && !redi_trigger && !quo_trigger)
-			redi_trigger = true;
+			redi_trigger = TRUE;
 		else if ((cmd_line[i] == '<' && cmd_line[i + 1] == '<') && !redi_trigger && !quo_trigger)
-			redi_trigger = true;
+			redi_trigger = TRUE;
 		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
-			redi_trigger = false;
+			redi_trigger = FALSE;
 		if (redi_trigger)
 			no_redir[i] = cmd_line[i];
 		else if (redi_trigger)

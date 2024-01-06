@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/05 01:30:23 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 05:32:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,22 @@
 # include <limits.h>      			// PATH_MAX
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/time.h>
+# include <time.h>
+# include <string.h>
+# include <stdint.h>
+
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+}	t_bool;
 
 void	jump_over_quote(char *cmd_line, int *i, int len);
 char	*conv_tabs2spcs(char *str);
 char	*delete_excess_spcs(char *cmd_line);
-bool	check_pipe_redir(char *line);
-bool	check_pipe_red_2(char *str);
+t_bool	check_pipe_redir(char *line);
+t_bool	check_pipe_red_2(char *str);
 int		*find_infiles_heredocs_num(char *str, int parts_num);
 int		**find_ic_num(char *cmd_line, int parts_num, int *inputs_num);
 int		*find_outfiles_appends_num(char *str, int parts_num);
@@ -45,11 +55,10 @@ int		**find_oc_num(char *cmd_line, int parts_num, int *outputs_num);
 int		find_parts_num(char *str);
 char	***malloc_inputs(int parts_num, int *each_part_inputs_num, int **file_name_chars_num);
 char	***malloc_outputs(int parts_num, int *each_part_outputs_num, int **file_name_chars_num);
-void	free_inputs(char ***inputs ,int parts_num, int *each_part_inputs_num);
-void	free_outputs(char ***outputs ,int parts_num, int *each_part_outputs_num);
+void	free_char_triple_pointer(char ***pointer);
 char	***hold_input_file_names(char *cmd_line, int parts_num, int *inputs_num, int ** ic_num);
-char	***hold_output_file_names(char *cmd_line, int parts_num, int *outputs_num, int ** oc_num);
-bool	check_quotes(char *str);
+char	***hold_output_file_names(char *cmd_line);
+t_bool	check_quotes(char *str);
 void	remove_str_quotes(char *str, char **ret, int char_num);
 int		**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num);
 int		**tokenize_outputs(char *cmd_line, int parts_num, int *redir_num);

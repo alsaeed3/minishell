@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:20:59 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/17 16:18:27 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 05:30:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <stdarg.h>
 # include <limits.h>
 # include <stdint.h>
-# include <stdbool.h>
 # include <sys/types.h>
 # include <signal.h>
 # include <stdio.h>

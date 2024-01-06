@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_inputs_chars_num.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/05 06:49:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 	int j;
 	int	k;
 	int	len;
-	bool	redi_trigger;
-	bool	quo_trigger;
+	t_bool	redi_trigger;
+	t_bool	quo_trigger;
 	char	quo_char;
 	int	char_num;
 	int **icm;
@@ -50,8 +50,8 @@ int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 	i = -1;
 	while (++i < parts_num)
 		icm[i] = ft_calloc(inputs_num[i], sizeof(int));
-	redi_trigger = false;
-	quo_trigger = false;
+	redi_trigger = FALSE;
+	quo_trigger = FALSE;
 	i = -1;
 	k = 0;
 	j = 0;
@@ -65,25 +65,25 @@ int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
 		{
 			quo_char = cmd_line[i++];
-			quo_trigger = true;
+			quo_trigger = TRUE;
 		}
 		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && !redi_trigger)
 			jump_over_quote(cmd_line, &i, len);
 		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
-			quo_trigger = false;
+			quo_trigger = FALSE;
 		else if (((cmd_line[i] == '"' || cmd_line[i] == '\'' || cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == '|')) && redi_trigger && quo_trigger)
 			char_num++;
-		if ((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && cmd_line[i - 1] != '<') && !redi_trigger && !quo_trigger)
+		if (i < (len - 1) && cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<') && !redi_trigger && !quo_trigger)
 		{
 			char_num = 0;
-			redi_trigger = true;
+			redi_trigger = TRUE;
 			if (cmd_line[i + 1] == ' ')
 				i++;
 		}
-		if ((cmd_line[i] == '<' && cmd_line[i + 1] == '<') && !redi_trigger && !quo_trigger)
+		if (i < (len - 2) && cmd_line[i] == '<' && cmd_line[i + 1] == '<' && cmd_line[i + 2] != '<' && !redi_trigger && !quo_trigger)
 		{
 			char_num = 0;
-			redi_trigger = true;
+			redi_trigger = TRUE;
 			i++;
 			if (cmd_line[i + 1] == ' ')
 				i++;
@@ -92,10 +92,10 @@ int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 			char_num++;
 		if (cmd_line[i] == ' ' && redi_trigger && quo_trigger)
 			char_num++;
-		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
+		if (i < (len - 1) && (cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
 		{
 			icm[j][k++] = char_num;
-			redi_trigger = false;
+			redi_trigger = FALSE;
 		}
 	}
 	return (icm);

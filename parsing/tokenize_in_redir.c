@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_in_redir.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 16:19:33 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 05:31:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num)
 	int	**in_tokens;
 	int	i;
 	int	j;
+	t_bool 	quo_trigger;
 	int	k;
 	int	len;
 
@@ -30,15 +31,15 @@ int	**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num)
 	k = 0;
 	while (++i < len)
 	{
-		if (k >= redir_num[j])
+		
+		if (cmd_line[i] == '|' && !quo_trigger)
 		{
 			j++;
 			k = 0;
 		}
-		if (cmd_line[i] == '<' && cmd_line[i + 1] != '<' && cmd_line[i - 1] != '<')
+		if (i < len - 1 && cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<'))
 			in_tokens[j][k++] = 0;
-		else if (cmd_line[i] == '<' && cmd_line[i + 1] == '<')
-		
+		else if (i < len - 1 && cmd_line[i] == '<' && cmd_line[i + 1] == '<')
 			in_tokens[j][k++] = 1;
 	}
 	return (in_tokens);

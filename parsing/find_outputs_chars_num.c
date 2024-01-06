@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_outputs_chars_num.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 22:12:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/05 00:43:53 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 	int j;
 	int	k;
 	int	len;
-	bool	redi_trigger;
-	bool	quo_trigger;
+	t_bool	redi_trigger;
+	t_bool	quo_trigger;
 	char	quo_char;
 	int	char_num;
 	int **ocm;
@@ -29,8 +29,9 @@ int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 	i = -1;
 	while (++i < parts_num)
 		ocm[i] = ft_calloc(outputs_num[i], sizeof(int));
-	redi_trigger = false;
-	quo_trigger = false;
+	redi_trigger = FALSE;
+	quo_trigger = FALSE;
+	quo_char = '\0';
 	i = -1;
 	k = 0;
 	j = 0;
@@ -44,25 +45,25 @@ int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
 		{
 			quo_char = cmd_line[i++];
-			quo_trigger = true;
+			quo_trigger = TRUE;
 		}
 		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && !redi_trigger)
 			jump_over_quote(cmd_line, &i, len);
 		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
-			quo_trigger = false;
+			quo_trigger = FALSE;
 		else if (((cmd_line[i] == '"' || cmd_line[i] == '\'' || cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == '|')) && redi_trigger && quo_trigger)
 			char_num++;
-		if ((cmd_line[i] == '>' && cmd_line[i + 1] != '>' && cmd_line[i - 1] != '>') && !redi_trigger && !quo_trigger)
+		if (i < (len - 1) && cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>') && !redi_trigger && !quo_trigger)
 		{
 			char_num = 0;
-			redi_trigger = true;
+			redi_trigger = TRUE;
 			if (cmd_line[i + 1] == ' ')
 				i++;
 		}
-		if ((cmd_line[i] == '>' && cmd_line[i + 1] == '>') && !redi_trigger && !quo_trigger)
+		if (i < (len - 2) && cmd_line[i] == '>' && cmd_line[i + 1] == '>' && cmd_line[i + 2] != '>' && !redi_trigger && !quo_trigger)
 		{
 			char_num = 0;
-			redi_trigger = true;
+			redi_trigger = TRUE;
 			i++;
 			if (cmd_line[i + 1] == ' ')
 				i++;
@@ -74,7 +75,7 @@ int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
 		{
 			ocm[j][k++] = char_num;
-			redi_trigger = false;
+			redi_trigger = FALSE;
 		}
 	}
 	return (ocm);

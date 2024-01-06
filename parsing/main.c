@@ -6,41 +6,64 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 02:57:04 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/06 05:09:18 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-/* to check outputs files names' extraction */
 int main(void)
 {
 	while (1)
 	{
-		char	*input = readline("$ ");
-		char *outdup = ft_strdup(input);
-		outdup = conv_tabs2spcs(outdup);
-		outdup = delete_excess_spcs(outdup);
-		if (check_pipe_redir(outdup) || check_pipe_red_2(outdup) || check_quotes(outdup))
+		char *read = readline("$> ");
+		char *input = ft_strdup(read);
+		int	parts_num = find_parts_num(input);
+		int *redir_num = find_infiles_heredocs_num(input, parts_num);
+		int **in_tokens = tokenize_inputs(input, parts_num, redir_num);
+		free (input);
+		int	j;
+		int i = -1;
+		while (++i < parts_num)
 		{
-			printf("Error\n");
-			continue ;
+			j = -1;
+			while (++j < redir_num[i])
+				printf("part: %d, token: %d = %d\n", i, j, in_tokens[i][j]);
 		}
-		int		parts_num = find_parts_num(outdup);
-		int		*ohn = find_outfiles_appends_num(outdup, parts_num);
-		int		**ocn = find_oc_num(outdup, parts_num, ohn);
-		char	***outputs_names = hold_output_file_names(outdup, parts_num, ohn, ocn);
-		for (int i = 0; i < parts_num; i++)
-		{
-			for (int j = 0; j < ohn[i]; j++)
-			{
-				printf("part:{%d}, order:{%d}, redir:{%s}\n", i, j, outputs_names[i][j]);
-			}
-		}
-		free_outputs(outputs_names, parts_num, ohn);
+		free (redir_num);
+		i = -1;
+		while (++i < parts_num)
+			free (in_tokens[i]);
+		free (in_tokens);
 	}
-	return (0);
 }
+
+/* to check outputs files names' extraction */
+// int main(void)
+// {
+// 	while (1)
+// 	{
+// 		char	*input = readline("$ ");
+// 		char	*outdup = ft_strdup(input);
+// 		outdup = conv_tabs2spcs(outdup);
+// 		outdup = delete_excess_spcs(outdup);
+// 		if (check_pipe_redir(outdup) || check_pipe_red_2(outdup) || check_quotes(outdup))
+// 		{
+// 			printf("Error\n");
+// 			continue ;
+// 		}
+// 		char	***outputs_names = hold_output_file_names(outdup);
+// 		for (int i = 0; outputs_names[i]; i++)
+// 		{
+// 			for (int j = 0; outputs_names[i][j]; j++)
+// 			{
+// 				printf("part:{%d}, order:{%d}, out_redir:{%s}\n", i, j, outputs_names[i][j]);
+// 			}
+// 		}
+// 		free_char_triple_pointer(outputs_names);
+// 	}
+// 	return (0);
+// }
 
 // int main(void)
 // {

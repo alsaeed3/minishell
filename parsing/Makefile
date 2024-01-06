@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/06 02:53:27 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/06 03:59:58 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS =	convert_tabs_to_spc.c \
 
 OBJS_DIR = objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -I include -g3
 LDFLAGS = -lreadline
 
 LIBFT_DIR = ../libft
@@ -43,10 +43,10 @@ all: $(LIBFT_LIB) $(NAME)
 
 $(OBJS_DIR)%.o: %.c
 	@mkdir -p $(OBJS_DIR)
-	@clang $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@clang $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME)
+	@gcc $(CFLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME) $(LDFLAGS)
 	@echo "minishell Compilation: \033[1;32mOK\n\033[0m"
 
 $(LIBFT_LIB):
@@ -56,14 +56,14 @@ norm:
 	norminette
 
 clean:
-	@make clean -C $(LIBFT_DIR)
+	@make clean -sC $(LIBFT_DIR)
 	@if [ -e $(OBJS_DIR) ]; then \
 		rm -rf $(OBJS_DIR); \
 		echo "minishell Clean: \033[32mOK\n\033[0m"; \
 	fi
  
 fclean: clean
-	@make fclean -C $(LIBFT_DIR)
+	@make fclean -sC $(LIBFT_DIR)
 	@if [ -e $(NAME) ]; then \
 		rm -f $(NAME); \
 		echo "minishell Full-Clean: \033[32mOK\n\033[0m"; \
