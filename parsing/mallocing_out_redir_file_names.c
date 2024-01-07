@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:44:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:49:18 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	***hold_output_file_names(char *cmd_line)
 	parts_num = find_parts_num(cmd_line);
 	outputs_num = find_outfiles_appends_num(cmd_line, parts_num);
 	oc_num = find_oc_num(cmd_line, parts_num, outputs_num);
-	redir_names = malloc_outputs(parts_num, outputs_num, oc_num);
+	redir_names = malloc_file_names(parts_num, outputs_num, oc_num);
 	if (!redir_names)
 		return (NULL);
 	redi_trigger = FALSE;

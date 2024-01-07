@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 13:00:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 18:33:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,26 @@ typedef enum e_bool
 }	t_bool;
 
 void	jump_over_quote(char *cmd_line, int *i, int len);
-char	*conv_tabs2spcs(char *str);
+char	*conv_tabs2spcs(char *cmd_line);
 char	*delete_excess_spcs(char *cmd_line);
 t_bool	check_pipe_redir(char *line);
-t_bool	check_pipe_red_2(char *str);
-int		*find_infiles_heredocs_num(char *str, int parts_num);
+t_bool	check_pipe_red_2(char *cmd_line);
+int		*find_infiles_heredocs_num(char *cmd_line, int parts_num);
 int		**find_ic_num(char *cmd_line, int parts_num, int *inputs_num);
-int		*find_outfiles_appends_num(char *str, int parts_num);
+int		*find_outfiles_appends_num(char *cmd_line, int parts_num);
 int		**find_oc_num(char *cmd_line, int parts_num, int *outputs_num);
-int		find_parts_num(char *str);
-char	***malloc_inputs(int parts_num, int *each_part_inputs_num, int **file_name_chars_num);
-char	***malloc_outputs(int parts_num, int *each_part_outputs_num, int **file_name_chars_num);
+int		find_parts_num(char *cmd_line);
+char	***malloc_file_names(int parts_num, int *each_part_redir_num, int **file_name_chars_num);
 void	free_char_triple_pointer(char ***pointer);
-char	***hold_input_file_names(char *cmd_line, int parts_num, int *inputs_num, int ** ic_num);
+char	***hold_input_file_names(char *cmd_line);
 char	***hold_output_file_names(char *cmd_line);
-t_bool	check_quotes(char *str);
-void	remove_str_quotes(char *str, char **ret, int char_num);
+t_bool	check_quotes(char *cmd_line);
+void	remove_cmdline_quotes(char *cmd_line, char **ret, int char_num);
 int		**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num);
 int		**tokenize_outputs(char *cmd_line, int parts_num, int *redir_num);
 char	*conv_redir2spcs(char *cmd_line);
-
+int		*find_cmds_num(char *cmd_line);
+char	***split_cmds(char *cmd_line);
 // struct red
 // {
 // 	char *name;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   convert_tabs_to_spc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 17:40:34 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:42:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-char	*conv_tabs2spcs(char *str)
+char	*conv_tabs2spcs(char *cmd_line)
 {
 	int		i;
 	int		j;
@@ -23,32 +23,32 @@ char	*conv_tabs2spcs(char *str)
 	trigger = -1;
 	i		= -1;
 	j		= -1;
-	len = ft_strlen(str);
+	len = ft_strlen(cmd_line);
 	ret = malloc(sizeof(char *) * (len + 1));
 	while (++i < len)
 	{
-		if (str[i] == '\'' || str[i] == '\"')
+		if (cmd_line[i] == '\'' || cmd_line[i] == '\"')
 		{
-			ret[++j] = str[i];
-			trigger = str[i];
+			ret[++j] = cmd_line[i];
+			trigger = cmd_line[i];
 			while (++i < len)
 			{
-				if (str[i] == trigger)
+				if (cmd_line[i] == trigger)
 				{
-					ret[++j] = str[i];
+					ret[++j] = cmd_line[i];
 					break;
 				}
-				ret[++j] = str[i];
+				ret[++j] = cmd_line[i];
 			}
 		}
-		else if (str[i] == '\t')
+		else if (cmd_line[i] == '\t')
 		{
 			ret[++j] = ' ';
-			while (str[i + 1] == '\t')
+			while (cmd_line[i + 1] == '\t')
 				i++;
 		}
 		else 
-			ret[++j] = str[i];
+			ret[++j] = cmd_line[i];
 	}
 	ret[++j] = '\0';
 	return(ret);

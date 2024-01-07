@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/06 03:59:58 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/07 18:24:57 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS =	convert_tabs_to_spc.c \
 		tokenize_in_redir.c \
 		tokenize_out_redir.c \
 		convert_redir_to_spc.c \
+		split_commands.c \
 		main.c
 
 OBJS_DIR = objs/
@@ -47,7 +48,7 @@ $(OBJS_DIR)%.o: %.c
 
 $(NAME): $(OBJS)
 	@gcc $(CFLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME) $(LDFLAGS)
-	@echo "minishell Compilation: \033[1;32mOK\n\033[0m"
+	@echo "minishell Compiled: \033[1;32mOK\n\033[0m"
 
 $(LIBFT_LIB):
 	@make -sC $(LIBFT_DIR)

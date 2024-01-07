@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 16:17:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:50:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,18 @@ char *conv_redir2spcs(char *cmd_line)
 	no_redir[i] = '\0';
 	return (no_redir);
 }
+
+// int main(void)
+// {
+// 	while (1)
+// 	{
+// 		char *read = readline("$> ");
+// 		char *input = ft_strdup(read);
+// 		// input = delete_excess_spcs(input);
+// 		printf("%s\n", input);
+// 		char *no_redir = conv_redir2spcs(input);
+// 		free (input);
+// 		printf("%s\n", no_redir);
+// 		free (no_redir);
+// 	}
+// }

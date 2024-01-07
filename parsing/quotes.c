@@ -6,13 +6,13 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:45:40 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-t_bool	check_quotes(char *str)
+t_bool	check_quotes(char *cmd_line)
 {
 	int		i;
 	int		len;
@@ -21,16 +21,16 @@ t_bool	check_quotes(char *str)
 	
 	i = -1;
 	flag = FALSE;
-	len = ft_strlen(str);
+	len = ft_strlen(cmd_line);
 	while (++i < len)
 	{
-		if ((str[i] == '\'' || str[i] == '"') && !flag)
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !flag)
 		{
 			flag = TRUE;
-			trigger = str[i];
+			trigger = cmd_line[i];
 			while (++i < len)
 			{
-				if (str[i] == trigger)
+				if (cmd_line[i] == trigger)
 				{
 					flag = FALSE;
 					break;
@@ -41,7 +41,7 @@ t_bool	check_quotes(char *str)
 	return (flag);
 }
 
-void	remove_str_quotes(char *str, char **ret, int char_num)
+void	remove_cmdline_quotes(char *cmd_line, char **ret, int char_num)
 {
 	int	i;
 	int	k;
@@ -50,22 +50,22 @@ void	remove_str_quotes(char *str, char **ret, int char_num)
 
 	i = -1;
 	k = -1;
-	len = (int)ft_strlen(str);
+	len = (int)ft_strlen(cmd_line);
 	*ret = malloc(sizeof(char) * (char_num + 1));
 	while (++i < len)
 	{
-		if (str[i] == '\'' || str[i] == '"')
+		if (cmd_line[i] == '\'' || cmd_line[i] == '"')
 		{
-			trigger = (int)str[i];
+			trigger = (int)cmd_line[i];
 			while (++i < len)
 			{
-				if (str[i] == trigger)
+				if (cmd_line[i] == trigger)
 					break;
-				(*ret)[++k] = str[i];
+				(*ret)[++k] = cmd_line[i];
 			}
 		}
-		if (str[i] != ' ' && str[i] != '\'' && str[i] != '"')
-			(*ret)[++k] = str[i];
+		if (cmd_line[i] != ' ' && cmd_line[i] != '\'' && cmd_line[i] != '"')
+			(*ret)[++k] = cmd_line[i];
 	}
 	(*ret)[++k] = '\0';
 }

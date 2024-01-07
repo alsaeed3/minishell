@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 16:09:56 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 18:27:49 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@ int main(void)
 {
 	while (1)
 	{
-		char *read = readline("$> ");
-		char *input = ft_strdup(read);
-		input = delete_excess_spcs(input);
-		printf("%s\n", input);
-		char *no_redir = conv_redir2spcs(input);
+		char	*input = readline("$ ");
+		char	*indup = ft_strdup(input);
 		free (input);
-		printf("%s\n", no_redir);
-		free (no_redir);
+		indup = delete_excess_spcs(indup);
+		indup = conv_redir2spcs(indup);
+		int *cmds_num = find_cmds_num(indup);
+		int parts_num = find_parts_num(indup);
+		printf("parts_num: %d\n", parts_num);
+		printf("%s\n", indup);
+		for(int i = 0; i < parts_num; i++)
+			printf("part:[%d] --> cmds_num = %d\n", i, cmds_num[i]);
+		free (indup);
 	}
+	return (0);
 }
 
 /* to check outputs files names' extraction */
