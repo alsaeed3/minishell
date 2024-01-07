@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 10:45:17 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/07 17:21:07 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/07 17:27:14 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static int exec_pipe(char *cmd, Context *ctx)
 	// free(rhs); no memory allocated for rhs
     return children;
 }
+// execute without redirections
 /*
 static int exec_command(char *cmd, Context *ctx)
 {
@@ -106,7 +107,7 @@ static int exec_command(char *cmd, Context *ctx)
 */
 #include <sys/stat.h>
 
-// ...
+// ...exiecute with redirections but not working yet
 
 static int exec_command(char *cmd, Context *ctx)
 {
@@ -187,8 +188,8 @@ static int exec_command(char *cmd, Context *ctx)
             close(ctx->fd_close);
         }
 		
-        char *command = ft_getpath(argv[0], getenv("PATH"));
-        execve(command, argv, NULL);
+        char *path = ft_getpath(argv[0], getenv("PATH"));
+        execve(path, argv, NULL);
         perror("execve"); // In case execve fails
         exit(EXIT_FAILURE);
     }
