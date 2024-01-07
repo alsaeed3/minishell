@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 19:59:29 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 20:06:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 /* remove spaces cmd_line: echo            -la | cat               -n*/
 /* now I will split the cmd_line as: cmds[0][0] = "echo", cmds[0][1] = "-la" */
 /*                                   cmds[1][0] = "cat",  cmds[0][1] = "-n"  */
+
 int		*find_cmds_num(char *cmd_line)
 {
 	int *cmds_num;
@@ -56,7 +57,7 @@ int		*find_cmds_num(char *cmd_line)
 		}
 		if ((cmd_line[i] == ' ' || cmd_line[i] == '|') && !quo_trigger && cmd_trigger)
 			cmd_trigger = FALSE;
-		if (cmd_line[i] != ' ' && !cmd_trigger)
+		if (cmd_line[i] != ' ' && cmd_line[i] != '|' && !cmd_trigger)
 		{
 			cmds_num[j] = ++k;
 			cmd_trigger = TRUE;
