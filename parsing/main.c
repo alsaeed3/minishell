@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 05:09:18 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:09:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,12 @@ int main(void)
 	{
 		char *read = readline("$> ");
 		char *input = ft_strdup(read);
-		int	parts_num = find_parts_num(input);
-		int *redir_num = find_infiles_heredocs_num(input, parts_num);
-		int **in_tokens = tokenize_inputs(input, parts_num, redir_num);
+		input = delete_excess_spcs(input);
+		printf("%s\n", input);
+		char *no_redir = conv_redir2spcs(input);
 		free (input);
-		int	j;
-		int i = -1;
-		while (++i < parts_num)
-		{
-			j = -1;
-			while (++j < redir_num[i])
-				printf("part: %d, token: %d = %d\n", i, j, in_tokens[i][j]);
-		}
-		free (redir_num);
-		i = -1;
-		while (++i < parts_num)
-			free (in_tokens[i]);
-		free (in_tokens);
+		printf("%s\n", no_redir);
+		free (no_redir);
 	}
 }
 

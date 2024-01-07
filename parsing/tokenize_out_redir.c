@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_out_redir.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:39:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/04 16:19:40 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 13:46:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	**tokenize_outputs(char *cmd_line, int parts_num, int *redir_num)
 	int	**out_tokens;
 	int	i;
 	int	j;
+	t_bool 	quo_trigger;
+	char	quo_char;
 	int	k;
 	int	len;
 
@@ -25,20 +27,31 @@ int	**tokenize_outputs(char *cmd_line, int parts_num, int *redir_num)
 	while (++i < parts_num)
 		out_tokens[i] = ft_calloc(redir_num[i], sizeof(int));
 	len = ft_strlen(cmd_line);
+	quo_trigger = FALSE;
+	quo_char = '\0';
 	i = -1;
 	j = 0;
 	k = 0;
 	while (++i < len)
 	{
-		if (k >= redir_num[j])
+		if ((cmd_line[i] == '"' || cmd_line[i] == '\'') && !quo_trigger)
+		{
+			quo_char = cmd_line[i++];
+			quo_trigger = TRUE;
+		}
+		else if ((cmd_line[i] == quo_char) && quo_trigger)
+		{
+			quo_char = '\0';
+			quo_trigger = FALSE;
+		}
+		if (cmd_line[i] == '|' && !quo_trigger)
 		{
 			j++;
 			k = 0;
 		}
-		if (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && cmd_line[i - 1] != '>')
+		if (i < len - 1 && cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>'))
 			out_tokens[j][k++] = 0;
-		else if (cmd_line[i] == '>' && cmd_line[i + 1] == '>')
-		
+		else if (i < len - 2 && cmd_line[i] == '>' && cmd_line[i + 1] == '>' && cmd_line[i + 2] != '>' && (i == 0 || cmd_line[i - 1] != '>'))
 			out_tokens[j][k++] = 1;
 	}
 	return (out_tokens);

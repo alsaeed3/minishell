@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:17:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,26 @@ char *conv_redir2spcs(char *cmd_line)
 		}
 		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
 			quo_trigger = FALSE;
-		else if ((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && cmd_line[i - 1] != '<') && !redi_trigger && !quo_trigger)
+		if (i < (len - 1) && (((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<'))) || (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>'))) && !redi_trigger && !quo_trigger)
+		{
+			no_redir[i++] = ' ';
 			redi_trigger = TRUE;
-		else if ((cmd_line[i] == '<' && cmd_line[i + 1] == '<') && !redi_trigger && !quo_trigger)
+		}
+		else if (i < (len - 2) && ((cmd_line[i] == '<' && cmd_line[i + 1] == '<' && cmd_line[i + 2] != '<' && (i == 0 || cmd_line[i - 1] != '<')) || (cmd_line[i] == '>' && cmd_line[i + 1] == '>' && cmd_line[i + 2] != '>' && (i == 0 || cmd_line[i - 1] != '>'))) && !redi_trigger && !quo_trigger)
+		{
+			no_redir[i++] = ' ';
+			no_redir[i++] = ' ';
 			redi_trigger = TRUE;
+		}
 		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
+		{
+			no_redir[i++] = ' ';
 			redi_trigger = FALSE;
+		}
 		if (redi_trigger)
-			no_redir[i] = cmd_line[i];
-		else if (redi_trigger)
 			no_redir[i] = ' ';
+		else if (!redi_trigger)
+			no_redir[i] = cmd_line[i];
 	}
 	no_redir[i] = '\0';
 	return (no_redir);

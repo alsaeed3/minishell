@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 05:31:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 13:48:17 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num)
 	int	i;
 	int	j;
 	t_bool 	quo_trigger;
+	char	quo_char;
 	int	k;
 	int	len;
 
@@ -26,12 +27,23 @@ int	**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num)
 	while (++i < parts_num)
 		in_tokens[i] = ft_calloc(redir_num[i], sizeof(int));
 	len = ft_strlen(cmd_line);
+	quo_trigger = FALSE;
+	quo_char = '\0';
 	i = -1;
 	j = 0;
 	k = 0;
 	while (++i < len)
 	{
-		
+		if ((cmd_line[i] == '"' || cmd_line[i] == '\'') && !quo_trigger)
+		{
+			quo_char = cmd_line[i++];
+			quo_trigger = TRUE;
+		}
+		else if ((cmd_line[i] == quo_char) && quo_trigger)
+		{
+			quo_char = '\0';
+			quo_trigger = FALSE;
+		}
 		if (cmd_line[i] == '|' && !quo_trigger)
 		{
 			j++;
@@ -39,7 +51,7 @@ int	**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num)
 		}
 		if (i < len - 1 && cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<'))
 			in_tokens[j][k++] = 0;
-		else if (i < len - 1 && cmd_line[i] == '<' && cmd_line[i + 1] == '<')
+		else if (i < len - 2 && cmd_line[i] == '<' && cmd_line[i + 1] == '<' && cmd_line[i + 2] != '<' && (i == 0 || cmd_line[i - 1] != '<'))
 			in_tokens[j][k++] = 1;
 	}
 	return (in_tokens);
@@ -49,13 +61,14 @@ int	**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num)
 // {
 // 	while (1)
 // 	{
-// 		char *input = readline("$> ");
+// 		char *read = readline("$> ");
+// 		char *input = ft_strdup(read);
 // 		int	parts_num = find_parts_num(input);
 // 		int *redir_num = find_infiles_heredocs_num(input, parts_num);
 // 		int **in_tokens = tokenize_inputs(input, parts_num, redir_num);
 // 		free (input);
-// 		int i = -1;
 // 		int	j;
+// 		int i = -1;
 // 		while (++i < parts_num)
 // 		{
 // 			j = -1;

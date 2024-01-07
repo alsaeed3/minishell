@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 05:32:34 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 13:00:43 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@
 # include <time.h>
 # include <string.h>
 # include <stdint.h>
+
+# ifdef FALSE
+#  undef FALSE
+# endif
+# ifdef TRUE
+#  undef TRUE
+# endif
 
 typedef enum e_bool
 {
