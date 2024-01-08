@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 18:27:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 21:08:49 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,20 @@ int main(void)
 		char	*indup = ft_strdup(input);
 		free (input);
 		indup = delete_excess_spcs(indup);
+		// printf("d_e_s: %s\n", indup);
 		indup = conv_redir2spcs(indup);
+		printf("conv_red2spc: %s\n", indup);
+		// indup = delete_excess_spcs(indup);
 		int *cmds_num = find_cmds_num(indup);
 		int parts_num = find_parts_num(indup);
-		printf("parts_num: %d\n", parts_num);
-		printf("%s\n", indup);
+		int **cmds_chars_num = find_cmds_chars_num(indup);
+		// printf("parts_num: %d\n", parts_num);
+		// printf("%s\n", indup);
 		for(int i = 0; i < parts_num; i++)
-			printf("part:[%d] --> cmds_num = %d\n", i, cmds_num[i]);
+		{
+			for (int j = 0; j < cmds_num[i]; j++)
+				printf("part: %d, cmd_num: %d, chars_num: %d\n", i, j, cmds_chars_num[i][j]);
+		}
 		free (indup);
 	}
 	return (0);

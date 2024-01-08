@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 18:33:34 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/07 20:38:13 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int		**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num);
 int		**tokenize_outputs(char *cmd_line, int parts_num, int *redir_num);
 char	*conv_redir2spcs(char *cmd_line);
 int		*find_cmds_num(char *cmd_line);
-char	***split_cmds(char *cmd_line);
+int		**find_cmds_chars_num(char *cmd_line);
+
 // struct red
 // {
 // 	char *name;
