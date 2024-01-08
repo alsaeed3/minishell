@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 21:05:48 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/08 21:23:02 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int **find_cmds_chars_num(char *cmd_line)
 	int chars_num;
 	t_bool	quo_trigger;
 	char	quo_char;
+	// t_bool	cmd_trigger;
 
 	cmds_num = find_cmds_num(cmd_line);
 	parts_num = find_parts_num(cmd_line);
@@ -85,7 +86,7 @@ int **find_cmds_chars_num(char *cmd_line)
 	cmds_chars_num = ft_calloc(parts_num, sizeof(int *));
 	i = -1;
 	while (++i < parts_num)
-		cmds_chars_num[i] = ft_calloc(cmds_num[i], sizeof(int));
+		cmds_chars_num[i] = ft_calloc(cmds_num[i] + 1, sizeof(int));
 	i = -1;
 	chars_num = 0;
 	j = 0;
@@ -96,35 +97,110 @@ int **find_cmds_chars_num(char *cmd_line)
 	{
 		if ((cmd_line[i] == '"' || cmd_line[i] == '\'') && !quo_trigger)
 		{
-			quo_char = cmd_line[i];
+			quo_char = cmd_line[i++];
 			quo_trigger = TRUE;
 		}
 		else if ((cmd_line[i] == quo_char) && quo_trigger)
+		{
+			i++;
 			quo_trigger = FALSE;
+		}
 		if (cmd_line[i] == '|' && !quo_trigger)
 		{
 			j++;
 			k = 0;
+			chars_num = 0;
 		}
-		if (cmd_line[i] == ' ' && (i == 0 || cmd_line[i - 1] != ' ') && !quo_char)
+		if (cmd_line[i] == ' ' && (i == 0 || cmd_line[i - 1] != ' ') && (i == 0 || cmd_line[i - 1] != '|') && !quo_trigger)
 		{
 			k++;
 			chars_num = 0;
 		}
-		if (((cmd_line[i] != '|' && cmd_line[i] != '"' && cmd_line[i] != '\'' && cmd_line[i] != ' ') || (cmd_line[i] == ' ' && quo_trigger)))
+		if (((cmd_line[i] != '|' && cmd_line[i] != '"' && cmd_line[i] != '\'' && cmd_line[i] != ' ') || ((cmd_line[i] == ' ' || cmd_line[i] != '|' || cmd_line[i] != '"' || cmd_line[i] != '\'') && quo_trigger)))
 			cmds_chars_num[j][k] = ++chars_num;
 	}
 	return (cmds_chars_num);
 }
 
-// char	***split_cmds(char *cmd_line)
-// {
-// 	char ***cmds;
-	
-// 	cmds = ft_calloc(find_parts_num(cmd_line), sizeof(char **));
-	
-// 	return(cmds);
-// }
+char	***split_cmds(char *cmd_line)
+{
+	char ***cmds;
+	int	i;
+	int j;
+	int k;
+	int l;
+	int len;
+	int	parts_num;
+	int	*cmds_num;
+	int **cmds_chars_num;
+	t_bool	quo_trigger;
+	char	quo_char;
+	t_bool	cmd_trigger;
+
+	parts_num = find_parts_num(cmd_line);
+	cmds_num = find_cmds_num(cmd_line);
+	cmds_chars_num = find_cmds_chars_num(cmd_line);	
+	cmds = ft_calloc(parts_num + 1, sizeof(char **));
+	if (!cmds)
+		return (NULL);
+	i = -1;
+	while (++i < parts_num)
+	{
+		cmds[i] = ft_calloc(cmds_num[i] + 1, sizeof(char *));
+		if (!cmds[i])
+			return (NULL);
+		j = -1;
+		while (++j < cmds_num[i])
+		{
+			cmds[i][j] = ft_calloc(cmds_chars_num[i][j] + 1, sizeof(char));
+			if (!cmds[i][j])
+				return (NULL);
+		}
+	}
+	i = -1;
+	j = 0;
+	k = 0;
+	l = 0;
+	len = ft_strlen(cmd_line);
+	quo_trigger = FALSE;
+	cmd_trigger = FALSE;
+	quo_char = '\0';
+	while (++i < len)
+	{
+		if ((cmd_line[i] == '"' || cmd_line[i] == '\'') && !quo_trigger)
+		{
+			quo_char = cmd_line[i++];
+			quo_trigger = TRUE;
+		}
+		else if ((cmd_line[i] == quo_char) && quo_trigger)
+		{
+			i++;
+			quo_trigger = FALSE;
+		}
+		if (cmd_line[i] == '|' && !quo_trigger)
+		{
+			cmds[j][++k] = NULL;
+			k = 0;
+			l = 0;
+			j++;
+		}
+		if (cmd_line[i] == ' ' && (i == 0 || cmd_line[i - 1] != '|') && !quo_trigger)
+		{
+			k++;
+			l = 0;
+			cmd_trigger = FALSE;
+		}
+		if ((cmd_line[i] != ' ' && cmd_line[i] != '|') || ((cmd_line[i] == ' ' || cmd_line[i] == '|') && quo_trigger))
+			cmds[j][k][l++] = cmd_line[i];
+		if (cmd_line[i] == ' ' && (i == 0 || cmd_line[i - 1] != ' ') && (i == 0 || cmd_line[i - 1] != '|') && !quo_trigger && cmd_trigger)
+		{
+			cmds[j][k++][l] = '\0';
+			cmd_trigger = FALSE;
+		}
+	}
+	cmds[++j] = NULL;
+	return(cmds);
+}
 
 /* to try find_cmds_num function */
 // int main(void)

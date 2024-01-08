@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   find_outputs_chars_num.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 22:12:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/08 17:06:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+
+// void	jump_over_quote(char *cmd_line, int *i, int len)
+// {
+// 	char	quo_char;
+
+// 	quo_char = cmd_line[*i];
+// 	(*i)++;
+// 	while (*i < len)
+// 	{
+// 		if (cmd_line[*(i)] == quo_char)
+// 		{
+// 			(*i)++;
+// 			break;
+// 		}
+// 		(*i)++;
+// 	}
+// }
 
 int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 {
@@ -31,7 +48,6 @@ int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 		ocm[i] = ft_calloc(outputs_num[i], sizeof(int));
 	redi_trigger = FALSE;
 	quo_trigger = FALSE;
-	quo_char = '\0';
 	i = -1;
 	k = 0;
 	j = 0;
@@ -69,14 +85,11 @@ int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
 				i++;
 		}
 		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && redi_trigger))
-			char_num++;
+			ocm[j][k] = ++char_num;
 		if (cmd_line[i] == ' ' && redi_trigger && quo_trigger)
-			char_num++;
-		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
-		{
-			ocm[j][k++] = char_num;
+			ocm[j][k] = ++char_num;
+		if (i < (len - 1) && (cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
 			redi_trigger = FALSE;
-		}
 	}
 	return (ocm);
 }

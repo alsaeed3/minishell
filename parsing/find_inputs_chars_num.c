@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_inputs_chars_num.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 05:31:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/08 15:19:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,11 @@ int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
 				i++;
 		}
 		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && redi_trigger))
-			char_num++;
+			icm[j][k] = ++char_num;
 		if (cmd_line[i] == ' ' && redi_trigger && quo_trigger)
-			char_num++;
+			icm[j][k] = ++char_num;
 		if (i < (len - 1) && (cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
-		{
-			icm[j][k++] = char_num;
 			redi_trigger = FALSE;
-		}
 	}
 	return (icm);
 }

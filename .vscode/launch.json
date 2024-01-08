@@ -3,28 +3,28 @@
 	// Hover to view descriptions of existing attributes.
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	/* for 42 mac */
-// 	"version": "0.2.0",
-// 	"configurations": [
-// 		{
-// 			"type": "lldb",
-// 			"request": "launch",
-// 			"name": "Debug",
-// 			"program": "/Users/alsaeed/Desktop/minishell_upd/minishell",
-// 			"args": ["< 123"],
-// 			"cwd": "/Users/alsaeed/Desktop/minishell_upd"
-// 		}
-// 	]
-// }
-	/* for linux */
 	"version": "0.2.0",
-		"configurations": [
-			{
-				"type": "lldb",
-				"request": "launch",
-				"name": "Debug",
-				"program": "/home/alsaeed/Desktop/minishell/minishell",
-				"args": ["< 123"],
-				"cwd": "/home/alsaeed/Desktop/minishell"
-			}
-		]
-	}
+	"configurations": [
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Debug",
+			"program": "/Users/alsaeed/Desktop/minishell/minishell",
+			"args": ["< 123"],
+			"cwd": "/Users/alsaeed/Desktop/minishell"
+		}
+	]
+}
+	/* for linux */
+	// "version": "0.2.0",
+	// 	"configurations": [
+	// 		{
+	// 			"type": "lldb",
+	// 			"request": "launch",
+	// 			"name": "Debug",
+	// 			"program": "/home/alsaeed/Desktop/minishell/minishell",
+	// 			"args": ["< 123"],
+	// 			"cwd": "/home/alsaeed/Desktop/minishell"
+	// 		}
+	// 	]
+	// }
