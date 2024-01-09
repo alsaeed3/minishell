@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/08 15:19:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/09 12:35:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,22 @@ void	jump_over_quote(char *cmd_line, int *i, int len)
 	}
 }
 
-int	**find_ic_num(char *cmd_line, int parts_num, int *inputs_num)
+int	**find_ic_num(char *cmd_line)
 {
 	int	i;
 	int j;
 	int	k;
 	int	len;
+	int *inputs_num;
+	int parts_num;
 	t_bool	redi_trigger;
 	t_bool	quo_trigger;
 	char	quo_char;
 	int	char_num;
 	int **icm;
 
+	parts_num = find_parts_num(cmd_line);
+	inputs_num = find_infiles_heredocs_num(cmd_line);
 	icm = ft_calloc(parts_num, sizeof(int *));
 	len = ft_strlen(cmd_line);
 	i = -1;

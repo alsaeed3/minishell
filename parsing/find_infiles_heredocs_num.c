@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   find_infiles_heredocs_num.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 13:43:38 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/09 12:28:53 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	*find_infiles_heredocs_num(char *cmd_line, int parts_num)
+int	*find_infiles_heredocs_num(char *cmd_line)
 {
+	int		parts_num;
 	int		i;
 	int		j;
 	int		len;
@@ -22,6 +23,7 @@ int	*find_infiles_heredocs_num(char *cmd_line, int parts_num)
 
 	i = -1;
 	j = 0;
+	parts_num = find_parts_num(cmd_line);
 	len = ft_strlen(cmd_line);
 	infiles_heredocs_num = ft_calloc(parts_num ,sizeof(int));
 	while (++i < len)

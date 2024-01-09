@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/08 18:45:57 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/09 14:13:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ char	***hold_input_file_names(char *cmd_line)
 	char	***redir_names;
 
 	parts_num = find_parts_num(cmd_line);
-	inputs_num = find_infiles_heredocs_num(cmd_line, parts_num);
-	printf("inputs_num: %d\n", inputs_num[0]);
-	ic_num = find_ic_num(cmd_line, parts_num, inputs_num);
-	printf("ic_num: %d\n", ic_num[0][0]);
+	inputs_num = find_infiles_heredocs_num(cmd_line);
+	ic_num = find_ic_num(cmd_line);
 	redir_names = malloc_file_names(parts_num, inputs_num, ic_num);
 	if (!redir_names)
 		return (NULL);

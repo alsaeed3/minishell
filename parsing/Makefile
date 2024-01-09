@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/07 18:24:57 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/09 13:14:50 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS =	convert_tabs_to_spc.c \
 		tokenize_out_redir.c \
 		convert_redir_to_spc.c \
 		split_commands.c \
+		parse.c \
 		main.c
 
 OBJS_DIR = objs/

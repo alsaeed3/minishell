@@ -6,35 +6,104 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/08 18:17:45 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/09 14:17:43 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-/* To test splitting commands from the commandline into char*** variable */
+/* Test the whole parsing in int main */
 int main(void)
 {
+	t_parse	parser;
 	while (1)
 	{
-		char	*input = readline("$ ");
-		char	*indup = ft_strdup(input);
-		free (input);
-		indup = delete_excess_spcs(indup);
-		indup = conv_redir2spcs(indup);
-		char ***cmds = split_cmds(indup);
+		char	*cmd_line = readline("$ ");
+		char	*dup = ft_strdup(cmd_line);
+		free (cmd_line);
+		if (parse_shell(dup, &parser))
+			continue ;
+		free (dup);
 		int j;
-		int i = -1;
-		while (cmds[++i])
+		printf("parts_num = %d\n", parser.parts_num);
+		printf("---------------------------------------------\n");
+		printf("---------------------------------------------\n");
+		printf("#       inputs_redirection_file_names:      #\n");
+		int	i = -1;
+		while(parser.inputs_redirections[++i])
 		{
 			j = -1;
-			while(cmds[i][++j])
-				printf("part: %d, cmd: %d: %s\n", i, j, cmds[i][j]);
+			while (parser.inputs_redirections[i][++j])
+				printf("      part:{%d}, order:{%d}, in_redir:{%s}\n", i, j, parser.inputs_redirections[i][j]);			
 		}
-		free (indup);
+		printf("---------------------------------------------\n");
+		printf("---------------------------------------------\n");
+		printf("#                inputs_tokens:             #\n");
+		i = -1;
+		while (++i < parser.parts_num)
+		{
+			j = -1;
+			while (++j < parser.in_redir_num[i])
+				printf("      part: %d, in_token: %d = %d\n", i, j, parser.inputs_tokens[i][j]);
+		}
+		printf("---------------------------------------------\n");
+		printf("---------------------------------------------\n");
+		printf("#      outputs_redirection_file_names:      #\n");
+		i = -1;
+		while(parser.outputs_redirections[++i])
+		{
+			j = -1;
+			while (parser.outputs_redirections[i][++j])
+				printf("      part:{%d}, order:{%d}, out_redir:{%s}\n", i, j, parser.outputs_redirections[i][j]);			
+		}
+		printf("---------------------------------------------\n");
+		printf("---------------------------------------------\n");
+		printf("#               outputs_tokens:             #\n");
+		i = -1;
+		while (++i < parser.parts_num)
+		{
+			j = -1;
+			while (++j < parser.out_redir_num[i])
+				printf("      part: %d, out_token: %d = %d\n", i, j, parser.outputs_tokens[i][j]);
+		}
+		printf("---------------------------------------------\n");
+		printf("---------------------------------------------\n");
+		printf("#                   cmds:                   #\n");
+		i = -1;
+		while(parser.cmds[++i])
+		{
+			j = -1;
+			while (parser.cmds[i][++j])
+				printf("         part:{%d}, order:{%d}, cmd:{%s}\n", i, j, parser.cmds[i][j]);			
+		}
+		// free_char_triple_pointer(inputs_names);
 	}
 	return (0);
 }
+
+/* To test splitting commands from the commandline into char*** variable */
+// int main(void)
+// {
+// 	while (1)
+// 	{
+// 		char	*input = readline("$ ");
+// 		char	*indup = ft_strdup(input);
+// 		free (input);
+// 		indup = delete_excess_spcs(indup);
+// 		indup = conv_redir2spcs(indup);
+// 		char ***cmds = split_cmds(indup);
+// 		int j;
+// 		int i = -1;
+// 		while (cmds[++i])
+// 		{
+// 			j = -1;
+// 			while(cmds[i][++j])
+// 				printf("part: %d, cmd: %d: %s\n", i, j, cmds[i][j]);
+// 		}
+// 		free (indup);
+// 	}
+// 	return (0);
+// }
 
 /* To test finding each command characters number on each part */
 // int main(void)

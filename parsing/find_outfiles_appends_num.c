@@ -6,15 +6,16 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 13:11:01 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/08 16:59:51 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/09 12:31:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	*find_outfiles_appends_num(char *cmd_line, int parts_num)
+int	*find_outfiles_appends_num(char *cmd_line)
 {
 	int		i;
+	int parts_num;
 	int		j;
 	int		len;
 	char	trigger;
@@ -23,6 +24,7 @@ int	*find_outfiles_appends_num(char *cmd_line, int parts_num)
 	i = -1;
 	j = 0;
 	len = ft_strlen(cmd_line);
+	parts_num = find_parts_num(cmd_line);
 	outfiles_appends_num = ft_calloc(parts_num ,sizeof(int));
 	while (++i < len)
 	{

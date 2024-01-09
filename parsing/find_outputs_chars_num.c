@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 22:12:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/08 17:06:08 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/09 12:33:52 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,22 @@
 // 	}
 // }
 
-int	**find_oc_num(char *cmd_line, int parts_num, int *outputs_num)
+int	**find_oc_num(char *cmd_line)
 {
 	int	i;
 	int j;
 	int	k;
 	int	len;
+	int parts_num;
+	int *outputs_num;
 	t_bool	redi_trigger;
 	t_bool	quo_trigger;
 	char	quo_char;
 	int	char_num;
 	int **ocm;
 
+	parts_num = find_parts_num(cmd_line);
+	outputs_num = find_outfiles_appends_num(cmd_line);
 	ocm = ft_calloc(parts_num, sizeof(int *));
 	len = ft_strlen(cmd_line);
 	i = -1;

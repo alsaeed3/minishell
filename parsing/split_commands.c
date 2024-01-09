@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/08 21:23:02 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/08 21:52:40 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ char	***split_cmds(char *cmd_line)
 			l = 0;
 			cmd_trigger = FALSE;
 		}
-		if ((cmd_line[i] != ' ' && cmd_line[i] != '|') || ((cmd_line[i] == ' ' || cmd_line[i] == '|') && quo_trigger))
+		if ((cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') || ((cmd_line[i] == ' ' || cmd_line[i] == '|' || cmd_line[i] == '\'' || cmd_line[i] == '"') && quo_trigger))
 			cmds[j][k][l++] = cmd_line[i];
 		if (cmd_line[i] == ' ' && (i == 0 || cmd_line[i - 1] != ' ') && (i == 0 || cmd_line[i - 1] != '|') && !quo_trigger && cmd_trigger)
 		{

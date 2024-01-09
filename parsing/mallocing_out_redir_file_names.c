@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:44:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/08 18:46:02 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/09 13:13:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ char	***hold_output_file_names(char *cmd_line)
 	char	***redir_names;
 
 	parts_num = find_parts_num(cmd_line);
-	outputs_num = find_outfiles_appends_num(cmd_line, parts_num);
-	printf("outputs_num: %d\n", outputs_num[0]);
-	oc_num = find_oc_num(cmd_line, parts_num, outputs_num);
-	printf("oc_num: %d\n", oc_num[0][0]);
+	outputs_num = find_outfiles_appends_num(cmd_line);
+	oc_num = find_oc_num(cmd_line);
 	redir_names = malloc_file_names(parts_num, outputs_num, oc_num);
 	if (!redir_names)
 		return (NULL);

@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_in_redir.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 13:48:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/09 12:28:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num)
+int	**tokenize_inputs(char *cmd_line)
 {
 	int	**in_tokens;
+	int *redir_num;
+	int parts_num;
 	int	i;
 	int	j;
 	t_bool 	quo_trigger;
@@ -22,6 +24,8 @@ int	**tokenize_inputs(char *cmd_line, int parts_num, int *redir_num)
 	int	k;
 	int	len;
 
+	parts_num = find_parts_num(cmd_line);
+	redir_num = find_infiles_heredocs_num(cmd_line);
 	in_tokens = ft_calloc(parts_num, sizeof(int *));
 	i = -1;
 	while (++i < parts_num)
