@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_excess_spcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/06 02:55:31 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/10 19:21:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static int size_without_spcs(char *cmd_line)
 {
 	int		i;
 	int		len;
-	char	trigger;
+	t_bool	quo_trigger;
+	char	quo_char;
 	int		size;
 
 	len = ft_strlen(cmd_line);
@@ -32,31 +33,27 @@ static int size_without_spcs(char *cmd_line)
 	size = 0;
 	if (cmd_line[0] == ' ')
 			jump_over_spaces(cmd_line, &i);
+	quo_trigger = FALSE;
 	while (++i < len)
 	{
-		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
-			size++;
-			trigger = cmd_line[i++];
-			while (cmd_line[i] != trigger)
-			{
-				size++;
-				i++;
-			}
-			size++;
+			quo_trigger = TRUE;
+			quo_char = cmd_line[i];
 		}
-		else if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ')
+		else if (cmd_line[i] == quo_char && quo_trigger)
+		{
+			quo_char = '\0';
+			quo_trigger = FALSE;
+		}
+		if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ' && !quo_trigger)
 		{
 			size++;
 			while (cmd_line[i] == ' ')
 				i++;
-			i--;
 		}
-		else
-			size++;
+		size++;
 	}
-	if (cmd_line[len - 1] == ' ')
-		size--;
 	return (size);
 }
 
@@ -65,39 +62,40 @@ char	*delete_excess_spcs(char *cmd_line)
 	int		i;
 	int		j;
 	int		len;
-	char	trigger;
+	t_bool	quo_trigger;
+	char	quo_char;
+	int		size;
 	char	*ret;
 
 	len = ft_strlen(cmd_line);
-	ret = ft_calloc(size_without_spcs(cmd_line) + 1, sizeof(char));
-	j = -1;
+	size = size_without_spcs(cmd_line);
+	ret = ft_calloc(size + 1, sizeof(char));
+	j = 0;
 	i = -1;
+	quo_trigger = FALSE;
 	if (cmd_line[0] == ' ')
 			jump_over_spaces(cmd_line, &i);
 	while (++i < len)
 	{
-		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
-			ret[++j] = cmd_line[i];
-			trigger = cmd_line[i++];
-			while (cmd_line[i] != trigger)
-				ret[++j] = cmd_line[i++];
-			ret[++j] = trigger;
+			quo_trigger = TRUE;
+			quo_char = cmd_line[i];
 		}
-		else if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ')
+		else if (cmd_line[i] == quo_char && quo_trigger)
 		{
-			ret[++j] = cmd_line[i];
+			quo_char = '\0';
+			quo_trigger = FALSE;
+		}
+		if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ' && !quo_trigger)
+		{
+			ret[j++] = cmd_line[i];
 			while (cmd_line[i] == ' ')
 				i++;
-			i--;
 		}
-		else
-			ret[++j] = cmd_line[i];
+		ret[j++] = cmd_line[i];
 	}
-	if (ret[j] == ' ')
-		ret[j] = '\0';
-	else
-		ret[++j] = '\0';
+	ret[j] = '\0';
 	return (ret);
 }
 

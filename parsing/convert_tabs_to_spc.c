@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_tabs_to_spc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/07 16:42:57 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/09 15:54:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*conv_tabs2spcs(char *cmd_line)
 	ret = malloc(sizeof(char *) * (len + 1));
 	while (++i < len)
 	{
-		if (cmd_line[i] == '\'' || cmd_line[i] == '\"')
+		if (cmd_line[i] == '\'' || cmd_line[i] == '"')
 		{
 			ret[++j] = cmd_line[i];
 			trigger = cmd_line[i];

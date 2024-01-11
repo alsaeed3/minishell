@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:44:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/09 13:13:29 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/11 21:05:17 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,42 +49,51 @@ char	***hold_output_file_names(char *cmd_line)
 			quo_trigger = TRUE;
 		}
 		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
+		{
+			i++;
+			quo_char = '\0';
 			quo_trigger = FALSE;
-		if (cmd_line[i] == '|' && !quo_trigger && !redi_trigger)
+		}
+		if (cmd_line[i] == '|' && !quo_trigger && !redi_trigger && j < parts_num)
 		{
 			redir_names[j][k] = NULL;
 			k = 0;
 			j++;
 		}
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && !redi_trigger)
-			jump_over_quote(cmd_line, &i, len);
-		else if (((cmd_line[i] == '"' || cmd_line[i] == '\'' || cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == '|')) && redi_trigger && quo_trigger)
-			redir_names[j][k][l++] = cmd_line[i];
-		if ((cmd_line[i] == '>' && cmd_line[i + 1] != '>' && cmd_line[i - 1] != '>') && !redi_trigger && !quo_trigger)
-		{
-			l = 0;
-			redi_trigger = TRUE;
-			if (cmd_line[i + 1] == ' ')
-				i++;
-		}
-		if ((cmd_line[i] == '>' && cmd_line[i + 1] == '>') && !redi_trigger && !quo_trigger)
+		if (i < len - 1 && (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>')) && !redi_trigger && !quo_trigger)
 		{
 			l = 0;
 			redi_trigger = TRUE;
 			i++;
-			if (cmd_line[i + 1] == ' ')
+			if (cmd_line[i] == ' ')
 				i++;
 		}
-		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && redi_trigger))
-			redir_names[j][k][l++] = cmd_line[i];
-		if (cmd_line[i] == ' ' && redi_trigger && quo_trigger)
-			redir_names[j][k][l++] = cmd_line[i];
-		if ((cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|' || cmd_line[i + 1] == '\0') && redi_trigger && !quo_trigger)
+		else if (i < len - 1 && (cmd_line[i] == '>' && cmd_line[i + 1] == '>') && !redi_trigger && !quo_trigger)
 		{
-			redir_names[j][k++][l] = '\0';
-			redi_trigger = FALSE;
+			l = 0;
+			redi_trigger = TRUE;
+			i += 2;
+			if (cmd_line[i] == ' ')
+				i++;
 		}
+		if ((cmd_line[i] == ' ' || cmd_line[i] == '<' || cmd_line[i] == '>') && redi_trigger && !quo_trigger)
+		{
+			redi_trigger = FALSE;
+			k++;
+			l = 0;
+		}
+		else if ((cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == ' ' || cmd_line[i] == '|' || cmd_line[i] != quo_char) && quo_trigger && redi_trigger)
+			redir_names[j][k][l++] = cmd_line[i];
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && redi_trigger && !quo_trigger)
+		{
+			quo_char = cmd_line[i];
+			quo_trigger = TRUE;
+			continue;
+		}
+		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && !quo_trigger && redi_trigger))
+			redir_names[j][k][l++] = cmd_line[i];
 	}
-	redir_names[++j] = NULL;
+	if(redir_names[j])
+		redir_names[++j] = NULL;
 	return (redir_names);
 }

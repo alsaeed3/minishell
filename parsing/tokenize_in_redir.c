@@ -6,11 +6,26 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/09 12:28:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/11 12:34:05 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+
+// static t_bool check_redir_num(int *redir_num, int parts_num)
+// {
+// 	int	i;
+// 	t_bool check;
+
+// 	i = -1;
+// 	check = FALSE;
+// 	while (++i < parts_num)
+// 	{
+// 		if (redir_num[i])
+// 			return (true);
+// 	}
+// 	return (check);
+// }
 
 int	**tokenize_inputs(char *cmd_line)
 {
@@ -26,6 +41,8 @@ int	**tokenize_inputs(char *cmd_line)
 
 	parts_num = find_parts_num(cmd_line);
 	redir_num = find_infiles_heredocs_num(cmd_line);
+	// if (!check_redir_num(redir_num, parts_num))
+	// 	return (NULL);
 	in_tokens = ft_calloc(parts_num, sizeof(int *));
 	i = -1;
 	while (++i < parts_num)
@@ -53,9 +70,9 @@ int	**tokenize_inputs(char *cmd_line)
 			j++;
 			k = 0;
 		}
-		if (i < len - 1 && cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<'))
+		if (i < len - 1 && cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<') && !quo_trigger)
 			in_tokens[j][k++] = 0;
-		else if (i < len - 2 && cmd_line[i] == '<' && cmd_line[i + 1] == '<' && cmd_line[i + 2] != '<' && (i == 0 || cmd_line[i - 1] != '<'))
+		else if (i < len - 1 && cmd_line[i] == '<' && cmd_line[i + 1] == '<' && !quo_trigger)
 			in_tokens[j][k++] = 1;
 	}
 	return (in_tokens);

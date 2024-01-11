@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:45:27 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/08 15:05:19 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/10 21:02:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	***malloc_file_names(int parts_num, int *each_part_redir_num, int **file_na
 	file_names = ft_calloc((parts_num + 1), sizeof(char **));
 	if (!file_names)
 		return (NULL);
-	while (++i < (parts_num))
+	while (++i < parts_num)
 	{
 		file_names[i] = ft_calloc((each_part_redir_num[i] + 1), sizeof(char *));
 		if (!file_names[i])

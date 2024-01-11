@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:39:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/09 12:30:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/11 12:33:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	**tokenize_outputs(char *cmd_line)
 			j++;
 			k = 0;
 		}
-		if (i < len - 1 && cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>'))
+		if (i < len - 1 && cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>') && !quo_trigger)
 			out_tokens[j][k++] = 0;
-		else if (i < len - 2 && cmd_line[i] == '>' && cmd_line[i + 1] == '>' && cmd_line[i + 2] != '>' && (i == 0 || cmd_line[i - 1] != '>'))
+		else if (i < len - 1 && cmd_line[i] == '>' && cmd_line[i + 1] == '>' && !quo_trigger)
 			out_tokens[j][k++] = 1;
 	}
 	return (out_tokens);
