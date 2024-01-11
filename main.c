@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 10:45:17 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/07 17:27:14 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/08 22:04:45 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,11 @@ static int exec_command(char *cmd, Context *ctx)
     printf("cmd: %s\n", cmd);
 
     char **argv = ft_split(cmd, ' ');
-
+    char redir;
     int i = 0;
     while (argv[i] != NULL) {
         if (strcmp(argv[i], "<") == 0) {
+            redir = '<';
             // Input redirection
             if (argv[i + 1] != NULL) {
                 int input_fd = open(argv[i + 1], O_RDONLY);
@@ -130,6 +131,7 @@ static int exec_command(char *cmd, Context *ctx)
             }
             break;
         } else if (strcmp(argv[i], ">") == 0) {
+            redir = '>';
             // Output redirection
             if (argv[i + 1] != NULL) {
                 int output_fd = open(argv[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
@@ -153,6 +155,7 @@ static int exec_command(char *cmd, Context *ctx)
             }
             break;
         } else if (strcmp(argv[i], ">>") == 0) {
+            redir = '>';
             // Append output redirection
             if (argv[i + 1] != NULL) {
                 int output_fd = open(argv[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0666);
@@ -178,7 +181,9 @@ static int exec_command(char *cmd, Context *ctx)
         }
         i++;
     }
-
+    
+    argv = ft_split(cmd, redir);
+    argv = ft_split(argv[0], ' ');
     if (fork() == FORKED_CHILD) {
         // Restore default stdin and stdout for the child process
         dup2(ctx->fd[STDIN_FILENO], STDIN_FILENO);
