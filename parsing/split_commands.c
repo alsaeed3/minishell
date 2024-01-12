@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/10 20:48:04 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/12 17:12:58 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ char	***split_cmds(char *cmd_line)
 		if (cmd_line[i] == '|' && !quo_trigger)
 		{
 			// printf("heeeeerrree---->%s\n", cmds[0][0]);
-			cmds[j][k] = NULL;
+			cmds[j][++k] = NULL;
 			k = 0;
 			l = 0;
 			j++;

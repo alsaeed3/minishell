@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:39:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/11 12:33:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/12 16:54:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	**tokenize_outputs(char *cmd_line)
 			quo_char = cmd_line[i++];
 			quo_trigger = TRUE;
 		}
-		else if ((cmd_line[i] == quo_char) && quo_trigger)
+		if ((cmd_line[i] == quo_char) && quo_trigger)
 		{
 			quo_char = '\0';
 			quo_trigger = FALSE;

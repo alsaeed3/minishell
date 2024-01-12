@@ -6,6 +6,13 @@ echo >>hello<<d
 
  ----------------------
  <" <o'"'o'>o grep<rr h
+ in_red[0][0] =  
  xxxxxxxxxxxx ----xxx -
  ----------------------
 
+echo   >>  "hi" -la
+
+echo <"<><|" | hi < sdf
+
+echo <"""<><|" | hi < sdf
+<   "  he'"oo<lol bro <gg lol

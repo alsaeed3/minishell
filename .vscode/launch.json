@@ -10,7 +10,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "/Users/alsaeed/Desktop/minishell/minishell",
-			"args": ["< 123"],
+			"args": [""],
 			"cwd": "/Users/alsaeed/Desktop/minishell"
 		}
 	]
