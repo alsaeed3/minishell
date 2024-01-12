@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 10:45:17 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/08 22:04:45 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:14:37 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static int exec_pipe(char *cmd, Context *ctx)
     lhs_ctx.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
     lhs_ctx.fd_close = p[STDIN_FILENO];
     children += exec_cmd(lhs, &lhs_ctx);
+
     close(p[STDOUT_FILENO]);
     
     Context rhs_ctx = *ctx;
@@ -80,13 +81,12 @@ static int exec_pipe(char *cmd, Context *ctx)
     rhs_ctx.fd_close = p[STDOUT_FILENO];
     children += exec_cmd(rhs, &rhs_ctx);
 	close(p[STDIN_FILENO]);
-
 	free(lhs);
 	// free(rhs); no memory allocated for rhs
     return children;
 }
 // execute without redirections
-/*
+
 static int exec_command(char *cmd, Context *ctx)
 {
     printf("cmd: %s\n", cmd);
@@ -104,11 +104,11 @@ static int exec_command(char *cmd, Context *ctx)
     }
     return 1;
 }
-*/
+
 #include <sys/stat.h>
 
 // ...exiecute with redirections but not working yet
-
+/*
 static int exec_command(char *cmd, Context *ctx)
 {
     printf("cmd: %s\n", cmd);
@@ -204,7 +204,7 @@ static int exec_command(char *cmd, Context *ctx)
     return 1;
 }
 
-
+*/
 
 int main(int ac, char **av, char **env)
 {
