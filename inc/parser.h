@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/11 18:54:37 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/12 11:32:54 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		*find_cmds_num(char *cmd_line);
 int		**find_cmds_chars_num(char *cmd_line);
 char	***split_cmds(char *cmd_line);
 t_bool	parse_shell(char *cmd_line, t_parse *parser);
-
+int		count_size_without_redir(char *cmd_line);
 
 // struct red
 // {

@@ -6,28 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 22:12:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/11 21:05:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/12 11:13:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
-
-// void	jump_over_quote(char *cmd_line, int *i, int len)
-// {
-// 	char	quo_char;
-
-// 	quo_char = cmd_line[*i];
-// 	(*i)++;
-// 	while (*i < len)
-// 	{
-// 		if (cmd_line[*(i)] == quo_char)
-// 		{
-// 			(*i)++;
-// 			break;
-// 		}
-// 		(*i)++;
-// 	}
-// }
 
 int	**find_oc_num(char *cmd_line)
 {
@@ -57,12 +40,12 @@ int	**find_oc_num(char *cmd_line)
 	j = 0;
 	while (++i < len )
 	{
-		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
+		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i++];
 			quo_trigger = TRUE;
 		}
-		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
+		else if((cmd_line[i] == quo_char) && quo_trigger)
 		{
 			i++;
 			quo_char = '\0';
@@ -73,7 +56,7 @@ int	**find_oc_num(char *cmd_line)
 			k = 0;
 			j++;
 		}
-		if (i < len - 1 && (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>')) && !redi_trigger && !quo_trigger)
+		if (i < len - 1 && (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>') && (i == 0 || cmd_line[i - 1] != '<')) && !redi_trigger && !quo_trigger)
 		{
 			char_num = 0;
 			redi_trigger = TRUE;
@@ -97,7 +80,7 @@ int	**find_oc_num(char *cmd_line)
 		}
 		else if ((cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == ' ' || cmd_line[i] == '|' || cmd_line[i] != quo_char) && quo_trigger && redi_trigger)
 			ocm[j][k] = ++char_num;
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && redi_trigger && !quo_trigger)
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i];
 			quo_trigger = TRUE;

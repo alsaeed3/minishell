@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/11 21:04:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/12 11:14:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ char	***hold_input_file_names(char *cmd_line)
 	len = (int)ft_strlen(cmd_line);
 	while (++i < len)
 	{
-		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
+		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i++];
 			quo_trigger = TRUE;
 		}
-		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
+		else if((cmd_line[i] == quo_char) && quo_trigger)
 		{
 			i++;
 			quo_char = '\0';
@@ -67,7 +67,7 @@ char	***hold_input_file_names(char *cmd_line)
 			k = 0;
 			j++;
 		}
-		if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<')) && !redi_trigger && !quo_trigger)
+		if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<') && (i == 0 || cmd_line[i - 1] != '<')) && !redi_trigger && !quo_trigger)
 		{
 			l = 0;
 			redi_trigger = TRUE;
@@ -91,7 +91,7 @@ char	***hold_input_file_names(char *cmd_line)
 		}
 		else if ((cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == ' ' || cmd_line[i] == '|' || cmd_line[i] != quo_char) && quo_trigger && redi_trigger)
 			redir_names[j][k][l++] = cmd_line[i];
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && redi_trigger && !quo_trigger)
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i];
 			quo_trigger = TRUE;

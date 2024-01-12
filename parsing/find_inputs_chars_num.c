@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/11 21:08:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/12 11:14:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	jump_over_quote(char *cmd_line, int *i, int len)
 {
 	char	quo_char;
 
-	quo_char = cmd_line[*i];
+	if (cmd_line[*i] == '\'' || cmd_line[*i] == '"')
+		quo_char = cmd_line[*i];
 	(*i)++;
 	while (*i < len)
 	{
@@ -50,6 +51,8 @@ int	**find_ic_num(char *cmd_line)
 	parts_num = find_parts_num(cmd_line);
 	inputs_num = find_infiles_heredocs_num(cmd_line);
 	icm = ft_calloc(parts_num, sizeof(int *));
+	if (!icm)
+		return (NULL);
 	len = ft_strlen(cmd_line);
 	i = -1;
 	while (++i < parts_num)
@@ -61,23 +64,23 @@ int	**find_ic_num(char *cmd_line)
 	j = 0;
 	while (++i < len )
 	{
-		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
+		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i++];
 			quo_trigger = TRUE;
 		}
-		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
+		else if((cmd_line[i] == quo_char) && quo_trigger)
 		{
 			i++;
 			quo_char = '\0';
 			quo_trigger = FALSE;
 		}
-		if (cmd_line[i] == '|' && !quo_trigger && !redi_trigger)
+		if (cmd_line[i] == '|' && !quo_trigger && !redi_trigger && j < parts_num)
 		{
 			j++;
 			k = 0;
 		}
-		if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<')) && !redi_trigger && !quo_trigger)
+		if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<') && (i == 0 || cmd_line[i - 1] != '>')) && !redi_trigger && !quo_trigger)
 		{
 			char_num = 0;
 			redi_trigger = TRUE;
@@ -93,7 +96,7 @@ int	**find_ic_num(char *cmd_line)
 			if (cmd_line[i] == ' ')
 				i++;
 		}
-		if ((cmd_line[i] == ' ' || cmd_line[i] == '<' || cmd_line[i] == '>') && redi_trigger && !quo_trigger)
+		if ((cmd_line[i] == ' ' || cmd_line[i] == '<' || cmd_line[i] == '>') && redi_trigger && !quo_trigger && k < inputs_num[j])
 		{
 			redi_trigger = FALSE;
 			k++;
@@ -101,7 +104,7 @@ int	**find_ic_num(char *cmd_line)
 		}
 		else if ((cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == ' ' || cmd_line[i] == '|' || cmd_line[i] != quo_char) && quo_trigger && redi_trigger)
 			icm[j][k] = ++char_num;
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && redi_trigger && !quo_trigger)
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i];
 			quo_trigger = TRUE;

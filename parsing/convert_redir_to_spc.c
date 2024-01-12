@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/11 20:40:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/12 12:10:15 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 /* file names to spaces in the command line after saving all the file names */
 /* with their tokens */
 
-char *conv_redir2spcs(char *cmd_line)
+int	count_size_without_redir(char *cmd_line)
 {
 	char *no_redir;
 	int	len;
 	int i;
+	int j;
 	t_bool	redi_trigger;
 	t_bool	quo_trigger;
 	char	quo_char;
@@ -31,66 +32,156 @@ char *conv_redir2spcs(char *cmd_line)
 	if (!no_redir)
 		exit (1);
 	i = -1;
+	j = 0;
 	while (++i < len && cmd_line[i])
 	{
-		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
+		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i];
-			no_redir[i++] = ' ';
 			quo_trigger = TRUE;
+			j++;
 		}
-		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
+		else if((cmd_line[i] == quo_char) && quo_char)
 		{
-			no_redir[i++] = ' ';
 			quo_char = '\0';
 			quo_trigger = FALSE;
+			j++;
 		}
-		if (i < len - 2 && ((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<')) || (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>'))) && !redi_trigger && !quo_trigger)
+		if (i < len - 1 && ((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<')) || (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>'))) && !redi_trigger && !quo_trigger)
 		{
 			redi_trigger = TRUE;
-			no_redir[i++] = ' ';
+			j++;
 			if (cmd_line[i] == ' ')
-				no_redir[i++] = ' ';
+				j++;
 		}
-		else if (i < len - 3 && ((cmd_line[i] == '<' && cmd_line[i + 1] == '<') || (cmd_line[i] == '>' && cmd_line[i + 1] == '>')) && !redi_trigger && !quo_trigger)
+		else if (i < len - 1 && ((cmd_line[i] == '<' && cmd_line[i + 1] == '<') || (cmd_line[i] == '>' && cmd_line[i + 1] == '>')) && !redi_trigger && !quo_trigger)
 		{
 			redi_trigger = TRUE;
-			no_redir[i++] = ' ';
-			no_redir[i++] = ' ';
+			j += 2;
 			if (cmd_line[i] == ' ')
-				no_redir[i++] = ' ';
+				j++;
 		}
 		if (cmd_line[i] == ' ' && redi_trigger && !quo_trigger)
 		{
-			no_redir[i++] = ' ';
+			j++;
 			redi_trigger = FALSE;
 		}
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && redi_trigger && !quo_trigger)
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
-			no_redir[i] = ' ';
 			quo_char = cmd_line[i];
 			quo_trigger = TRUE;
+			j++;
 			continue;
 		}
-		if ((cmd_line[i] == quo_char) && redi_trigger && quo_trigger)
+		if ((cmd_line[i] == quo_char) && quo_trigger)
 		{
-			no_redir[i] = ' ';
 			quo_char = '\0';
 			quo_trigger = FALSE;
+			j++;
 			continue;
 		}
 		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && !quo_trigger && redi_trigger))
 		{
-			no_redir[i] = ' ';
+			j++;
+			continue ;
+		}
+		j++;
+	}
+	return (j);
+}
+
+char *conv_redir2spcs(char *cmd_line)
+{
+	char *no_redir;
+	int	len;
+	int	size_without_redir;
+	int i;
+	int j;
+	t_bool	redi_trigger;
+	t_bool	quo_trigger;
+	char	quo_char;
+
+	redi_trigger = FALSE;
+	quo_trigger = FALSE;
+	size_without_redir = count_size_without_redir(cmd_line);
+	no_redir = ft_calloc((size_without_redir + 1), sizeof(char));
+	if (!no_redir)
+		exit (1);
+	len = ft_strlen(cmd_line);
+	i = -1;
+	j = 0;
+	while (++i < len && cmd_line[i])
+	{
+		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
+		{
+			quo_char = cmd_line[i];
+			quo_trigger = TRUE;
+			if (redi_trigger)
+				no_redir[j++] = ' ';
+			else
+				no_redir[j++] = cmd_line[i++];
+		}
+		else if((cmd_line[i] == quo_char) && quo_char)
+		{
+			quo_char = '\0';
+			quo_trigger = FALSE;
+			if (redi_trigger)
+				no_redir[j++] = ' ';
+			else
+				no_redir[j++] = cmd_line[i++];
+		}
+		if (i < len - 1 && ((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<')) || (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>'))) && !redi_trigger && !quo_trigger)
+		{
+			redi_trigger = TRUE;
+			no_redir[j++] = ' ';
+			if (cmd_line[i] == ' ')
+				no_redir[j++] = ' ';
+		}
+		else if (i < len - 1 && ((cmd_line[i] == '<' && cmd_line[i + 1] == '<') || (cmd_line[i] == '>' && cmd_line[i + 1] == '>')) && !redi_trigger && !quo_trigger)
+		{
+			redi_trigger = TRUE;
+			no_redir[j++] = ' ';
+			no_redir[j++] = ' ';
+			if (cmd_line[i] == ' ')
+				no_redir[j++] = ' ';
+		}
+		if (cmd_line[i] == ' ' && redi_trigger && !quo_trigger)
+		{
+			no_redir[j++] = ' ';
+			redi_trigger = FALSE;
+		}
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
+		{
+			quo_char = cmd_line[i];
+			quo_trigger = TRUE;
+			if (redi_trigger)
+				no_redir[j++] = ' ';
+			else
+				no_redir[j++] = cmd_line[i];
+			continue;
+		}
+		if ((cmd_line[i] == quo_char) && quo_trigger)
+		{
+			quo_char = '\0';
+			quo_trigger = FALSE;
+			if (redi_trigger)
+				no_redir[j++] = ' ';
+			else
+				no_redir[j++] = cmd_line[i];
+			continue;
+		}
+		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && !quo_trigger && redi_trigger))
+		{
+			no_redir[j++] = ' ';
 			continue ;
 		}
 		if (!redi_trigger)
-			no_redir[i] = cmd_line[i];
+			no_redir[j++] = cmd_line[i];
 		else
-			no_redir[i] = ' ';
+			no_redir[j++] = ' ';
 	}
-	if (no_redir[len - 1])
-		no_redir[len] = '\0';
+	if (no_redir[j])
+		no_redir[++j] = '\0';
 	return (no_redir);
 }
 

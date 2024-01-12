@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:44:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/11 21:05:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/12 11:13:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	***hold_output_file_names(char *cmd_line)
 	int	len;
 	int parts_num;
 	int *outputs_num;
-	int **oc_num;
+	int **ocm;
 	t_bool	redi_trigger;
 	t_bool	quo_trigger;
 	char	quo_char;
@@ -29,8 +29,8 @@ char	***hold_output_file_names(char *cmd_line)
 
 	parts_num = find_parts_num(cmd_line);
 	outputs_num = find_outfiles_appends_num(cmd_line);
-	oc_num = find_oc_num(cmd_line);
-	redir_names = malloc_file_names(parts_num, outputs_num, oc_num);
+	ocm = find_oc_num(cmd_line);
+	redir_names = malloc_file_names(parts_num, outputs_num, ocm);
 	if (!redir_names)
 		return (NULL);
 	redi_trigger = FALSE;
@@ -43,12 +43,12 @@ char	***hold_output_file_names(char *cmd_line)
 	len = (int)ft_strlen(cmd_line);
 	while (++i < len)
 	{
-		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger && redi_trigger)
+		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i++];
 			quo_trigger = TRUE;
 		}
-		else if((cmd_line[i] == quo_char) && redi_trigger && quo_char)
+		else if((cmd_line[i] == quo_char) && quo_trigger)
 		{
 			i++;
 			quo_char = '\0';
@@ -60,7 +60,7 @@ char	***hold_output_file_names(char *cmd_line)
 			k = 0;
 			j++;
 		}
-		if (i < len - 1 && (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>')) && !redi_trigger && !quo_trigger)
+		if (i < len - 1 && (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>') && (i == 0 || cmd_line[i - 1] != '<')) && !redi_trigger && !quo_trigger)
 		{
 			l = 0;
 			redi_trigger = TRUE;
@@ -84,7 +84,7 @@ char	***hold_output_file_names(char *cmd_line)
 		}
 		else if ((cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == ' ' || cmd_line[i] == '|' || cmd_line[i] != quo_char) && quo_trigger && redi_trigger)
 			redir_names[j][k][l++] = cmd_line[i];
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && redi_trigger && !quo_trigger)
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i];
 			quo_trigger = TRUE;
