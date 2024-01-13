@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/12 17:18:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/13 16:03:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,10 @@ char *conv_redir2spcs(char *cmd_line)
 			if (cmd_line[i] == ' ')
 				no_redir[j++] = ' ';
 		}
-		if (cmd_line[i] == ' ' && (i == 0 || cmd_line[i - 1] != '<') && (i == 0 || cmd_line[i - 1] != '>') && redi_trigger && !quo_trigger)
+		if ((cmd_line[i] == '|' || (cmd_line[i] == ' ' && (i == 0 || cmd_line[i - 1] != '<') && (i == 0 || cmd_line[i - 1] != '>'))) && redi_trigger && !quo_trigger)
 		{
-			no_redir[j++] = ' ';
+			if (cmd_line[i] == ' ')
+				no_redir[j++] = ' ';
 			redi_trigger = FALSE;
 		}
 		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)

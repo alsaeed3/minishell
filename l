@@ -16,3 +16,5 @@ echo <"<><|" | hi < sdf
 
 echo <"""<><|" | hi < sdf
 <   "  he'"oo<lol bro <gg lol
+
+ls -la|cd

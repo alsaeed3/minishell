@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/12 11:14:04 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/13 18:24:50 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ char	***hold_input_file_names(char *cmd_line)
 	quo_trigger = FALSE;
 	quo_char = '\0';
 	i = -1;
-	k = 0;
+	k = -1;
 	j = 0;
-	l = 0;
+	l = -1;
 	len = (int)ft_strlen(cmd_line);
-	while (++i < len)
+	while (++i < len && cmd_line[i])
 	{
 		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
@@ -57,48 +57,61 @@ char	***hold_input_file_names(char *cmd_line)
 		}
 		else if((cmd_line[i] == quo_char) && quo_trigger)
 		{
-			i++;
+			if (cmd_line[++i] == ' ' && redi_trigger)
+			{
+				redir_names[j][k][++l] = '\0';
+				redi_trigger = FALSE;
+			}
 			quo_char = '\0';
 			quo_trigger = FALSE;
 		}
 		if (cmd_line[i] == '|' && !quo_trigger && !redi_trigger && j < parts_num)
 		{
-			redir_names[j][k] = NULL;
-			k = 0;
+			redir_names[j][++k] = NULL;
+			k = -1;
 			j++;
 		}
-		if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<') && (i == 0 || cmd_line[i - 1] != '<')) && !redi_trigger && !quo_trigger)
+		if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<') && (i == 0 || cmd_line[i - 1] != '>')) && !redi_trigger && !quo_trigger && k < inputs_num[j])
 		{
-			l = 0;
+			l = -1;
 			redi_trigger = TRUE;
+			k++;
 			i++;
 			if (cmd_line[i] == ' ')
 				i++;
 		}
-		else if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] == '<') && !redi_trigger && !quo_trigger)
+		else if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] == '<') && !redi_trigger && !quo_trigger && k < inputs_num[j])
 		{
-			l = 0;
+			l = -1;
 			redi_trigger = TRUE;
+			k++;
 			i += 2;
 			if (cmd_line[i] == ' ')
 				i++;
 		}
-		if ((cmd_line[i] == ' ' || cmd_line[i] == '<' || cmd_line[i] == '>') && redi_trigger && !quo_trigger)
-		{
-			redi_trigger = FALSE;
-			k++;
-			l = 0;
-		}
 		else if ((cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == ' ' || cmd_line[i] == '|' || cmd_line[i] != quo_char) && quo_trigger && redi_trigger)
-			redir_names[j][k][l++] = cmd_line[i];
+			redir_names[j][k][++l] = cmd_line[i];
 		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
 			quo_char = cmd_line[i];
 			quo_trigger = TRUE;
 			continue;
 		}
-		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') && !quo_trigger && redi_trigger))
-			redir_names[j][k][l++] = cmd_line[i];
+		else if ((cmd_line[i] == quo_char) && quo_trigger)
+		{
+			quo_char = '\0';
+			quo_trigger = FALSE;
+			continue ;
+		}
+		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"' && cmd_line[i] != '\0') && !quo_trigger && redi_trigger))
+		{
+			redir_names[j][k][++l] = cmd_line[i];
+			if (cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|')
+			{
+				redir_names[j][k][++l] = '\0';
+				redi_trigger = FALSE;
+			}
+		}
 	}
 	if(redir_names[j])
 		redir_names[++j] = NULL;
