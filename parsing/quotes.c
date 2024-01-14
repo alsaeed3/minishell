@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/09 17:40:11 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/12 14:03:58 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,31 @@ t_bool	check_quotes(char *cmd_line)
 {
 	int		i;
 	int		len;
-	char	trigger;
-	t_bool	flag;
+	char	quo_char;
+	t_bool	quo_trigger;
 	
 	i = -1;
-	flag = FALSE;
+	quo_trigger = FALSE;
+	quo_char = '\0';
 	len = ft_strlen(cmd_line);
 	while (++i < len)
 	{
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !flag)
+		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
 		{
-			flag = TRUE;
-			trigger = cmd_line[i];
+			quo_trigger = TRUE;
+			quo_char = cmd_line[i];
 			while (++i < len)
 			{
-				if (cmd_line[i] == trigger)
+				if (cmd_line[i] == quo_char)
 				{
-					flag = FALSE;
+					quo_trigger = FALSE;
+					quo_char = '\0';
 					break;
 				}
 			}
 		}
 	}
-	return (flag);
+	return (quo_trigger);
 }
 
 void	remove_cmdline_quotes(char *cmd_line, char **ret, int char_num)

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/12 12:10:15 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/13 16:03:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	count_size_without_redir(char *cmd_line)
 			if (cmd_line[i] == ' ')
 				j++;
 		}
-		if (cmd_line[i] == ' ' && redi_trigger && !quo_trigger)
+		if (cmd_line[i] == ' '  && (i == 0 || cmd_line[i - 1] != '<') && (i == 0 || cmd_line[i - 1] != '>') && redi_trigger && !quo_trigger)
 		{
 			j++;
 			redi_trigger = FALSE;
@@ -117,7 +117,10 @@ char *conv_redir2spcs(char *cmd_line)
 			quo_char = cmd_line[i];
 			quo_trigger = TRUE;
 			if (redi_trigger)
+			{
+				i++;
 				no_redir[j++] = ' ';
+			}
 			else
 				no_redir[j++] = cmd_line[i++];
 		}
@@ -126,13 +129,17 @@ char *conv_redir2spcs(char *cmd_line)
 			quo_char = '\0';
 			quo_trigger = FALSE;
 			if (redi_trigger)
+			{
+				i++;
 				no_redir[j++] = ' ';
+			}
 			else
 				no_redir[j++] = cmd_line[i++];
 		}
 		if (i < len - 1 && ((cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<')) || (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>'))) && !redi_trigger && !quo_trigger)
 		{
 			redi_trigger = TRUE;
+			i++;
 			no_redir[j++] = ' ';
 			if (cmd_line[i] == ' ')
 				no_redir[j++] = ' ';
@@ -140,14 +147,16 @@ char *conv_redir2spcs(char *cmd_line)
 		else if (i < len - 1 && ((cmd_line[i] == '<' && cmd_line[i + 1] == '<') || (cmd_line[i] == '>' && cmd_line[i + 1] == '>')) && !redi_trigger && !quo_trigger)
 		{
 			redi_trigger = TRUE;
+			i += 2;
 			no_redir[j++] = ' ';
 			no_redir[j++] = ' ';
 			if (cmd_line[i] == ' ')
 				no_redir[j++] = ' ';
 		}
-		if (cmd_line[i] == ' ' && redi_trigger && !quo_trigger)
+		if ((cmd_line[i] == '|' || (cmd_line[i] == ' ' && (i == 0 || cmd_line[i - 1] != '<') && (i == 0 || cmd_line[i - 1] != '>'))) && redi_trigger && !quo_trigger)
 		{
-			no_redir[j++] = ' ';
+			if (cmd_line[i] == ' ')
+				no_redir[j++] = ' ';
 			redi_trigger = FALSE;
 		}
 		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
@@ -177,7 +186,7 @@ char *conv_redir2spcs(char *cmd_line)
 		}
 		if (!redi_trigger)
 			no_redir[j++] = cmd_line[i];
-		else
+		else if (cmd_line[i] != ' ' && redi_trigger)
 			no_redir[j++] = ' ';
 	}
 	if (no_redir[j])

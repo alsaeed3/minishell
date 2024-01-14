@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/10 20:48:04 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/13 17:22:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int **find_cmds_chars_num(char *cmd_line)
 	k = 0;
 	quo_trigger = FALSE;
 	quo_char = '\0';
-	while (++i < len)
+	while (++i < len && cmd_line[i])
 	{
 		if ((cmd_line[i] == '"' || cmd_line[i] == '\'') && !quo_trigger)
 		{
@@ -193,7 +193,8 @@ char	***split_cmds(char *cmd_line)
 		}
 		if (cmd_line[i] == '|' && !quo_trigger)
 		{
-			// printf("heeeeerrree---->%s\n", cmds[0][0]);
+			if (cmd_line[i - 1] != ' ')
+				cmds[j][++k] = NULL;
 			cmds[j][k] = NULL;
 			k = 0;
 			l = 0;
@@ -208,6 +209,8 @@ char	***split_cmds(char *cmd_line)
 		if ((cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"') || ((cmd_line[i] == ' ' || cmd_line[i] == '|' || cmd_line[i] == '\'' || cmd_line[i] == '"') && (cmd_line[i] != quo_char) && quo_trigger))
 		{
 			cmds[j][k][l++] = cmd_line[i];
+			if ((cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|') && !quo_trigger)
+				cmds[j][k][l] = '\0';
 		}
 		if (cmd_line[i] == ' ' && (i == 0 || cmd_line[i - 1] != ' ') && (i == 0 || cmd_line[i - 1] != '|') && !quo_trigger && cmd_trigger)
 		{
@@ -215,7 +218,8 @@ char	***split_cmds(char *cmd_line)
 			cmd_trigger = FALSE;
 		}
 	}
-	cmds[++j] = NULL;
+	if (cmds[j])
+		cmds[++j] = NULL;
 	return(cmds);
 }
 

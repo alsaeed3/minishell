@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/14 17:42:38 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/13 16:22:10 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,27 @@
 
 t_bool	parse_shell(char *cmd_line, t_parse *parser)
 {
-	if (!cmd_line)
+	if (!cmd_line || ft_strcmp(cmd_line, "\n") == 0)
 	{
-		printf("\n");
+		// printf("\n");
 		return (TRUE);
 	}
 	cmd_line = conv_tabs2spcs(cmd_line);
-	cmd_line = delete_excess_spcs(cmd_line);
-	// printf("delete_excess_spcs %s\n", cmd_line);
-	if (check_quotes(cmd_line) || check_pipe_redir(cmd_line) || check_pipe_red_2(cmd_line))
+	if (check_quotes(cmd_line))
 	{
-		printf("Error\n");
+		printf("Quote Error\n");
+		return (TRUE);
+	}
+	cmd_line = delete_excess_spcs(cmd_line);
+	printf("delete_excess_spcs %s\n", cmd_line);
+	if (check_pipe_redir(cmd_line))
+	{
+		printf("Pipe-Redir Error\n");
+		return (TRUE);
+	}
+	if (check_pipe_red_2(cmd_line))
+	{
+		printf("Pipe-Redir-2 Error\n");
 		return (TRUE);
 	}
 	parser->parts_num = find_parts_num(cmd_line);
@@ -34,10 +44,11 @@ t_bool	parse_shell(char *cmd_line, t_parse *parser)
 	parser->out_redir_num = find_outfiles_appends_num(cmd_line);
 	parser->outputs_redirections = hold_output_file_names(cmd_line);
 	parser->outputs_tokens = tokenize_outputs(cmd_line);
+	printf("before conv_redir2spcs {%s}\n", cmd_line);
 	cmd_line = conv_redir2spcs(cmd_line);
+	printf("conv_redir2spcs {%s}\n", cmd_line);
 	cmd_line = delete_excess_spcs(cmd_line);
+	printf("delete_excess_spcs {%s}\n", cmd_line);
 	parser->cmds = split_cmds(cmd_line);
-
 	return (FALSE);
 }
-

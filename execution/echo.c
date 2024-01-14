@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/14 17:25:32 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/14 20:11:32 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void	handle_echo(char **args)
 {
+	printf("handle_echo\n");
 	int i;
 	int n_flag;
 
