@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/14 17:59:55 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:37:03 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,6 @@ static int handle_pipe(t_parse *parser)
     int pid;
     int status;
     int fd_in = 0;
-    // char *path;
     printf("parts_num: %d\n", parser->parts_num);
     while (i < parser->parts_num)
     {
@@ -208,13 +207,7 @@ static int handle_pipe(t_parse *parser)
             if (i < parser->parts_num - 1)
                 dup2(fds[STDOUT_FILENO], STDOUT_FILENO);
             close(fds[0]);
-            // pipe_exec(parser.cmds[i]);
 			handle_basic(parser->cmds[i],parser, 1);
-			/*
-            path = ft_getpath(parser.cmds[i][0], getenv("PATH"));
-            execve(path, parser.cmds[i], NULL);
-            exit(126);
-			*/
         }
         waitpid(pid, &status, 0);
         printf("status: %d\n", WEXITSTATUS(status));
@@ -289,55 +282,4 @@ int		execute_2(char **inputs, t_parse *data)
 	}
 	// free_env(paths);
 	return (1);
-}
-
-// int		var_index(char *name, t_parse *data)
-// {
-// 	int		y;
-// 	int		x;
-
-// 	x = 0;
-// 	while (data->env[x])
-// 	{
-// 		y = 0;
-// 		while (data->env[x][y] && data->env[x][y] == name[y]
-// 		&& name[y] != '\0' && name[y] != '=' &&
-// 		data->env[x][y] != '\0' && data->env[x][y] != '=')
-// 			y++;
-// 		if ((data->env[x][y] == '\0' || data->env[x][y] == '=') &&
-// 		(name[y] == '\0' || name[y] == '='))
-// 			return (x);
-// 		x++;
-// 	}
-// 	return (-1);
-// }
-
-void	handle_echo(char **args)
-{
-	printf("handle_echo\n");
-	int i;
-	int n_flag;
-
-	i = 1;
-	n_flag = 0;
-	g_status = 0;
-	while (args[i] && !ft_strcmp(args[i], "-n") && i++)
-		n_flag = 1;
-	while (args[i])
-	{
-		write(1, args[i], ft_strlen(args[i]));
-		if (args[i + 1])
-			write(1, " ", 1);
-		i++;
-	}
-	if (!n_flag)
-		write(1, "\n", 1);
-}
-
-void	handle_pwd(t_parse *data)
-{
-	printf("handle_pwd\n");
-	ft_putstr(data->pwd);
-	ft_putstr("\n");
-	g_status = 0;
 }

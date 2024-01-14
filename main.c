@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/14 17:58:02 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:55:41 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int main(int ac, char **av, char **env)
 		if (parse_shell(dup, &parser))
 			continue ;
 		free (dup);
-		exec_delegator(&parser);
+		// exec_delegator(&parser);
 		
-		// print_function(parser);
+		print_function(parser);
 		// free_char_triple_pointer(inputs_names);
 	}
 	return (0);
