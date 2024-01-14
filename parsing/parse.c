@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/12 20:37:52 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/14 17:42:38 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ t_bool	parse_shell(char *cmd_line, t_parse *parser)
 	parser->outputs_redirections = hold_output_file_names(cmd_line);
 	parser->outputs_tokens = tokenize_outputs(cmd_line);
 	cmd_line = conv_redir2spcs(cmd_line);
-	printf("conv_redir2spcs {%s}\n", cmd_line);
 	cmd_line = delete_excess_spcs(cmd_line);
 	parser->cmds = split_cmds(cmd_line);
+
 	return (FALSE);
 }
+

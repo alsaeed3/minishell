@@ -6,22 +6,27 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/12 20:46:05 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/14 17:58:02 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+#include "../inc/exec.h"
 
-void print_function(t_parse parser);
+void 	print_function(t_parse parser);
+
 /* Test the whole parsing in int main */
-int main(void)
+int main(int ac, char **av, char **env)
 {
+	(void)ac;
+	(void)av;
 	t_parse	parser;
+	/*sig_int();*/
+	data_init(&parser, env);
 	while (1)
 	{
 		char	*cmd_line = readline("MINISHELL$ ");
 		add_history(cmd_line);
-		
         if (ft_strcmp(cmd_line, "exit") == 0)
         {
             free(cmd_line);
@@ -31,8 +36,7 @@ int main(void)
 		if (parse_shell(dup, &parser))
 			continue ;
 		free (dup);
-		
-		exec_function(parser);
+		exec_delegator(&parser);
 		
 		// print_function(parser);
 		// free_char_triple_pointer(inputs_names);
@@ -202,8 +206,6 @@ int main(void)
 // }
 
 
-
-
 void print_function(t_parse parser)
 {
 	int j;
@@ -267,3 +269,7 @@ void print_function(t_parse parser)
 		printf("\n");
 	
 }
+
+
+
+

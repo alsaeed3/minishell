@@ -6,7 +6,7 @@
 #    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/12 20:01:56 by habu-zua         ###   ########.fr        #
+#    Updated: 2024/01/14 17:57:05 by habu-zua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,18 @@ SRCS =	convert_tabs_to_spc.c \
 		parse.c \
 		main.c
 
-SRCS += exec.c ft_getpath.c ft_free.c
+SRCSX = exec.c ft_getpath.c ft_free.c\
+		cd.c cd_utils.c \
+		export.c export_utils.c\
+		exit.c env.c unset.c \
+		data_init.c\
 
 
 OBJS_DIR = objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-CFLAGS = -Wall -Wextra -Werror -I include -g3 -fsanitize=address
+OBJSX_DIR = ../execution/objs/
+OBJSX = $(addprefix $(OBJSX_DIR), $(SRCSX:.c=.o))
+CFLAGS = -Wall -Wextra -Werror -I inc -g3 -fsanitize=address
 LDFLAGS = -lreadline
 
 LIBFT_DIR = ../libft
@@ -50,9 +56,13 @@ all: $(LIBFT_LIB) $(NAME)
 $(OBJS_DIR)%.o: %.c
 	@mkdir -p $(OBJS_DIR)
 	@gcc $(CFLAGS) -c $< -o $@
-
-$(NAME): $(OBJS)
-	@gcc $(CFLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME) $(LDFLAGS)
+	
+$(OBJSX_DIR)%.o: ../execution/%.c
+	@mkdir -p $(OBJSX_DIR)
+	@gcc $(CFLAGS) -c $< -o $@
+	
+$(NAME): $(OBJS) $(OBJSX)
+	@gcc $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) -o $(NAME) $(LDFLAGS)
 	@echo "minishell Compiled: \033[1;32mOK\n\033[0m"
 
 $(LIBFT_LIB):

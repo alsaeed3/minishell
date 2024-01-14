@@ -6,14 +6,14 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/12 18:43:46 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/14 11:58:51 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "exec.h"
+// # include "exec.h"
 
 # include "../libft/inc/libft.h"	// libft library
 # include <stdio.h>       			// printf
@@ -62,7 +62,13 @@ typedef struct s_parse
 	char	***outputs_redirections;
 	int		**outputs_tokens;
 	char	***cmds;
+	char 	**env;
+	int 	fd_in;
+	int 	fd_out;
+	char	*pwd;
+	int		redir;
 }	t_parse;
+
 
 void	jump_over_quote(char *cmd_line, int *i, int len);
 char	*conv_tabs2spcs(char *cmd_line);
