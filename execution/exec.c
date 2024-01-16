@@ -6,12 +6,12 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/14 20:08:58 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:50:01 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
+#include "../inc/parser.h"
 # define FORKED_CHILD 0
 
 int		handle_basic(char **inputs,t_parse *parse, int piped);
@@ -36,7 +36,56 @@ void exec_delegator(t_parse *parser)
 	else
         handle_pipe(parser);
 }
+void redirect_from(char **inputs,t_parse *data)
+{
+	printf("redirect_from\n");
+	// int		i;
+	int		fd;
+	char	*file;
+	(void)inputs;
+	// i = 0;
+	// while (data->inputs_redirections[i])
+	// {
+		file = data->inputs_redirections[0][0];
+		if (file[0] == '<')
+			fd = open(file + 1, O_RDONLY);
+		else
+			fd = open(file + 2, O_RDONLY);
+		if (fd == -1)
+			return (error_sentence("minishell: No such file or directory\n", 1));
+		if (data->fd_in != 0)
+			close(data->fd_in);
+		data->fd_in = fd;
+		// i++;
+	// }
+}
 
+void redirect_to(char **inputs,t_parse *data)
+{
+	printf("redirect_to\n");
+	// int		i;
+	int		fd;
+	char	*file;
+	(void)inputs;
+	// i = 0;
+	// while (data->outputs_redirections[i])
+	// {
+	file = data->outputs_redirections[0][0];
+	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	free(file);
+	if (fd < 0)
+	{
+		ft_putstr_fd("Error: wrong permissions\n", 2);
+		data->redir = 0;
+		return ;
+	}
+	dup2(fd, 1);
+	if (data->fd_out != 1)
+		close(data->fd_out);
+	data->fd_out = fd;
+	// 	i++;
+	// }
+}
 
 int			handle_basic(char **inputs, t_parse *data, int piped)
 {
@@ -48,6 +97,11 @@ int			handle_basic(char **inputs, t_parse *data, int piped)
 	// inputs = data.cmds[0];
 	oldfd[0] = dup(1);
 	oldfd[1] = dup(0);
+	printf("dats->in_redir_num[0]: %d\n", data->in_redir_num[0]);
+	if(data->out_redir_num[0]>0)
+		redirect_to(inputs,data);
+	else if(data->in_redir_num[0]> 0)
+		redirect_from(inputs,data);
 	choose_action(inputs,data);
 	// free_inputs(inputs);
 	dup2(oldfd[0], 1);

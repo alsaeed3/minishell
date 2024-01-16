@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/14 17:57:28 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:54:20 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,6 @@ void	handle_pwd(t_parse *data);
 
 void	data_init(t_parse *data, char **env);
 
-
-
-
-
-
-
-int g_status;
+// int g_status;
 
 #endif

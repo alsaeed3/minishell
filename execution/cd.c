@@ -6,12 +6,12 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:48:44 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/14 17:41:23 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:16:06 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
+#include "../inc/parser.h"
 
 static int		cd_minus(t_parse *data)
 {
@@ -59,5 +59,5 @@ void	handle_cd(char **args, t_parse *data)
 		if (!cd_path(args, data))
 			return (error_sentence("cd: no such file or directory\n", 1));
 	}
-	g_status = 0;
+	// g_status = 0;
 }

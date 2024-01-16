@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/14 20:11:32 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:52:25 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	handle_echo(char **args)
 
 	i = 1;
 	n_flag = 0;
-	g_status = 0;
+	// g_status = 0;
 	while (args[i] && !ft_strcmp(args[i], "-n") && i++)
 		n_flag = 1;
 	while (args[i])

@@ -6,12 +6,12 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:48:43 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/12 19:52:45 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:15:43 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
+#include "../inc/parser.h"
 
 char *ft_getpath(char *cmd, char *envpath)
 {

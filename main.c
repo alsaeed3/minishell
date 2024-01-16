@@ -6,12 +6,12 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/14 20:10:17 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:50:25 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
+#include "../inc/parser.h"
 
 void 	print_function(t_parse parser);
 

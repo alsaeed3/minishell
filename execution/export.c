@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/14 17:40:10 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:50:54 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,5 @@ void	handle_export(char **inputs, t_parse *data)
 	}
 	else
 		export_alone(data);
-	g_status = 0;
+	// g_status = 0;
 }
