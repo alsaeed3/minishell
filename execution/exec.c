@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/16 21:50:01 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:18:56 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,23 @@ void redirect_from(char **inputs,t_parse *data)
 	printf("redirect_from\n");
 	// int		i;
 	int		fd;
-	char	*file;
+	char	*filename;
 	(void)inputs;
 	// i = 0;
 	// while (data->inputs_redirections[i])
 	// {
-		file = data->inputs_redirections[0][0];
-		if (file[0] == '<')
-			fd = open(file + 1, O_RDONLY);
-		else
-			fd = open(file + 2, O_RDONLY);
-		if (fd == -1)
-			return (error_sentence("minishell: No such file or directory\n", 1));
-		if (data->fd_in != 0)
-			close(data->fd_in);
-		data->fd_in = fd;
+		filename = data->inputs_redirections[0][0];
+		fd = open(filename, O_RDONLY);
+		if (fd < 0)
+	{
+		ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);
+		data->redir = 0;
+		return ;
+	}
+	dup2(fd, 0);
+	if (data->fd_in != 0)
+		close(data->fd_in);
+	data->fd_in = fd;
 		// i++;
 	// }
 }
@@ -65,14 +67,14 @@ void redirect_to(char **inputs,t_parse *data)
 	printf("redirect_to\n");
 	// int		i;
 	int		fd;
-	char	*file;
+	char	*filename;
 	(void)inputs;
 	// i = 0;
 	// while (data->outputs_redirections[i])
 	// {
-	file = data->outputs_redirections[0][0];
-	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-	free(file);
+	filename = data->outputs_redirections[0][0];
+	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	free(filename);
 	if (fd < 0)
 	{
 		ft_putstr_fd("Error: wrong permissions\n", 2);
