@@ -1,14 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/12/04 17:04:13 by alsaeed          ###   ########.fr       */
+/*   Created: 2023/01/10 15:31:31 by alsaeed           #+#    #+#             */
+/*   Updated: 2023/09/01 16:36:58 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/libft.h"
 
+char	*ft_strchr(char *s, size_t c)
+{
+	while (s && *s)
+	{
+		if (*s == (char)c)
+			return (s);
+		s++;
+	}
+	if (!c)
+		return (s);
+	return (NULL);
+}
