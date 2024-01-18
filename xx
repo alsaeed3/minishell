@@ -1,21 +1,3 @@
 choose_action
 handle_exec
->
-Makefile
-README.md
-a
-aa
-b
-c
-execution
-file
-inc
-l
-leak.sh
-libft
-main.c
-minishell
-minishell.dSYM
-parsing
-x
-xx
+      26

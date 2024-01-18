@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/17 21:18:56 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:01:10 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../inc/parser.h"
 # define FORKED_CHILD 0
 
-int		handle_basic(char **inputs,t_parse *parse, int piped);
+int		handle_basic(char **inputs,t_parse *parse, int piped, int x);
 void	choose_action(char **inpts,t_parse *data);
 void	handle_exec(char **inputs, t_parse *data);
 static int		handle_pipe(t_parse *parse);
@@ -32,11 +32,11 @@ int		check_exec_path(char **inputs, t_parse *data);
 void exec_delegator(t_parse *parser)
 {
 	if (parser->parts_num == 1)
-		handle_basic(parser->cmds[0],parser, 0);
+		handle_basic(parser->cmds[0],parser, 0, 0);
 	else
         handle_pipe(parser);
 }
-void redirect_from(char **inputs,t_parse *data)
+void redirect_from(char **inputs,t_parse *data, int x)
 {
 	printf("redirect_from\n");
 	// int		i;
@@ -46,9 +46,9 @@ void redirect_from(char **inputs,t_parse *data)
 	// i = 0;
 	// while (data->inputs_redirections[i])
 	// {
-		filename = data->inputs_redirections[0][0];
-		fd = open(filename, O_RDONLY);
-		if (fd < 0)
+	filename = data->inputs_redirections[x][0];
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
 	{
 		ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);
 		data->redir = 0;
@@ -62,7 +62,7 @@ void redirect_from(char **inputs,t_parse *data)
 	// }
 }
 
-void redirect_to(char **inputs,t_parse *data)
+void redirect_to(char **inputs,t_parse *data, int x)
 {
 	printf("redirect_to\n");
 	// int		i;
@@ -72,7 +72,7 @@ void redirect_to(char **inputs,t_parse *data)
 	// i = 0;
 	// while (data->outputs_redirections[i])
 	// {
-	filename = data->outputs_redirections[0][0];
+	filename = data->outputs_redirections[x][0];
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	free(filename);
 	if (fd < 0)
@@ -89,7 +89,7 @@ void redirect_to(char **inputs,t_parse *data)
 	// }
 }
 
-int			handle_basic(char **inputs, t_parse *data, int piped)
+int			handle_basic(char **inputs, t_parse *data, int piped, int x)
 {
 	printf("handle_basic\n");
 	// (void)input;
@@ -100,10 +100,10 @@ int			handle_basic(char **inputs, t_parse *data, int piped)
 	oldfd[0] = dup(1);
 	oldfd[1] = dup(0);
 	printf("dats->in_redir_num[0]: %d\n", data->in_redir_num[0]);
-	if(data->out_redir_num[0]>0)
-		redirect_to(inputs,data);
-	else if(data->in_redir_num[0]> 0)
-		redirect_from(inputs,data);
+	if(data->out_redir_num[x]>0)
+		redirect_to(inputs,data, x);
+	else if(data->in_redir_num[x]> 0)
+		redirect_from(inputs,data, x);
 	choose_action(inputs,data);
 	// free_inputs(inputs);
 	dup2(oldfd[0], 1);
@@ -249,7 +249,6 @@ static int handle_pipe(t_parse *parser)
     int pid;
     int status;
     int fd_in = 0;
-    printf("parts_num: %d\n", parser->parts_num);
     while (i < parser->parts_num)
     {
         if(i < parser->parts_num - 1)
@@ -263,7 +262,8 @@ static int handle_pipe(t_parse *parser)
             if (i < parser->parts_num - 1)
                 dup2(fds[STDOUT_FILENO], STDOUT_FILENO);
             close(fds[0]);
-			handle_basic(parser->cmds[i],parser, 1);
+			handle_basic(parser->cmds[i],parser, 1, i);
+			exit(EXIT_SUCCESS);
         }
         waitpid(pid, &status, 0);
         printf("status: %d\n", WEXITSTATUS(status));
