@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:54:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/17 13:13:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/19 12:12:49 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_env	*search_env_key(char *key, t_env *envs)
 	curr = envs;
 	while (curr != NULL)
 	{
-		if (!(ft_strcmp(key, curr->key)));
+		if (!(ft_strcmp(key, curr->key)))
 			return (curr);
 		curr = curr->next;
 	}
@@ -44,7 +44,7 @@ void	change_env_pwd(t_parse *data)
 		last_env = ft_env_last(data->envs_lst);
 		pwd_node = (t_env *)ft_calloc(1, sizeof(t_env));
 		if (!pwd_node)
-			return (NULL);
+			return ;
 		pwd_node->key = "PWD";
 		pwd_node->info = ft_strdup(data->pwd);
 		pwd_node->next = NULL;
@@ -68,7 +68,7 @@ void	change_env_oldpwd(t_parse *data)
 		last_env = ft_env_last(data->envs_lst);
 		oldpwd_node = (t_env *)ft_calloc(1, sizeof(t_env));
 		if (!oldpwd_node)
-			return (NULL);
+			return ;
 		oldpwd_node->key = "OLDPWD";
 		oldpwd_node->info = ft_strdup(data->pwd);
 		oldpwd_node->next = NULL;

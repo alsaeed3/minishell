@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/16 16:07:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/19 12:12:24 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,17 @@ typedef enum e_bool
 	TRUE
 }	t_bool;
 
+typedef struct s_env_size
+{
+	int		envs_size;
+}	t_env_size;
+
 typedef struct s_env
 {
-	char *key;
-	char *info;
+	char		*full_env;
+	char		*key;
+	char		*info;
+	t_env_size	*env_size;
 	struct s_env *next;
 }	t_env;
 
@@ -76,7 +83,11 @@ typedef struct s_parse
 }	t_parse;
 
 void	jump_over_quote(char *cmd_line, int *i, int len);
-t_env	*get_envs(char **original_envs);
+t_env	*add_env(t_env *head, char *env, t_env_size *envs_size);
+t_env	*unset_env(t_env *head, char *env_key);
+char	**get_envs_array(t_env *env_lst);
+t_env	*get_envs_lst(char **original_envs);
+t_env	*ft_env_last(t_env *head);
 char	*ft_getenv(char *key, t_env *envs);
 char	*conv_tabs2spcs(char *cmd_line);
 char	*delete_excess_spcs(char *cmd_line);

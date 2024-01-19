@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/17 13:29:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/19 12:11:14 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	**gen_paths(int index, t_parse *data, char *input);
 void	close_fds(t_parse *data);
 void	exit_pipe(t_parse *data);
 // void	error_sentence(char *str, int status);
-int		execute(char **inputs, char **envp, t_parse *data);
-int		execute_2(char **inputs, char **envp, t_parse *data);
+int		execute(char **inputs, t_parse *data);
+int		execute_2(char **inputs, t_parse *data);
 int		check_exec_path(char **inputs, t_parse *data);
 // int		var_index(char *name, t_parse *data);
 
@@ -162,29 +162,29 @@ int		check_exec_path(char **inputs, t_parse *data)
 }
 
 
-char	**gen_paths(int index, t_parse *data, char *input)
-{
-	char	*str;
-	char	**paths;
-	char	*temp;
-	int		i;
+// char	**gen_paths(int index, t_parse *data, char *input)
+// {
+// 	char	*str;
+// 	char	**paths;
+// 	char	*temp;
+// 	int		i;
 
-	i = 0;
-	str = ft_strdup(ft_getenv("PATH", data->envs_lst));
-	paths = ft_split(str, ':');
-	free(str);
-	while (paths[i])
-	{
-		temp = paths[i];
-		paths[i] = ft_strjoin(paths[i], "/");
-		free(temp);
-		temp = paths[i];
-		paths[i] = ft_strjoin(paths[i], input);
-		free(temp);
-		i++;
-	}
-	return (paths);
-}
+// 	i = 0;
+// 	str = ft_strdup(ft_getenv("PATH", data->envs_lst));
+// 	paths = ft_split(str, ':');
+// 	free(str);
+// 	while (paths[i])
+// 	{
+// 		temp = paths[i];
+// 		paths[i] = ft_strjoin(paths[i], "/");
+// 		free(temp);
+// 		temp = paths[i];
+// 		paths[i] = ft_strjoin(paths[i], input);
+// 		free(temp);
+// 		i++;
+// 	}
+// 	return (paths);
+// }
 
 static int handle_pipe(t_parse *parser)
 {
@@ -242,11 +242,13 @@ void		exit_pipe(t_parse *data)
 	exit(EXIT_SUCCESS);
 }
 
-int		execute(char **inputs, char **envp, t_parse *data)
+int		execute(char **inputs, t_parse *data)
 {
 	int			index;
+	char		**envp;
 	struct stat	statounet;
 
+	envp = get_envs_array(data->envs_lst);
 	statounet.st_mode = 0;
 	index = var_index("PATH=", data);
 	stat(inputs[0], &statounet);
@@ -255,20 +257,22 @@ int		execute(char **inputs, char **envp, t_parse *data)
 		return (0);
 	else if (index >= 0)
 	{
-		if (!execute_2(inputs, data, envp))
+		if (!execute_2(inputs, data))
 			return (0);
 	}
 	return (1);
 }
 
-int		execute_2(char **inputs, char **envp, t_parse *data)
+int		execute_2(char **inputs, t_parse *data)
 {
 	int			i;
 	char		**paths;
 	int			index;
+	char		**envp;
 	struct stat	statounet;
 
 	i = 0;
+	envp = get_envs_array(data->envs_lst);
 	statounet.st_mode = 0;
 	index = var_index("PATH=", data);
 	paths = gen_paths(index, data, inputs[0]);

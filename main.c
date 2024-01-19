@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/16 19:18:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/18 17:48:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,38 @@
 
 void 	print_function(t_parse parser);
 
+void	ctrl_c_handler(int sig)
+{
+	char *argv[2];
+	
+	argv[0] = "minishell";
+	argv[1] = NULL;
+	execve("minishell", argv, NULL);
+}
+
+void	ctrl_d_handler(int sig)
+{
+	kill(sig, SIGKILL);
+}
+
+void	ctrl_slash_handler(int sig)
+{
+	return ;
+}
+
 /* Test the whole parsing in int main */
 int main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
 	t_parse	*parser;
+	struct sigaction sa;
+	sa.sa_handler = &ctrl_c_handler;
+	sigaction(SIGINT, &sa, NULL);
+	sa.sa_handler = &ctrl_d_handler;
+	sigaction(EOF, &sa, NULL);
+	sa.sa_handler = &ctrl_slash_handler;
+	sigaction(SIGQUIT, &sa, NULL);
 	/*sig_int();*/
 	data_init(parser);
 	while (1)
@@ -206,69 +232,69 @@ int main(int ac, char **av, char **env)
 // }
 
 
-void print_function(t_parse parser)
-{
-	int j;
-	printf("parts_num = %d\n", parser.parts_num);
-		printf("\n");
-		printf("---------------------------------------------\n");
-		printf("#       inputs_redirection_file_names:      #\n");
-		int	i = -1;
-		if (parser.inputs_redirections)
-		{
-			while(parser.inputs_redirections[++i])
-			{
-				j = -1;
-				while (parser.inputs_redirections[i][++j])
-					printf("-------->part:[%d], order:[%d] = {%s}\n", i, j, parser.inputs_redirections[i][j]);			
-			}
-		}
-		printf("\n");
-		printf("---------------------------------------------\n");
-		printf("#                inputs_tokens:             #\n");
-		i = -1;
-		if (parser.in_redir_num)
-		{
-			while (++i < parser.parts_num)
-			{
-				j = -1;
-				while (++j < parser.in_redir_num[i])
-					printf("-------->part:[%d], order:[%d] = { %d }\n", i, j, parser.inputs_tokens[i][j]);
-			}
-		}
-		printf("\n");
-		printf("---------------------------------------------\n");
-		printf("#      outputs_redirection_file_names:      #\n");
-		i = -1;
-		while(parser.outputs_redirections[++i])
-		{
-			j = -1;
-			while (parser.outputs_redirections[i][++j])
-				printf("-------->part:[%d], order:[%d] = {%s}\n", i, j, parser.outputs_redirections[i][j]);			
-		}
-		printf("\n");
-		printf("---------------------------------------------\n");
-		printf("#               outputs_tokens:             #\n");
-		i = -1;
-		while (++i < parser.parts_num)
-		{
-			j = -1;
-			while (++j < parser.out_redir_num[i])
-				printf("-------->part:[%d], order:[%d] = { %d }\n", i, j, parser.outputs_tokens[i][j]);
-		}
-		printf("\n");
-		printf("---------------------------------------------\n");
-		printf("#                   cmds:                   #\n");
-		i = -1;
-		while(parser.cmds[++i])
-		{
-			j = -1;
-			while (parser.cmds[i][++j])
-				printf("-------->part:[%d], order:[%d] = {%s}\n", i, j, parser.cmds[i][j]);			
-		}
-		printf("\n");
+// void print_function(t_parse parser)
+// {
+// 	int j;
+// 	printf("parts_num = %d\n", parser.parts_num);
+// 		printf("\n");
+// 		printf("---------------------------------------------\n");
+// 		printf("#       inputs_redirection_file_names:      #\n");
+// 		int	i = -1;
+// 		if (parser.inputs_redirections)
+// 		{
+// 			while(parser.inputs_redirections[++i])
+// 			{
+// 				j = -1;
+// 				while (parser.inputs_redirections[i][++j])
+// 					printf("-------->part:[%d], order:[%d] = {%s}\n", i, j, parser.inputs_redirections[i][j]);			
+// 			}
+// 		}
+// 		printf("\n");
+// 		printf("---------------------------------------------\n");
+// 		printf("#                inputs_tokens:             #\n");
+// 		i = -1;
+// 		if (parser.in_redir_num)
+// 		{
+// 			while (++i < parser.parts_num)
+// 			{
+// 				j = -1;
+// 				while (++j < parser.in_redir_num[i])
+// 					printf("-------->part:[%d], order:[%d] = { %d }\n", i, j, parser.inputs_tokens[i][j]);
+// 			}
+// 		}
+// 		printf("\n");
+// 		printf("---------------------------------------------\n");
+// 		printf("#      outputs_redirection_file_names:      #\n");
+// 		i = -1;
+// 		while(parser.outputs_redirections[++i])
+// 		{
+// 			j = -1;
+// 			while (parser.outputs_redirections[i][++j])
+// 				printf("-------->part:[%d], order:[%d] = {%s}\n", i, j, parser.outputs_redirections[i][j]);			
+// 		}
+// 		printf("\n");
+// 		printf("---------------------------------------------\n");
+// 		printf("#               outputs_tokens:             #\n");
+// 		i = -1;
+// 		while (++i < parser.parts_num)
+// 		{
+// 			j = -1;
+// 			while (++j < parser.out_redir_num[i])
+// 				printf("-------->part:[%d], order:[%d] = { %d }\n", i, j, parser.outputs_tokens[i][j]);
+// 		}
+// 		printf("\n");
+// 		printf("---------------------------------------------\n");
+// 		printf("#                   cmds:                   #\n");
+// 		i = -1;
+// 		while(parser.cmds[++i])
+// 		{
+// 			j = -1;
+// 			while (parser.cmds[i][++j])
+// 				printf("-------->part:[%d], order:[%d] = {%s}\n", i, j, parser.cmds[i][j]);			
+// 		}
+// 		printf("\n");
 	
-}
+// }
 
 
 
