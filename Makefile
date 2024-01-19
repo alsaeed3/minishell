@@ -6,7 +6,7 @@
 #    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/14 19:56:42 by habu-zua         ###   ########.fr        #
+#    Updated: 2024/01/19 19:26:11 by habu-zua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRCSX = exec.c ft_getpath.c ft_free.c\
 		cd.c cd_utils.c echo.c pwd.c\
 		export.c export_utils.c\
 		exit.c env.c unset.c \
-		data_init.c\
+		data_init.c redirections.c exec_utils.c\
+		pipe.c close_fds.c
 
 
 OBJS_DIR = parsing/objs/

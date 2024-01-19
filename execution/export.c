@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 15:24:39 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:02:57 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	export_alone(t_parse *data)
 
 void	handle_export(char **inputs, t_parse *data)
 {
-	printf("handle_export\n");
 	int	i;
 	int	index;
 

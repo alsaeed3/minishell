@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 15:24:34 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:01:51 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	error_sentence(char *str, int status)
 {
-	// g_status = status;
 	(void)status;
 	ft_putstr_fd(str, 2);
 }

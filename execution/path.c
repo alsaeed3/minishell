@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/14 17:26:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 19:31:19 by habu-zua         ###   ########.fr       */
+/*   Created: 2024/01/19 19:13:53 by habu-zua          #+#    #+#             */
+/*   Updated: 2024/01/19 19:14:17 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,11 @@ int		check_exec_path(char **inputs, t_parse *data)
 		stat(paths[i], &statounet);
 		if ((statounet.st_mode & S_IXUSR) && !(statounet.st_mode & S_IFDIR))
 		{
-			free_env(paths);
+			// free_env(paths);
 			return (1);
 		}
 		i++;
 	}
-	free_env(paths);
+	// free_env(paths);
 	return (0);
-}
-
-int		check_exec(char **inputs, t_parse *data)
-{
-	int			ret;
-	struct stat	statounet;
-
-	statounet.st_mode = 0;
-	ret = 0;
-	stat(inputs[0], &statounet);
-	if (ft_strchr(inputs[0], '/') && (statounet.st_mode & S_IXUSR) &&
-	 !(statounet.st_mode & S_IFDIR))
-		ret = 1;
-	else
-		ret = check_exec_path(inputs, data);
-	return (ret);
 }

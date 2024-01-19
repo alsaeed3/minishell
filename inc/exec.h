@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/16 20:54:20 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:27:25 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define EXEC_H
 
 # include "parser.h"
+# define FORKED_CHILD 0
+
 
 void    exec_delegator(t_parse *parser);
 void    ft_free(char **cmd);
@@ -41,6 +43,24 @@ void	handle_unset(char **inputs, t_parse *data);
 void	handle_pwd(t_parse *data);
 
 void	data_init(t_parse *data, char **env);
+
+void    redirect_from(char **inputs,t_parse *data, int x);
+void    redirect_to(char **inputs,t_parse *data, int x);
+
+char	**gen_paths(int index, t_parse *data, char *input);
+int		check_exec_path(char **inputs, t_parse *data);
+int		check_exec(char **inputs, t_parse *data);
+
+
+int     handle_pipe(t_parse *parser);
+int		handle_basic(char **inputs, t_parse *data, int piped, int x);
+void	exit_pipe(t_parse *data);
+
+void	close_fds(t_parse *data);
+
+
+
+
 
 // int g_status;
 
