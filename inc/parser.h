@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/12 14:09:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/16 14:57:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ typedef enum e_bool
 	TRUE
 }	t_bool;
 
+typedef struct s_env
+{
+	char *key;
+	char *info;
+	struct s_env *next;
+}	t_env;
+
 typedef struct s_parse
 {
 	int		parts_num;
@@ -60,11 +67,15 @@ typedef struct s_parse
 	char	***outputs_redirections;
 	int		**outputs_tokens;
 	char	***cmds;
+	t_env	*envs;
 }	t_parse;
 
 void	jump_over_quote(char *cmd_line, int *i, int len);
+t_env	*get_envs(char **original_envs);
+char	*ft_getenv(char *key, t_env *envs);
 char	*conv_tabs2spcs(char *cmd_line);
 char	*delete_excess_spcs(char *cmd_line);
+char	*expand_dollar_string(char *cmd_line, t_env *env_lst);
 t_bool	check_pipe_redir(char *line);
 t_bool	check_pipe_red_2(char *cmd_line);
 int		*find_infiles_heredocs_num(char *cmd_line);
@@ -84,7 +95,7 @@ char	*conv_redir2spcs(char *cmd_line);
 int		*find_cmds_num(char *cmd_line);
 int		**find_cmds_chars_num(char *cmd_line);
 char	***split_cmds(char *cmd_line);
-t_bool	parse_shell(char *cmd_line, t_parse *parser);
+t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse *parser);
 int		count_size_without_redir(char *cmd_line);
 
 // struct red

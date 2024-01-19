@@ -6,15 +6,17 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/11 15:19:18 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/16 14:53:40 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
 /* Test the whole parsing in int main */
-int main(void)
+int main(int ac, char **av, char **env)
 {
+	(void)ac;
+	(void)av;
 	t_parse	parser;
 	while (1)
 	{
@@ -23,7 +25,7 @@ int main(void)
 		add_history(cmd_line);
 		char	*dup = ft_strdup(cmd_line);
 		printf("\n");
-		if (parse_shell(dup, &parser))
+		if (parse_shell(dup, env, &parser))
 			continue ;
 		free (dup);
 		int j;
@@ -84,7 +86,16 @@ int main(void)
 			while (parser.cmds[i][++j])
 				printf("-------->part:[%d], order:[%d] = {%s}\n", i, j, parser.cmds[i][j]);			
 		}
-		printf("\n");
+		// printf("\n");
+		// printf("---------------------------------------------\n");
+		// printf("#                   envs:                   #\n");
+		// t_env *curr = parser.envs;
+		// while (curr != NULL)
+		// {
+		// 	printf("-------->key   = {%s}\n", curr->key);
+		// 	printf("-------->info  = {%s}\n", curr->info);
+		// 	curr = curr->next;
+		// }
 		// free_char_triple_pointer(inputs_names);
 	}
 	return (0);

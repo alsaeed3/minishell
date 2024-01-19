@@ -17,4 +17,7 @@ echo <"<><|" | hi < sdf
 echo <"""<><|" | hi < sdf
 <   "  he'"oo<lol bro <gg lol
 
-ls -la|cd
+ls -la|cd 
+ctrl + d in minishell executable
+
+' $USER' $"USER" abc$USER"$USER&"

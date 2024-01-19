@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/12 17:27:53 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/14 20:40:25 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ char	*delete_excess_spcs(char *cmd_line)
 		}
 		if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ' && !quo_trigger)
 		{
-			ret[j++] = cmd_line[i];
+			if (i < len - 1 || (i == len - 1 && cmd_line[len - 1] != ' '))
+				ret[j++] = cmd_line[i];
 			while (cmd_line[i] == ' ')
 				i++;
 			if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
@@ -103,9 +104,11 @@ char	*delete_excess_spcs(char *cmd_line)
 				quo_char = cmd_line[i];
 			}
 		}
-		ret[j++] = cmd_line[i];
+		if (i < len - 1 || (i == len - 1 && cmd_line[len - 1] != ' '))
+				ret[j++] = cmd_line[i];
 	}
-	ret[j] = '\0';
+	if (ret[j])
+		ret[++j] = '\0';
 	return (ret);
 }
 

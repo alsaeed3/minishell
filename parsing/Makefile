@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/10 15:20:20 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/15 21:22:54 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,13 @@ SRCS =	convert_tabs_to_spc.c \
 		convert_redir_to_spc.c \
 		split_commands.c \
 		parse.c \
+		expand_dollar2env.c \
+		get_envs.c \
 		main.c
 
 OBJS_DIR = objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-CFLAGS = -Wall -Wextra -Werror -I include -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I inc -g3 -fsanitize=address
 LDFLAGS = -lreadline
 
 LIBFT_DIR = ../libft
