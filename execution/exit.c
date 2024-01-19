@@ -6,11 +6,13 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 19:01:51 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:01:26 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
+#include "../inc/parser.h"
+
 
 void	error_sentence(char *str, int status)
 {
@@ -36,7 +38,6 @@ int		is_number(char *str)
 
 void	handle_exit(char **inputs, t_parse *data)
 {
-	printf("handle_exit\n");
 	(void)inputs;
 	// g_status = 0;
 	// int error;

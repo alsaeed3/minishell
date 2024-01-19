@@ -6,10 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:48:44 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 15:24:09 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:01:08 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/parser.h"
 #include "../inc/exec.h"
 
 static int		cd_minus(t_parse *data)
@@ -40,7 +41,6 @@ static int		cd_path(char **args, t_parse *data)
 
 void	handle_cd(char **args, t_parse *data)
 {
-	printf("handle_cd\n");
 	if (args[1] && args[2])
 		return (error_sentence("cd: too many arguments\n", 1));
 	else if (!args[1])

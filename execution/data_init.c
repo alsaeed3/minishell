@@ -6,11 +6,12 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 15:24:11 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:50:05 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/exec.h"
+#include "../inc/parser.h"
 
 void	data_init(t_parse *data, char **env)
 {

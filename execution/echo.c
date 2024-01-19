@@ -6,23 +6,27 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 15:24:18 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:49:08 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include "../inc/parser.h"
 #include "../inc/exec.h"
 
 void	handle_echo(char **args)
 {
-	printf("handle_echo\n");
 	int i;
 	int n_flag;
 
 	i = 1;
 	n_flag = 0;
 	// g_status = 0;
-	while (args[i] && !ft_strcmp(args[i], "-n") && i++)
+	while (args[i] && !ft_strcmp(args[i], "-n"))
+	{
 		n_flag = 1;
+		i++;
+	}
 	while (args[i])
 	{
 		write(1, args[i], ft_strlen(args[i]));

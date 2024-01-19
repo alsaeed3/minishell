@@ -6,11 +6,13 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:23:49 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 19:02:26 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:49:53 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
+#include "../inc/parser.h"
+
 
 char	**unset_env(char **old_env, int index)
 {

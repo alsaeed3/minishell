@@ -6,12 +6,12 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:27:07 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 19:02:33 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:47:03 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/parser.h"
 #include "../inc/exec.h"
-
 void	handle_pwd(t_parse *data)
 {
 	ft_putstr(data->pwd);

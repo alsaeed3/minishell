@@ -6,11 +6,12 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 19:20:45 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:01:31 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
+#include "../inc/parser.h"
 
 
 int handle_pipe(t_parse *parser)
@@ -33,11 +34,10 @@ int handle_pipe(t_parse *parser)
             if (i < parser->parts_num - 1)
                 dup2(fds[STDOUT_FILENO], STDOUT_FILENO);
             close(fds[0]);
-			handle_basic(parser->cmds[i],parser, 1, i);
+			handle_single(parser->cmds[i],parser, 1, i);
 			exit(EXIT_SUCCESS);
         }
         waitpid(pid, &status, 0);
-        printf("status: %d\n", WEXITSTATUS(status));
         close(fds[1]);
         fd_in = fds[0];
         i++;

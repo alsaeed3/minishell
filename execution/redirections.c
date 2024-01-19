@@ -6,18 +6,17 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 19:10:49 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:30:51 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void redirect_from(char **inputs,t_parse *data, int x)
+void redirect_from(t_parse *data, int x)
 {
-	int i;
+	int 	i;
 	int		fd;
 	char	*filename;
-	(void)inputs;
 	
 	i = 0;
 	while (i < data->in_redir_num[x])
@@ -39,11 +38,10 @@ void redirect_from(char **inputs,t_parse *data, int x)
 }
 
 
-void redirect_to(char **inputs,t_parse *data, int x)
+void redirect_to(t_parse *data, int x)
 {
 	int		fd;
 	char	*filename;
-	(void)inputs;
 	int i;
 	i = 0;
 	while (i < data->out_redir_num[x])

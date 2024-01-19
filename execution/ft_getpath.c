@@ -6,10 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:48:43 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 19:02:49 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:48:43 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/parser.h"
 #include "../inc/exec.h"
 
 char *ft_getpath(char *cmd, char *envpath)

@@ -6,41 +6,34 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 19:31:23 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:35:01 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/parser.h"
 #include "../inc/exec.h"
-
-void	choose_action(char **inpts,t_parse *data);
-void	handle_exec(char **inputs, t_parse *data);
-int		execute_2(char **inputs, t_parse *data);
-int		execute(char **inputs, t_parse *data);
 
 void 	exec_delegator(t_parse *parser)
 {
 	if (parser->parts_num == 1)
-		handle_basic(parser->cmds[0],parser, 0, 0);
+		handle_single(parser->cmds[0],parser, 0, 0);
 	else
         handle_pipe(parser);
 }
 
-
-int		handle_basic(char **inputs, t_parse *data, int piped, int x)
+int		handle_single(char **inputs, t_parse *data, int piped, int x)
 {
-	printf("handle_basic\n");
 	int		oldfd[2];
 
-	oldfd[0] = dup(1);
-	oldfd[1] = dup(0);
-	printf("dats->in_redir_num[0]: %d\n", data->in_redir_num[0]);
+	oldfd[0] = dup(0);
+	oldfd[1] = dup(1);
 	if(data->out_redir_num[x]>0)
-		redirect_to(inputs,data, x);
+		redirect_to(data, x);
 	else if(data->in_redir_num[x]> 0)
-		redirect_from(inputs,data, x);
+		redirect_from(data, x);
 	choose_action(inputs,data);
-	dup2(oldfd[0], 1);
-	dup2(oldfd[1], 0);
+	dup2(oldfd[0], 0);
+	dup2(oldfd[1], 1);
 	close_fds(data);
 	close(oldfd[0]);
 	close(oldfd[1]);
@@ -52,25 +45,24 @@ int		handle_basic(char **inputs, t_parse *data, int piped, int x)
 
 void		choose_action(char **inputs,t_parse *data)
 {
-	printf("choose_action\n");
 	if (!data->redir)
 	{
 		data->redir = 1;
 		return ;
 	}
-	if (!ft_strcmp(inputs[0], "echo"))
+	if (ft_strcmp(inputs[0], "echo") == 0)
 		handle_echo(inputs);
-	else if (!ft_strcmp(inputs[0], "pwd"))
+	else if (ft_strcmp(inputs[0], "pwd") == 0)
 		handle_pwd(data);
-	else if (!ft_strcmp(inputs[0], "cd"))
+	else if (ft_strcmp(inputs[0], "cd") == 0)
 		handle_cd(inputs, data);
-	else if (!ft_strcmp(inputs[0], "env"))
+	else if (ft_strcmp(inputs[0], "env") == 0)
 		handle_env(data->env);
-	else if (!ft_strcmp(inputs[0], "exit"))
+	else if (ft_strcmp(inputs[0], "exit") == 0)
 		handle_exit(inputs, data);
-	else if (!ft_strcmp(inputs[0], "export"))
+	else if (ft_strcmp(inputs[0], "export") == 0)
 		handle_export(inputs, data);
-	else if (!ft_strcmp(inputs[0], "unset"))
+	else if (ft_strcmp(inputs[0], "unset") == 0)
 		handle_unset(inputs, data);
 	else
 	{
@@ -80,7 +72,6 @@ void		choose_action(char **inputs,t_parse *data)
 
 void	handle_exec(char **inputs, t_parse *data)
 {
-	printf("handle_exec\n");
 	pid_t	pid;
 	int		status;
 
