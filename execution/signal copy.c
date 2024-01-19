@@ -6,13 +6,12 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 14:32:04 by tpons             #+#    #+#             */
-/*   Updated: 2024/01/16 20:54:14 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:25:32 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
-
+/*
 void	handle_sig(int sig)
 {
 	if (sig == SIGINT)
@@ -35,7 +34,7 @@ void	sig_init(void)
 	else if (signal(SIGQUIT, handle_sig) == SIG_ERR)
 		exit(EXIT_FAILURE);
 }
-
+*/
 // void	handle_exec_sig(int sig)
 // {
 // 	// if (sig == SIGINT)

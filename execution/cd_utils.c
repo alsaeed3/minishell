@@ -6,12 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:54:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/16 21:17:02 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:23:55 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-#include "../inc/parser.h"
 
 void	change_env_pwd(t_parse *data)
 {

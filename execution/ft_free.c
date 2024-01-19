@@ -6,12 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:46:44 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/16 21:15:54 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:24:41 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-#include "../inc/parser.h"
 
 void ft_free(char **cmd)
 {

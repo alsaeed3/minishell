@@ -6,12 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/18 22:01:10 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:54:11 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-#include "../inc/parser.h"
 # define FORKED_CHILD 0
 
 int		handle_basic(char **inputs,t_parse *parse, int piped, int x);
@@ -62,25 +61,31 @@ void redirect_from(char **inputs,t_parse *data, int x)
 	// }
 }
 
+
 void redirect_to(char **inputs,t_parse *data, int x)
 {
 	printf("redirect_to\n");
-	// int		i;
 	int		fd;
 	char	*filename;
 	(void)inputs;
-	// i = 0;
-	// while (data->outputs_redirections[i])
-	// {
-	filename = data->outputs_redirections[x][0];
-	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-	free(filename);
-	if (fd < 0)
-	{
-		ft_putstr_fd("Error: wrong permissions\n", 2);
-		data->redir = 0;
-		return ;
-	}
+	int i;
+	i = 0;
+	while (i < data->out_redir_num[x])
+		{
+			filename = data->outputs_redirections[x][i];
+			if (data->outputs_tokens[x][i] == 1)
+				fd = open(filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+			else
+				fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+			free(filename);
+			if (fd < 0)
+			{
+				ft_putstr_fd("Error: wrong permissions\n", 2);
+				data->redir = 0;
+				return ;
+			}
+			i++;
+		}
 	dup2(fd, 1);
 	if (data->fd_out != 1)
 		close(data->fd_out);
