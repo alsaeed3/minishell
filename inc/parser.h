@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/19 12:12:24 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/20 17:15:53 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ typedef struct s_env_size
 
 typedef struct s_env
 {
-	char		*full_env;
 	char		*key;
 	char		*info;
-	t_env_size	*env_size;
 	struct s_env *next;
 }	t_env;
 
@@ -83,9 +81,9 @@ typedef struct s_parse
 }	t_parse;
 
 void	jump_over_quote(char *cmd_line, int *i, int len);
-t_env	*add_env(t_env *head, char *env, t_env_size *envs_size);
-t_env	*unset_env(t_env *head, char *env_key);
-char	**get_envs_array(t_env *env_lst);
+t_env	*add_env(t_env *head, char *env);
+// t_env	*unset_env(t_env *head, char *env_key);
+// char	**get_envs_array(t_env *env_lst);
 t_env	*get_envs_lst(char **original_envs);
 t_env	*ft_env_last(t_env *head);
 char	*ft_getenv(char *key, t_env *envs);
@@ -113,6 +111,7 @@ int		**find_cmds_chars_num(char *cmd_line);
 char	***split_cmds(char *cmd_line);
 t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse *parser);
 int		count_size_without_redir(char *cmd_line);
+
 
 // struct red
 // {

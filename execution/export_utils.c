@@ -6,11 +6,10 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:03:01 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/14 15:03:05 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/20 11:10:40 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
 
 int		check_export(char *str)

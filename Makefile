@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/16 15:25:48 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/20 15:24:04 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,16 +30,16 @@ SRCS =	convert_tabs_to_spc.c \
 		tokenize_out_redir.c \
 		convert_redir_to_spc.c \
 		split_commands.c \
-		parse.c \
-		expand_dollar2env.c \
 		get_envs.c \
-		main.c
+		expand_dollar2env.c \
+		parse.c 
 
-SRCSX = exec.c ft_getpath.c ft_free.c\
+SRCSX = exec_delegate.c execute.c ft_getpath.c ft_free.c\
 		cd.c cd_utils.c echo.c pwd.c\
 		export.c export_utils.c\
 		exit.c env.c unset.c \
-		data_init.c\
+		data_init.c redirections.c exec_utils.c\
+		pipe.c close_fds.c
 
 
 OBJS_DIR = parsing/objs/
@@ -56,21 +56,21 @@ all: $(LIBFT_LIB) $(NAME)
 
 $(OBJS_DIR)%.o: parsing/%.c
 	@mkdir -p $(OBJS_DIR)
-	@gcc $(CFLAGS) -c $< -o $@
+	@clang $(CFLAGS) -c $< -o $@
 	
 $(OBJSX_DIR)%.o: execution/%.c
 	@mkdir -p $(OBJSX_DIR)
-	@gcc $(CFLAGS) -c $< -o $@
+	@clang $(CFLAGS) -c $< -o $@
 	
 $(NAME): $(OBJS) $(OBJSX)
-	@gcc $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main.c -o $(NAME) $(LDFLAGS)
+	@clang $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main.c -o $(NAME) $(LDFLAGS)
 	@echo "minishell Compiled: \033[1;32mOK\n\033[0m"
 
 $(LIBFT_LIB):
 	@make -sC $(LIBFT_DIR)
 
 norm:
-	@norminette
+	norminette
 
 clean:
 	@make clean -sC $(LIBFT_DIR)

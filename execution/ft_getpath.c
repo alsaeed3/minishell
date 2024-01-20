@@ -6,11 +6,10 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:48:43 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/12 19:52:45 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/20 11:09:40 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
 
 char *ft_getpath(char *cmd, char *envpath)
@@ -22,7 +21,6 @@ char *ft_getpath(char *cmd, char *envpath)
 	
 	if(access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));
- 
     temp = ft_split(envpath, ':');
     i = 0;
     while(temp[i])
@@ -31,10 +29,7 @@ char *ft_getpath(char *cmd, char *envpath)
         path = ft_strjoin(temp2, cmd);
         free(temp2);
         if (access(path, F_OK) == 0)
-		{
-			// printf("path = %s\n", path);
 			return (ft_free(temp), path);
-		}
         free(path);
         i++;
     }

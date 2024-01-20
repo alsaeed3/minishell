@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 14:48:47 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/16 15:33:18 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/20 15:24:32 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ all: 			$(NAME)
 
 $(OBJS_DIR)%.o: src/%.c
 	@mkdir -p $(OBJS_DIR)
-	@gcc $(CFLAGS) -c $< -o $@
+	@clang $(CFLAGS) -c $< -o $@
 
 $(NAME): 		$(OBJS)
 	@$(ARFLAGS) $(NAME) $(OBJS)

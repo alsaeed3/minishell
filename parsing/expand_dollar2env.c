@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar2env.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/16 14:57:15 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/20 18:05:55 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int expand_dollar_count(char *cmd_line, t_env *env_lst)
 	int		len;
 	int		i;
 	int		j;
-	int		k;
 	size_t	exp_size;
 	
 	len = ft_strlen(cmd_line);
@@ -46,8 +45,7 @@ static int expand_dollar_count(char *cmd_line, t_env *env_lst)
 	duo_quo_trigger = FALSE;
 	dollar_trigger = FALSE;
 	i = -1;
-	j = -1;
-	k = 0;
+	j = 0;
 	env = NULL;
 	exp_size = 0;
 	while (++i < len && cmd_line[i])
@@ -64,22 +62,20 @@ static int expand_dollar_count(char *cmd_line, t_env *env_lst)
 			i++;
 			duo_quo_trigger = TRUE;
 		}
-		if (cmd_line[i] == '$' && !(cmd_line[i + 1] >= 65 && cmd_line[i + 1] <= 90) && !(cmd_line[i + 1] >= 97 && cmd_line[i + 1] <= 122) && !solo_quo_trigger)
+		if (i < len - 2 && cmd_line[i] == '$' && !(cmd_line[i + 1] >= 65 && cmd_line[i + 1] <= 90) && !(cmd_line[i + 1] >= 97 && cmd_line[i + 1] <= 122) && !solo_quo_trigger)
 			i += 2;
 		else if (cmd_line[i] == '$' && ((cmd_line[i + 1] >= 65 && cmd_line[i + 1] <= 90) || (cmd_line[i + 1] >= 97 && cmd_line[i + 1] <= 122)) && !solo_quo_trigger)
 			dollar_trigger = TRUE;
-		else if (cmd_line[i] && cmd_line[i] == '$' && !dollar_trigger && solo_quo_trigger)
-			++exp_size;
 		if (dollar_trigger && ((cmd_line[i] >= 65 && cmd_line[i] <= 90) || (cmd_line[i] >= 97 && cmd_line[i] <= 122)))
 		{
 				env = ft_calloc(find_env_size(cmd_line, i) + 1, sizeof(char));
 				if (!env)
 					return (0);
-				k = 0;
-				env[k++] = cmd_line[i];
+				j = 0;
+				env[j++] = cmd_line[i];
 				while(++i < len && ((cmd_line[i] >= 65 && cmd_line[i] <= 90) || (cmd_line[i] >= 97 && cmd_line[i] <= 122) || (cmd_line[i] >= 48 && cmd_line[i] <= 57)))
-					env[k++] = cmd_line[i];
-				env[k] = '\0';
+					env[j++] = cmd_line[i];
+				env[j] = '\0';
 				dollar_trigger = FALSE;
 				if (ft_getenv(env, env_lst))
 					exp_size += ft_strlen(ft_getenv(env ,env_lst));
@@ -101,7 +97,7 @@ static int expand_dollar_count(char *cmd_line, t_env *env_lst)
 			i++;
 			duo_quo_trigger = FALSE;
 		}
-		if (cmd_line[i] == '$' && !dollar_trigger && !solo_quo_trigger)
+		if (cmd_line[i] == '$' && ((cmd_line[i + 1] >= 65 && cmd_line[i + 1] <= 90) || (cmd_line[i + 1] >= 97 && cmd_line[i + 1] <= 122)) && !dollar_trigger && !solo_quo_trigger)
 			dollar_trigger = TRUE;
 		else if (cmd_line[i] && (!dollar_trigger || cmd_line[i] != '$'))
 			exp_size++;
@@ -149,12 +145,10 @@ char *expand_dollar_string(char *cmd_line, t_env *env_lst)
 			i++;
 			duo_quo_trigger = TRUE;
 		}
-		if (cmd_line[i] == '$' && !(cmd_line[i + 1] >= 65 && cmd_line[i + 1] <= 90) && !(cmd_line[i + 1] >= 97 && cmd_line[i + 1] <= 122) && !solo_quo_trigger)
+		if (i < len - 2 && cmd_line[i] == '$' && !(cmd_line[i + 1] >= 65 && cmd_line[i + 1] <= 90) && !(cmd_line[i + 1] >= 97 && cmd_line[i + 1] <= 122) && !solo_quo_trigger)
 			i += 2;
 		else if (cmd_line[i] == '$' && ((cmd_line[i + 1] >= 65 && cmd_line[i + 1] <= 90) || (cmd_line[i + 1] >= 97 && cmd_line[i + 1] <= 122)) && !solo_quo_trigger)
 			dollar_trigger = TRUE;
-		else if (cmd_line[i] && cmd_line[i] == '$' && !dollar_trigger && solo_quo_trigger)
-			ret[j++] = cmd_line[i];
 		if (dollar_trigger && ((cmd_line[i] >= 65 && cmd_line[i] <= 90) || (cmd_line[i] >= 97 && cmd_line[i] <= 122)))
 		{
 				env = ft_calloc(find_env_size(cmd_line, i) + 1, sizeof(char));
@@ -191,7 +185,7 @@ char *expand_dollar_string(char *cmd_line, t_env *env_lst)
 			i++;
 			duo_quo_trigger = FALSE;
 		}
-		if (cmd_line[i] == '$' && !dollar_trigger && !solo_quo_trigger)
+		if (cmd_line[i] == '$' && ((cmd_line[i + 1] >= 65 && cmd_line[i + 1] <= 90) || (cmd_line[i + 1] >= 97 && cmd_line[i + 1] <= 122)) && !dollar_trigger && !solo_quo_trigger)
 			dollar_trigger = TRUE;
 		else if (cmd_line[i] && (!dollar_trigger || cmd_line[i] != '$'))
 			ret[j++] = cmd_line[i];
