@@ -6,11 +6,10 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:48:44 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:01:08 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/20 11:09:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
 
 static int		cd_minus(t_parse *data)

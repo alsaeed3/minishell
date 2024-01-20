@@ -6,12 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:22:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 22:50:36 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/20 11:11:43 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-#include "../inc/parser.h"
 
 void		close_fds(t_parse *data)
 {

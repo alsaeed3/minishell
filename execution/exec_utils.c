@@ -6,12 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:26:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 22:50:22 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/20 11:11:31 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-#include "../inc/parser.h"
 
 char	**gen_paths(int index, t_parse *data, char *input)
 {

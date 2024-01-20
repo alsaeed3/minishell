@@ -6,14 +6,13 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 22:47:37 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/20 12:19:35 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
 
-int		var_index(char *name, t_parse *data)
+int	var_index(char *name, t_parse *data)
 {
 	int		y;
 	int		x;

@@ -6,12 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:01:26 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/20 11:10:46 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-#include "../inc/parser.h"
 
 
 void	error_sentence(char *str, int status)

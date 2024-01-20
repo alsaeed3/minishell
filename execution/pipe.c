@@ -6,12 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:01:31 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/20 11:11:37 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-#include "../inc/parser.h"
 
 
 int handle_pipe(t_parse *parser)

@@ -6,7 +6,7 @@
 #    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/19 19:26:11 by habu-zua         ###   ########.fr        #
+#    Updated: 2024/01/20 11:39:50 by habu-zua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS =	convert_tabs_to_spc.c \
 		split_commands.c \
 		parse.c \
 
-SRCSX = exec.c ft_getpath.c ft_free.c\
+SRCSX = exec_delegate.c execute.c ft_getpath.c ft_free.c\
 		cd.c cd_utils.c echo.c pwd.c\
 		export.c export_utils.c\
 		exit.c env.c unset.c \
@@ -74,6 +74,9 @@ clean:
 	@make clean -sC $(LIBFT_DIR)
 	@if [ -e $(OBJS_DIR) ]; then \
 		rm -rf $(OBJS_DIR); \
+	fi
+	@if [ -e $(OBJSX_DIR) ]; then \
+		rm -rf $(OBJSX_DIR); \
 		echo "minishell Clean: \033[32mOK\n\033[0m"; \
 	fi
  
