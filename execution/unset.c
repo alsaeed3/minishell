@@ -3,45 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:23:49 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 12:13:11 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/20 15:34:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
 #include "../inc/exec.h"
 
-// char	**unset_env(char **old_env, int index)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	**new_env;
 
-// 	i = 0;
-// 	j = 0;
-// 	new_env = malloc(sizeof(char *) * (envlen(old_env) - 1));
-// 	if (!new_env)
-// 		exit(EXIT_FAILURE);
-// 	while (old_env[i])
-// 	{
-// 		if (i != index)
-// 		{
-// 			new_env[j] = ft_strdup(old_env[i]);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	free_env(old_env);
-// 	i--;
-// 	new_env[i] = NULL;
-// 	return (new_env);
-// }
+char	**unset_env(char **old_env, int index)
+{
+	int		i;
+	int		j;
+	char	**new_env;
+
+	i = 0;
+	j = 0;
+	new_env = malloc(sizeof(char *) * (envlen(old_env) - 1));
+	if (!new_env)
+		exit(EXIT_FAILURE);
+	while (old_env[i])
+	{
+		if (i != index)
+		{
+			new_env[j] = ft_strdup(old_env[i]);
+			j++;
+		}
+		i++;
+	}
+	free_env(old_env);
+	i--;
+	new_env[i] = NULL;
+	return (new_env);
+}
 
 void	handle_unset(char **inputs, t_parse *data)
 {
-	printf("handle_unset\n");
 	int	i;
 	int	index;
 

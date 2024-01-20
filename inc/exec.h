@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/16 19:15:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/20 17:15:11 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define EXEC_H
 
 # include "parser.h"
+# define FORKED_CHILD 0
+
 
 void    exec_delegator(t_parse *parser);
 void    ft_free(char **cmd);
@@ -40,14 +42,24 @@ void	handle_echo(char **args);
 void	handle_unset(char **inputs, t_parse *data);
 void	handle_pwd(t_parse *data);
 
-void	data_init(t_parse *data);
+void	data_init(t_parse **data, char **env);
+
+void    redirect_from(t_parse *data, int x);
+void    redirect_to(t_parse *data, int x);
+
+char	**gen_paths(int index, t_parse *data, char *input);
+int		check_exec_path(char **inputs, t_parse *data);
+int		check_exec(char **inputs, t_parse *data);
 
 
+int     handle_pipe(t_parse *parser);
+int		handle_single(char **inputs, t_parse *data, int piped, int x);
+void	exit_pipe(t_parse *data);
 
+void	close_fds(t_parse *data);
 
-
-
-
-int g_status;
-
+void	choose_action(char **inpts,t_parse *data);
+void	handle_exec(char **inputs, t_parse *data);
+int		execute_2(char **inputs, t_parse *data);
+int		execute(char **inputs, t_parse *data);
 #endif

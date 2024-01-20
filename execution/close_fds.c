@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   close_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/14 17:27:07 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 11:10:21 by habu-zua         ###   ########.fr       */
+/*   Created: 2024/01/19 19:22:53 by habu-zua          #+#    #+#             */
+/*   Updated: 2024/01/20 11:11:43 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-void	handle_pwd(t_parse *data)
+
+void		close_fds(t_parse *data)
 {
-	ft_putstr(data->pwd);
-	ft_putstr("\n");
-	// g_status = 0;
+	if (data->fd_in != 0)
+	{
+		close(data->fd_in);
+		data->fd_in = 0;
+	}
+	if (data->fd_out != 1)
+	{
+		close(data->fd_out);
+		data->fd_out = 1;
+	}
 }

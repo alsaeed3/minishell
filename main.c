@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/18 17:48:56 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/20 17:15:40 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 
 void 	print_function(t_parse parser);
 
-void	ctrl_c_handler(int sig)
-{
-	char *argv[2];
+// void	ctrl_c_handler(int sig)
+// {
+// 	char *argv[2];
 	
-	argv[0] = "minishell";
-	argv[1] = NULL;
-	execve("minishell", argv, NULL);
-}
+// 	argv[0] = "minishell";
+// 	argv[1] = NULL;
+// 	execve("minishell", argv, NULL);
+// }
 
-void	ctrl_d_handler(int sig)
-{
-	kill(sig, SIGKILL);
-}
+// void	ctrl_d_handler(int sig)
+// {
+// 	kill(sig, SIGKILL);
+// }
 
-void	ctrl_slash_handler(int sig)
-{
-	return ;
-}
+// void	ctrl_slash_handler(int sig)
+// {
+// 	return ;
+// }
 
 /* Test the whole parsing in int main */
 int main(int ac, char **av, char **env)
@@ -40,15 +40,14 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	t_parse	*parser;
-	struct sigaction sa;
-	sa.sa_handler = &ctrl_c_handler;
-	sigaction(SIGINT, &sa, NULL);
-	sa.sa_handler = &ctrl_d_handler;
-	sigaction(EOF, &sa, NULL);
-	sa.sa_handler = &ctrl_slash_handler;
-	sigaction(SIGQUIT, &sa, NULL);
+	// struct sigaction sa;
+	// sa.sa_handler = &ctrl_c_handler;
+	// sigaction(SIGINT, &sa, NULL);
+	// sa.sa_handler = &ctrl_d_handler;
+	// sigaction(EOF, &sa, NULL);
+	// sa.sa_handler = &ctrl_slash_handler;
+	// sigaction(SIGQUIT, &sa, NULL);
 	/*sig_int();*/
-	data_init(parser);
 	while (1)
 	{
 		char	*cmd_line = readline("MINISHELL$ ");
@@ -59,11 +58,13 @@ int main(int ac, char **av, char **env)
             exit(0);
         }
 		char	*dup = ft_strdup(cmd_line);
-		if (parse_shell(dup, env, &parser))
+		parser = NULL;
+		data_init(&parser, env);
+		if (parse_shell(dup, env, parser))
 			continue ;
 		free (dup);
-		exec_delegator(&parser);
-		
+		exec_delegator(parser);
+		free (parser);
 		// print_function(parser);
 		// free_char_triple_pointer(inputs_names);
 	}

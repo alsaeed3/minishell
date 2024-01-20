@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/16 15:38:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/20 17:16:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse *parser)
 		printf("Quote Error\n");
 		return (TRUE);
 	}
-	parser->envs_lst = get_envs(original_envs);
+	parser->envs_lst = get_envs_lst(original_envs);
 	cmd_line = expand_dollar_string(cmd_line, parser->envs_lst);
 	printf("expand_dollar_string {%s}\n", cmd_line);
 	cmd_line = delete_excess_spcs(cmd_line);
