@@ -6,7 +6,7 @@
 #    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/20 11:39:50 by habu-zua         ###   ########.fr        #
+#    Updated: 2024/01/20 18:46:33 by habu-zua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,12 @@ SRCS =	convert_tabs_to_spc.c \
 		split_commands.c \
 		parse.c \
 
-SRCSX = exec_delegate.c execute.c ft_getpath.c ft_free.c\
+SRCSX = exec_delegate.c execute.c \
 		cd.c cd_utils.c echo.c pwd.c\
 		export.c export_utils.c\
 		exit.c env.c unset.c \
 		data_init.c redirections.c exec_utils.c\
-		pipe.c close_fds.c
+		pipe.c close_fds.c free.c
 
 
 OBJS_DIR = parsing/objs/
