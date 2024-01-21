@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:27:08 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/21 11:09:34 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 
 
 void    exec_delegator(t_parse *parser);
-void    ft_free(char **cmd);
-char    *ft_getpath(char *cmd, char *envpath);
 void	handle_cd(char **args, t_parse *data);
 int		var_index(char *name, t_parse *data);
 void	replace_var(char *new_var, t_parse *data, int index);
