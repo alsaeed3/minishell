@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/20 17:41:57 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:47:17 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,37 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	t_parse	parser;
-	/*sig_int();*/
 	data_init(&parser, env);
-	while (1)
-	{
-		char	*cmd_line = readline("MINISHELL$ ");
-		add_history(cmd_line);
-    	char	*dup = ft_strdup(cmd_line);
-		if (parse_shell(dup, &parser))
-			continue ;
-		free (dup);
-		exec_delegator(&parser);
-		
-		// print_function(parser);
-		// free_char_triple_pointer(inputs_names);
-	}
-	return (0);
+	set_signals();
+
+    while (1) {
+        char *cmd_line = readline("MINISHELL$ ");
+
+        // Check for EOF (Ctrl+D)
+        if (!cmd_line) {
+            printf("\nExiting MINISHELL...\n");
+            break;
+        }
+
+        add_history(cmd_line);
+
+        char *dup = ft_strdup(cmd_line);
+
+        if (parse_shell(dup, &parser)) {
+            // Free resources and continue to the next iteration
+            free(dup);
+            continue;
+        }
+
+        free(dup);
+
+        exec_delegator(&parser);
+
+        // Uncomment the line below if you have a function to free the resources used by the parser
+        // free_char_triple_pointer(inputs_names);
+    }
+
+    return 0;
 }
 
 

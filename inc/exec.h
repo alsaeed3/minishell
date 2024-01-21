@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/21 11:09:34 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:26:55 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ int		execute_2(char **inputs, t_parse *data);
 int		execute(char **inputs, t_parse *data);
 
 void   free_exit(t_parse *data, int status);
+
+void	set_signals(void);
+
 
 #endif

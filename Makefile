@@ -6,7 +6,7 @@
 #    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/20 18:46:33 by habu-zua         ###   ########.fr        #
+#    Updated: 2024/01/21 17:28:34 by habu-zua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRCSX = exec_delegate.c execute.c \
 		export.c export_utils.c\
 		exit.c env.c unset.c \
 		data_init.c redirections.c exec_utils.c\
-		pipe.c close_fds.c free.c
+		pipe.c close_fds.c free.c signal.c \
 
 
 OBJS_DIR = parsing/objs/
@@ -60,7 +60,7 @@ $(OBJSX_DIR)%.o: execution/%.c
 	@mkdir -p $(OBJSX_DIR)
 	@gcc $(CFLAGS) -c $< -o $@
 	
-$(NAME): $(OBJS) $(OBJSX)
+$(NAME): $(OBJS) $(OBJSX) main.c
 	@gcc $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main.c -o $(NAME) $(LDFLAGS)
 	@echo "minishell Compiled: \033[1;32mOK\n\033[0m"
 
