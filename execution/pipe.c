@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 15:34:29 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/21 21:29:01 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
+
 
 int handle_pipe(t_parse *parser)
 {
@@ -30,15 +31,18 @@ int handle_pipe(t_parse *parser)
         {
             dup2(fd_in, STDIN_FILENO);
             if (i < parser->parts_num - 1)
-                dup2(fds[STDOUT_FILENO], STDOUT_FILENO);
+                dup2(fds[STDOUT_FILENO], STDOUT_FILENO); // this is the write end of the pipe
             close(fds[0]);
 			handle_single(parser->cmds[i],parser, 1, i);
 			exit(EXIT_SUCCESS);
         }
-        waitpid(pid, &status, 0);
-        close(fds[1]);
-        fd_in = fds[0];
-        i++;
+        else
+        {
+            waitpid(pid, &status, 0);
+            close(fds[1]);
+            fd_in = fds[0];
+            i++;
+        }
     }
     return 0;
 }

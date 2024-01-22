@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:03:01 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 11:10:40 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/21 15:23:20 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		check_export(char *str)
 		return (0);
 	while (str[i] && str[i] != '=')
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '+')
 			return (0);
 		i++;
 	}

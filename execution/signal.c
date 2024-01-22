@@ -6,30 +6,44 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:49:27 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/14 10:33:51 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:37:53 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/exec.h"
 
-/*
-#include <signal.h>
 
-void	handle_sig(int sig)
-{
-	if (sig == SIGINT)
-	{
-		write(2, "\b\b  \b\b\n", 6);
-		write(2, "MINISHELL$ ", 11);
-	}
-	else if (sig == SIGQUIT)
-		write(2, "\b\b  \b\b", 6);
+#define UNUSED(x) (void)(x)
+
+void sigint_handler(int signo) {
+    UNUSED(signo);
+    printf("\nMINISHELL$ ");
+    fflush(stdout);
 }
 
-void	sig_init(t_parse *parser)
-{
-	if (signal(SIGINT, handle_sig) == SIG_ERR)
-		exit(EXIT_FAILURE);
-	else if (signal(SIGQUIT, handle_sig) == SIG_ERR)
-		exit(EXIT_FAILURE);
+void sigquit_handler(int signo) {
+    UNUSED(signo);
 }
-*/
+
+void sigterm_handler(int signo) {
+    UNUSED(signo);
+    printf("\nExiting MINISHELL...\n");
+    exit(0);
+}
+
+void set_signals() {
+    if (signal(SIGINT, sigint_handler) == SIG_ERR) {
+        perror("Error setting up SIGINT handler");
+        exit(EXIT_FAILURE);
+    }
+
+    if (signal(SIGQUIT, sigquit_handler) == SIG_ERR) {
+        perror("Error setting up SIGQUIT handler");
+        exit(EXIT_FAILURE);
+    }
+
+    if (signal(SIGTERM, sigterm_handler) == SIG_ERR) {
+        perror("Error setting up SIGTERM handler");
+        exit(EXIT_FAILURE);
+    }
+}
