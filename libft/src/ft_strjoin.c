@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:36:23 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/07/24 15:51:19 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/20 20:01:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,23 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	j;
 	size_t	len;
 
-	i = 0;
-	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	if (!s2)
 		return (NULL);
-	join = malloc(sizeof(char) * len);
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	join = ft_calloc(len, sizeof(char));
 	if (!join)
 		return (NULL);
-	while (s1[i] != '\0')
+	i = 0;
+	if (s1)
 	{
-		join[i] = s1[i];
-		i++;
+		while (s1[i] != '\0')
+		{
+			join[i] = s1[i];
+			i++;
+		}
 	}
 	j = 0;
-	while (s2[j] != '\0')
+	while (s2 && s2[j] != '\0')
 	{
 		join[i + j] = s2[j];
 		j++;
