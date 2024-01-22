@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 13:39:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/22 13:45:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,25 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser)
 	(*parser)->in_redir_num = find_infiles_heredocs_num(cmd_line);
 	(*parser)->inputs_redirections = hold_input_file_names(cmd_line);
 	(*parser)->inputs_tokens = tokenize_inputs(cmd_line);
+	printf("---------> before heredoc\n");
+	for (int i = 0; i < (*parser)->parts_num; i++)
+	{
+		int j = -1;
+		while ((*parser)->inputs_redirections[i][++j])
+			printf("%s\n", (*parser)->inputs_redirections[i][j]);
+	}
+	printf("---------> before heredoc\n");
 	find_heredocs_num(*parser);
 	find_heredocs_ends(*parser);
 	handle_heredoc(*parser);
+	printf("---------> after heredoc\n");
+	for (int i = 0; i < (*parser)->parts_num; i++)
+	{
+		int j = -1;
+		while ((*parser)->inputs_redirections[i][++j])
+			printf("%s\n", (*parser)->inputs_redirections[i][j]);
+	}
+	printf("---------> after heredoc\n");
 	(*parser)->out_redir_num = find_outfiles_appends_num(cmd_line);
 	(*parser)->outputs_redirections = hold_output_file_names(cmd_line);
 	(*parser)->outputs_tokens = tokenize_outputs(cmd_line);
@@ -54,12 +70,6 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser)
 	printf("delete_excess_spcs {%s}\n", cmd_line);
 	(*parser)->cmds = split_cmds(cmd_line);
 	printf("cmds in parse_Shell\n");
-	for (int i = 0; i < (*parser)->parts_num; i++)
-	{
-		int j = -1;
-		while ((*parser)->cmds[i][++j])
-			printf("%s\n", (*parser)->cmds[i][j]);
-	}
 	printf("\n");
 	return (FALSE);
 }
