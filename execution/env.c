@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:00:50 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:01:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/21 13:30:14 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,24 @@ int		envlen(char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	i++;
-	return (i);
+	return (++i);
 }
 
 char	**dup_env(char **env)
 {
 	char	**data_env;
-	int		env_size;
 	int		i;
 
-	if (!env)
-		return (NULL);
-	env_size = ft_array_size(env);
-	data_env = ft_calloc(env_size + 10, sizeof(char *));
+	i = 0;
+	data_env = malloc(sizeof(char *) * envlen(env));
 	if (!data_env)
-		return (NULL);
-	i = -1;
-	while (++i < env_size && env[i])
+		exit(EXIT_FAILURE);
+	while (env[i])
+	{
 		data_env[i] = ft_strdup(env[i]);
-	if (data_env[i])
-		data_env[++i] = NULL;
-	else 
-		data_env[i] = NULL;
+		i++;
+	}
+	data_env[i] = 0;
 	return (data_env);
 }
 
@@ -79,5 +74,4 @@ void	handle_env(char **env)
 		}
 		i++;
 	}
-	// g_status = 0;
 }

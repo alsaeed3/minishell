@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 11:39:34 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/21 16:36:32 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,18 @@ void	handle_exec(char **inputs, t_parse *data)
 int	execute(char **inputs, t_parse *data)
 {
 	int			index;
-	struct stat	statounet;
 
-	statounet.st_mode = 0;
 	index = var_index("PATH=", data);
-	stat(inputs[0], &statounet);
-	if (ft_strchr(inputs[0], '/') && (statounet.st_mode & S_IXUSR)
-		&& (execve(inputs[0], &inputs[0], data->env) != -1))
-		return (0);
-	else if (index >= 0)
-	{
-		if (!execute_2(inputs, data))
-			return (0);
-	}
+	if (ft_strchr(inputs[0], '/') && (access(inputs[0], X_OK) == 0))
+		{
+			if (execve(inputs[0], &inputs[0], data->env) != -1)
+				return 0;
+		}
+		else if (index >= 0)
+		{
+			if (!execute_2(inputs, data))
+				return 0;
+		}
 	return (1);
 }
 
@@ -63,20 +62,16 @@ int	execute_2(char **inputs, t_parse *data)
 	int			i;
 	char		**paths;
 	int			index;
-	struct stat	statounet;
 
 	i = 0;
-	statounet.st_mode = 0;
 	index = var_index("PATH=", data);
 	paths = gen_paths(index, data, inputs[0]);
 	while (paths[i])
 	{
-		stat(paths[i], &statounet);
-		if ((statounet.st_mode & S_IXUSR)
-			&& (execve(paths[i], inputs, data->env) != -1))
-			return (0);
+		if (access(paths[i], X_OK) == 0 && 
+			execve(paths[i], inputs, data->env) != -1)
+            return 0;
 		i++;
 	}
-	// free_env(paths);
 	return (1);
 }
