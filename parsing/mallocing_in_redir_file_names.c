@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mallocing_in_redir_file_names.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 08:26:53 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/22 13:38:15 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	***hold_input_file_names(char *cmd_line)
 	char	***redir_names;
 
 	parts_num = find_parts_num(cmd_line);
-	inputs_num = find_infiles_heredocs_num(cmd_line, NULL);
+	inputs_num = find_infiles_heredocs_num(cmd_line);
 	icm = find_ic_num(cmd_line);
 	redir_names = malloc_file_names(parts_num, inputs_num, icm);
 	if (!redir_names)
