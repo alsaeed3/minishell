@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 08:52:16 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/22 13:39:10 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser)
 		return (TRUE);
 	}
 	(*parser)->parts_num = find_parts_num(cmd_line);
-	(*parser)->in_redir_num = find_infiles_heredocs_num(cmd_line, *parser);
+	(*parser)->in_redir_num = find_infiles_heredocs_num(cmd_line);
 	(*parser)->inputs_redirections = hold_input_file_names(cmd_line);
 	(*parser)->inputs_tokens = tokenize_inputs(cmd_line);
 	find_heredocs_num(*parser);
 	find_heredocs_ends(*parser);
 	handle_heredoc(*parser);
-	(*parser)->out_redir_num = find_outfiles_appends_num(cmd_line, *parser);
+	(*parser)->out_redir_num = find_outfiles_appends_num(cmd_line);
 	(*parser)->outputs_redirections = hold_output_file_names(cmd_line);
 	(*parser)->outputs_tokens = tokenize_outputs(cmd_line);
 	printf("before conv_redir2spcs {%s}\n", cmd_line);

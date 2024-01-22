@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   find_outfiles_appends_num.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 13:11:01 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 08:30:54 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/22 13:37:26 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	*find_outfiles_appends_num(char *cmd_line, t_parse *data)
+int	*find_outfiles_appends_num(char *cmd_line)
 {
 	int		parts_num;
 	int		i;
@@ -45,17 +45,9 @@ int	*find_outfiles_appends_num(char *cmd_line, t_parse *data)
 		if (cmd_line[i] == '|' && !quo_trigger && j < parts_num)
 			j++;
 		if (i < len - 1 && (cmd_line[i] == '>' && cmd_line[i + 1] != '>' && (i == 0 || cmd_line[i - 1] != '>')) && !quo_trigger)
-		{
-			if (data)
-				data->tot_outredir++;
 			outfiles_appends_num[j]++;
-		}
 		else if (i < len - 1 && (cmd_line[i] == '>' && cmd_line[i + 1] == '>') && !quo_trigger)
-		{
-			if (data)
-				data->tot_outredir++;
 			outfiles_appends_num[j]++;
-		}
 	}
 	return (outfiles_appends_num);
 }
