@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   find_infiles_heredocs_num.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/11 21:07:31 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/22 08:30:14 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	*find_infiles_heredocs_num(char *cmd_line)
+int	*find_infiles_heredocs_num(char *cmd_line, t_parse *data)
 {
 	int		parts_num;
 	int		i;
@@ -44,9 +44,17 @@ int	*find_infiles_heredocs_num(char *cmd_line)
 		if (cmd_line[i] == '|' && !quo_trigger && j < parts_num)
 			j++;
 		if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<')) && !quo_trigger)
+		{
+			if (data)
+				data->tot_inredir++;
 			infiles_heredocs_num[j]++;
+		}
 		else if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] == '<') && !quo_trigger)
+		{
+			if (data)
+				data->tot_inredir++;
 			infiles_heredocs_num[j]++;
+		}
 	}
 	return (infiles_heredocs_num);
 }

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/20 17:15:53 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/22 08:29:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,14 @@ typedef struct s_env
 typedef struct s_parse
 {
 	int		parts_num;
+	int		tot_inredir;
 	int		*in_redir_num;
 	char	***inputs_redirections;
 	int		**inputs_tokens;
+	int		heredocs_num;
+	char	**heredocs_ends;
+	char	**hd_usr_input;
+	int		tot_outredir;
 	int		*out_redir_num;
 	char	***outputs_redirections;
 	int		**outputs_tokens;
@@ -92,9 +97,10 @@ char	*delete_excess_spcs(char *cmd_line);
 char	*expand_dollar_string(char *cmd_line, t_env *env_lst);
 t_bool	check_pipe_redir(char *line);
 t_bool	check_pipe_red_2(char *cmd_line);
-int		*find_infiles_heredocs_num(char *cmd_line);
+int		*find_infiles_heredocs_num(char *cmd_line, t_parse *data);
+// void	find_heredocs_num(t_parse **data);
 int		**find_ic_num(char *cmd_line);
-int		*find_outfiles_appends_num(char *cmd_line);
+int		*find_outfiles_appends_num(char *cmd_line, t_parse *data);
 int		**find_oc_num(char *cmd_line);
 int		find_parts_num(char *cmd_line);
 char	***malloc_file_names(int parts_num, int *each_part_redir_num, int **file_name_chars_num);
@@ -109,9 +115,12 @@ char	*conv_redir2spcs(char *cmd_line);
 int		*find_cmds_num(char *cmd_line);
 int		**find_cmds_chars_num(char *cmd_line);
 char	***split_cmds(char *cmd_line);
-t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse *parser);
+t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser);
 int		count_size_without_redir(char *cmd_line);
-
+void	find_heredocs_num(t_parse *data);
+void	find_heredocs_ends(t_parse *data);
+void	handle_heredoc(t_parse *data);
+void	replace_heredoc(t_parse *data);
 
 // struct red
 // {

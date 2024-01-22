@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/20 15:24:04 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/21 17:26:26 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS =	convert_tabs_to_spc.c \
 		split_commands.c \
 		get_envs.c \
 		expand_dollar2env.c \
+		handle_heredoc.c \
 		parse.c 
 
 SRCSX = exec_delegate.c execute.c ft_getpath.c ft_free.c\
