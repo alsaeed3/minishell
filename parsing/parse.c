@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 13:45:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/23 13:59:38 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser)
 	}
 	printf("---------> before heredoc\n");
 	find_heredocs_num(*parser);
-	find_heredocs_ends(*parser);
 	handle_heredoc(*parser);
+	for (int ak = 0; ak < (*parser)->heredocs_num; ak++)
+		printf("%s\n", (*parser)->heredoc_tmp_files[ak]);
+	read_heredocs(*parser);
 	printf("---------> after heredoc\n");
 	for (int i = 0; i < (*parser)->parts_num; i++)
 	{
