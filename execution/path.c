@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:13:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 15:31:25 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/19 19:14:17 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-// char	**gen_paths(int index, t_parse *data, char *input)
-// {
-// 	char	*str;
-// 	char	**paths;
-// 	char	*temp;
-// 	int		i;
+char	**gen_paths(int index, t_parse *data, char *input)
+{
+	char	*str;
+	char	**paths;
+	char	*temp;
+	int		i;
 
-// 	i = 0;
-// 	str = ft_strdup(&data->env[index][5]);
-// 	paths = ft_split(str, ':');
-// 	free(str);
-// 	while (paths[i])
-// 	{
-// 		temp = paths[i];
-// 		paths[i] = ft_strjoin(paths[i], "/");
-// 		free(temp);
-// 		temp = paths[i];
-// 		paths[i] = ft_strjoin(paths[i], input);
-// 		free(temp);
-// 		i++;
-// 	}
-// 	return (paths);
-// }
+	i = 0;
+	str = ft_strdup(&data->env[index][5]);
+	paths = ft_split(str, ':');
+	free(str);
+	while (paths[i])
+	{
+		temp = paths[i];
+		paths[i] = ft_strjoin(paths[i], "/");
+		free(temp);
+		temp = paths[i];
+		paths[i] = ft_strjoin(paths[i], input);
+		free(temp);
+		i++;
+	}
+	return (paths);
+}
 
 int		check_exec_path(char **inputs, t_parse *data)
 {

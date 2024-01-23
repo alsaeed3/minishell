@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 11:10:46 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:37:40 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,26 @@ int		is_number(char *str)
 	return (1);
 }
 
-void	handle_exit(char **inputs, t_parse *data)
+void	handle_exit(char **args, t_parse *data)
 {
-	(void)inputs;
-	// g_status = 0;
-	// int error;
-	// if (inputs[1])
-	// {
-	// 	if (is_number(inputs[1]))
-	// 	{
-	// 		if (inputs[2])
-	// 			return (error_sentence("\tminishell: too many argument\n", 2));
-	// 		// g_status = ft_atoi(inputs[1], &error);
-	// 		if (g_status > 255)
-	// 			g_status = 255;
-	// 		else if (g_status < 0)
-	// 			g_status = 255;
-	// 	}
-	// 	else
-	// 		error_sentence("\t\tminishell: numeric argument is required\n", 2);
-	// }
-	free_env(inputs);
-	free(data->pwd);
-	free_env(data->env);
-	// exit(g_status);
+	int status;
+	int error;
+
+	status = 0;
+	if (args[1])
+	{
+		if (is_number(args[1]))
+		{
+			if (args[2])
+				return (error_sentence("\tminishell: too many argument\n", 2));
+			status = ft_atoi(args[1], &error);
+			if (status > 255)
+				status = 255;
+			else if (status < 0)
+				status = 255;
+		}
+		else
+			error_sentence("\t\tminishell: numeric argument is required\n", 2);
+	}
+	free_exit(data, status);
 }
