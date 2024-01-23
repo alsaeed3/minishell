@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 13:36:24 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/23 13:36:43 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct s_parse
 	char	***inputs_redirections;
 	int		**inputs_tokens;
 	int		heredocs_num;
-	char	**heredocs_ends;
 	char	**hd_usr_input;
 	int		tot_outredir;
 	int		*out_redir_num;
@@ -79,6 +78,7 @@ typedef struct s_parse
 	char	***cmds;
 	t_env	*envs_lst;
 	char	**env;
+	char	**heredoc_tmp_files;
 	int 	fd_in;
 	int 	fd_out;
 	char	*pwd;
@@ -118,9 +118,10 @@ char	***split_cmds(char *cmd_line);
 t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser);
 int		count_size_without_redir(char *cmd_line);
 void	find_heredocs_num(t_parse *data);
-void	find_heredocs_ends(t_parse *data);
 void	handle_heredoc(t_parse *data);
+void	read_heredocs(t_parse *data);
 void	replace_heredoc(t_parse *data);
+char	*generate_file_names(int pos);
 
 // struct red
 // {
