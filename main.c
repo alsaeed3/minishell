@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 08:24:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/22 23:01:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int main(int ac, char **av, char **env)
 	// sa.sa_handler = &ctrl_slash_handler;
 	// sigaction(SIGQUIT, &sa, NULL);
 	/*sig_int();*/
+	
 	while (1)
 	{
 		char	*cmd_line = readline("MINISHELL$ ");
@@ -61,10 +62,10 @@ int main(int ac, char **av, char **env)
 		parser = ft_calloc(1, sizeof(t_parse));
 		if (!parser)
 			return (1);
-		data_init(&parser, env);
 		if (parse_shell(dup, env, &parser))
 			continue ;
 		free (dup);
+		data_init(parser, env);
 		exec_delegator(parser);
 		free (parser);
 		// print_function(parser);

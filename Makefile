@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
+#    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/21 17:26:26 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/22 22:09:18 by habu-zua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,12 @@ SRCS =	convert_tabs_to_spc.c \
 		handle_heredoc.c \
 		parse.c 
 
-SRCSX = exec_delegate.c execute.c ft_getpath.c ft_free.c\
+SRCSX = exec_delegate.c execute.c \
 		cd.c cd_utils.c echo.c pwd.c\
 		export.c export_utils.c\
 		exit.c env.c unset.c \
 		data_init.c redirections.c exec_utils.c\
-		pipe.c close_fds.c
+		pipe.c close_fds.c free.c signal.c \
 
 
 OBJS_DIR = parsing/objs/
@@ -63,7 +63,7 @@ $(OBJSX_DIR)%.o: execution/%.c
 	@mkdir -p $(OBJSX_DIR)
 	@clang $(CFLAGS) -c $< -o $@
 	
-$(NAME): $(OBJS) $(OBJSX)
+$(NAME): $(OBJS) $(OBJSX) main.c
 	@clang $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main.c -o $(NAME) $(LDFLAGS)
 	@echo "minishell Compiled: \033[1;32mOK\n\033[0m"
 
