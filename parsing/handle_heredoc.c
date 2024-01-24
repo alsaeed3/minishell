@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/24 12:20:36 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/24 12:27:17 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	handle_heredoc(t_parse *data)
 	printf("heredocs_num\n");
 	printf("%d\n", data->heredocs_num);
 	printf("\n");
-	k = 1;
+	k = 0;
 	i = -1;
 	while (data->inputs_redirections[++i])
 	{
@@ -85,8 +85,8 @@ void	handle_heredoc(t_parse *data)
 			}
 			else if (data->inputs_redirections[i][j + 1] == NULL && data->inputs_tokens[i][j] == 1)
 			{
-				data->heredoc_tmp_files[i] = generate_file_names(k++);
-				tmp_fd = open(data->heredoc_tmp_files[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				data->heredoc_tmp_files[k] = generate_file_names(k + 1);
+				tmp_fd = open(data->heredoc_tmp_files[k++], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				printf("%d\n", tmp_fd);
 				if (tmp_fd == -1)
 				{
@@ -116,7 +116,7 @@ void	handle_heredoc(t_parse *data)
 	}
 	printf("i: %d\n", i);
 	if (data->heredocs_num)
-		data->heredoc_tmp_files[i] = NULL;
+		data->heredoc_tmp_files[k] = NULL;
 }
     // Close the temporary file
     // Delete the temporary file
