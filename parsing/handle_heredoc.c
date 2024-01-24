@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/24 12:27:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/24 12:40:52 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,27 @@ void	handle_heredoc(t_parse *data)
 		{
 			if (data->inputs_redirections[i][j + 1] != NULL && data->inputs_tokens[i][j] == 1)
 			{
+				printf("enter fake-heredoc\n");
 				while (1) 
 				{
 					line = readline("> ");
-					if (line == NULL || line[0] == '\0' || ft_strcmp(line, data->inputs_redirections[i][j]) == 0)
+					if (line == NULL || line[0] == '\0' || ft_strncmp(line, data->inputs_redirections[i][j], ft_strlen(data->inputs_redirections[i][j])) == 0)
 					{
 						free(line);
 						break;
 					}
 				}
+				printf("exit fake-heredoc\n");
 			}
 			else if (data->inputs_redirections[i][j + 1] == NULL && data->inputs_tokens[i][j] == 1)
 			{
+				printf("---\n");
+				printf("enter real-heredoc\n");
+				printf("data->inputs_redirections[i][j]: %s\n", data->inputs_redirections[i][j]);
+				printf("---\n");
 				data->heredoc_tmp_files[k] = generate_file_names(k + 1);
 				tmp_fd = open(data->heredoc_tmp_files[k++], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-				printf("%d\n", tmp_fd);
+				// printf("%d\n", tmp_fd);
 				if (tmp_fd == -1)
 				{
 					perror("Error opening temporary file");
@@ -98,7 +104,7 @@ void	handle_heredoc(t_parse *data)
 				while (1) 
 				{
 					line = readline("> ");
-					if (line == NULL || line[0] == '\0' || ft_strcmp(line, data->inputs_redirections[i][j]) == 0)
+					if (line == NULL || line[0] == '\0' || ft_strncmp(line, data->inputs_redirections[i][j], ft_strlen(data->inputs_redirections[i][j])) == 0)
 					{
 						free(line);
 						break;
@@ -110,6 +116,7 @@ void	handle_heredoc(t_parse *data)
 				}
 				// Close the temporary file
 				close(tmp_fd);
+				printf("exit real-heredoc\n");
 			//	------------------------------------------------------------------
 			}
 		}
