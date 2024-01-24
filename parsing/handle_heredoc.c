@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/24 16:44:47 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:51:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	handle_heredoc(t_parse *data)
 							unlink(data->heredoc_tmp_files[k - 1]);
 							free (data->heredoc_tmp_files[k - 1]);
 							data->heredoc_tmp_files[k - 1] = NULL;
+							k--;
 						}
 						close(tmp_fd2);
 						free(line);
