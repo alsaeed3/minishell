@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/24 12:40:52 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/24 12:50:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	handle_heredoc(t_parse *data)
 				while (1) 
 				{
 					line = readline("> ");
-					if (line == NULL || line[0] == '\0' || ft_strncmp(line, data->inputs_redirections[i][j], ft_strlen(data->inputs_redirections[i][j])) == 0)
+					if (line == NULL || line[0] == '\0' || ft_strcmp(line, data->inputs_redirections[i][j]) == 0)
 					{
 						free(line);
 						break;
