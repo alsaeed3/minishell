@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/23 13:59:38 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/24 13:59:05 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser)
 	for (int ak = 0; ak < (*parser)->heredocs_num; ak++)
 		printf("%s\n", (*parser)->heredoc_tmp_files[ak]);
 	read_heredocs(*parser);
-	printf("---------> after heredoc\n");
-	for (int i = 0; i < (*parser)->parts_num; i++)
-	{
-		int j = -1;
-		while ((*parser)->inputs_redirections[i][++j])
-			printf("%s\n", (*parser)->inputs_redirections[i][j]);
-	}
-	printf("---------> after heredoc\n");
 	(*parser)->out_redir_num = find_outfiles_appends_num(cmd_line);
 	(*parser)->outputs_redirections = hold_output_file_names(cmd_line);
 	(*parser)->outputs_tokens = tokenize_outputs(cmd_line);
