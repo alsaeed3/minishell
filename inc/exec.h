@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/22 22:10:51 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:39:15 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	handle_echo(char **args);
 void	handle_unset(char **inputs, t_parse *data);
 void	handle_pwd(t_parse *data);
 
-void	data_init(t_parse *data, char **env);
+void	data_init(t_parse **data, char **env);
 
 void    redirect_from(t_parse *data, int x);
 void    redirect_to(t_parse *data, int x);
