@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/23 14:06:35 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/24 12:20:36 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	handle_heredoc(t_parse *data)
 	int		k;
 
 	data->heredoc_tmp_files = ft_calloc(data->heredocs_num + 1, sizeof(char *));
+	if (!data->heredoc_tmp_files)
+		return ;
 	// heredoc_line = ft_calloc((data->heredocs_num) + 1, sizeof(char *));
     // Open a temporary file for writing
 	printf("\n");
@@ -85,6 +87,7 @@ void	handle_heredoc(t_parse *data)
 			{
 				data->heredoc_tmp_files[i] = generate_file_names(k++);
 				tmp_fd = open(data->heredoc_tmp_files[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				printf("%d\n", tmp_fd);
 				if (tmp_fd == -1)
 				{
 					perror("Error opening temporary file");
@@ -111,7 +114,9 @@ void	handle_heredoc(t_parse *data)
 			}
 		}
 	}
-	data->heredoc_tmp_files[i] = NULL;
+	printf("i: %d\n", i);
+	if (data->heredocs_num)
+		data->heredoc_tmp_files[i] = NULL;
 }
     // Close the temporary file
     // Delete the temporary file

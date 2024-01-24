@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 23:01:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:18:45 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int main(int ac, char **av, char **env)
 	{
 		char	*cmd_line = readline("MINISHELL$ ");
 		add_history(cmd_line);
-        if (ft_strcmp(cmd_line, "exit") == 0)
+        if (ft_strncmp(cmd_line, "exit", 4) == 0)
         {
             free(cmd_line);
             exit(0);
@@ -61,11 +61,13 @@ int main(int ac, char **av, char **env)
 		char	*dup = ft_strdup(cmd_line);
 		parser = ft_calloc(1, sizeof(t_parse));
 		if (!parser)
+			continue ;
+		data_init(&parser, env);
+		if (!parser)
 			return (1);
 		if (parse_shell(dup, env, &parser))
 			continue ;
 		free (dup);
-		data_init(parser, env);
 		exec_delegator(parser);
 		free (parser);
 		// print_function(parser);
