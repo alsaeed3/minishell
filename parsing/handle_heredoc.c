@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/24 12:50:34 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/24 14:04:07 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,11 +174,12 @@ void	read_heredocs(t_parse *data)
 		}
 	}
 	heredoc_line[i] = NULL;
-	printf("heredoc_lines:\n");
+	printf("--------------\n");
+	printf("reading_heredoc_lines:\n");
 	i = -1;
 	while (++i < data->heredocs_num)
-		printf("%s\n", heredoc_line[i]);
-	printf("heredoc_lines:\n");
+		printf("%s :\n%s\n", data->heredoc_tmp_files[i], heredoc_line[i]);
+	printf("--------------\n");
 }
 
 void	replace_heredoc(t_parse *data)
