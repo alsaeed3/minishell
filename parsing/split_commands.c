@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/13 17:22:56 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/24 14:42:59 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,10 @@ char	***split_cmds(char *cmd_line)
 		}
 		if (cmd_line[i] == '|' && !quo_trigger)
 		{
-			if (cmd_line[i - 1] != ' ')
+			if (cmds[j][k])
 				cmds[j][++k] = NULL;
+			else
+				cmds[j][k] = NULL;
 			cmds[j][k] = NULL;
 			k = 0;
 			l = 0;
