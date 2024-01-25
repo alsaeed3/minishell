@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/23 13:36:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/25 13:27:55 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,23 @@ typedef enum e_bool
 	TRUE
 }	t_bool;
 
+typedef struct s_var
+{
+	int		parts_num;
+	int		i;
+	int		j;
+	int		k;
+	int		l;
+	int		len;
+	t_bool	qutrg;
+	char	quchr;
+	t_bool	rdrtrg;
+	int		chrnum;
+	int		*rdrnum;
+	int		**rcn;
+	char	***rdrnms;
+}	t_var;
+
 typedef struct s_env_size
 {
 	int		envs_size;
@@ -85,6 +102,7 @@ typedef struct s_parse
 	int		redir;
 }	t_parse;
 
+void	init_vars(t_var *var, char *cmd_line, int mode, char rdr);
 void	jump_over_quote(char *cmd_line, int *i, int len);
 t_env	*add_env(t_env *head, char *env);
 // t_env	*unset_env(t_env *head, char *env_key);
@@ -97,11 +115,9 @@ char	*delete_excess_spcs(char *cmd_line);
 char	*expand_dollar_string(char *cmd_line, t_env *env_lst);
 t_bool	check_pipe_redir(char *line);
 t_bool	check_pipe_red_2(char *cmd_line);
-int		*find_infiles_heredocs_num(char *cmd_line);
 // void	find_heredocs_num(t_parse **data);
-int		**find_ic_num(char *cmd_line);
-int		*find_outfiles_appends_num(char *cmd_line);
-int		**find_oc_num(char *cmd_line);
+int		*find_rdr_num(char *str, char rdr);
+int		**find_rdr_chars(char *str, char rdr);
 int		find_parts_num(char *cmd_line);
 char	***malloc_file_names(int parts_num, int *each_part_redir_num, int **file_name_chars_num);
 void	free_char_triple_pointer(char ***pointer);
@@ -122,6 +138,9 @@ void	handle_heredoc(t_parse *data);
 void	read_heredocs(t_parse *data);
 void	replace_heredoc(t_parse *data);
 char	*generate_file_names(int pos);
+void	check_type(t_var *var, char *str, char redir);
+t_bool	to_cont(t_var var, char *str);
+t_bool	count_rdr_chars(t_var var, char *str);
 
 // struct red
 // {

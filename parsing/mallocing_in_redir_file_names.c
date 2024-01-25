@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 13:38:15 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/25 13:35:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,101 +19,77 @@
 // 	char	quo_char;
 // }
 
-char	***hold_input_file_names(char *cmd_line)
+char	***hold_rdr_names(char *str, char rdr)
 {
-	int	i;
-	int j;
-	int	k;
-	int	l;
-	int	len;
-	int parts_num;
-	int *inputs_num;
-	int **icm;
-	t_bool	redi_trigger;
-	t_bool	quo_trigger;
-	char	quo_char;
-	char	***redir_names;
+	t_var	var;
 
-	parts_num = find_parts_num(cmd_line);
-	inputs_num = find_infiles_heredocs_num(cmd_line);
-	icm = find_ic_num(cmd_line);
-	redir_names = malloc_file_names(parts_num, inputs_num, icm);
-	if (!redir_names)
-		return (NULL);
-	redi_trigger = FALSE;
-	quo_trigger = FALSE;
-	quo_char = '\0';
-	i = -1;
-	k = -1;
-	j = 0;
-	l = -1;
-	len = (int)ft_strlen(cmd_line);
-	while (++i < len && cmd_line[i])
+	init_vars(&var, str, 2, rdr);
+	while (++var.i < var.len && str[var.i])
 	{
-		if((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
+		if((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
 		{
-			quo_char = cmd_line[i++];
-			quo_trigger = TRUE;
+			var.quchr = str[var.i++];
+			var.qutrg = TRUE;
 		}
-		else if((cmd_line[i] == quo_char) && quo_trigger)
+		else if((str[var.i] == var.quchr) && var.qutrg)
 		{
-			if (cmd_line[++i] == ' ' && redi_trigger)
+			if (str[++var.i] == ' ' && var.rdrtrg)
 			{
-				redir_names[j][k][++l] = '\0';
-				redi_trigger = FALSE;
+				var.rdrnms[var.j][var.k][++var.l] = '\0';
+				var.rdrtrg = FALSE;
 			}
-			quo_char = '\0';
-			quo_trigger = FALSE;
+			var.quchr = '\0';
+			var.qutrg = FALSE;
 		}
-		if (cmd_line[i] == '|' && !quo_trigger && !redi_trigger && j < parts_num)
+		if (str[var.i] == '|' && !var.qutrg && !var.rdrtrg && var.j < var.parts_num)
 		{
-			redir_names[j][++k] = NULL;
-			k = -1;
-			j++;
+			var.rdrnms[var.j][++var.k] = NULL;
+			var.k = -1;
+			var.j++;
 		}
-		if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<') && (i == 0 || cmd_line[i - 1] != '>')) && !redi_trigger && !quo_trigger && k < inputs_num[j])
+		if (var.i < var.len - 1 && (str[var.i] == '<' && str[var.i + 1] != '<' && (var.i == 0 || str[var.i - 1] != '<') && (var.i == 0 || str[var.i - 1] != '>')) && !var.rdrtrg && !var.qutrg && var.k < var.rdrnum[var.j])
 		{
-			l = -1;
-			redi_trigger = TRUE;
-			k++;
-			i++;
-			if (cmd_line[i] == ' ')
-				i++;
+			var.l = -1;
+			var.rdrtrg = TRUE;
+			var.k++;
+			var.i++;
+			if (str[var.i] == ' ')
+				var.i++;
 		}
-		else if (i < len - 1 && (cmd_line[i] == '<' && cmd_line[i + 1] == '<') && !redi_trigger && !quo_trigger && k < inputs_num[j])
+		else if (var.i < var.len - 1 && (str[var.i] == '<' && str[var.i + 1] == '<') && !var.rdrtrg && !var.qutrg && var.k < var.rdrnum[var.j])
 		{
-			l = -1;
-			redi_trigger = TRUE;
-			k++;
-			i += 2;
-			if (cmd_line[i] == ' ')
-				i++;
+			var.l = -1;
+			var.rdrtrg = TRUE;
+			var.k++;
+			var.i += 2;
+			if (str[var.i] == ' ')
+				var.i++;
 		}
-		else if ((cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == ' ' || cmd_line[i] == '|' || cmd_line[i] != quo_char) && quo_trigger && redi_trigger)
-			redir_names[j][k][++l] = cmd_line[i];
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
+		else if ((str[var.i] == '<' || str[var.i] == '>' || str[var.i] == ' ' || str[var.i] == '|' || str[var.i] != var.quchr) && var.qutrg && var.rdrtrg)
+			var.rdrnms[var.j][var.k][++var.l] = str[var.i];
+		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
 		{
-			quo_char = cmd_line[i];
-			quo_trigger = TRUE;
+			var.quchr = str[var.i];
+			var.qutrg = TRUE;
 			continue;
 		}
-		else if ((cmd_line[i] == quo_char) && quo_trigger)
+		else if ((str[var.i] == var.quchr) && var.qutrg)
 		{
-			quo_char = '\0';
-			quo_trigger = FALSE;
+			var.quchr = '\0';
+			var.qutrg = FALSE;
 			continue ;
 		}
-		if (((cmd_line[i] != '<' && cmd_line[i] != '>' && cmd_line[i] != ' ' && cmd_line[i] != '|' && cmd_line[i] != '\'' && cmd_line[i] != '"' && cmd_line[i] != '\0') && !quo_trigger && redi_trigger))
+		if (((str[var.i] != '<' && str[var.i] != '>' && str[var.i] != ' ' && str[var.i] != '|' && str[var.i] != '\'' && str[var.i] != '"' && str[var.i] != '\0') && !var.qutrg && var.rdrtrg))
 		{
-			redir_names[j][k][++l] = cmd_line[i];
-			if (cmd_line[i + 1] == '<' || cmd_line[i + 1] == '>' || cmd_line[i + 1] == ' ' || cmd_line[i + 1] == '|')
+			var.rdrnms[var.j][var.k][++var.l] = str[var.i];
+			if (str[var.i + 1] == '<' || str[var.i + 1] == '>' || str[var.i + 1] == ' ' || str[var.i + 1] == '|')
 			{
-				redir_names[j][k][++l] = '\0';
-				redi_trigger = FALSE;
+				var.rdrnms[var.j][var.k][++var.l] = '\0';
+				var.rdrtrg = FALSE;
 			}
 		}
 	}
-	if(redir_names[j])
-		redir_names[++j] = NULL;
-	return (redir_names);
+	if(var.rdrnms[var.j])
+		var.rdrnms[++var.j] = NULL;
+	return (var.rdrnms);
 }

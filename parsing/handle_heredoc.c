@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/24 12:50:34 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:51:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	handle_heredoc(t_parse *data)
 {
     char	*line;
     int		tmp_fd;
+	int		tmp_fd2;
 	int		i;
 	int		j;
 	int		k;
@@ -62,7 +63,7 @@ void	handle_heredoc(t_parse *data)
     // Open a temporary file for writing
 	printf("\n");
 	printf("heredocs_num\n");
-	printf("%d\n", data->heredocs_num);
+	printf("her_num: %d\n", data->heredocs_num);
 	printf("\n");
 	k = 0;
 	i = -1;
@@ -92,7 +93,7 @@ void	handle_heredoc(t_parse *data)
 				printf("data->inputs_redirections[i][j]: %s\n", data->inputs_redirections[i][j]);
 				printf("---\n");
 				data->heredoc_tmp_files[k] = generate_file_names(k + 1);
-				tmp_fd = open(data->heredoc_tmp_files[k++], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				tmp_fd = open(data->heredoc_tmp_files[k], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				// printf("%d\n", tmp_fd);
 				if (tmp_fd == -1)
 				{
@@ -104,26 +105,42 @@ void	handle_heredoc(t_parse *data)
 				while (1) 
 				{
 					line = readline("> ");
-					if (line == NULL || line[0] == '\0' || ft_strncmp(line, data->inputs_redirections[i][j], ft_strlen(data->inputs_redirections[i][j])) == 0)
+					if (line == NULL || line[0] == '\0' || ft_strcmp(line, data->inputs_redirections[i][j]) == 0)
 					{
+						printf("k: %d, line: %s, line[0]: %c, %s\n",k ,line, line[0], data->inputs_redirections[i][j]);
+						tmp_fd2 = open(data->heredoc_tmp_files[k], O_RDONLY);
+						printf("access %d, read %zd\n", access(data->heredoc_tmp_files[k], F_OK), read(tmp_fd2, line, 1));
+						if (!access(data->heredoc_tmp_files[k++], F_OK) && ((read(tmp_fd2, line, 1)) <= 0))
+						{
+							data->heredocs_num--;
+							unlink(data->heredoc_tmp_files[k - 1]);
+							free (data->heredoc_tmp_files[k - 1]);
+							data->heredoc_tmp_files[k - 1] = NULL;
+							k--;
+						}
+						close(tmp_fd2);
 						free(line);
+						line = NULL;
 						break;
 					}
-					// Write the line to the temporary file
 					write(tmp_fd, line, ft_strlen(line));
 					write(tmp_fd, "\n", 1);
-					free(line);
+					// Write the line to the temporary file
 				}
-				// Close the temporary file
+				if (line)
+					free(line);
 				close(tmp_fd);
 				printf("exit real-heredoc\n");
 			//	------------------------------------------------------------------
 			}
 		}
 	}
-	printf("i: %d\n", i);
-	if (data->heredocs_num)
+	printf("i: %d, k: %d, her_num: %d\n", i, k, data->heredocs_num);
+	if (data->heredocs_num /* && access(data->heredoc_tmp_files[k - 1], F_OK) */)
 		data->heredoc_tmp_files[k] = NULL;
+	if (!data->heredocs_num)
+		free(data->heredoc_tmp_files);
+		
 }
     // Close the temporary file
     // Delete the temporary file
@@ -174,11 +191,12 @@ void	read_heredocs(t_parse *data)
 		}
 	}
 	heredoc_line[i] = NULL;
-	printf("heredoc_lines:\n");
+	printf("--------------\n");
+	printf("reading_heredoc_lines:\n");
 	i = -1;
 	while (++i < data->heredocs_num)
-		printf("%s\n", heredoc_line[i]);
-	printf("heredoc_lines:\n");
+		printf("%s :\n%s\n", data->heredoc_tmp_files[i], heredoc_line[i]);
+	printf("--------------\n");
 }
 
 void	replace_heredoc(t_parse *data)
