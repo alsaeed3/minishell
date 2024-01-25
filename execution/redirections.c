@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:30:51 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:07:38 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ void redirect_from(t_parse *data, int x)
 	i = 0;
 	while (i < data->in_redir_num[x])
 	{
-		filename = data->inputs_redirections[x][i];
+		if(data->inputs_tokens[x][i] == 0)
+			filename = data->inputs_redirections[x][i];
+		else
+			filename = data->heredoc_tmp_files[x];
+			
+		// printf("filename: %s\n", filename);
 		fd = open(filename, O_RDONLY);
 		if (fd < 0)
 		{

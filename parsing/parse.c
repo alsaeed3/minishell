@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/24 13:59:05 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/25 20:31:07 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser)
 	handle_heredoc(*parser);
 	for (int ak = 0; ak < (*parser)->heredocs_num; ak++)
 		printf("%s\n", (*parser)->heredoc_tmp_files[ak]);
-	read_heredocs(*parser);
+	// read_heredocs(*parser);
 	(*parser)->out_redir_num = find_outfiles_appends_num(cmd_line);
 	(*parser)->outputs_redirections = hold_output_file_names(cmd_line);
 	(*parser)->outputs_tokens = tokenize_outputs(cmd_line);
