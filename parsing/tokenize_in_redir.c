@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/12 16:33:52 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/25 21:20:26 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 // 	return (check);
 // }
 
-int	**tokenize_inputs(char *cmd_line)
+int	**tokenize_inputs(char *str)
 {
+	printf("tokenize_inputs\n");
 	int	**in_tokens;
 	int *redir_num;
 	int parts_num;
@@ -39,15 +40,15 @@ int	**tokenize_inputs(char *cmd_line)
 	int	k;
 	int	len;
 
-	parts_num = find_parts_num(cmd_line);
-	redir_num = find_infiles_heredocs_num(cmd_line);
+	parts_num = find_parts_num(str);
+	redir_num = find_rdr_num(str, '<');
 	// if (!check_redir_num(redir_num, parts_num))
 	// 	return (NULL);
 	in_tokens = ft_calloc(parts_num, sizeof(int *));
 	i = -1;
 	while (++i < parts_num)
 		in_tokens[i] = ft_calloc(redir_num[i], sizeof(int));
-	len = ft_strlen(cmd_line);
+	len = ft_strlen(str);
 	quo_trigger = FALSE;
 	quo_char = '\0';
 	i = -1;
@@ -55,29 +56,29 @@ int	**tokenize_inputs(char *cmd_line)
 	k = 0;
 	while (++i < len)
 	{
-		if ((cmd_line[i] == '"' || cmd_line[i] == '\'') && !quo_trigger)
+		if ((str[i] == '"' || str[i] == '\'') && !quo_trigger)
 		{
-			quo_char = cmd_line[i++];
+			quo_char = str[i++];
 			quo_trigger = TRUE;
-			if (cmd_line[i] == quo_char)
+			if (str[i] == quo_char)
 			{
 				quo_char = '\0';
 				quo_trigger = FALSE;
 			}
 		}
-		else if ((cmd_line[i] == quo_char) && quo_trigger)
+		else if ((str[i] == quo_char) && quo_trigger)
 		{
 			quo_char = '\0';
 			quo_trigger = FALSE;
 		}
-		if (cmd_line[i] == '|' && !quo_trigger)
+		if (str[i] == '|' && !quo_trigger)
 		{
 			j++;
 			k = 0;
 		}
-		if (i < len - 1 && cmd_line[i] == '<' && cmd_line[i + 1] != '<' && (i == 0 || cmd_line[i - 1] != '<') && !quo_trigger)
+		if (i < len - 1 && str[i] == '<' && str[i + 1] != '<' && (i == 0 || str[i - 1] != '<') && !quo_trigger)
 			in_tokens[j][k++] = 0;
-		else if (i < len - 1 && cmd_line[i] == '<' && cmd_line[i + 1] == '<' && !quo_trigger)
+		else if (i < len - 1 && str[i] == '<' && str[i + 1] == '<' && !quo_trigger)
 			in_tokens[j][k++] = 1;
 	}
 	return (in_tokens);

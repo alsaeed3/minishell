@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/25 13:27:55 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/25 21:14:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_parse
 	int		redir;
 }	t_parse;
 
-void	init_vars(t_var *var, char *cmd_line, int mode, char rdr);
+void	init_rdr_vars(t_var *var, char *str, int mode, char rdr);
 void	jump_over_quote(char *cmd_line, int *i, int len);
 t_env	*add_env(t_env *head, char *env);
 // t_env	*unset_env(t_env *head, char *env_key);
@@ -118,14 +118,13 @@ t_bool	check_pipe_red_2(char *cmd_line);
 // void	find_heredocs_num(t_parse **data);
 int		*find_rdr_num(char *str, char rdr);
 int		**find_rdr_chars(char *str, char rdr);
+char	***hold_rdr_names(char *str, char rdr);
 int		find_parts_num(char *cmd_line);
-char	***malloc_file_names(int parts_num, int *each_part_redir_num, int **file_name_chars_num);
+char	***malloc_rdr_names(int parts_num, int *rdr_num, int **rdr_chars);
 void	free_char_triple_pointer(char ***pointer);
-char	***hold_input_file_names(char *cmd_line);
-char	***hold_output_file_names(char *cmd_line);
 t_bool	check_quotes(char *cmd_line);
 void	remove_cmdline_quotes(char *cmd_line, char **ret, int char_num);
-int		**tokenize_inputs(char *cmd_line);
+int		**tokenize_inputs(char *str);
 int		**tokenize_outputs(char *cmd_line);
 char	*conv_redir2spcs(char *cmd_line);
 int		*find_cmds_num(char *cmd_line);
@@ -136,11 +135,7 @@ int		count_size_without_redir(char *cmd_line);
 void	find_heredocs_num(t_parse *data);
 void	handle_heredoc(t_parse *data);
 void	read_heredocs(t_parse *data);
-void	replace_heredoc(t_parse *data);
 char	*generate_file_names(int pos);
-void	check_type(t_var *var, char *str, char redir);
-t_bool	to_cont(t_var var, char *str);
-t_bool	count_rdr_chars(t_var var, char *str);
 
 // struct red
 // {

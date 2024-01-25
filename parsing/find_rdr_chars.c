@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/25 13:28:28 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/25 21:12:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	jump_over_quote(char *cmd_line, int *i, int len)
 	}
 }
 
-void	check_type(t_var *var, char *str, char redir)
+void	check_type(t_var *var, char *str, char rdr)
 {
-	if (var->i < var->len - 1 && (str[var->i] == redir && str[var->i + 1] \
-	!= redir && (var->i == 0 || str[var->i - 1] != redir)) \
+	if (var->i < var->len - 1 && (str[var->i] == rdr && str[var->i + 1] \
+	!= rdr && (var->i == 0 || str[var->i - 1] != rdr)) \
 	&& !var->rdrtrg && !var->qutrg && var->k < var->rdrnum[var->j])
 	{
 		var->chrnum = 0;
@@ -47,9 +47,9 @@ void	check_type(t_var *var, char *str, char redir)
 		if (str[var->i] == ' ')
 			var->i++;
 	}
-	else if (var->i < var->len - 1 && (str[var->i] == redir \
-		&& str[var->i + 1] == redir) && !var->rdrtrg && !var->qutrg \
-		&& var->k < var->rdrnum[var->j])
+	else if (var->i < var->len - 1 && (str[var->i] == rdr \
+	&& str[var->i + 1] == rdr) && !var->rdrtrg && !var->qutrg \
+	&& var->k < var->rdrnum[var->j])
 	{
 		var->chrnum = 0;
 		var->rdrtrg = TRUE;
@@ -59,29 +59,29 @@ void	check_type(t_var *var, char *str, char redir)
 			var->i++;
 	}
 	else if ((str[var->i] == '<' || str[var->i] == '>' || str[var->i] == ' ' \
-			|| str[var->i] == '|' || str[var->i] != var->quchr) && var->qutrg \
-			&& var->rdrtrg)
-			var->rcn[var->j][var->k] = ++var->chrnum;
+	|| str[var->i] == '|' || str[var->i] != var->quchr) && var->qutrg \
+	&& var->rdrtrg)
+		var->rcn[var->j][var->k] = ++var->chrnum;
 }
 
-t_bool	to_cont(t_var var, char *str)
+static t_bool	to_cont(t_var *var, char *str)
 {
-	if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
+	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
-		var.quchr = str[var.i];
-		var.qutrg = TRUE;
+		var->quchr = str[var->i];
+		var->qutrg = TRUE;
 		return (TRUE);
 	}
-	else if ((str[var.i] == var.quchr) && var.qutrg)
+	else if ((str[var->i] == var->quchr) && var->qutrg)
 	{
-		var.quchr = '\0';
-		var.qutrg = FALSE;
+		var->quchr = '\0';
+		var->qutrg = FALSE;
 		return (TRUE);
 	}
 	return (FALSE);
 }
 
-t_bool	count_rdr_chars(t_var var, char *str)
+static t_bool	count_rdr_chars(t_var var, char *str)
 {
 	if (((str[var.i] != '<' && str[var.i] != '>' && str[var.i] != ' ' \
 		&& str[var.i] != '|' && str[var.i] != '\'' && str[var.i] != '"' \
@@ -94,7 +94,7 @@ int	**find_rdr_chars(char *str, char rdr)
 {
 	t_var	var;
 
-	init_vars(&var, str, 1, rdr);
+	init_rdr_vars(&var, str, 2, rdr);
 	while (++var.i < var.len && str[var.i])
 	{
 
@@ -105,11 +105,16 @@ int	**find_rdr_chars(char *str, char rdr)
 			var.k = -1;
 		}
 		check_type(&var, str, rdr);
-		if (to_cont(var, str))
+		if (to_cont(&var, str))
 			continue;
+		// int i = 0;
 		if (count_rdr_chars(var, str))
 		{
-			var.rcn[var.j][var.k] = ++var.chrnum;
+			printf("var.j: %d var.k: %d\n", var.j, var.k);
+			// printf("var.chrnum: %d\n", var.chrnum);
+			var.rcn[var.j] \
+			[var.k] = \
+			++var.chrnum;
 			if (str[var.i + 1] == '<' || str[var.i + 1] == '>' \
 				|| str[var.i + 1] == ' ' || str[var.i + 1] == '|')
 				var.rdrtrg = FALSE;

@@ -6,13 +6,13 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/25 15:15:51 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/25 21:19:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-void	hold_rdr_1(t_var *var, char *str)
+static void	hold_rdr_1(t_var *var, char *str)
 {
 	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
@@ -38,7 +38,7 @@ void	hold_rdr_1(t_var *var, char *str)
 	}
 }
 
-void	hold_rdr_2(t_var *var, char *str)
+static void	hold_rdr_2(t_var *var, char *str)
 {
 	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
@@ -64,7 +64,7 @@ void	hold_rdr_2(t_var *var, char *str)
 	}
 }
 
-t_bool	hold_rdr_3(t_var *var, char *str)
+static t_bool	hold_rdr_3(t_var *var, char *str)
 {
 	if (var->i < var->len - 1 && (str[var->i] == '<' && str[var->i + 1] != '<' \
 	&& (var->i == 0 || str[var->i - 1] != '<') && (var->i == 0 \
@@ -123,9 +123,12 @@ t_bool	hold_rdr_cont(t_var *var, char *str)
 
 char	***hold_rdr_names(char *str, char rdr)
 {
+	printf("hold_rdr_names %c\n", rdr);
 	t_var	var;
 
-	init_vars(&var, str, 2, rdr);
+	init_rdr_vars(&var, str, 3, rdr);
+	var.rcn = find_rdr_chars(str, rdr);
+	var.rdrnms = malloc_rdr_names(var.parts_num, var.rdrnum, var.rcn);
 	while (++var.i < var.len && str[var.i])
 	{
 		hold_rdr_1(&var, str);

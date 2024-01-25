@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/22 22:09:18 by habu-zua         ###   ########.fr        #
+#    Updated: 2024/01/25 17:28:57 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,15 +17,11 @@ SRCS =	convert_tabs_to_spc.c \
 		del_excess_spcs.c \
 		error_pipes_2.c \
 		error_pipes.c \
-		find_infiles_heredocs_num.c \
-		find_inputs_chars_num.c \
-		find_outfiles_appends_num.c \
-		find_outputs_chars_num.c \
 		find_parts_num.c \
-		malloc_infile_heredocs.c \
-		mallocing_in_redir_file_names.c \
-		malloc_outfiles_appends.c \
-		mallocing_out_redir_file_names.c \
+		find_rdr_num.c \
+		find_rdr_chars.c \
+		hold_rdr_names.c \
+		malloc_rdr_names.c \
 		tokenize_in_redir.c \
 		tokenize_out_redir.c \
 		convert_redir_to_spc.c \
