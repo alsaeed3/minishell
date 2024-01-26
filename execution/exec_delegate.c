@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 14:16:26 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:41:56 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	exec_delegator(t_parse *parser)
 {
-	printf("exec_delegator\n");
-	printf("parser->cmds[0][0] = /%s/\n", parser->cmds[0][0]);
 	if (parser->parts_num == 1)
 		handle_single(parser->cmds[0], parser, 0, 0);
 	else

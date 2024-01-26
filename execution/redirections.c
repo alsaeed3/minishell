@@ -6,13 +6,13 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 15:02:42 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:12:43 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void redirect_from(t_parse *data, int x)
+void	redirect_from(t_parse *data, int x)
 {
 	int 	i;
 	int		fd;

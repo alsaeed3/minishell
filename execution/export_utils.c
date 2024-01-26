@@ -6,13 +6,13 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:03:01 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/21 15:23:20 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:53:11 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-int		check_export(char *str)
+int	check_export(char *str)
 {
 	int	i;
 
@@ -28,10 +28,10 @@ int		check_export(char *str)
 	return (1);
 }
 
-int		print_export(char **env)
+int	print_export(char **env)
 {
 	int	i;
-	int j;
+	int	j;
 	int	equal;
 
 	i = -1;

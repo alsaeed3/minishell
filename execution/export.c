@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/22 23:05:28 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:58:03 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ int	var_index(char *name, t_parse *data)
 
 void	replace_var(char *new_var, t_parse *data, int index)
 {
-	if(ft_strchr(new_var , '+'))
-		data->env[index] = ft_strjoin(data->env[index], ft_strchr(new_var, '=')+1);
+	if (ft_strchr(new_var, '+'))
+		data->env[index] = ft_strjoin(data->env[index], \
+		ft_strchr(new_var, '=') + 1);
 	else
-		{
-			free(data->env[index]);
-			data->env[index] = ft_strdup(new_var);
-		}
+	{
+		free(data->env[index]);
+		data->env[index] = ft_strdup(new_var);
+	}
 }
 
 char	**export_env(char **old_env, char *export)
@@ -97,17 +98,15 @@ void	handle_export(char **inputs, t_parse *data)
 	int	index;
 
 	i = 1;
-	if (inputs[i])//if there is arguments
+	if (inputs[i])
 	{
 		while (inputs[i])
 		{
 			index = var_index(inputs[i], data);
-			printf("index = %d\n", index);
 			if (index >= 0 && check_export(inputs[i]))
 				replace_var(inputs[i], data, index);
 			else if (check_export(inputs[i]))
 			{
-				printf("else\n");
 				data->env = export_env(data->env, inputs[i]);
 				if (!data->env)
 					exit(EXIT_FAILURE);
@@ -119,5 +118,4 @@ void	handle_export(char **inputs, t_parse *data)
 	}
 	else
 		export_alone(data);
-	// g_status = 0;
 }

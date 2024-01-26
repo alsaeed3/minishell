@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:26:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/21 13:46:00 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:48:33 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**gen_paths(int index, t_parse *data, char *input)
 	return (paths);
 }
 
-int		check_exec_path(char **inputs, t_parse *data)
+int	check_exec_path(char **inputs, t_parse *data)
 {
 	int			i;
 	int			index;
@@ -64,7 +64,7 @@ int		check_exec_path(char **inputs, t_parse *data)
 	return (0);
 }
 
-int		check_exec(char **inputs, t_parse *data)
+int	check_exec(char **inputs, t_parse *data)
 {
 	int			ret;
 	struct stat	statounet;
@@ -72,8 +72,8 @@ int		check_exec(char **inputs, t_parse *data)
 	statounet.st_mode = 0;
 	ret = 0;
 	stat(inputs[0], &statounet);
-	if (ft_strchr(inputs[0], '/') && (statounet.st_mode & S_IXUSR) &&
-	 !(statounet.st_mode & S_IFDIR))
+	if (ft_strchr(inputs[0], '/') && (statounet.st_mode & S_IXUSR)
+		&& !(statounet.st_mode & S_IFDIR))
 		ret = 1;
 	else
 		ret = check_exec_path(inputs, data);

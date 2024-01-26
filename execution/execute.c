@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/21 16:36:32 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:51:43 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,7 @@ void	handle_exec(char **inputs, t_parse *data)
 	else if (pid < 0)
 		exit(EXIT_FAILURE);
 	else
-	{
-		// sig_exec_init();
 		waitpid(pid, &status, 0);
-	}
-	// g_status = WEXITSTATUS(status);
-	// if (g_quit)
-	// 	g_status = 130;
 }
 
 int	execute(char **inputs, t_parse *data)
@@ -45,15 +39,15 @@ int	execute(char **inputs, t_parse *data)
 
 	index = var_index("PATH=", data);
 	if (ft_strchr(inputs[0], '/') && (access(inputs[0], X_OK) == 0))
-		{
-			if (execve(inputs[0], &inputs[0], data->env) != -1)
-				return 0;
-		}
-		else if (index >= 0)
-		{
-			if (!execute_2(inputs, data))
-				return 0;
-		}
+	{
+		if (execve(inputs[0], &inputs[0], data->env) != -1)
+			return (0);
+	}
+	else if (index >= 0)
+	{
+		if (!execute_2(inputs, data))
+			return (0);
+	}
 	return (1);
 }
 
@@ -68,9 +62,9 @@ int	execute_2(char **inputs, t_parse *data)
 	paths = gen_paths(index, data, inputs[0]);
 	while (paths[i])
 	{
-		if (access(paths[i], X_OK) == 0 && 
-			execve(paths[i], inputs, data->env) != -1)
-            return 0;
+		if (access(paths[i], X_OK) == 0
+			&& execve(paths[i], inputs, data->env) != -1)
+			return (0);
 		i++;
 	}
 	return (1);
