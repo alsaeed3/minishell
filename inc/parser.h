@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/25 21:14:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:05:43 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ typedef struct s_var
 	int		k;
 	int		l;
 	int		len;
-	t_bool	qutrg;
-	char	quchr;
-	t_bool	rdrtrg;
-	int		chrnum;
-	int		*rdrnum;
+	t_bool	qtrg;
+	char	qchr;
+	t_bool	rtrg;
+	int		cnum;
+	int		*rnum;
 	int		**rcn;
-	char	***rdrnms;
+	char	***rnms;
 }	t_var;
 
 typedef struct s_env_size
@@ -102,7 +102,7 @@ typedef struct s_parse
 	int		redir;
 }	t_parse;
 
-void	init_rdr_vars(t_var *var, char *str, int mode, char rdr);
+void	init_rdr_vars(t_var *var, char *str, char rdr);
 void	jump_over_quote(char *cmd_line, int *i, int len);
 t_env	*add_env(t_env *head, char *env);
 // t_env	*unset_env(t_env *head, char *env_key);
@@ -116,9 +116,9 @@ char	*expand_dollar_string(char *cmd_line, t_env *env_lst);
 t_bool	check_pipe_redir(char *line);
 t_bool	check_pipe_red_2(char *cmd_line);
 // void	find_heredocs_num(t_parse **data);
-int		*find_rdr_num(char *str, char rdr);
-int		**find_rdr_chars(char *str, char rdr);
-char	***hold_rdr_names(char *str, char rdr);
+int		*find_rdr_num(char *str, char rdr, int *in_rdr_num, int *out_rdr_num);
+int		**find_rdr_chars(char *str, char rdr, int in_rdr_num, int out_rdr_num);
+char	***hold_rdr_names(char *str, char rdr, int in_rdr_num, int out_rdr_num);
 int		find_parts_num(char *cmd_line);
 char	***malloc_rdr_names(int parts_num, int *rdr_num, int **rdr_chars);
 void	free_char_triple_pointer(char ***pointer);
