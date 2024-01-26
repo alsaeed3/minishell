@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:00:50 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/21 13:30:14 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:47:25 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_env(char **env)
 	free(env);
 }
 
-int		envlen(char **env)
+int	envlen(char **env)
 {
 	int	i;
 

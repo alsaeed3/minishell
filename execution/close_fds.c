@@ -6,13 +6,13 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:22:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 11:11:43 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:45:54 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void		close_fds(t_parse *data)
+void	close_fds(t_parse *data)
 {
 	if (data->fd_in != 0)
 	{

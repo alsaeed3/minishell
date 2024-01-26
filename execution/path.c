@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:13:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 19:14:17 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:04:29 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**gen_paths(int index, t_parse *data, char *input)
 	return (paths);
 }
 
-int		check_exec_path(char **inputs, t_parse *data)
+int	check_exec_path(char **inputs, t_parse *data)
 {
 	int			i;
 	int			index;
@@ -55,11 +55,11 @@ int		check_exec_path(char **inputs, t_parse *data)
 		stat(paths[i], &statounet);
 		if ((statounet.st_mode & S_IXUSR) && !(statounet.st_mode & S_IFDIR))
 		{
-			// free_env(paths);
+			free_env(paths);
 			return (1);
 		}
 		i++;
 	}
-	// free_env(paths);
+	free_env(paths);
 	return (0);
 }

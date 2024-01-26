@@ -6,12 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 17:37:40 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:52:31 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-
 
 void	error_sentence(char *str, int status)
 {
@@ -19,7 +18,7 @@ void	error_sentence(char *str, int status)
 	ft_putstr_fd(str, 2);
 }
 
-int		is_number(char *str)
+int	is_number(char *str)
 {
 	int	i;
 
@@ -37,8 +36,8 @@ int		is_number(char *str)
 
 void	handle_exit(char **args, t_parse *data)
 {
-	int status;
-	int error;
+	int	status;
+	int	error;
 
 	status = 0;
 	if (args[1])

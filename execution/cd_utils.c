@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:54:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/21 12:08:42 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:43:36 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	change_env_pwd(t_parse *data)
 {
-	char *pwd;
+	char	*pwd;
 
 	data->pwd = getcwd(NULL, 0);
 	if (var_index("PWD", data) >= 0)
@@ -33,8 +33,8 @@ void	change_env_pwd(t_parse *data)
 
 void	change_env_oldpwd(t_parse *data)
 {
-	char *pwd;
-	char *oldpwd;
+	char	*pwd;
+	char	*oldpwd;
 
 	if (var_index("OLDPWD", data) >= 0)
 	{
@@ -49,7 +49,7 @@ void	change_env_oldpwd(t_parse *data)
 	free(data->pwd);
 }
 
-int		change_pwd(t_parse *data, char *input)
+int	change_pwd(t_parse *data, char *input)
 {
 	char	*pwd;
 	char	*cwd;

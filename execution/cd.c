@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:48:44 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/21 12:08:18 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:45:28 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,17 @@ void	handle_cd(char **args, t_parse *data)
 
 static void	cd_alone(t_parse *data)
 {
-	if (var_index("HOME=", data) < 0 ||
-	chdir((strchr(data->env[var_index("HOME=", data)], '=') + 1)) == -1)
+	if (var_index("HOME=", data) < 0
+		|| chdir((strchr(data->env[var_index("HOME=", data)], '=') + 1)) == -1)
 		error_sentence("cd: HOME: is undefined\n", 1);
 	change_pwd(data, NULL);
 }
 
 static void	cd_minus(t_parse *data)
 {
-	if (var_index("OLDPWD=", data) < 0 ||
-	chdir((strchr(data->env[var_index("OLDPWD=", data)], '=') + 1)) == -1)
+	if (var_index("OLDPWD=", data) < 0
+		|| chdir((strchr(data->env[var_index("OLDPWD=", data)], '=') + 1))
+		== -1)
 	{
 		error_sentence("cd: OLDPWD is undefined\n", 1);
 		printf("worng path");
