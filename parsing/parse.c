@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/25 21:14:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:34:26 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,18 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser)
 		return (TRUE);
 	}
 	(*parser)->parts_num = find_parts_num(cmd_line);
-	(*parser)->in_redir_num = find_rdr_num(cmd_line, '<');
-	(*parser)->inputs_redirections = hold_rdr_names(cmd_line, '<');
-	(*parser)->inputs_tokens = tokenize_inputs(cmd_line);
+	(*parser)->in_rdr_num = find_rdr_num(cmd_line, '<', (*parser));
+	(*parser)->inputs_redirections = hold_rdr_names(cmd_line, '<', (*parser));
+	(*parser)->inputs_tokens = tokenize_inputs(cmd_line, (*parser));
 	printf("---------> before heredoc\n");
 	for (int i = 0; i < (*parser)->parts_num; i++)
 	{
 		int j = -1;
-		while ((*parser)->inputs_redirections[i][++j])
-			printf("%s\n", (*parser)->inputs_redirections[i][j]);
+		if ((*parser)->inputs_redirections && (*parser)->inputs_redirections[i])
+		{
+			while ((*parser)->inputs_redirections[i][++j])
+				printf("%s\n", (*parser)->inputs_redirections[i][j]);
+		}
 	}
 	printf("---------> before heredoc\n");
 	find_heredocs_num(*parser);
@@ -59,9 +62,9 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser)
 	for (int ak = 0; ak < (*parser)->heredocs_num; ak++)
 		printf("%s\n", (*parser)->heredoc_tmp_files[ak]);
 	// read_heredocs(*parser);
-	(*parser)->out_redir_num = find_rdr_num(cmd_line, '>');
-	(*parser)->outputs_redirections = hold_rdr_names(cmd_line, '>');
-	(*parser)->outputs_tokens = tokenize_outputs(cmd_line);
+	(*parser)->out_rdr_num = find_rdr_num(cmd_line, '>', (*parser));
+	(*parser)->outputs_redirections = hold_rdr_names(cmd_line, '>', (*parser));
+	(*parser)->outputs_tokens = tokenize_outputs(cmd_line, (*parser));
 	printf("before conv_redir2spcs {%s}\n", cmd_line);
 	cmd_line = conv_redir2spcs(cmd_line);
 	printf("conv_redir2spcs {%s}\n", cmd_line);

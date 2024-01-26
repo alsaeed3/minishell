@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 18:04:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:05:26 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,24 @@ void	init_rdr_vars(t_var *var, char *str, char rdr)
 	var->rcn = NULL;
 }
 
-int	*find_rdr_num(char *str, char rdr, int *in_rdr_num, int *out_rdr_num)
+void	find_tot_rdr(char rdr, t_parse *data)
+{
+	if (rdr == '<')
+		data->tot_inredir++;
+	else if (rdr == '>')
+		data->tot_outredir++; 
+}
+
+int		ret_rnum(char rdr, t_parse *data)
+{
+	if (rdr == '<')
+		return (data->tot_inredir);
+	else if (rdr == '>')
+		return (data->tot_outredir); 
+	return (0);
+}
+
+int	*find_rdr_num(char *str, char rdr, t_parse *data)
 {
 	t_var	var;
 
@@ -50,11 +67,11 @@ int	*find_rdr_num(char *str, char rdr, int *in_rdr_num, int *out_rdr_num)
 			var.j++;
 		if (var.i < var.len - 1 && (str[var.i] == rdr && str[var.i + 1] != rdr \
 			&& (var.i == 0 || str[var.i - 1] != rdr)) && !var.qtrg)
-			(*in_rdr_num)++;
+			find_tot_rdr(rdr, data);
 		else if (var.i < var.len - 1 && (str[var.i] == rdr \
 			&& str[var.i + 1] == rdr) && !var.qtrg)
-			(*out_rdr_num)++;
-		var.rnum[var.j] = (*in_rdr_num) + (*out_rdr_num);
+			find_tot_rdr(rdr, data);
+		var.rnum[var.j] = ret_rnum(rdr, data);
 	}
 	return (var.rnum);
 }

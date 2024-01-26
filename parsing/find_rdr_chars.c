@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 17:48:45 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:25:33 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,19 @@ static t_bool	count_rdr_chars(t_var var, char *str)
 	return (FALSE);
 }
 
-int	**find_rdr_chars(char *str, char rdr, int in_rdr_num, int out_rdr_num)
+int	**find_rdr_chars(char *str, char rdr, t_parse *data)
 {
 	t_var	var;
 
+	if (rdr == '<' && !data->tot_inredir)
+		return (NULL);
+	else if (rdr == '>' && !data->tot_outredir)
+		return (NULL);
 	init_rdr_vars(&var, str, rdr);
-	if (rdr == '<' && !in_rdr_num)
-		return (NULL);
-	else if (rdr == '>' && !out_rdr_num)
-		return (NULL);
-	var.rnum = find_rdr_num(str, rdr);
+	if (rdr == '<' && data->tot_inredir)
+		var.rnum = data->in_rdr_num;
+	else if (rdr == '>' && data->tot_outredir)
+		var.rnum = data->out_rdr_num;
 	var.rcn = ft_calloc(var.parts_num, sizeof(int *));
 	while (++var.i < var.parts_num)
 		var.rcn[var.i] = ft_calloc(var.rnum[var.i], sizeof(int));

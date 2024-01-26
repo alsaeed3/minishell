@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/19 23:30:51 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 21:12:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void redirect_from(t_parse *data, int x)
 	char	*filename;
 	
 	i = 0;
-	while (i < data->in_redir_num[x])
+	while (i < data->in_rdr_num[x])
 	{
 		filename = data->inputs_redirections[x][i];
 		fd = open(filename, O_RDONLY);
@@ -44,7 +44,7 @@ void redirect_to(t_parse *data, int x)
 	char	*filename;
 	int i;
 	i = 0;
-	while (i < data->out_redir_num[x])
+	while (i < data->out_rdr_num[x])
 		{
 			filename = data->outputs_redirections[x][i];
 			if (data->outputs_tokens[x][i] == 1)

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 18:05:52 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:22:43 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,20 @@ t_bool	hold_rdr_cont(t_var *var, char *str)
 	return (FALSE);
 }
 
-char	***hold_rdr_names(char *str, char rdr, int in_rdr_num, int out_rdr_num)
+char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 {
 	t_var	var;
 
-	if (rdr == '<' && !in_rdr_num)
+	if (rdr == '<' && !data->tot_inredir)
 		return (NULL);
-	else if (rdr == '>' && !out_rdr_num)
+	else if (rdr == '>' && !data->tot_outredir)
 		return (NULL);
 	init_rdr_vars(&var, str, rdr);
-	var.rnum = find_rdr_num(str, rdr);
-	var.rcn = find_rdr_chars(str, rdr);
+	if (rdr == '<' && data->tot_inredir)
+		var.rnum = data->in_rdr_num;
+	else if (rdr == '>' && data->tot_outredir)
+		var.rnum = data->out_rdr_num;
+	var.rcn = find_rdr_chars(str, rdr, data);
 	var.rnms = malloc_rdr_names(var.parts_num, var.rnum, var.rcn);
 	while (++var.i < var.len && str[var.i])
 	{

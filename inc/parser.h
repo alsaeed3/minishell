@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 18:05:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:30:49 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ typedef struct s_parse
 {
 	int		parts_num;
 	int		tot_inredir;
-	int		*in_redir_num;
+	int		*in_rdr_num;
 	char	***inputs_redirections;
 	int		**inputs_tokens;
 	int		heredocs_num;
 	char	**hd_usr_input;
 	int		tot_outredir;
-	int		*out_redir_num;
+	int		*out_rdr_num;
 	char	***outputs_redirections;
 	int		**outputs_tokens;
 	char	***cmds;
@@ -116,16 +116,16 @@ char	*expand_dollar_string(char *cmd_line, t_env *env_lst);
 t_bool	check_pipe_redir(char *line);
 t_bool	check_pipe_red_2(char *cmd_line);
 // void	find_heredocs_num(t_parse **data);
-int		*find_rdr_num(char *str, char rdr, int *in_rdr_num, int *out_rdr_num);
-int		**find_rdr_chars(char *str, char rdr, int in_rdr_num, int out_rdr_num);
-char	***hold_rdr_names(char *str, char rdr, int in_rdr_num, int out_rdr_num);
+int		*find_rdr_num(char *str, char rdr, t_parse *data);
+int		**find_rdr_chars(char *str, char rdr, t_parse *data);
+char	***hold_rdr_names(char *str, char rdr, t_parse *data);
 int		find_parts_num(char *cmd_line);
 char	***malloc_rdr_names(int parts_num, int *rdr_num, int **rdr_chars);
 void	free_char_triple_pointer(char ***pointer);
 t_bool	check_quotes(char *cmd_line);
 void	remove_cmdline_quotes(char *cmd_line, char **ret, int char_num);
-int		**tokenize_inputs(char *str);
-int		**tokenize_outputs(char *cmd_line);
+int		**tokenize_inputs(char *str, t_parse *data);
+int		**tokenize_outputs(char *str, t_parse *data);
 char	*conv_redir2spcs(char *cmd_line);
 int		*find_cmds_num(char *cmd_line);
 int		**find_cmds_chars_num(char *cmd_line);

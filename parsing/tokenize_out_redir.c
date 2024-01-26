@@ -6,13 +6,13 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:39:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/25 21:14:18 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:31:40 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-int	**tokenize_outputs(char *str)
+int	**tokenize_outputs(char *str, t_parse *data)
 {
 	int	**out_tokens;
 	int *redir_num;
@@ -24,8 +24,12 @@ int	**tokenize_outputs(char *str)
 	int	k;
 	int	len;
 
-	parts_num = find_parts_num(str);
-	redir_num = find_rdr_num(str, '>');
+	if (!data->tot_outredir)
+		return (NULL);
+	if (data->tot_outredir)
+		redir_num = data->out_rdr_num;
+	parts_num = data->parts_num;
+	redir_num = data->out_rdr_num;
 	out_tokens = ft_calloc(parts_num, sizeof(int *));
 	i = -1;
 	while (++i < parts_num)

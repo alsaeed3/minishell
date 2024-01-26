@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/24 16:51:35 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:35:10 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	find_heredocs_num(t_parse *data)
 	int	j;
 
 	i = -1;
-	while (data->inputs_redirections[++i])
+	while (data->inputs_redirections && data->inputs_redirections[++i])
 	{
 		j = -1;
 		while (data->inputs_redirections[i][++j])
@@ -67,7 +67,7 @@ void	handle_heredoc(t_parse *data)
 	printf("\n");
 	k = 0;
 	i = -1;
-	while (data->inputs_redirections[++i])
+	while (data->inputs_redirections && data->inputs_redirections[++i])
 	{
 		j = -1;
 		while (data->inputs_redirections[i][++j])
@@ -210,7 +210,7 @@ void	replace_heredoc(t_parse *data)
 	while (++i < data->parts_num && data->heredocs_num)
 	{
 		j = -1;
-		while (++j < data->in_redir_num[i] && k < data->heredocs_num)
+		while (++j < data->in_rdr_num[i] && k < data->heredocs_num)
 		{
 			if (data->inputs_tokens[i][j] == 1 && data->inputs_redirections[i][j])
 			{

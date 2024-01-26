@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/16 15:40:34 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:12:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@
 // 		printf("---------------------------------------------\n");
 // 		printf("#                inputs_tokens:             #\n");
 // 		i = -1;
-// 		if (parser.in_redir_num)
+// 		if (parser.in_rdr_num)
 // 		{
 // 			while (++i < parser.parts_num)
 // 			{
 // 				j = -1;
-// 				while (++j < parser.in_redir_num[i])
+// 				while (++j < parser.in_rdr_num[i])
 // 					printf("-------->part:[%d], order:[%d] = { %d }\n", i, j, parser.inputs_tokens[i][j]);
 // 			}
 // 		}
@@ -73,7 +73,7 @@
 // 		while (++i < parser.parts_num)
 // 		{
 // 			j = -1;
-// 			while (++j < parser.out_redir_num[i])
+// 			while (++j < parser.out_rdr_num[i])
 // 				printf("-------->part:[%d], order:[%d] = { %d }\n", i, j, parser.outputs_tokens[i][j]);
 // 		}
 // 		printf("\n");

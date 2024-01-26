@@ -9,7 +9,7 @@
 // 	while (++i < (*data)->parts_num)
 // 	{
 // 		j = -1;
-// 		while (++j < (*data)->in_redir_num[i])
+// 		while (++j < (*data)->in_rdr_num[i])
 // 		{
 // 			if ((*data)->inputs_tokens[i][j] == 1)
 // 				(*data)->heredocs_num++;
@@ -143,7 +143,7 @@ char	**try_heredoc(char **heredocs_ends)
 // 	while (++i < (*data)->parts_num)
 // 	{
 // 		j = -1;
-// 		while (++j < (*data)->in_redir_num[i])
+// 		while (++j < (*data)->in_rdr_num[i])
 // 		{
 // 			if ((*data)->inputs_tokens[i][j] == 1)
 // 				(*data)->heredocs_num++;

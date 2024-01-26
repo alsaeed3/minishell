@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/25 21:20:26 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:31:27 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // 	return (check);
 // }
 
-int	**tokenize_inputs(char *str)
+int	**tokenize_inputs(char *str, t_parse *data)
 {
 	printf("tokenize_inputs\n");
 	int	**in_tokens;
@@ -40,8 +40,12 @@ int	**tokenize_inputs(char *str)
 	int	k;
 	int	len;
 
-	parts_num = find_parts_num(str);
-	redir_num = find_rdr_num(str, '<');
+	if (!data->tot_inredir)
+		return (NULL);
+	if (data->tot_inredir)
+		redir_num = data->in_rdr_num;
+	parts_num = data->parts_num;
+	redir_num = data->in_rdr_num;
 	// if (!check_redir_num(redir_num, parts_num))
 	// 	return (NULL);
 	in_tokens = ft_calloc(parts_num, sizeof(int *));
