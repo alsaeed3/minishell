@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/24 16:51:35 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 14:47:39 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,11 @@ void	handle_heredoc(t_parse *data)
 						printf("access %d, read %zd\n", access(data->heredoc_tmp_files[k], F_OK), read(tmp_fd2, line, 1));
 						if (!access(data->heredoc_tmp_files[k++], F_OK) && ((read(tmp_fd2, line, 1)) <= 0))
 						{
-							data->heredocs_num--;
-							unlink(data->heredoc_tmp_files[k - 1]);
-							free (data->heredoc_tmp_files[k - 1]);
-							data->heredoc_tmp_files[k - 1] = NULL;
 							k--;
+							data->heredocs_num--;
+							unlink(data->heredoc_tmp_files[k]);
+							free (data->heredoc_tmp_files[k]);
+							data->heredoc_tmp_files[k] = NULL;
 						}
 						close(tmp_fd2);
 						free(line);

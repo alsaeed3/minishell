@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/25 19:07:38 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:02:42 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,25 @@ void redirect_from(t_parse *data, int x)
 	char	*filename;
 	
 	i = 0;
+	filename = NULL;
 	while (i < data->in_redir_num[x])
 	{
-		if(data->inputs_tokens[x][i] == 0)
+		if(data->inputs_tokens[x][i] == 0 && data->inputs_redirections[x][i + 1] == NULL)
+		{
+			printf("heerreeee\n");
 			filename = data->inputs_redirections[x][i];
-		else
+		}
+		else if (data->inputs_tokens[x][i] == 1 && data->inputs_redirections[x][i + 1] == NULL)
+		{
+			printf("heerreeee else\n");
 			filename = data->heredoc_tmp_files[x];
-			
-		// printf("filename: %s\n", filename);
-		fd = open(filename, O_RDONLY);
+		}
+		if (filename)
+		{
+			printf("filename = {%s}\n", filename);
+			fd = open(filename, O_RDONLY);
+			printf("fd: %d\n", fd);
+		}
 		if (fd < 0)
 		{
 			ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);

@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/24 21:21:34 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:16:26 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	exec_delegator(t_parse *parser)
 {
+	printf("exec_delegator\n");
+	printf("parser->cmds[0][0] = /%s/\n", parser->cmds[0][0]);
 	if (parser->parts_num == 1)
 		handle_single(parser->cmds[0], parser, 0, 0);
 	else
@@ -48,19 +50,19 @@ void	choose_action(char **cmd, t_parse *data)
 		data->redir = 1;
 		return ;
 	}
-	if (ft_strcmp(cmd[0], "echo ") == 0)
+	if (ft_strcmp(cmd[0], "echo") == 0)
 		handle_echo(cmd);
-	else if (ft_strcmp(cmd[0], "pwd ") == 0)
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		handle_pwd(data);
-	else if (ft_strcmp(cmd[0], "cd ") == 0)
+	else if (ft_strcmp(cmd[0], "cd") == 0)
 		handle_cd(cmd, data);
-	else if (ft_strcmp(cmd[0], "env ") == 0)
+	else if (ft_strcmp(cmd[0], "env") == 0)
 		handle_env(data->env);
-	else if (ft_strcmp(cmd[0], "exit ") == 0)
+	else if (ft_strcmp(cmd[0], "exit") == 0)
 		handle_exit(cmd, data);
-	else if (ft_strcmp(cmd[0], "export ") == 0)
+	else if (ft_strcmp(cmd[0], "export") == 0)
 		handle_export(cmd, data);
-	else if (ft_strcmp(cmd[0], "unset ") == 0)
+	else if (ft_strcmp(cmd[0], "unset") == 0)
 		handle_unset(cmd, data);
 	else
 		handle_exec(cmd, data);
