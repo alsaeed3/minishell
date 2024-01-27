@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 18:51:43 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/27 13:25:40 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	handle_exec(char **inputs, t_parse *data)
 {
 	pid_t	pid;
-	int		status;
 
-	status = 0;
 	if (!check_exec(inputs, data))
 		return (error_sentence("\t\tminishell: Unknown command\n", 127));
 	pid = fork();
@@ -30,7 +28,7 @@ void	handle_exec(char **inputs, t_parse *data)
 	else if (pid < 0)
 		exit(EXIT_FAILURE);
 	else
-		waitpid(pid, &status, 0);
+		waitpid(pid, &data->exit_status, 0);
 }
 
 int	execute(char **inputs, t_parse *data)
@@ -69,3 +67,12 @@ int	execute_2(char **inputs, t_parse *data)
 	}
 	return (1);
 }
+
+
+/*
+127: command not found
+126: permission denied
+128: invalid argument
+130: ctrl + c
+
+*/
