@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 12:14:43 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/27 20:19:03 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	redirect_from(t_parse *data, int x)
 			data->redir = 0;
 			return 1;
 		}
+		// printf("fd = %d\n filename = %s\n", fd, filename);
 		i++;
 	}
 	dup2(fd, 0);
