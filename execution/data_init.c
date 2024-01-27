@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 18:46:16 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/27 15:13:33 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	data_init(t_parse **data, char **env)
 {
+	(void)env;
 	(*data)->env = dup_env(env);
 	(*data)->pwd = getcwd(NULL, 0);
 	(*data)->envs_lst = NULL;
