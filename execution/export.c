@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 13:32:45 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/27 15:46:18 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,27 @@ int	var_index(char *name, t_parse *data)
 
 void	replace_var(char *new_var, t_parse *data, int index)
 {
+	char *old_var;
 	if (ft_strchr(new_var, '+'))
-		data->env[index] = ft_strjoin(data->env[index], \
-		ft_strchr(new_var, '=') + 1);
+		if(ft_strchr(data->env[index], '='))
+		{
+			old_var = ft_strjoin(data->env[index], ft_strchr(new_var, '=') + 1);
+			free(data->env[index]);
+			data->env[index] = old_var;
+		}
+		else
+		{
+			old_var = ft_strjoin(data->env[index], "=");
+			free(data->env[index]);
+			data->env[index] = ft_strjoin(old_var, ft_strchr(new_var, '=') + 1);
+			free(old_var);
+		}
 	else
 	{
 		free(data->env[index]);
 		data->env[index] = ft_strdup(new_var);
 	}
+	
 }
 
 char	**export_env(char **old_env, char *export)
