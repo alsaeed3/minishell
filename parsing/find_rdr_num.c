@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_rdr_num.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 21:05:26 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/27 13:00:51 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	init_rdr_vars(t_var *var, char *str, char rdr)
 {
-	printf("find_rdr_num %c\n", rdr);
+	(void)rdr;
+	// printf("find_rdr_num %c\n", rdr);
 	var->i = -1;
 	var->j = 0;
 	var->k = -1;

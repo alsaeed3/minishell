@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 21:12:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/27 12:56:25 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int main(int ac, char **av, char **env)
 		if (parse_shell(dup, env, &parser))
 			continue ;
 		free (dup);
-		// exec_delegator(parser);
+		exec_delegator(parser);
 		free (parser);
 		// print_function(parser);
 		// free_char_triple_pointer(inputs_names);

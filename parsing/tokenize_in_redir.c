@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_in_redir.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 21:31:27 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/27 12:59:40 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 int	**tokenize_inputs(char *str, t_parse *data)
 {
-	printf("tokenize_inputs\n");
+	// printf("tokenize_inputs\n");
 	int	**in_tokens;
 	int *redir_num;
 	int parts_num;

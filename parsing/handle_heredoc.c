@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 21:35:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/27 13:00:31 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	handle_heredoc(t_parse *data)
 		return ;
 	// heredoc_line = ft_calloc((data->heredocs_num) + 1, sizeof(char *));
     // Open a temporary file for writing
-	printf("\n");
-	printf("heredocs_num\n");
-	printf("her_num: %d\n", data->heredocs_num);
-	printf("\n");
+	// printf("\n");
+	// printf("heredocs_num\n");
+	// printf("her_num: %d\n", data->heredocs_num);
+	// printf("\n");
 	k = 0;
 	i = -1;
 	while (data->inputs_redirections && data->inputs_redirections[++i])
@@ -74,7 +74,7 @@ void	handle_heredoc(t_parse *data)
 		{
 			if (data->inputs_redirections[i][j + 1] != NULL && data->inputs_tokens[i][j] == 1)
 			{
-				printf("enter fake-heredoc\n");
+				// printf("enter fake-heredoc\n");
 				while (1) 
 				{
 					line = readline("> ");
@@ -84,14 +84,14 @@ void	handle_heredoc(t_parse *data)
 						break;
 					}
 				}
-				printf("exit fake-heredoc\n");
+				// printf("exit fake-heredoc\n");
 			}
 			else if (data->inputs_redirections[i][j + 1] == NULL && data->inputs_tokens[i][j] == 1)
 			{
-				printf("---\n");
-				printf("enter real-heredoc\n");
-				printf("data->inputs_redirections[i][j]: %s\n", data->inputs_redirections[i][j]);
-				printf("---\n");
+				// printf("---\n");
+				// printf("enter real-heredoc\n");
+				// printf("data->inputs_redirections[i][j]: %s\n", data->inputs_redirections[i][j]);
+				// printf("---\n");
 				data->heredoc_tmp_files[k] = generate_file_names(k + 1);
 				tmp_fd = open(data->heredoc_tmp_files[k], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				// printf("%d\n", tmp_fd);
@@ -107,9 +107,9 @@ void	handle_heredoc(t_parse *data)
 					line = readline("> ");
 					if (line == NULL || line[0] == '\0' || ft_strcmp(line, data->inputs_redirections[i][j]) == 0)
 					{
-						printf("k: %d, line: %s, line[0]: %c, %s\n",k ,line, line[0], data->inputs_redirections[i][j]);
+						// printf("k: %d, line: %s, line[0]: %c, %s\n",k ,line, line[0], data->inputs_redirections[i][j]);
 						tmp_fd2 = open(data->heredoc_tmp_files[k], O_RDONLY);
-						printf("access %d, read %zd\n", access(data->heredoc_tmp_files[k], F_OK), read(tmp_fd2, line, 1));
+						// printf("access %d, read %zd\n", access(data->heredoc_tmp_files[k], F_OK), read(tmp_fd2, line, 1));
 						if (!access(data->heredoc_tmp_files[k++], F_OK) && ((read(tmp_fd2, line, 1)) <= 0))
 						{
 							data->heredocs_num--;
@@ -130,12 +130,12 @@ void	handle_heredoc(t_parse *data)
 				if (line)
 					free(line);
 				close(tmp_fd);
-				printf("exit real-heredoc\n");
+				// printf("exit real-heredoc\n");
 			//	------------------------------------------------------------------
 			}
 		}
 	}
-	printf("i: %d, k: %d, her_num: %d\n", i, k, data->heredocs_num);
+	// printf("i: %d, k: %d, her_num: %d\n", i, k, data->heredocs_num);
 	if (data->heredocs_num /* && access(data->heredoc_tmp_files[k - 1], F_OK) */)
 		data->heredoc_tmp_files[k] = NULL;
 	if (!data->heredocs_num)
