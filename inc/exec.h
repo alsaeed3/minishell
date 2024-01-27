@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/23 20:39:15 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/27 11:53:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	handle_env(char **env);
 
 int		check_export(char *str);
 int		print_export(char **env);
-void	handle_echo(char **args);
+void	handle_echo(t_parse *data);
 void	handle_unset(char **inputs, t_parse *data);
 void	handle_pwd(t_parse *data);
 
 void	data_init(t_parse **data, char **env);
 
-void    redirect_from(t_parse *data, int x);
+int    redirect_from(t_parse *data, int x);
 void    redirect_to(t_parse *data, int x);
 
 char	**gen_paths(int index, t_parse *data, char *input);

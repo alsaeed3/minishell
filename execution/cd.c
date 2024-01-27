@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:48:44 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 18:45:28 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/27 12:22:20 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	cd_path(char **args, t_parse *data);
 
 void	handle_cd(char **args, t_parse *data)
 {
+	printf("handle_cd\n");
 	if (args[1] && args[2])
 		return (error_sentence("cd: too many arguments\n", 1));
 	else if (!args[1])
@@ -43,7 +44,7 @@ static void	cd_minus(t_parse *data)
 		== -1)
 	{
 		error_sentence("cd: OLDPWD is undefined\n", 1);
-		printf("worng path");
+		// printf("worng path");
 	}
 	change_pwd(data, NULL);
 }

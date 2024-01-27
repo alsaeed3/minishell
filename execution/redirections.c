@@ -6,13 +6,20 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 19:12:43 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/27 12:14:43 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void	redirect_from(t_parse *data, int x)
+static void ft_error(char *str)
+{
+	ft_putstr_fd("Error: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
+}
+
+int	redirect_from(t_parse *data, int x)
 {
 	int 	i;
 	int		fd;
@@ -22,27 +29,25 @@ void	redirect_from(t_parse *data, int x)
 	filename = NULL;
 	while (i < data->in_redir_num[x])
 	{
-		if(data->inputs_tokens[x][i] == 0 && data->inputs_redirections[x][i + 1] == NULL)
+		if(data->inputs_tokens[x][i] == 0)
 		{
-			printf("heerreeee\n");
 			filename = data->inputs_redirections[x][i];
+			if(open(filename, O_RDONLY) < 0)
+			{
+				ft_error(strerror(ENOENT));
+				data->redir = 0;
+				return 1;
+			}
 		}
-		else if (data->inputs_tokens[x][i] == 1 && data->inputs_redirections[x][i + 1] == NULL)
-		{
-			printf("heerreeee else\n");
+		else if (data->inputs_tokens[x][i] == 1)
 			filename = data->heredoc_tmp_files[x];
-		}
 		if (filename)
-		{
-			printf("filename = {%s}\n", filename);
 			fd = open(filename, O_RDONLY);
-			printf("fd: %d\n", fd);
-		}
 		if (fd < 0)
 		{
 			ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);
 			data->redir = 0;
-			return ;
+			return 1;
 		}
 		i++;
 	}
@@ -50,6 +55,7 @@ void	redirect_from(t_parse *data, int x)
 	if (data->fd_in != 0)
 		close(data->fd_in);
 	data->fd_in = fd;
+	return 0;
 }
 
 

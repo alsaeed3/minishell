@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 18:58:03 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/27 13:32:45 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,13 @@ char	**export_env(char **old_env, char *export)
 	new_env[i] = ft_strdup(export);
 	i++;
 	new_env[i] = NULL;
+	printf("new_env [i-1]: %s\n", new_env[i - 1]);
 	return (new_env);
 }
 
 void	export_alone(t_parse *data)
 {
+	printf("export_alone\n");
 	int		i;
 	int		j;
 	char	**temp_env;
@@ -94,6 +96,7 @@ void	export_alone(t_parse *data)
 
 void	handle_export(char **inputs, t_parse *data)
 {
+	printf("handle_export\n");
 	int	i;
 	int	index;
 
@@ -107,6 +110,7 @@ void	handle_export(char **inputs, t_parse *data)
 				replace_var(inputs[i], data, index);
 			else if (check_export(inputs[i]))
 			{
+				printf("export_env\n");
 				data->env = export_env(data->env, inputs[i]);
 				if (!data->env)
 					exit(EXIT_FAILURE);

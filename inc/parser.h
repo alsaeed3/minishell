@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/23 13:36:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/27 11:57:18 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include <time.h>
 # include <string.h>
 # include <stdint.h>
+# include <err.h>
 
 # ifdef FALSE
 #  undef FALSE
@@ -83,6 +84,7 @@ typedef struct s_parse
 	int 	fd_out;
 	char	*pwd;
 	int		redir;
+	int		exit_status;
 }	t_parse;
 
 void	jump_over_quote(char *cmd_line, int *i, int len);
