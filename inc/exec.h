@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 11:53:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/27 17:43:10 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "parser.h"
 # define FORKED_CHILD 0
+extern int  g_signal;
 
 
 void    exec_delegator(t_parse *parser);
@@ -63,6 +64,8 @@ int		execute(char **inputs, t_parse *data);
 
 void   free_exit(t_parse *data, int status);
 
-void	set_signals(void);
+void	set_signals(t_parse *parser);
+void	is_parent_child_sig(int sig);
+
 
 #endif
