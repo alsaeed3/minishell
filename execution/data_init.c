@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/23 20:38:53 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/27 13:17:43 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ void	data_init(t_parse **data, char **env)
 	(*data)->fd_in = 0;
 	(*data)->fd_out = 1;
 	(*data)->redir = 1;
+	(*data)->exit_status = 0;
 }
