@@ -6,7 +6,7 @@
 #    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/22 22:09:18 by habu-zua         ###   ########.fr        #
+#    Updated: 2024/01/28 14:53:40 by habu-zua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCSX = exec_delegate.c execute.c \
 		exit.c env.c unset.c \
 		data_init.c redirections.c exec_utils.c\
 		pipe.c close_fds.c free.c signal.c \
+		ft_error.c \
 
 
 OBJS_DIR = parsing/objs/

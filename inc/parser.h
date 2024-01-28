@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/27 11:57:18 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/28 17:55:07 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_parse
 	int 	fd_in;
 	int 	fd_out;
 	char	*pwd;
-	int		redir;
 	int		exit_status;
 }	t_parse;
 

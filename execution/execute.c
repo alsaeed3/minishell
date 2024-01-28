@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 13:25:40 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/28 17:48:42 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 void	handle_exec(char **inputs, t_parse *data)
 {
 	pid_t	pid;
-
+	
 	if (!check_exec(inputs, data))
-		return (error_sentence("\t\tminishell: Unknown command\n", 127));
+	{
+		data->exit_status = 127;
+		ft_error("\t\tminishell: Unknown command\n");
+		return ;
+	}
+	g_signal = 3;
 	pid = fork();
 	if (pid == 0)
 	{

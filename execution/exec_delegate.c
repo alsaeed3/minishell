@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 12:25:14 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/28 14:55:24 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,6 @@ int	handle_single(char **inputs, t_parse *data, int piped, int x)
 
 void	choose_action(char **cmd, t_parse *data)
 {
-	if (!data->redir)
-	{
-		data->redir = 1;
-		return ;
-	}
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		handle_echo(data);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
