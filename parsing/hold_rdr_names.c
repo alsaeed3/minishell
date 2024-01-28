@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hold_rdr_names.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 21:22:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/28 16:49:58 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 		return (NULL);
 	else if (rdr == '>' && !data->tot_outredir)
 		return (NULL);
-	init_rdr_vars(&var, str, rdr);
+	init_rdr_vars(&var, str);
 	if (rdr == '<' && data->tot_inredir)
 		var.rnum = data->in_rdr_num;
 	else if (rdr == '>' && data->tot_outredir)

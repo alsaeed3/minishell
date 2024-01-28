@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/22 08:44:27 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/28 19:01:25 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	find_env_size(char *cmd_line, int i)
 	size = 0;
 	if (cmd_line[i] == '$')
 		i++;
-	while (i < len && ((cmd_line[i] >= 65 && cmd_line[i] <= 90) || (cmd_line[i] >= 97 && cmd_line[i] <= 122)))
+	while (i < len && ((cmd_line[i] >= 65 && cmd_line[i] <= 90) || (cmd_line[i] >= 97 && cmd_line[i] <= 122) || (cmd_line[i] >= 48 && cmd_line[i] <= 57)))
 	{
 		size++;
 		i++;
@@ -66,7 +66,7 @@ static int expand_dollar_count(char *cmd_line, t_env *env_lst)
 			i += 2;
 		else if (cmd_line[i] == '$' && ((cmd_line[i + 1] >= 65 && cmd_line[i + 1] <= 90) || (cmd_line[i + 1] >= 97 && cmd_line[i + 1] <= 122)) && !solo_quo_trigger)
 			dollar_trigger = TRUE;
-		if (dollar_trigger && ((cmd_line[i] >= 65 && cmd_line[i] <= 90) || (cmd_line[i] >= 97 && cmd_line[i] <= 122)))
+		if (dollar_trigger && ((cmd_line[i] >= 65 && cmd_line[i] <= 90) || (cmd_line[i] >= 97 && cmd_line[i] <= 122) || (cmd_line[i] >= 48 && cmd_line[i] <= 57)))
 		{
 				env = ft_calloc(find_env_size(cmd_line, i) + 1, sizeof(char));
 				if (!env)
@@ -156,7 +156,7 @@ char *expand_dollar_string(char *cmd_line, t_env *env_lst)
 					return (0);
 				k = 0;
 				env[k++] = cmd_line[i];
-				while(++i < len && ((cmd_line[i] >= 65 && cmd_line[i] <= 90) || (cmd_line[i] >= 97 && cmd_line[i] <= 122) || (cmd_line[i] >= 48 && cmd_line[i] <= 57)))
+				while (++i < len && ((cmd_line[i] >= 65 && cmd_line[i] <= 90) || (cmd_line[i] >= 97 && cmd_line[i] <= 122) || (cmd_line[i] >= 48 && cmd_line[i] <= 57)))
 					env[k++] = cmd_line[i];
 				env[k] = '\0';
 				dollar_trigger = FALSE;

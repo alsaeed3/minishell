@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/27 13:17:01 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/28 16:53:00 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ typedef struct s_parse
 	int		exit_status;
 }	t_parse;
 
-void	init_rdr_vars(t_var *var, char *str, char rdr);
+void	init_rdr_vars(t_var *var, char *str);
+void	quote_context(char *str, t_var *var);
 void	jump_over_quote(char *cmd_line, int *i, int len);
 t_env	*add_env(t_env *head, char *env);
 // t_env	*unset_env(t_env *head, char *env_key);

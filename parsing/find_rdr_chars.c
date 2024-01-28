@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_rdr_chars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/26 21:25:33 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/28 16:49:47 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	**find_rdr_chars(char *str, char rdr, t_parse *data)
 		return (NULL);
 	else if (rdr == '>' && !data->tot_outredir)
 		return (NULL);
-	init_rdr_vars(&var, str, rdr);
+	init_rdr_vars(&var, str);
 	if (rdr == '<' && data->tot_inredir)
 		var.rnum = data->in_rdr_num;
 	else if (rdr == '>' && data->tot_outredir)

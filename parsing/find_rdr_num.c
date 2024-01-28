@@ -6,16 +6,14 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/27 13:00:51 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/28 16:52:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-void	init_rdr_vars(t_var *var, char *str, char rdr)
+void	init_rdr_vars(t_var *var, char *str)
 {
-	(void)rdr;
-	// printf("find_rdr_num %c\n", rdr);
 	var->i = -1;
 	var->j = 0;
 	var->k = -1;
@@ -34,36 +32,41 @@ void	find_tot_rdr(char rdr, t_parse *data)
 	if (rdr == '<')
 		data->tot_inredir++;
 	else if (rdr == '>')
-		data->tot_outredir++; 
+		data->tot_outredir++;
 }
 
-int		ret_rnum(char rdr, t_parse *data)
+int	ret_rnum(char rdr, t_parse *data)
 {
 	if (rdr == '<')
 		return (data->tot_inredir);
 	else if (rdr == '>')
-		return (data->tot_outredir); 
+		return (data->tot_outredir);
 	return (0);
+}
+
+void	quote_context(char *str, t_var *var)
+{
+	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qtrg)
+	{
+		var->qchr = str[var->i];
+		var->qtrg = TRUE;
+	}
+	else if ((str[var->i] == var->qchr) && var->qtrg)
+	{
+		var->qchr = '\0';
+		var->qtrg = FALSE;
+	}
 }
 
 int	*find_rdr_num(char *str, char rdr, t_parse *data)
 {
 	t_var	var;
 
-	init_rdr_vars(&var, str, rdr);
+	init_rdr_vars(&var, str);
 	var.rnum = ft_calloc(var.parts_num, sizeof(int));
 	while (++var.i < var.len)
 	{
-		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qtrg)
-		{
-			var.qchr = str[var.i];
-			var.qtrg = TRUE;
-		}
-		else if ((str[var.i] == var.qchr) && var.qtrg)
-		{
-			var.qchr = '\0';
-			var.qtrg = FALSE;
-		}
+		quote_context(str, &var);
 		if (str[var.i] == '|' && !var.qtrg && var.j < var.parts_num)
 			var.j++;
 		if (var.i < var.len - 1 && (str[var.i] == rdr && str[var.i + 1] != rdr \
