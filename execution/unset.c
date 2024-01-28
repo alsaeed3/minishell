@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:23:49 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/20 11:10:58 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/28 17:52:17 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ void	handle_unset(char **inputs, t_parse *data)
 			i++;
 		}
 		else
-			return (error_sentence("unset: invalid identifier\n", 1));
+		{
+			ft_error("unset: invalid identifier\n");
+			data->exit_status = 1;
+			return ;
+		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 17:43:10 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/28 17:59:21 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	handle_export(char **inputs, t_parse *data);
 void	change_env_pwd(t_parse *data);
 void	change_env_oldpwd(t_parse *data);
 int		change_pwd(t_parse *data, char *input);
-void	error_sentence(char *str, int status);
 void	handle_exit(char **inputs, t_parse *data);
 void	free_env(char **env);
 int		envlen(char **env);
@@ -42,8 +41,9 @@ void	handle_unset(char **inputs, t_parse *data);
 void	handle_pwd(t_parse *data);
 
 void	data_init(t_parse **data, char **env);
+void	data_reset(t_parse **data);
 
-int    redirect_from(t_parse *data, int x);
+int		redirect_from(t_parse *data, int x);
 void    redirect_to(t_parse *data, int x);
 
 char	**gen_paths(int index, t_parse *data, char *input);
@@ -66,6 +66,8 @@ void   free_exit(t_parse *data, int status);
 
 void	set_signals(t_parse *parser);
 void	is_parent_child_sig(int sig);
+void    ft_error(char *str);
+
 
 
 #endif

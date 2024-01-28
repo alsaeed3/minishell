@@ -6,14 +6,13 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:40:34 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 17:42:40 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/28 17:31:51 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-extern int  g_signal;
 
-void	handle_parent_sig(int sig)
+void	parent_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -31,7 +30,7 @@ void	handle_parent_sig(int sig)
 	}
 }
 
-void	handle_child_sig(int sig)
+void	child_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -49,7 +48,7 @@ void	handle_child_sig(int sig)
 	}
 }
 
-void	exit_heredoc(int sig)
+void	heredoc_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -62,23 +61,21 @@ void	exit_heredoc(int sig)
 	}
 }
 
-void	is_parent_child_sig(int sig)
+void	sig_switcher(int sig)
 {
 	if (g_signal == 3)
-		handle_child_sig(sig);
+		child_sig(sig);
 	else if (g_signal == 2)
-		exit_heredoc(sig);
+		heredoc_sig(sig);
 	else
-		handle_parent_sig(sig);
+		parent_sig(sig);
 }
-
 
 void set_signals(t_parse *parser)
 {
-		signal(SIGINT, is_parent_child_sig);
-		signal(SIGQUIT, is_parent_child_sig);
+		signal(SIGINT, sig_switcher);
+		signal(SIGQUIT, sig_switcher);
 		if (g_signal != 1)
 			parser->exit_status = g_signal;
 		g_signal = 1;
-	
 }

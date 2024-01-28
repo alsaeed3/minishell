@@ -6,17 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 18:52:31 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/28 17:51:53 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-
-void	error_sentence(char *str, int status)
-{
-	(void)status;
-	ft_putstr_fd(str, 2);
-}
 
 int	is_number(char *str)
 {
@@ -45,7 +39,11 @@ void	handle_exit(char **args, t_parse *data)
 		if (is_number(args[1]))
 		{
 			if (args[2])
-				return (error_sentence("\tminishell: too many argument\n", 2));
+			{
+				ft_error("\tminishell: too many argument\n");
+				data->exit_status = 2;
+				return ;
+			}
 			status = ft_atoi(args[1], &error);
 			if (status > 255)
 				status = 255;
@@ -53,7 +51,10 @@ void	handle_exit(char **args, t_parse *data)
 				status = 255;
 		}
 		else
-			error_sentence("\t\tminishell: numeric argument is required\n", 2);
+		{
+			ft_error("\t\tminishell: numeric argument is required\n");
+			data->exit_status = 2;
+		}
 	}
 	free_exit(data, status);
 }
