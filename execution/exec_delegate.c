@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_delegate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 21:12:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/27 14:35:52 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ int	handle_single(char **inputs, t_parse *data, int piped, int x)
 
 	oldfd[0] = dup(0);
 	oldfd[1] = dup(1);
+	if (data->in_rdr_num[x] > 0)
+		if (redirect_from(data, x))
+			return (0);
 	if (data->out_rdr_num[x] > 0)
 		redirect_to(data, x);
-	else if (data->in_rdr_num[x] > 0)
-		redirect_from(data, x);
 	choose_action(inputs, data);
 	dup2(oldfd[0], 0);
 	dup2(oldfd[1], 1);
@@ -48,19 +49,19 @@ void	choose_action(char **cmd, t_parse *data)
 		data->redir = 1;
 		return ;
 	}
-	if (ft_strcmp(cmd[0], "echo ") == 0)
-		handle_echo(cmd);
-	else if (ft_strcmp(cmd[0], "pwd ") == 0)
+	if (ft_strcmp(cmd[0], "echo") == 0)
+		handle_echo(data);
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		handle_pwd(data);
-	else if (ft_strcmp(cmd[0], "cd ") == 0)
+	else if (ft_strcmp(cmd[0], "cd") == 0)
 		handle_cd(cmd, data);
-	else if (ft_strcmp(cmd[0], "env ") == 0)
+	else if (ft_strcmp(cmd[0], "env") == 0)
 		handle_env(data->env);
-	else if (ft_strcmp(cmd[0], "exit ") == 0)
+	else if (ft_strcmp(cmd[0], "exit") == 0)
 		handle_exit(cmd, data);
-	else if (ft_strcmp(cmd[0], "export ") == 0)
+	else if (ft_strcmp(cmd[0], "export") == 0)
 		handle_export(cmd, data);
-	else if (ft_strcmp(cmd[0], "unset ") == 0)
+	else if (ft_strcmp(cmd[0], "unset") == 0)
 		handle_unset(cmd, data);
 	else
 		handle_exec(cmd, data);

@@ -3,31 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 21:12:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/27 14:33:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void redirect_from(t_parse *data, int x)
+static void ft_error(char *str)
+{
+	ft_putstr_fd("Error: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
+}
+
+int	redirect_from(t_parse *data, int x)
 {
 	int 	i;
 	int		fd;
 	char	*filename;
 	
 	i = 0;
+	filename = NULL;
 	while (i < data->in_rdr_num[x])
 	{
-		filename = data->inputs_redirections[x][i];
-		fd = open(filename, O_RDONLY);
+		if(data->inputs_tokens[x][i] == 0)
+		{
+			filename = data->inputs_redirections[x][i];
+			if(open(filename, O_RDONLY) < 0)
+			{
+				ft_error(strerror(ENOENT));
+				data->redir = 0;
+				return 1;
+			}
+		}
+		else if (data->inputs_tokens[x][i] == 1)
+			filename = data->heredoc_tmp_files[x];
+		if (filename)
+			fd = open(filename, O_RDONLY);
 		if (fd < 0)
 		{
 			ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);
 			data->redir = 0;
-			return ;
+			return 1;
 		}
 		i++;
 	}
@@ -35,6 +55,7 @@ void redirect_from(t_parse *data, int x)
 	if (data->fd_in != 0)
 		close(data->fd_in);
 	data->fd_in = fd;
+	return 0;
 }
 
 

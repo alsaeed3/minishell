@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 13:17:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:46:16 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/exec.h"
+#include "../inc/exec.h"
 
 void	data_init(t_parse **data, char **env)
 {
@@ -23,5 +23,4 @@ void	data_init(t_parse **data, char **env)
 	(*data)->fd_in = 0;
 	(*data)->fd_out = 1;
 	(*data)->redir = 1;
-	(*data)->exit_status = 0;
 }

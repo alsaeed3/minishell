@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:00:50 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/21 13:30:14 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/27 12:22:40 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_env(char **env)
 	free(env);
 }
 
-int		envlen(char **env)
+int	envlen(char **env)
 {
 	int	i;
 
@@ -54,6 +54,7 @@ char	**dup_env(char **env)
 
 void	handle_env(char **env)
 {
+	printf("handle_env\n");
 	int		i;
 	int		j;
 	char	*str;
