@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/27 13:00:31 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/28 16:08:49 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ void	handle_heredoc(t_parse *data)
 	int		j;
 	int		k;
 
-	data->heredoc_tmp_files = ft_calloc(data->heredocs_num + 1, sizeof(char *));
-	if (!data->heredoc_tmp_files)
-		return ;
+	if (data->heredocs_num > 0)
+	{
+		data->heredoc_tmp_files = ft_calloc(data->heredocs_num + 1, sizeof(char *));
+		if (!data->heredoc_tmp_files)
+			return ;
+	}
 	// heredoc_line = ft_calloc((data->heredocs_num) + 1, sizeof(char *));
     // Open a temporary file for writing
 	// printf("\n");
@@ -139,8 +142,10 @@ void	handle_heredoc(t_parse *data)
 	if (data->heredocs_num /* && access(data->heredoc_tmp_files[k - 1], F_OK) */)
 		data->heredoc_tmp_files[k] = NULL;
 	if (!data->heredocs_num)
+	{
 		free(data->heredoc_tmp_files);
-		
+		data->heredoc_tmp_files = NULL;
+	}
 }
     // Close the temporary file
     // Delete the temporary file

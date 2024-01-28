@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 14:33:35 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/28 16:12:14 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	redirect_from(t_parse *data, int x)
 				return 1;
 			}
 		}
-		else if (data->inputs_tokens[x][i] == 1)
+		else if (data->inputs_tokens[x][i] == 1 && data->heredocs_num)
 			filename = data->heredoc_tmp_files[x];
 		if (filename)
 			fd = open(filename, O_RDONLY);
