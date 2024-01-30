@@ -3,142 +3,104 @@
 /*                                                        :::      ::::::::   */
 /*   del_excess_spcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/14 20:40:25 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 21:49:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-static void	jump_over_spaces(char *cmd_line, int *i)
+static void	jump_over_spaces(char *str, int *i)
 {
 	(*i)++;
-	while (cmd_line[*i] == ' ')
+	while (str[*i] == ' ')
 		(*i)++;
 	(*i)--;
 }
 
-static int size_without_spcs(char *cmd_line)
+void	init_del_exspc(t_var *var, char *str)
 {
-	int		i;
-	int		len;
-	t_bool	quo_trigger;
-	char	quo_char;
-	int		size;
-
-	len = ft_strlen(cmd_line);
-	i = -1;
-	size = 0;
-	if (cmd_line[0] == ' ')
-			jump_over_spaces(cmd_line, &i);
-	quo_trigger = FALSE;
-	while (++i < len)
-	{
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
-		{
-			quo_trigger = TRUE;
-			quo_char = cmd_line[i];
-		}
-		else if (cmd_line[i] == quo_char && quo_trigger)
-		{
-			quo_char = '\0';
-			quo_trigger = FALSE;
-		}
-		if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ' && !quo_trigger)
-		{
-			size++;
-			while (cmd_line[i] == ' ')
-				i++;
-			if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
-			{
-				quo_trigger = TRUE;
-				quo_char = cmd_line[i];
-			}
-		}
-		size++;
-	}
-	return (size);
+	var->len = ft_strlen(str);
+	var->i = -1;
+	var->j = 0;
+	var->size = 0;
+	if (str[0] == ' ')
+		jump_over_spaces(str, &var->i);
+	var->qutrg = FALSE;
 }
 
-char	*delete_excess_spcs(char *cmd_line)
+void	jmp_mid_spcs(t_var *var, char *str, int mode)
 {
-	int		i;
-	int		j;
-	int		len;
-	t_bool	quo_trigger;
-	char	quo_char;
-	int		size;
-	char	*ret;
-
-	len = ft_strlen(cmd_line);
-	size = size_without_spcs(cmd_line);
-	ret = ft_calloc(size + 1, sizeof(char));
-	j = 0;
-	i = -1;
-	quo_trigger = FALSE;
-	if (cmd_line[0] == ' ')
-			jump_over_spaces(cmd_line, &i);
-	while (++i < len)
+	if (str[var->i] == ' ' && str[var->i + 1] == ' ' && !var->qutrg)
 	{
-		if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
+		if (mode == 0)
+			var->size++;
+		else if (mode == 1)
 		{
-			quo_trigger = TRUE;
-			quo_char = cmd_line[i];
+			if (var->i < var->len - 1 || (var->i == var->len - 1 \
+			&& str[var->len - 1] != ' '))
+				var->ret[var->j++] = str[var->i];
 		}
-		else if (cmd_line[i] == quo_char && quo_trigger)
+		while (str[var->i] == ' ')
+			var->i++;
+		if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 		{
-			quo_char = '\0';
-			quo_trigger = FALSE;
+			var->qutrg = TRUE;
+			var->qchr = str[var->i];
 		}
-		if (cmd_line[i] == ' ' && cmd_line[i + 1] == ' ' && !quo_trigger)
-		{
-			if (i < len - 1 || (i == len - 1 && cmd_line[len - 1] != ' '))
-				ret[j++] = cmd_line[i];
-			while (cmd_line[i] == ' ')
-				i++;
-			if ((cmd_line[i] == '\'' || cmd_line[i] == '"') && !quo_trigger)
-			{
-				quo_trigger = TRUE;
-				quo_char = cmd_line[i];
-			}
-		}
-		if (i < len - 1 || (i == len - 1 && cmd_line[len - 1] != ' '))
-				ret[j++] = cmd_line[i];
 	}
-	if (ret[j])
-		ret[++j] = '\0';
-	return (ret);
 }
 
-/* To test delete_excess_spcs function */
-// int main(void)
-// {
-// 	int	i;
-// 	char *str;
-// 	while(1)
-// 	{
-// 		char *input = readline("$> ");
-// 		// char *input = "  <  '1     23'  |  << '  12 ' ";
-// 		str = delete_excess_spcs(input);
-// 		free(input);
-// 		printf("%s\n",str);
-// 		free(str);
-// 	}
-// }
+static int	size_without_spcs(char *str)
+{
+	t_var	var;
 
-/* To test size_without_spcs function */
-// int main(void)
-// {
-// 	int	i;
-// 	int size;
-// 	size = 0;
-// 	while(1)
-// 	{
-// 		char *input = readline("$> ");
-// 		size = size_without_spcs(input);
-// 		free(input);
-// 		printf("%d\n",size);
-// 	}
-// }
+	init_del_exspc(&var, str);
+	while (++var.i < var.len)
+	{
+		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
+		{
+			var.qutrg = TRUE;
+			var.qchr = str[var.i];
+		}
+		else if (str[var.i] == var.qchr && var.qutrg)
+		{
+			var.qchr = '\0';
+			var.qutrg = FALSE;
+		}
+		jmp_mid_spcs(&var, str, 0);
+		var.size++;
+	}
+	return (var.size);
+}
+
+char	*delete_excess_spcs(char *str)
+{
+	t_var	var;
+
+	init_del_exspc(&var, str);
+	var.size = size_without_spcs(str);
+	var.ret = ft_calloc(var.size + 1, sizeof(char));
+	while (++var.i < var.len)
+	{
+		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
+		{
+			var.qutrg = TRUE;
+			var.qchr = str[var.i];
+		}
+		else if (str[var.i] == var.qchr && var.qutrg)
+		{
+			var.qchr = '\0';
+			var.qutrg = FALSE;
+		}
+		jmp_mid_spcs(&var, str, 1);
+		if (var.i < var.len - 1 || (var.i == var.len - 1 \
+		&& str[var.len - 1] != ' '))
+			var.ret[var.j++] = str[var.i];
+	}
+	if (var.ret[var.j])
+		var.ret[++var.j] = '\0';
+	return (var.ret);
+}

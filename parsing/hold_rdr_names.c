@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/28 16:49:58 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 16:03:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 static void	hold_rdr_1(t_var *var, char *str)
 {
-	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qtrg)
+	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
 		var->qchr = str[var->i++];
-		var->qtrg = TRUE;
+		var->qutrg = TRUE;
 	}
-	else if ((str[var->i] == var->qchr) && var->qtrg)
+	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
-		if (str[++var->i] == ' ' && var->rtrg)
+		if (str[++var->i] == ' ' && var->rdrtrg)
 		{
 			var->rnms[var->j][var->k][++var->l] = '\0';
-			var->rtrg = FALSE;
+			var->rdrtrg = FALSE;
 		}
 		var->qchr = '\0';
-		var->qtrg = FALSE;
+		var->qutrg = FALSE;
 	}
-	if (str[var->i] == '|' && !var->qtrg && !var->rtrg \
+	if (str[var->i] == '|' && !var->qutrg && !var->rdrtrg \
 	&& var->j < var->parts_num)
 	{
 		var->rnms[var->j][++var->k] = NULL;
@@ -40,22 +40,22 @@ static void	hold_rdr_1(t_var *var, char *str)
 
 static void	hold_rdr_2(t_var *var, char *str)
 {
-	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qtrg)
+	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
 		var->qchr = str[var->i++];
-		var->qtrg = TRUE;
+		var->qutrg = TRUE;
 	}
-	else if ((str[var->i] == var->qchr) && var->qtrg)
+	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
-		if (str[++var->i] == ' ' && var->rtrg)
+		if (str[++var->i] == ' ' && var->rdrtrg)
 		{
 			var->rnms[var->j][var->k][++var->l] = '\0';
-			var->rtrg = FALSE;
+			var->rdrtrg = FALSE;
 		}
 		var->qchr = '\0';
-		var->qtrg = FALSE;
+		var->qutrg = FALSE;
 	}
-	if (str[var->i] == '|' && !var->qtrg && !var->rtrg \
+	if (str[var->i] == '|' && !var->qutrg && !var->rdrtrg \
 	&& var->j < var->parts_num)
 	{
 		var->rnms[var->j][++var->k] = NULL;
@@ -68,54 +68,54 @@ static t_bool	hold_rdr_3(t_var *var, char *str)
 {
 	if (var->i < var->len - 1 && (str[var->i] == '<' && str[var->i + 1] != '<' \
 	&& (var->i == 0 || str[var->i - 1] != '<') && (var->i == 0 \
-	|| str[var->i - 1] != '>')) && !var->rtrg && !var->qtrg \
+	|| str[var->i - 1] != '>')) && !var->rdrtrg && !var->qutrg \
 	&& var->k < var->rnum[var->j])
 	{
 		var->l = -1;
-		var->rtrg = TRUE;
+		var->rdrtrg = TRUE;
 		var->k++;
 		var->i++;
 		if (str[var->i] == ' ')
 			var->i++;
 	}
 	else if (var->i < var->len - 1 && (str[var->i] == '<' \
-	&& str[var->i + 1] == '<') && !var->rtrg && !var->qtrg \
+	&& str[var->i + 1] == '<') && !var->rdrtrg && !var->qutrg \
 	&& var->k < var->rnum[var->j])
 	{
 		var->l = -1;
-		var->rtrg = TRUE;
+		var->rdrtrg = TRUE;
 		var->k++;
 		var->i += 2;
 		if (str[var->i] == ' ')
 			var->i++;
 	}
-	return (var->rtrg);
+	return (var->rdrtrg);
 }
 
 t_bool	hold_rdr_cont(t_var *var, char *str)
 {
-	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qtrg)
+	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
 		var->qchr = str[var->i];
-		var->qtrg = TRUE;
+		var->qutrg = TRUE;
 		return (TRUE);
 	}
-	else if ((str[var->i] == var->qchr) && var->qtrg)
+	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
 		var->qchr = '\0';
-		var->qtrg = FALSE;
+		var->qutrg = FALSE;
 		return (TRUE);
 	}
 	if (((str[var->i] != '<' && str[var->i] != '>' && str[var->i] != ' ' \
 	&& str[var->i] != '|' && str[var->i] != '\'' && str[var->i] != '"' \
-	&& str[var->i] != '\0') && !var->qtrg && var->rtrg))
+	&& str[var->i] != '\0') && !var->qutrg && var->rdrtrg))
 	{
 		var->rnms[var->j][var->k][++(var->l)] = str[var->i];
 		if (str[var->i + 1] == '<' || str[var->i + 1] == '>' \
 		|| str[var->i + 1] == ' ' || str[var->i + 1] == '|')
 		{
 			var->rnms[var->j][var->k][++var->l] = '\0';
-			var->rtrg = FALSE;
+			var->rdrtrg = FALSE;
 		}
 	}
 	return (FALSE);
@@ -125,15 +125,8 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 {
 	t_var	var;
 
-	if (rdr == '<' && !data->tot_inredir)
+	if (init_rdr_vars(&var, data, str, rdr))
 		return (NULL);
-	else if (rdr == '>' && !data->tot_outredir)
-		return (NULL);
-	init_rdr_vars(&var, str);
-	if (rdr == '<' && data->tot_inredir)
-		var.rnum = data->in_rdr_num;
-	else if (rdr == '>' && data->tot_outredir)
-		var.rnum = data->out_rdr_num;
 	var.rcn = find_rdr_chars(str, rdr, data);
 	var.rnms = malloc_rdr_names(var.parts_num, var.rnum, var.rcn);
 	while (++var.i < var.len && str[var.i])
@@ -141,10 +134,10 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 		hold_rdr_1(&var, str);
 		hold_rdr_2(&var, str);
 		if (!hold_rdr_3(&var, str))
-		{	
+		{
 			if ((str[var.i] == '<' || str[var.i] == '>' \
 			|| str[var.i] == ' ' || str[var.i] == '|' \
-			|| str[var.i] != var.qchr) && var.qtrg && var.rtrg)
+			|| str[var.i] != var.qchr) && var.qutrg && var.rdrtrg)
 				var.rnms[var.j][var.k][++var.l] = str[var.i];
 		}
 		if (hold_rdr_cont(&var, str))

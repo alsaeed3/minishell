@@ -3,55 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   convert_tabs_to_spc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/09 15:54:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 21:47:44 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-char	*conv_tabs2spcs(char *cmd_line)
+void	init_contabvar(t_var *var, char *str)
 {
-	int		i;
-	int		j;
-	char	trigger;
-	int		len;
-	char	*ret;
+	var->i = -1;
+	var->j = 0;
+	var->len = ft_strlen(str);
+	var->ret = NULL;
+	var->qutrg = FALSE;
+	var->qchr = '\0';
+}
 
-	trigger = -1;
-	i		= -1;
-	j		= -1;
-	len = ft_strlen(cmd_line);
-	ret = malloc(sizeof(char *) * (len + 1));
-	while (++i < len)
+char	*conv_tabs2spcs(char *str)
+{
+	t_var	var;
+
+	init_contabvar(&var, str);
+	var.ret = malloc(sizeof(char *) * (var.len + 1));
+	while (++var.i < var.len)
 	{
-		if (cmd_line[i] == '\'' || cmd_line[i] == '"')
+		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
 		{
-			ret[++j] = cmd_line[i];
-			trigger = cmd_line[i];
-			while (++i < len)
-			{
-				if (cmd_line[i] == trigger)
-				{
-					ret[++j] = cmd_line[i];
-					break;
-				}
-				ret[++j] = cmd_line[i];
-			}
+			var.qchr = str[var.i];
+			var.qutrg = TRUE;
 		}
-		else if (cmd_line[i] == '\t')
+		else if (str[var.i] == var.qchr && var.qutrg)
 		{
-			ret[++j] = ' ';
-			while (cmd_line[i + 1] == '\t')
-				i++;
+			var.qchr = '\0';
+			var.qutrg = FALSE;
 		}
-		else 
-			ret[++j] = cmd_line[i];
+		if (str[var.i] == '\t' && !var.qutrg)
+			str[var.i] = ' ';
+		var.ret[var.j++] = str[var.i];
 	}
-	ret[++j] = '\0';
-	return(ret);
+	if (var.ret[var.j - 1] != '\0')
+		var.ret[var.j] = '\0';
+	return (var.ret);
 }
 
 // int main(void)

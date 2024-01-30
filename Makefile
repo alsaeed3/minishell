@@ -6,30 +6,34 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/27 12:46:21 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/30 22:28:09 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =	minishell
 
-SRCS =	convert_tabs_to_spc.c \
-		quotes.c \
+SRCS =	cmds_utils.c \
+		cnv_rdr2spc_utils.c \
+		convert_redir_to_spc.c \
+		convert_tabs_to_spc.c \
 		del_excess_spcs.c \
-		error_pipes_2.c \
+		dollar_utils_1.c \
+		dollar_utils_2.c \
 		error_pipes.c \
+		error_pipes_2.c \
+		expand_dollar2env.c \
 		find_parts_num.c \
-		find_rdr_num.c \
 		find_rdr_chars.c \
+		find_rdr_num.c \
+		get_envs.c \
+		handle_heredoc_utils.c \
+		handle_heredoc.c \
 		hold_rdr_names.c \
 		malloc_rdr_names.c \
-		tokenize_in_redir.c \
-		tokenize_out_redir.c \
-		convert_redir_to_spc.c \
+		parse.c \
+		quotes.c \
 		split_commands.c \
-		get_envs.c \
-		expand_dollar2env.c \
-		handle_heredoc.c \
-		parse.c 
+		tokenize_redir.c
 
 SRCSX = exec_delegate.c execute.c \
 		cd.c cd_utils.c echo.c pwd.c\

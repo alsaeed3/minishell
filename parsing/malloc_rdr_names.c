@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_rdr_names.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:45:27 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/25 18:01:38 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 16:11:25 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-//  char ***inputs needs to be changes to the structure, then use the structre counterpart.
+//  char ***inputs needs to be changes to the structure, 
+// then use the structre counterpart.
 char	***malloc_rdr_names(int parts_num, int *rdr_num, int **rdr_chars)
 {
 	char	***rdr_names;
@@ -45,26 +46,25 @@ void	free_char_triple_pointer(char ***pointer)
 	int		j;
 
 	if (pointer)
+		return ;
+	i = -1;
+	while (pointer[++i])
 	{
-		i = -1;
-		while (pointer[++i])
+		j = -1;
+		while (pointer[i][++j])
 		{
-			j = -1;
-			while (pointer[i][++j])
+			if (pointer[i][j])
 			{
-				if (pointer[i][j])
-				{
-					free (pointer[i][j]);
-					pointer[i][j] = NULL;
-				}
-			}
-			if (pointer[i])
-			{
-				free (pointer[i]);
-				pointer[i] = NULL;
+				free (pointer[i][j]);
+				pointer[i][j] = NULL;
 			}
 		}
-		free (pointer);
-		pointer = NULL;
+		if (pointer[i])
+		{
+			free (pointer[i]);
+			pointer[i] = NULL;
+		}
 	}
+	free (pointer);
+	pointer = NULL;
 }
