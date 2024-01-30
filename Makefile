@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/30 22:28:09 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/31 00:43:17 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,13 +35,25 @@ SRCS =	cmds_utils.c \
 		split_commands.c \
 		tokenize_redir.c
 
-SRCSX = exec_delegate.c execute.c \
-		cd.c cd_utils.c echo.c pwd.c\
-		export.c export_utils.c\
-		exit.c env.c unset.c \
-		data_init.c redirections.c exec_utils.c\
-		pipe.c close_fds.c free.c signal.c \
-
+SRCSX = exec_delegate.c \
+		execute.c \
+		cd.c \
+		cd_utils.c \
+		echo.c \
+		pwd.c \
+		export.c \
+		export_utils.c\
+		exit.c \
+		env.c \
+		unset.c \
+		data_init.c \
+		redirections.c \
+		exec_utils.c \
+		pipe.c \
+		close_fds.c \
+		free.c \
+		signal.c \
+		ft_error.c \
 
 OBJS_DIR = parsing/objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))

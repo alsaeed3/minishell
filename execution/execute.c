@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 13:25:40 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/31 00:35:11 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@ void	handle_exec(char **inputs, t_parse *data)
 	pid_t	pid;
 
 	if (!check_exec(inputs, data))
-		return (error_sentence("\t\tminishell: Unknown command\n", 127));
+	{
+		data->exit_status = 127;
+		ft_error("\t\tminishell: Unknown command\n");
+		return ;
+	}
 	pid = fork();
 	if (pid == 0)
 	{
+		g_signal = 3;
 		if (execute(inputs, data) != 0)
 			exit(errno);
 		exit(EXIT_SUCCESS);

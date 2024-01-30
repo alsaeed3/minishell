@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 14:35:52 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 00:34:50 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	handle_single(char **inputs, t_parse *data, int piped, int x)
 	oldfd[0] = dup(0);
 	oldfd[1] = dup(1);
 	if (data->in_rdr_num[x] > 0)
-		if (redirect_from(data, x))
+		if(redirect_from(data, x))
 			return (0);
 	if (data->out_rdr_num[x] > 0)
 		redirect_to(data, x);
@@ -44,11 +44,6 @@ int	handle_single(char **inputs, t_parse *data, int piped, int x)
 
 void	choose_action(char **cmd, t_parse *data)
 {
-	if (!data->redir)
-	{
-		data->redir = 1;
-		return ;
-	}
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		handle_echo(data);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)

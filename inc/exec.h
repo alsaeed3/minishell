@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 14:34:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 01:51:25 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "parser.h"
 # define FORKED_CHILD 0
 
-
+extern int  g_signal;
 void    exec_delegator(t_parse *parser);
 void	handle_cd(char **args, t_parse *data);
 int		var_index(char *name, t_parse *data);
@@ -27,7 +27,6 @@ void	handle_export(char **inputs, t_parse *data);
 void	change_env_pwd(t_parse *data);
 void	change_env_oldpwd(t_parse *data);
 int		change_pwd(t_parse *data, char *input);
-void	error_sentence(char *str, int status);
 void	handle_exit(char **inputs, t_parse *data);
 void	free_env(char **env);
 int		envlen(char **env);
@@ -41,6 +40,7 @@ void	handle_unset(char **inputs, t_parse *data);
 void	handle_pwd(t_parse *data);
 
 void	data_init(t_parse **data, char **env);
+void	data_reset(t_parse **data);
 
 int		redirect_from(t_parse *data, int x);
 void    redirect_to(t_parse *data, int x);
@@ -63,6 +63,11 @@ int		execute(char **inputs, t_parse *data);
 
 void   free_exit(t_parse *data, int status);
 
-void	set_signals(void);
+void	set_signals(t_parse *parser);
+void	sig_switcher(int sig);
+// void	is_parent_child_sig(int sig);
+void    ft_error(char *str);
+
+
 
 #endif

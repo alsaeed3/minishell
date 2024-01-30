@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 00:25:59 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 01:15:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool	prepare_parse(char *str, t_parse *data, char **original_envs)
 		return (TRUE);
 	}
 	str = delete_excess_spcs(str);
-	
+
 	data->envs_lst = get_envs_lst(original_envs);
 	str = expand_dollar_string(str, data->envs_lst);
 	if (check_pipe_redir(str))
@@ -39,7 +39,7 @@ t_bool	prepare_parse(char *str, t_parse *data, char **original_envs)
 
 t_bool	parse_shell(char *str, char **original_envs, t_parse **data)
 {
-	if (!str || ft_strcmp(str, "\n") == 0)
+	if (!str[0])
 		return (TRUE);
 	if (prepare_parse(str, (*data), original_envs))
 		return (TRUE);
@@ -47,8 +47,8 @@ t_bool	parse_shell(char *str, char **original_envs, t_parse **data)
 	(*data)->in_rdr_num = find_rdr_num(str, '<', (*data));
 	(*data)->inputs_redirections = hold_rdr_names(str, '<', (*data));
 	(*data)->inputs_tokens = tokenize_redir(str, (*data), '<');
-	// find_heredocs_num(*data);
-	// handle_heredoc(*data);
+	find_heredocs_num((*data));
+	handle_heredoc((*data));
 	(*data)->out_rdr_num = find_rdr_num(str, '>', (*data));
 	(*data)->outputs_redirections = hold_rdr_names(str, '>', (*data));
 	(*data)->outputs_tokens = tokenize_redir(str, (*data), '>');

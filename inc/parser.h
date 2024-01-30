@@ -6,12 +6,12 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 00:24:21 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 02:15:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef PARSER_H
+# define PARSER_H
 
 # include "../libft/inc/libft.h"	// libft library
 # include <stdio.h>       			// printf
@@ -124,7 +124,6 @@ typedef struct s_parse
 	char	***inputs_redirections;
 	int		**inputs_tokens;
 	int		heredocs_num;
-	char	**hd_usr_input;
 	int		tot_outredir;
 	int		*out_rdr_num;
 	char	***outputs_redirections;
@@ -136,7 +135,6 @@ typedef struct s_parse
 	int 	fd_in;
 	int 	fd_out;
 	char	*pwd;
-	int		redir;
 	int		exit_status;
 }	t_parse;
 
@@ -145,8 +143,6 @@ void	quote_context(char *str, t_var *var);
 void	jump_over_quote(char *cmd_line, int *i, int len);
 t_bool	prepare_parse(char *str, t_parse *data, char **original_envs);
 t_env	*add_env(t_env *head, char *env);
-// t_env	*unset_env(t_env *head, char *env_key);
-// char	**get_envs_array(t_env *env_lst);
 t_env	*get_envs_lst(char **original_envs);
 t_env	*ft_env_last(t_env *head);
 char	*ft_getenv(char *key, t_env *envs);
@@ -155,7 +151,6 @@ char	*delete_excess_spcs(char *cmd_line);
 char	*expand_dollar_string(char *cmd_line, t_env *env_lst);
 t_bool	check_pipe_redir(char *str);
 t_bool	check_pipe_red_2(char *cmd_line);
-// void	find_heredocs_num(t_parse **data);
 int		*find_rdr_num(char *str, char rdr, t_parse *data);
 int		**find_rdr_chars(char *str, char rdr, t_parse *data);
 char	***hold_rdr_names(char *str, char rdr, t_parse *data);
@@ -173,7 +168,6 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser);
 int		count_size_without_redir(char *cmd_line);
 void	find_heredocs_num(t_parse *data);
 void	handle_heredoc(t_parse *data);
-// void	read_heredocs(t_parse *data);
 char	*generate_file_names(int pos);
 void	dollar_heredoc_deli(char *str, t_var *var);
 t_bool	exp_dlr_cnt_1(t_var *var, char *str);
@@ -206,26 +200,6 @@ int		expand_dollar_count(char *str, t_env *env_lst);
 void	init_del_exspc(t_var *var, char *str, int mode);
 int		size_without_spcs(char *str);
 void	jump_over_spaces(char *str, int *i);
-
-// struct red
-// {
-// 	char *name;
-// 	int flag;
-// };
-
-
-// typedef struct parser
-// {
-// 	struct *red;
-// 	char **cmd;
-// 	int redlen;
-// };
-
-// typedef s_struct1{
-// 	int cmdnum;
-// 	char **cmd;
-// 	struct *s_struct2;
-// } ;
-
+void	ft_free_lst(t_env **lst);
 
 #endif
