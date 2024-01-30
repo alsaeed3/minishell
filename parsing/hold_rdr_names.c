@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 16:03:48 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 23:05:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static t_bool	hold_rdr_3(t_var *var, char *str)
 	{
 		var->l = -1;
 		var->rdrtrg = TRUE;
-		var->k++;
 		var->i++;
 		if (str[var->i] == ' ')
 			var->i++;
@@ -84,7 +83,6 @@ static t_bool	hold_rdr_3(t_var *var, char *str)
 	{
 		var->l = -1;
 		var->rdrtrg = TRUE;
-		var->k++;
 		var->i += 2;
 		if (str[var->i] == ' ')
 			var->i++;

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 16:09:21 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 23:06:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	check_type(t_var *var, char *str, char rdr)
 	{
 		var->cnum = 0;
 		var->rdrtrg = TRUE;
-		var->k++;
 		var->i++;
 		if (str[var->i] == ' ')
 			var->i++;
@@ -33,7 +32,6 @@ void	check_type(t_var *var, char *str, char rdr)
 	{
 		var->cnum = 0;
 		var->rdrtrg = TRUE;
-		var->k++;
 		var->i += 2;
 		if (str[var->i] == ' ')
 			var->i++;

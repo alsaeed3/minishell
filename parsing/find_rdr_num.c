@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 16:04:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:54:32 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr)
 {
 	var->i = -1;
 	var->j = 0;
-	var->k = -1;
+	var->k = 0;
 	var->l = -1;
 	var->len = ft_strlen(str);
 	var->parts_num = find_parts_num(str);

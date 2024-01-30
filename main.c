@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/27 12:56:25 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 00:14:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,6 @@ int main(int ac, char **av, char **env)
 	{
 		char	*cmd_line = readline("MINISHELL$ ");
 		add_history(cmd_line);
-        if (ft_strcmp(cmd_line, "exit") == 0)
-        {
-            free(cmd_line);
-            exit(0);
-        }
 		char	*dup = ft_strdup(cmd_line);
 		parser = ft_calloc(1, sizeof(t_parse));
 		if (!parser)
@@ -68,7 +63,7 @@ int main(int ac, char **av, char **env)
 		if (parse_shell(dup, env, &parser))
 			continue ;
 		free (dup);
-		exec_delegator(parser);
+		// exec_delegator(parser);
 		free (parser);
 		// print_function(parser);
 		// free_char_triple_pointer(inputs_names);

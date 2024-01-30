@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:48:10 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:13:36 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 23:21:51 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ void	malloc_cmds(t_cvr *cvr)
 	cvr->j = 0;
 }
 
-void	init_cvr(t_cvr *cvr, char *str)
+void	init_cvr(t_cvr *cvr, char *str, int mode)
 {
 	cvr->i = -1;
+	cvr->j = 0;
 	cvr->k = 0;
 	cvr->l = 0;
 	cvr->chars_num = 0;
@@ -109,6 +110,8 @@ void	init_cvr(t_cvr *cvr, char *str)
 	cvr->ctrg = FALSE;
 	cvr->quchr = '\0';
 	cvr->parts_num = find_parts_num(str);
-	cvr->cnum = find_cmds_num(str);
-	cvr->chrn = find_cmds_chars_num(str);
+	if (mode == 1 || mode == 2)
+		cvr->cnum = find_cmds_num(str);
+	if (mode == 2)
+		cvr->chrn = find_cmds_chars_num(str);
 }

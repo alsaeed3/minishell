@@ -6,29 +6,18 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 21:49:28 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 00:24:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-static void	jump_over_spaces(char *str, int *i)
+void	jump_over_spaces(char *str, int *i)
 {
 	(*i)++;
 	while (str[*i] == ' ')
 		(*i)++;
 	(*i)--;
-}
-
-void	init_del_exspc(t_var *var, char *str)
-{
-	var->len = ft_strlen(str);
-	var->i = -1;
-	var->j = 0;
-	var->size = 0;
-	if (str[0] == ' ')
-		jump_over_spaces(str, &var->i);
-	var->qutrg = FALSE;
 }
 
 void	jmp_mid_spcs(t_var *var, char *str, int mode)
@@ -53,11 +42,11 @@ void	jmp_mid_spcs(t_var *var, char *str, int mode)
 	}
 }
 
-static int	size_without_spcs(char *str)
+int	size_without_spcs(char *str)
 {
 	t_var	var;
 
-	init_del_exspc(&var, str);
+	init_del_exspc(&var, str, 0);
 	while (++var.i < var.len)
 	{
 		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
@@ -80,9 +69,7 @@ char	*delete_excess_spcs(char *str)
 {
 	t_var	var;
 
-	init_del_exspc(&var, str);
-	var.size = size_without_spcs(str);
-	var.ret = ft_calloc(var.size + 1, sizeof(char));
+	init_del_exspc(&var, str, 1);
 	while (++var.i < var.len)
 	{
 		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
@@ -102,5 +89,6 @@ char	*delete_excess_spcs(char *str)
 	}
 	if (var.ret[var.j])
 		var.ret[++var.j] = '\0';
+	free (str);
 	return (var.ret);
 }

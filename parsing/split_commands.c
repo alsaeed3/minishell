@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:29:48 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:44:18 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	*find_cmds_num(char *str)
 {
 	t_cvr	cvr;
 
-	init_cvr(&cvr, str);
+	init_cvr(&cvr, str, 0);
 	cvr.cnum = ft_calloc(find_parts_num(str), sizeof(int));
 	while (++cvr.i < cvr.len)
 	{
@@ -36,8 +36,9 @@ int	**find_cmds_chars_num(char *str)
 {
 	t_cvr	cvr;
 
-	init_cvr(&cvr, str);
+	init_cvr(&cvr, str, 1);
 	cvr.chrn = ft_calloc(cvr.parts_num, sizeof(int *));
+	cvr.i = -1;
 	while (++cvr.i < cvr.parts_num)
 		cvr.chrn[cvr.i] = ft_calloc(cvr.cnum[cvr.i], sizeof(int));
 	cvr.i = -1;
@@ -77,7 +78,7 @@ char	***split_cmds(char *str)
 {
 	t_cvr	cvr;
 
-	init_cvr(&cvr, str);
+	init_cvr(&cvr, str, 2);
 	malloc_cmds(&cvr);
 	while (++cvr.i < cvr.len)
 	{

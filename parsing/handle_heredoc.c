@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:06:35 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 23:57:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	handle_heredoc(t_parse *data)
 		hvr.j = -1;
 		while (data->inputs_redirections[hvr.i][++hvr.j])
 		{
-			if (fake_heredoc(&hvr, data))
+			if (!fake_heredoc(&hvr, data))
 				real_heredoc(&hvr, data);
 			if (hvr.line)
 				free(hvr.line);

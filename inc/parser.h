@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:26:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 00:24:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser);
 int		count_size_without_redir(char *cmd_line);
 void	find_heredocs_num(t_parse *data);
 void	handle_heredoc(t_parse *data);
-void	read_heredocs(t_parse *data);
+// void	read_heredocs(t_parse *data);
 char	*generate_file_names(int pos);
 void	dollar_heredoc_deli(char *str, t_var *var);
 t_bool	exp_dlr_cnt_1(t_var *var, char *str);
@@ -192,7 +192,7 @@ void	fcn_cont(t_cvr *cvr, char *str);
 void	count_qut_pipe(t_cvr *cvr, char *str);
 void	check_qut_pipe(t_cvr *cvr, char *str);
 void	malloc_cmds(t_cvr *cvr);
-void	init_cvr(t_cvr *cvr, char *str);
+void	init_cvr(t_cvr *cvr, char *str, int mode);
 void	exp_dlr_cnt_2(t_var *var, char *str);
 void	rdr_trigger(t_var *var, char *str);
 void	is_dollar(t_var *var, char *str);
@@ -203,6 +203,9 @@ t_bool	exp_dlr_cnt_1(t_var *var, char *str);
 void	init_dollar_vars(t_var *var, char *str, t_env *env_lst, int mode);
 int		find_env_size(char *str, int i);
 int		expand_dollar_count(char *str, t_env *env_lst);
+void	init_del_exspc(t_var *var, char *str, int mode);
+int		size_without_spcs(char *str);
+void	jump_over_spaces(char *str, int *i);
 
 // struct red
 // {
