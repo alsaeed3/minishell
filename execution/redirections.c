@@ -6,13 +6,13 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/28 18:09:22 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:54:55 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-static char *file_name(t_parse *data, int x)
+static char *get_file_name(t_parse *data, int x)
 {
 	int i;
 	char *filename;
@@ -34,15 +34,13 @@ static char *file_name(t_parse *data, int x)
 
 int	redirect_from(t_parse *data, int x)
 {
-	int 	i;
 	int		fd;
 	char	*filename;
 	
-	i = 0;
 	fd = 0;
 	filename = NULL;
 	
-	filename = file_name(data, x);
+	filename = get_file_name(data, x);
 	if(!filename)
 		return 1;
 	else
