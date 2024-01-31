@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 02:15:37 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 14:32:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,5 +201,7 @@ void	init_del_exspc(t_var *var, char *str, int mode);
 int		size_without_spcs(char *str);
 void	jump_over_spaces(char *str, int *i);
 void	ft_free_lst(t_env **lst);
+void	free_parser(t_parse **parse);
+void	ft_free_intarr(int **int_arr, int parts);
 
 #endif

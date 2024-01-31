@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/31 00:43:17 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/01/31 14:50:09 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 OBJSX_DIR = execution/objs/
 OBJSX = $(addprefix $(OBJSX_DIR), $(SRCSX:.c=.o))
 CFLAGS = -Wall -Wextra -Werror -I inc -g3 -fsanitize=address
-LDFLAGS = -lreadline
+LDFLAGS = -lreadline -L$(LIBFT_DIR) -lft
 
 LIBFT_DIR = libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
