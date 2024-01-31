@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:30:09 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:27:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	count_size_without_redir(char *str)
 	t_var	var;
 
 	init_nordr_vars(&var, str, 0);
-	var.nordr = ft_calloc((var.len + 1), sizeof(char));
 	while (++var.i < var.len && str[var.i])
 	{
 		if (check_quta(&var, str))
@@ -124,5 +123,7 @@ char	*conv_redir2spcs(char *str)
 	}
 	if (var.nordr[var.j])
 		var.nordr[++var.j] = '\0';
+	free (str);
+	str = NULL;
 	return (var.nordr);
 }

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:50:31 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 23:08:00 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int	**tokenize_redir(char *str, t_parse *data, char rdr)
 		if (str[var.i] == '|' && !var.qutrg)
 		{
 			var.j++;
-			var.k = 0;
+			var.k = -1;
 		}
 		if (var.i < var.len - 1 && str[var.i] == rdr && str[var.i + 1] != rdr \
 		&& (var.i == 0 || str[var.i - 1] != rdr) && !var.qutrg)
-			var.tkn[var.j][var.k++] = 0;
+			var.tkn[var.j][++var.k] = 0;
 		else if (var.i < var.len - 1 && str[var.i] == rdr \
 		&& str[var.i + 1] == rdr && !var.qutrg)
-			var.tkn[var.j][var.k++] = 1;
+			var.tkn[var.j][++var.k] = 1;
 	}
 	return (var.tkn);
 }

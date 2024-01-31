@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 23:57:56 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 22:43:02 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 			data->inputs_redirections[hvr->i][hvr->j]) == 0)
 			{
 				free(hvr->line);
+				hvr->line = NULL;
 				break ;
 			}
 		}

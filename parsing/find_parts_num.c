@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 19:49:07 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 23:14:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,26 @@ int	find_parts_num(char *str)
 	return (parts_num);
 }
 
-// int main(void)
-// {
-// 	while (1)
-// 	{
-// 		char *input = readline("$> ");
-// 		int char_num = find_parts_num(input);
-// 		free (input);
-// 		printf("%d\n", char_num);
-// 	}
-// 	return (0);	
-// }
+t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr)
+{
+	var->i = -1;
+	var->j = 0;
+	var->k = -1;
+	var->l = -1;
+	var->len = ft_strlen(str);
+	var->parts_num = find_parts_num(str);
+	var->qutrg = FALSE;
+	var->qchr = '\0';
+	var->rdrtrg = FALSE;
+	var->rnum = NULL;
+	var->rcn = NULL;
+	if (rdr == '<' && data->tot_inredir)
+		var->rnum = data->in_rdr_num;
+	else if (rdr == '>' && data->tot_outredir)
+		var->rnum = data->out_rdr_num;
+	if (rdr == '<' && !data->tot_inredir)
+		return (TRUE);
+	else if (rdr == '>' && !data->tot_outredir)
+		return (TRUE);
+	return (FALSE);
+}

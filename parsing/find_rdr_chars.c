@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 23:06:37 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 22:37:38 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 
 // to find each infile/heredoc file name characters and store them into
 // a double pointer to use it later in mallocing
+
+void	check_quout(t_var *var, char *str)
+{
+	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
+	{
+		var->qchr = str[var->i++];
+		var->qutrg = TRUE;
+	}
+	else if ((str[var->i] == var->qchr) && var->qutrg)
+	{
+		if (str[++var->i] == ' ' && var->rdrtrg)
+			var->rdrtrg = FALSE;
+		var->qchr = '\0';
+		var->qutrg = FALSE;
+	}
+}
 
 void	check_type(t_var *var, char *str, char rdr)
 {
@@ -23,6 +39,7 @@ void	check_type(t_var *var, char *str, char rdr)
 	{
 		var->cnum = 0;
 		var->rdrtrg = TRUE;
+		var->k++;
 		var->i++;
 		if (str[var->i] == ' ')
 			var->i++;
@@ -32,6 +49,7 @@ void	check_type(t_var *var, char *str, char rdr)
 	{
 		var->cnum = 0;
 		var->rdrtrg = TRUE;
+		var->k++;
 		var->i += 2;
 		if (str[var->i] == ' ')
 			var->i++;
@@ -84,6 +102,7 @@ int	**find_rdr_chars(char *str, char rdr, t_parse *data)
 	var.i = -1;
 	while (++var.i < var.len && str[var.i])
 	{
+		check_quout(&var, str);
 		if (str[var.i] == '|' && !var.qutrg && !var.rdrtrg \
 			&& var.j < var.parts_num)
 		{

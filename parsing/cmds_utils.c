@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:48:10 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 23:21:51 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 20:49:02 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	malloc_cmds(t_cvr *cvr)
 				return ;
 		}
 	}
+	free (cvr->cnum);
 	cvr->i = -1;
 	cvr->j = 0;
 }

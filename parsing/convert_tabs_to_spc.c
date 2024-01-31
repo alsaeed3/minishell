@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 00:46:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:05:23 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	*conv_tabs2spcs(char *str)
 	}
 	if (var.ret[var.j])
 		var.ret[var.j] = '\0';
+	free (str);
+	str = NULL;
 	return (var.ret);
 }
 

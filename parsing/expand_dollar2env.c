@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:30:02 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 20:54:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,7 @@ char	*expand_dollar_string(char *str, t_env *env_lst)
 			var.ret[var.j++] = str[var.i];
 	}
 	var.ret[var.j] = '\0';
+	free (str);
+	str = NULL;
 	return (var.ret);
 }

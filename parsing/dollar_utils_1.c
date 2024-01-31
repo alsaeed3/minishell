@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:23:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 23:20:45 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:26:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,23 +100,11 @@ void	expand_dollar(t_var *var, char *str, t_env *env_lst)
 void	sd_quote_trg(t_var *var, char *str)
 {
 	if (str[var->i] == '\'' && !var->squtrg && !var->dqutrg)
-	{
-		// var->ret[var->j++] = str[var->i];
 		var->squtrg = TRUE;
-	}
 	else if (str[var->i] == '"' && !var->dqutrg && !var->squtrg)
-	{
-		// var->ret[var->j++] = str[var->i];
 		var->dqutrg = TRUE;
-	}
 	else if (str[var->i] == '\'' && var->squtrg && !var->dqutrg)
-	{
-		// var->ret[var->j++] = str[var->i];
 		var->squtrg = FALSE;
-	}
 	else if (str[var->i] == '"' && var->dqutrg && !var->squtrg)
-	{
-		// var->ret[var->j++] = str[var->i];
 		var->dqutrg = FALSE;
-	}
 }

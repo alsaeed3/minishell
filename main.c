@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 15:44:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:21:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ int main(int ac, char **av, char **env)
 {
 	t_parse	*parser;
 	char	*cmd_line;
+	char	*dup;
 	(void)ac;
 	(void)av;
 
+	parser = NULL;
+	dup = NULL;
 	parser = ft_calloc(1, sizeof(t_parse));
 	if (!parser)
 		return (0);
@@ -49,13 +52,16 @@ int main(int ac, char **av, char **env)
 		add_history(cmd_line);
 		if (g_signal == 99)
 			parser->exit_status = 1;
-     	char	*dup = ft_strdup(cmd_line);
+     	dup = ft_strdup(cmd_line);
 		if (parse_shell(dup, env, &parser))
 			continue ;
-		free (dup);
+		// if (dup)
+		// 	free (dup);
 		exec_delegator(parser);
 		free_parser(&parser);
 	}
+	free(parser->pwd);
+	ft_free_array(parser->env);
 	free(parser);
 	parser = NULL;
 	return (0);
@@ -71,12 +77,22 @@ void	ft_free_lst(t_env **stack)
 	{
 		while (curr->next != NULL)
 		{
+			if (curr->info)
+				free (curr->info);
+			if (curr->key)
+				free (curr->key);
 			next = curr->next;
 			free (curr);
 			curr = next;
 		}
 		if (curr != NULL)
+		{
+			if (curr->info)
+				free (curr->info);
+			if (curr->key)
+				free (curr->key);
 			free (curr);
+		}
 	}
 }
 
@@ -100,12 +116,12 @@ void	free_parser(t_parse **parse)
 {
 	free_char_triple_pointer((*parse)->inputs_redirections);
 	free_char_triple_pointer((*parse)->cmds);
-	ft_free_array((*parse)->env);
 	ft_free_array((*parse)->heredoc_tmp_files);
-	free((*parse)->pwd);
 	ft_free_lst(&(*parse)->envs_lst);
 	ft_free_intarr((*parse)->inputs_tokens, (*parse)->parts_num);
 	ft_free_intarr((*parse)->outputs_tokens, (*parse)->parts_num);
+	free ((*parse)->in_rdr_num);
+	free ((*parse)->out_rdr_num);
 }
 
 //ls -la | wc| cat <<w >v

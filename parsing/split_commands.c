@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:44:18 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:27:09 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	**find_cmds_chars_num(char *str)
 	cvr.i = -1;
 	while (++cvr.i < cvr.parts_num)
 		cvr.chrn[cvr.i] = ft_calloc(cvr.cnum[cvr.i], sizeof(int));
+	free (cvr.cnum);
 	cvr.i = -1;
 	while (++cvr.i < cvr.len && str[cvr.i])
 	{
@@ -72,6 +73,12 @@ void	check_end_cmd(t_cvr *cvr, char *str)
 		&& !cvr->qutrg)
 			cvr->cmds[cvr->j][cvr->k][cvr->l] = '\0';
 	}
+	if (str[cvr->i] == ' ' && (cvr->i == 0 || str[cvr->i - 1] != ' ') \
+	&& (cvr->i == 0 || str[cvr->i - 1] != '|') && !cvr->qutrg && cvr->ctrg)
+	{
+		cvr->cmds[cvr->j][cvr->k++][cvr->l] = '\0';
+		cvr->ctrg = FALSE;
+	}
 }
 
 char	***split_cmds(char *str)
@@ -80,6 +87,7 @@ char	***split_cmds(char *str)
 
 	init_cvr(&cvr, str, 2);
 	malloc_cmds(&cvr);
+	ft_free_intarr(cvr.chrn, cvr.parts_num);
 	while (++cvr.i < cvr.len)
 	{
 		check_qut_pipe(&cvr, str);
@@ -91,14 +99,10 @@ char	***split_cmds(char *str)
 			cvr.ctrg = FALSE;
 		}
 		check_end_cmd(&cvr, str);
-		if (str[cvr.i] == ' ' && (cvr.i == 0 || str[cvr.i - 1] != ' ') \
-		&& (cvr.i == 0 || str[cvr.i - 1] != '|') && !cvr.qutrg && cvr.ctrg)
-		{
-			cvr.cmds[cvr.j][cvr.k++][cvr.l] = '\0';
-			cvr.ctrg = FALSE;
-		}
 	}
 	if (cvr.cmds[cvr.j])
 		cvr.cmds[++cvr.j] = NULL;
+	free (str);
+	str = NULL;
 	return (cvr.cmds);
 }

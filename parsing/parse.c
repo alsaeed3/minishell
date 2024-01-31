@@ -6,23 +6,19 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 14:56:09 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:04:02 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-t_bool	prepare_parse(char *str, t_parse *data, char **original_envs)
+t_bool	prepare_parse(char *str)
 {
-	str = conv_tabs2spcs(str);
 	if (check_quotes(str))
 	{
 		printf("Quote Error\n");
 		return (TRUE);
 	}
-	str = delete_excess_spcs(str);
-	data->envs_lst = get_envs_lst(original_envs);
-	str = expand_dollar_string(str, data->envs_lst);
 	if (check_pipe_redir(str))
 	{
 		printf("Pipe-Redir Error\n");
@@ -40,8 +36,12 @@ t_bool	parse_shell(char *str, char **original_envs, t_parse **data)
 {
 	if (!str[0])
 		return (TRUE);
-	if (prepare_parse(str, (*data), original_envs))
+	str = conv_tabs2spcs(str);
+	if (prepare_parse(str))
 		return (TRUE);
+	str = delete_excess_spcs(str);
+	(*data)->envs_lst = get_envs_lst(original_envs);
+	str = expand_dollar_string(str, (*data)->envs_lst);
 	(*data)->parts_num = find_parts_num(str);
 	(*data)->in_rdr_num = find_rdr_num(str, '<', (*data));
 	(*data)->inputs_redirections = hold_rdr_names(str, '<', (*data));

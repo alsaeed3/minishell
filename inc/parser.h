@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 14:32:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:02:43 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ typedef struct s_parse
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr);
 void	quote_context(char *str, t_var *var);
 void	jump_over_quote(char *cmd_line, int *i, int len);
-t_bool	prepare_parse(char *str, t_parse *data, char **original_envs);
+t_bool	prepare_parse(char *str);
 t_env	*add_env(t_env *head, char *env);
 t_env	*get_envs_lst(char **original_envs);
 t_env	*ft_env_last(t_env *head);
