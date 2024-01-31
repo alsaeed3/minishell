@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/31 15:15:20 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 15:36:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ t_bool	data_init(t_parse **data, char **env)
 	(*data)->fd_out = 1;
 	return (FALSE);
 }
-void   data_reset(t_parse **data)
+
+t_bool	data_reset(t_parse **data)
 {
 	if (!(*data))
-		return ;
+		return (TRUE);
 	(*data)->tot_inredir = 0;
 	(*data)->tot_outredir = 0;
 	(*data)->heredocs_num = 0;
 	(*data)->fd_in = 0;
 	(*data)->fd_out = 1;
+	return (FALSE);
 }
