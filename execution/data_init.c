@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/28 17:57:42 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:15:20 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void	data_init(t_parse **data, char **env)
+t_bool	data_init(t_parse **data, char **env)
 {
+	if (!(*data))
+		return (TRUE);
 	(*data)->env = dup_env(env);
 	(*data)->pwd = getcwd(NULL, 0);
 	(*data)->envs_lst = NULL;
@@ -22,9 +24,12 @@ void	data_init(t_parse **data, char **env)
 	(*data)->heredocs_num = 0;
 	(*data)->fd_in = 0;
 	(*data)->fd_out = 1;
+	return (FALSE);
 }
 void   data_reset(t_parse **data)
 {
+	if (!(*data))
+		return ;
 	(*data)->tot_inredir = 0;
 	(*data)->tot_outredir = 0;
 	(*data)->heredocs_num = 0;

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 01:15:34 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 14:56:09 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_bool	prepare_parse(char *str, t_parse *data, char **original_envs)
 		return (TRUE);
 	}
 	str = delete_excess_spcs(str);
-
 	data->envs_lst = get_envs_lst(original_envs);
 	str = expand_dollar_string(str, data->envs_lst);
 	if (check_pipe_redir(str))

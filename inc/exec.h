@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/31 14:45:39 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 15:17:23 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		handle_echo(t_parse *data);
 void		handle_unset(char **inputs, t_parse *data);
 void		handle_pwd(t_parse *data);
 
-void		data_init(t_parse **data, char **env);
+t_bool		data_init(t_parse **data, char **env);
 void		data_reset(t_parse **data);
 
 int			redirect_from(t_parse *data, int x);
@@ -66,7 +66,7 @@ void		free_exit(t_parse *data, int status);
 void		set_signals(t_parse **parser);
 void		sig_switcher(int sig);
 // void	is_parent_child_sig(int sig);
-void    	ft_error(char *str);
+void		ft_error(char *str);
 
 
 

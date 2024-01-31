@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:45:27 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 16:11:25 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 14:53:15 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	free_char_triple_pointer(char ***pointer)
 	int		i;
 	int		j;
 
-	if (pointer)
+	if (!pointer)
 		return ;
 	i = -1;
 	while (pointer[++i])

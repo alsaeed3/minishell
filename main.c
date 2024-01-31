@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 14:46:55 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 15:18:00 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,22 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	t_parse	*parser;
-	parser = ft_calloc(1, sizeof(t_parse));
 	char	*cmd_line;
 
-	data_init(&parser, env);
 	while (1)
 	{
+		parser = ft_calloc(1, sizeof(t_parse));
+		if (!parser)
+			continue ;
+		if (data_init(&parser, env))
+			continue ;
 		set_signals(&parser);
 		// signal(SIGINT, sig_switcher);
 		// signal(SIGQUIT, sig_switcher);
 		// if (g_signal != 1)
 		// 	parser->exit_status = g_signal;
 		// g_signal = 1;
-		data_reset(&parser);
+		// data_reset(&parser);
 		cmd_line = readline("minishell$ ");
 		if (g_signal == 99)
 			parser->exit_status = 1;
@@ -79,6 +82,8 @@ void	ft_free_intarr(int **int_arr, int parts)
 	int	i;
 
 	i = -1;
+	if (!int_arr)
+		return ;
 	while (++i < parts)
 	{
 		if (int_arr[i])
