@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:16:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/01 13:44:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,18 @@ void	check_rdr(t_var *var, char *str)
 
 t_bool	continue_conv(t_var *var, char *str)
 {
-	if ((str[var->i] == '|' || (str[var->i] == ' ' && \
-	(var->i == 0 || str[var->i - 1] != '<') && (var->i == 0 \
-	|| str[var->i - 1] != '>'))) && var->rdrtrg && !var->qutrg)
+	if (((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg))
 	{
-		if (str[var->i] == ' ')
-			var->nordr[var->j++] = ' ';
-		var->rdrtrg = FALSE;
-	}
-	if (((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg) \
-	|| (str[var->i] == var->qchr && var->qutrg))
+		var->nordr[var->j++] = str[var->i];
+		var->qutrg = TRUE;
 		return (TRUE);
+	}
+	else if (str[var->i] == var->qchr && var->qutrg)
+	{
+		var->nordr[var->j++] = str[var->i];
+		var->qutrg = FALSE;
+		return (TRUE);
+	}
 	if (((str[var->i] != '<' && str[var->i] != '>' && str[var->i] != ' ' \
 	&& str[var->i] != '|' && str[var->i] != '\'' && str[var->i] != '"') \
 	&& !var->qutrg && var->rdrtrg))
@@ -100,4 +101,16 @@ t_bool	continue_conv(t_var *var, char *str)
 		return (TRUE);
 	}
 	return (FALSE);
+}
+
+void	check_pipe(t_var *var, char *str)
+{
+	if ((str[var->i] == '|' || (str[var->i] == ' ' && \
+	(var->i == 0 || str[var->i - 1] != '<') && (var->i == 0 \
+	|| str[var->i - 1] != '>'))) && var->rdrtrg && !var->qutrg)
+	{
+		if (str[var->i] == ' ')
+			var->nordr[var->j++] = ' ';
+		var->rdrtrg = FALSE;
+	}
 }

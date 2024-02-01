@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 21:02:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/01 13:44:59 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,5 +203,7 @@ void	jump_over_spaces(char *str, int *i);
 void	ft_free_lst(t_env **lst);
 void	free_parser(t_parse **parse);
 void	ft_free_intarr(int **int_arr, int parts);
+void	check_quotation(t_var *var, char *str);
+void	check_pipe(t_var *var, char *str);
 
 #endif
