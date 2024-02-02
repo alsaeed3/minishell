@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/31 15:36:16 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/02 14:39:55 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "./parser.h"
 # define FORKED_CHILD 0
 
-extern int	g_signal;
+
 void		exec_delegator(t_parse *parser);
 void		handle_cd(char **args, t_parse *data);
 int			var_index(char *name, t_parse *data);

@@ -8,9 +8,9 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "/home/alsaeed/Desktop/norm_leaks_shell/minishell",
+			"program": "/Users/alsaeed/Desktop/norm_leaks_shell/minishell",
 			"args": [],
-			"cwd": "/home/alsaeed/Desktop/norm_leaks_shell"
+			"cwd": "/Users/alsaeed/Desktop/norm_leaks_shell/"
 		}
 	]
 }

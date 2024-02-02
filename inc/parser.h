@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/01 13:44:59 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:50:44 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+ extern int	g_signal;
 
 # include "../libft/inc/libft.h"	// libft library
 # include <stdio.h>       			// printf
@@ -178,7 +179,7 @@ void	expand_dollar(t_var *var, char *str, t_env *env_lst);
 void	sd_quote_trg(t_var *var, char *str);
 t_bool	process_line(t_hvr *hvr, t_parse *data);
 void	init_hvr(t_hvr *hvr, t_parse *data);
-void	contin_check_qut(t_var *var, char *str);
+void	check_rdrc(t_var *var, char *str);
 void	check_quot(t_var *var, char *str);
 void	check_rdr(t_var *var, char *str);
 t_bool	continue_conv(t_var *var, char *str);
@@ -204,6 +205,7 @@ void	ft_free_lst(t_env **lst);
 void	free_parser(t_parse **parse);
 void	ft_free_intarr(int **int_arr, int parts);
 void	check_quotation(t_var *var, char *str);
-void	check_pipe(t_var *var, char *str);
+void	check_pipe(t_var *var, char *str, int mode);
+void	check_quota(t_var *var, char *str);
 
 #endif

@@ -3,22 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   cnv_rdr2spc_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/01 17:46:27 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:44:00 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-void	contin_check_qut(t_var *var, char *str)
+void	check_rdrc(t_var *var, char *str)
 {
 	if (var->i < var->len - 1 && ((str[var->i] == '<' \
+	&& str[var->i + 1] != '<' && (var->i == 0 || str[var->i - 1] != '<')) \
+	|| (str[var->i] == '>' && str[var->i + 1] != '>' && (var->i == 0 \
+	|| str[var->i - 1] != '>'))) && !var->rdrtrg && !var->qutrg)
+	{
+		var->rdrtrg = TRUE;
+		var->i++;
+		var->j++;
+		if (str[var->i] == ' ')
+			var->j++;
+	}
+	else if (var->i < var->len - 1 && ((str[var->i] == '<' \
 	&& str[var->i + 1] == '<') || (str[var->i] == '>' \
 	&& str[var->i + 1] == '>')) && !var->rdrtrg && !var->qutrg)
 	{
 		var->rdrtrg = TRUE;
+		var->i += 2;
 		var->j += 2;
 		if (str[var->i] == ' ')
 			var->j++;
@@ -103,13 +115,15 @@ t_bool	continue_conv(t_var *var, char *str)
 	return (FALSE);
 }
 
-void	check_pipe(t_var *var, char *str)
+void	check_pipe(t_var *var, char *str, int mode)
 {
 	if ((str[var->i] == '|' || (str[var->i] == ' ' && \
 	(var->i == 0 || str[var->i - 1] != '<') && (var->i == 0 \
 	|| str[var->i - 1] != '>'))) && var->rdrtrg && !var->qutrg)
 	{
-		if (str[var->i] == ' ')
+		if (str[var->i] == ' ' && mode == 0)
+			var->j++;
+		else if (str[var->i] == ' ' && mode == 1)
 			var->nordr[var->j++] = ' ';
 		var->rdrtrg = FALSE;
 	}

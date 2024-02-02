@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/01 13:07:19 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/02 15:00:13 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 	{
 		while (1)
 		{
+			g_signal = 2;
 			hvr->line = readline("> ");
 			if (hvr->line == NULL || hvr->line[0] == '\0' \
 			|| ft_strcmp(hvr->line, \
@@ -82,10 +83,12 @@ static void	real_heredoc(t_hvr *hvr, t_parse *data)
 		{
 			perror("Error opening temporary file");
 			free (data->heredoc_tmp_files);
+			data->heredoc_tmp_files = NULL;
 			return ;
 		}
 		while (1)
 		{
+			g_signal = 2;
 			hvr->line = readline("> ");
 			if (process_line(hvr, data))
 				break ;
@@ -116,8 +119,8 @@ void	handle_heredoc(t_parse *data)
 		data->heredoc_tmp_files[hvr.k] = NULL;
 	if (!data->heredocs_num)
 	{
-		if (data->heredoc_tmp_files)
-			free(data->heredoc_tmp_files);
+		// if (data->heredoc_tmp_files)
+		// 	free(data->heredoc_tmp_files);
 		data->heredoc_tmp_files = NULL;
 	}
 }

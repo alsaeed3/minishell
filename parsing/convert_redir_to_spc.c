@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_redir_to_spc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/01 13:45:27 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:56:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,36 @@
 /* file names to spaces in the command line after saving all the file names */
 /* with their tokens */
 
-t_bool	check_quta(t_var *var, char *str)
+void	check_quota(t_var *var, char *str)
 {
 	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
 		var->qchr = str[var->i];
 		var->qutrg = TRUE;
+		var->i++;
 		var->j++;
 	}
 	else if ((str[var->i] == var->qchr) && var->qchr)
 	{
 		var->qchr = '\0';
 		var->qutrg = FALSE;
+		var->i++;
 		var->j++;
 	}
-	if (var->i < var->len - 1 && ((str[var->i] == '<' && str[var->i + 1] != '<' \
-	&& (var->i == 0 || str[var->i - 1] != '<')) || (str[var->i] == '>' \
-	&& str[var->i + 1] != '>' && (var->i == 0 || str[var->i - 1] != '>'))) \
-	&& !var->rdrtrg && !var->qutrg)
-	{
-		var->rdrtrg = TRUE;
-		var->j++;
-		if (str[var->i] == ' ')
-			var->j++;
-		return (TRUE);
-	}
-	return (FALSE);
 }
 
 t_bool	continue_count(t_var *var, char *str)
 {
-	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
+	if (((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg))
 	{
-		var->qchr = str[var->i];
-		var->qutrg = TRUE;
 		var->j++;
+		var->qutrg = TRUE;
 		return (TRUE);
 	}
-	if ((str[var->i] == var->qchr) && var->qutrg)
+	else if (str[var->i] == var->qchr && var->qutrg)
 	{
-		var->qchr = '\0';
-		var->qutrg = FALSE;
 		var->j++;
+		var->qutrg = FALSE;
 		return (TRUE);
 	}
 	if (((str[var->i] != '<' && str[var->i] != '>' && str[var->i] != ' ' \
@@ -90,14 +78,9 @@ int	count_size_without_redir(char *str)
 	init_nordr_vars(&var, str, 0);
 	while (++var.i < var.len && str[var.i])
 	{
-		if (check_quta(&var, str))
-			contin_check_qut(&var, str);
-		if (str[var.i] == ' ' && (var.i == 0 || str[var.i - 1] != '<') \
-		&& (var.i == 0 || str[var.i - 1] != '>') && var.rdrtrg && !var.qutrg)
-		{
-			var.j++;
-			var.rdrtrg = FALSE;
-		}
+		check_quota(&var, str);
+		check_rdrc(&var, str);
+		check_pipe(&var, str, 0);
 		if (continue_count(&var, str))
 			continue ;
 		var.j++;
@@ -114,7 +97,7 @@ char	*conv_redir2spcs(char *str)
 	{
 		check_quotation(&var, str);
 		check_rdr(&var, str);
-		check_pipe(&var, str);
+		check_pipe(&var, str, 1);
 		if (continue_conv(&var, str))
 			continue ;
 		if (!var.rdrtrg)
@@ -126,5 +109,6 @@ char	*conv_redir2spcs(char *str)
 		var.nordr[++var.j] = '\0';
 	free (str);
 	str = NULL;
+	// printf ("no_rdr: %s\n", var.nordr);
 	return (var.nordr);
 }
