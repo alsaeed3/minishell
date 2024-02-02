@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
+#    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/02/02 14:57:13 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/02/02 20:37:48 by habu-zua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,8 +75,8 @@ $(OBJSX_DIR)%.o: execution/%.c
 	@mkdir -p $(OBJSX_DIR)
 	@clang $(CFLAGS) -c $< -o $@
 	
-$(NAME): $(OBJS) $(OBJSX) main.c
-	@clang $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main.c -o $(NAME) $(LDFLAGS)
+$(NAME): $(OBJS) $(OBJSX) main2.c
+	@clang $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main2.c -o $(NAME) $(LDFLAGS)
 	@echo "minishell Compiled: \033[1;32mOK\n\033[0m"
 
 $(LIBFT_LIB):

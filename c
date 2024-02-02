@@ -1,0 +1,23 @@
+-rw-r--r--   1 habu-zua  2022_abu-dhabi      10 Feb  2 17:59 v
+-rw-r--r--   1 habu-zua  2022_abu-dhabi      25 Feb  2 20:24 x
+-rw-r--r--   1 habu-zua  2022_abu-dhabi      25 Feb  2 20:30 c
+-rw-r--r--   1 habu-zua  2022_abu-dhabi     126 Feb  2 16:47 leaks.sh
+-rw-r--r--   1 habu-zua  2022_abu-dhabi     154 Feb  2 17:01 readline.supp
+-rw-r--r--   1 habu-zua  2022_abu-dhabi     160 Feb  2 20:22 leaks2.sh
+-rw-r--r--   1 habu-zua  2022_abu-dhabi     444 Feb  2 16:47 test_cases
+-rw-r--r--   1 habu-zua  2022_abu-dhabi    2841 Feb  2 20:29 main.c
+-rw-r--r--   1 habu-zua  2022_abu-dhabi    2842 Feb  2 20:22 Makefile
+-rw-r--r--   1 habu-zua  2022_abu-dhabi    6148 Feb  2 16:46 .DS_Store
+-rw-r--r--   1 habu-zua  2022_abu-dhabi    7765 Feb  2 16:47 main_disp_parse.c
+-rwxr-xr-x   1 habu-zua  2022_abu-dhabi  358424 Feb  2 20:29 minishell
+drwxr-xr-x   2 habu-zua  2022_abu-dhabi      68 Feb  2 16:47 minishell_tester
+drwxr-xr-x   3 habu-zua  2022_abu-dhabi     102 Jan 20 11:15 minishell.dSYM
+drwxr-xr-x   4 habu-zua  2022_abu-dhabi     136 Feb  2 17:59 inc
+drwxr-xr-x   4 habu-zua  2022_abu-dhabi     136 Feb  2 20:22 .vscode
+drwxr-xr-x   6 habu-zua  2022_abu-dhabi     204 Feb  2 20:29 libft
+drwxr-xr-x  13 habu-zua  2022_abu-dhabi     442 Feb  2 17:29 ..
+drwxr-xr-x  15 habu-zua  2022_abu-dhabi     510 Feb  2 20:24 .git
+drwxr-xr-x  22 habu-zua  2022_abu-dhabi     748 Feb  2 20:29 .
+drwxr-xr-x  24 habu-zua  2022_abu-dhabi     816 Feb  2 20:29 execution
+drwxr-xr-x  25 habu-zua  2022_abu-dhabi     850 Feb  2 20:29 parsing
+total 808

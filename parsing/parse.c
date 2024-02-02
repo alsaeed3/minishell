@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 21:04:02 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/02 20:28:03 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_bool	prepare_parse(char *str)
 
 t_bool	parse_shell(char *str, char **original_envs, t_parse **data)
 {
-	if (!str[0])
+	if (!str || !str[0])
 		return (TRUE);
 	str = conv_tabs2spcs(str);
 	if (prepare_parse(str))
