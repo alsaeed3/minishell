@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 21:27:09 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/03 14:36:26 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,5 @@ char	***split_cmds(char *str)
 	}
 	if (cvr.cmds[cvr.j])
 		cvr.cmds[++cvr.j] = NULL;
-	free (str);
-	str = NULL;
 	return (cvr.cmds);
 }

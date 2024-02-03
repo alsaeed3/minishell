@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 20:24:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/02 15:05:15 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/03 14:04:13 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,15 @@ t_bool	process_line(t_hvr *hvr, t_parse *data)
 void	init_hvr(t_hvr *hvr, t_parse *data)
 {
 	hvr->i = -1;
-	hvr->j = 0;
 	hvr->k = 0;
-	hvr->line = NULL;
+	// hvr->line = NULL;
 	hvr->wrfd = 0;
-	hvr->rdfd = 0;
-	data->heredoc_tmp_files = NULL;
-	if (data->heredocs_num > 0)
-	{
-		data->heredoc_tmp_files = ft_calloc(data->heredocs_num + 1, \
-		sizeof(char *));
-		if (!data->heredoc_tmp_files)
-			return ;
-	}
+	// data->heredoc_tmp_files = NULL;
+	// if (data->heredocs_num > 0)
+	// {
+	data->heredoc_tmp_files = ft_calloc(data->heredocs_num + 1, \
+	sizeof(char *));
+	if (!data->heredoc_tmp_files)
+		return ;
+	// }
 }

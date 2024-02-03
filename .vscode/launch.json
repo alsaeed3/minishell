@@ -8,9 +8,9 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "/Users/alsaeed/Desktop/norm_leaks_shell/minishell",
+			"program": "/Users/habu-zua/Desktop/HishMini/minishell",
 			"args": [],
-			"cwd": "/Users/alsaeed/Desktop/norm_leaks_shell/"
+			"cwd": "/Users/habu-zua/Desktop/HishMini/"
 		}
 	]
 }

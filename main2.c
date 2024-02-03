@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/02 20:45:18 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/03 14:36:11 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	t_parse	*parser;
-	
+	char	*cmd_line;
 	parser = NULL;
 	while (1)
 	{
 		parser = ft_calloc(1, sizeof(t_parse));
 		printf("---------------------------------------------\n");
-		char	*cmd_line = readline("MINISHELL$ ");
+		cmd_line = readline("MINISHELL$ ");
 		add_history(cmd_line);
 		char	*dup = ft_strdup(cmd_line);
+		
 		printf("\n");
 		if (parse_shell(dup, env, &parser))
 			continue ;
@@ -94,6 +95,8 @@ int main(int ac, char **av, char **env)
 				printf("-------->part:[%d], order:[%d] = {%s}\n", i, j, parser->cmds[i][j]);			
 		}
 		printf("\n");
+		free(cmd_line);
+		cmd_line = NULL;
 		// printf("---------------------------------------------\n");
 		// printf("#                   envs:                   #\n");
 		// t_env *curr = parser->envs_lst;

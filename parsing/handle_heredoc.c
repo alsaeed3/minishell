@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/02 15:00:13 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/03 14:45:53 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ char	*generate_file_names(int pos)
 
 static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 {
-	if (data->inputs_redirections[hvr->i][hvr->j + 1] != NULL \
-	&& data->inputs_tokens[hvr->i][hvr->j] == 1)
+	if (data->inputs_redirections[hvr->i][hvr->j + 1] != NULL)
 	{
 		while (1)
 		{
@@ -73,18 +72,17 @@ static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 
 static void	real_heredoc(t_hvr *hvr, t_parse *data)
 {
-	if (data->inputs_redirections[hvr->i][hvr->j + 1] == NULL \
-	&& data->inputs_tokens[hvr->i][hvr->j] == 1)
+	if (data->inputs_redirections[hvr->i][hvr->j + 1] == NULL)
 	{
 		data->heredoc_tmp_files[hvr->k] = generate_file_names(hvr->k + 1);
 		hvr->wrfd = open(data->heredoc_tmp_files[hvr->k], \
 		O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (hvr->wrfd == -1)
 		{
-			perror("Error opening temporary file");
-			free (data->heredoc_tmp_files);
-			data->heredoc_tmp_files = NULL;
-			return ;
+			close (hvr->wrfd);
+			unlink(data->heredoc_tmp_files[hvr->k]);
+			hvr->wrfd = open(data->heredoc_tmp_files[hvr->k], \
+			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		}
 		while (1)
 		{
@@ -94,7 +92,10 @@ static void	real_heredoc(t_hvr *hvr, t_parse *data)
 				break ;
 			write(hvr->wrfd, hvr->line, ft_strlen(hvr->line));
 			write(hvr->wrfd, "\n", 1);
+			free(hvr->line);
+			hvr->line = NULL;
 		}
+		close(hvr->wrfd);
 	}
 }
 
@@ -108,19 +109,21 @@ void	handle_heredoc(t_parse *data)
 		hvr.j = -1;
 		while (data->inputs_redirections[hvr.i][++hvr.j])
 		{
-			if (!fake_heredoc(&hvr, data))
+			if (data->inputs_tokens[hvr.i][hvr.j] == 1 && !fake_heredoc(&hvr, data))
 				real_heredoc(&hvr, data);
-			if (hvr.line)
+			if (data->inputs_tokens[hvr.i][hvr.j] == 1 && hvr.line)
+			{
 				free(hvr.line);
-			close(hvr.wrfd);
+				hvr.line = NULL;
+			}
 		}
 	}
 	if (data->heredocs_num)
 		data->heredoc_tmp_files[hvr.k] = NULL;
 	if (!data->heredocs_num)
 	{
-		// if (data->heredoc_tmp_files)
-		// 	free(data->heredoc_tmp_files);
+		if (data->heredoc_tmp_files)
+			free(data->heredoc_tmp_files);
 		data->heredoc_tmp_files = NULL;
 	}
 }
