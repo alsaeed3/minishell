@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/31 01:24:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/03 17:04:45 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	redirect_from(t_parse *data, int x)
 	if (fd < 0)
 	{
 		ft_error(strerror(ENOENT));
+		data->redir = 0;
 		return 1;
 	}
 	dup2(fd, 0);
@@ -73,7 +74,7 @@ void redirect_to(t_parse *data, int x)
 			if (fd < 0)
 			{
 				ft_putstr_fd("Error: wrong permissions\n", 2);
-				// data->redir = 0;
+				data->redir = 0;
 				return ;
 			}
 			i++;

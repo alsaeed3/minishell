@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/01 17:22:05 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/03 19:35:14 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 int	handle_pipe(t_parse *parser)
 {
+	// ft_putendl_fd("handle_pipe", 2);
 	int	i;
 	int	fds[2];
 	int	pid;
 	int	status;
 	int	fd_in;
 
-	i = 0;
+	i = -1;
 	fd_in = 0;
-	while (i < parser->parts_num)
+	while (++i < parser->parts_num)
 	{
 		if (i < parser->parts_num - 1)
 			pipe(fds);
@@ -38,13 +39,12 @@ int	handle_pipe(t_parse *parser)
 			handle_single(parser->cmds[i], parser, 1, i);
 			exit(EXIT_SUCCESS);
 		}
-		else
-		{
+		// else
+		// {
 			waitpid(pid, &status, 0);
 			close(fds[1]);
 			fd_in = fds[0];
-			i++;
-		}
+		// }
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/01 13:46:29 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/03 19:33:29 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,24 @@ static int	is_n_flag(char *str)
 	return (0);
 }
 
-void	handle_echo(t_parse *data)
+void	handle_echo(t_parse *data, int x)
 {
+	// ft_putendl_fd("handle_echo", 2);
+	// ft_putendl_fd(data->cmds[1][1], 2);
 	int	i;
 	int	n_flag;
 
 	i = 1;
 	n_flag = 1;
-	while (data->cmds[0][i] && is_n_flag(data->cmds[0][i]))
+	while (data->cmds[x][i] && is_n_flag(data->cmds[x][i]))
 	{
 		n_flag = 0;
 		i++;
 	}
-	while (data->cmds[0][i])
+	while (data->cmds[x][i])
 	{
-		write(1, data->cmds[0][i], ft_strlen(data->cmds[0][i]));
-		if (data->cmds[0][i + 1])
+		write(1, data->cmds[x][i], ft_strlen(data->cmds[x][i]));
+		if (data->cmds[x][i + 1])
 			write(1, " ", 1);
 		i++;
 	}

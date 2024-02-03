@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_delegate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/31 00:34:50 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/03 19:32:47 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	exec_delegator(t_parse *parser)
 {
+	printf("exec_delegator\n");
+	printf("parser->parts_num: %d\n", parser->parts_num);
 	if (parser->parts_num == 1)
 		handle_single(parser->cmds[0], parser, 0, 0);
 	else
@@ -22,6 +24,8 @@ void	exec_delegator(t_parse *parser)
 
 int	handle_single(char **inputs, t_parse *data, int piped, int x)
 {
+	(void)piped;
+	// ft_putendl_fd("handle_single", 2);
 	int		oldfd[2];
 
 	oldfd[0] = dup(0);
@@ -31,21 +35,33 @@ int	handle_single(char **inputs, t_parse *data, int piped, int x)
 			return (0);
 	if (data->out_rdr_num[x] > 0)
 		redirect_to(data, x);
-	choose_action(inputs, data);
+	choose_action(inputs, data, x);
 	dup2(oldfd[0], 0);
 	dup2(oldfd[1], 1);
 	close_fds(data);
 	close(oldfd[0]);
 	close(oldfd[1]);
-	if (piped)
-		exit_pipe(data);
+	// if (piped)
+	// 	exit_pipe(data);
 	return (0);
 }
 
-void	choose_action(char **cmd, t_parse *data)
+void	choose_action(char **cmd, t_parse *data, int x)
 {
+	// if (!data->redir)
+	// {
+	// 	data->redir = 1;
+	// 	return ;
+	// }
+	// ft_putstr_fd("cmd: ", 2);
+	// ft_putstr_fd(cmd[0], 2);
+	// ft_putstr_fd(cmd[1], 2);
+	// ft_putstr_fd("\n", 2);
+
+	ft_putnbr_fd(x, 2);
+	ft_putstr_fd("\n", 2);
 	if (ft_strcmp(cmd[0], "echo") == 0)
-		handle_echo(data);
+		handle_echo(data, x);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		handle_pwd(data);
 	else if (ft_strcmp(cmd[0], "cd") == 0)
