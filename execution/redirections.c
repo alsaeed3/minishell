@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/04 16:50:08 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:51:29 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@ static char *get_file_name(t_parse *data, int x)
 	filename = NULL;
 	j = 0;
 	i = -1;
-	ft_putstr_fd("heredoc num", 2);
-	ft_putnbr_fd(data->heredocs_num, 2);
-	ft_putchar_fd('\n', 2);
-	ft_putstr_fd("h_index", 2);
-	ft_putnbr_fd(data->h_index, 2);
-	ft_putchar_fd('\n', 2);
-	// data->h_index = 0;
 	while(++i < data->in_rdr_num[x])
 	{
 		if (!data->in_rdr_num[x])
@@ -83,7 +76,6 @@ void redirect_to(t_parse *data, int x)
 			if (fd < 0)
 			{
 				ft_putstr_fd("Error: wrong permissions\n", 2);
-				// data->redir = 0;
 				return ;
 			}
 			i++;

@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/04 17:06:38 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:52:00 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	exec_delegator(t_parse *parser)
 		parser->h_index = -1;
 		handle_pipe(parser);
 	}
-
 	while(parser->heredocs_num)
 	{
 		unlink(parser->heredoc_tmp_files[parser->heredocs_num - 1]);
@@ -37,7 +36,6 @@ void	exec_delegator(t_parse *parser)
 int	handle_single(char **inputs, t_parse *data, int piped, int x)
 {
 	(void)piped;
-	// ft_putendl_fd("handle_single", 2);
 	int		oldfd[2];
 
 	oldfd[0] = dup(0);
