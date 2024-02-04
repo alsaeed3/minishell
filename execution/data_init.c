@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/03 17:07:11 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 14:23:34 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_bool	data_init(t_parse **data, char **env)
 	(*data)->heredocs_num = 0;
 	(*data)->fd_in = 0;
 	(*data)->fd_out = 1;
-	(*data)->redir = 1;
+	(*data)->h_index = -1;
 	return (FALSE);
 }
 
@@ -38,7 +38,5 @@ t_bool	data_reset(t_parse **data)
 	(*data)->heredocs_num = 0;
 	(*data)->fd_in = 0;
 	(*data)->fd_out = 1;
-	(*data)->redir = 1;
-
 	return (FALSE);
 }

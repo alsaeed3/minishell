@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hold_rdr_names.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 23:12:47 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/04 17:29:52 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	copy_and_null(t_var *var, char *str)
 {
 	if (((str[var->i] != '<' && str[var->i] != '>' && str[var->i] != ' ' \
 	&& str[var->i] != '|' && str[var->i] != '\'' && str[var->i] != '"' \
-	&& str[var->i] != '\0') && !var->qutrg && var->rdrtrg))
+	&& str[var->i] != '\0') && var->rdrtrg))
 	{
 		var->rnms[var->j][var->k][++var->l] = str[var->i];
 		if (str[var->i + 1] == '<' || str[var->i + 1] == '>' \

@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/03 19:33:29 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 14:43:15 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	handle_echo(t_parse *data, int x)
 	}
 	while (data->cmds[x][i])
 	{
-		write(1, data->cmds[x][i], ft_strlen(data->cmds[x][i]));
+		if(ft_strcmp(data->cmds[x][i],"$?") == 0)
+			ft_putnbr_fd(data->exit_status, 1);
+		else
+			write(1, data->cmds[x][i], ft_strlen(data->cmds[x][i]));
 		if (data->cmds[x][i + 1])
 			write(1, " ", 1);
 		i++;

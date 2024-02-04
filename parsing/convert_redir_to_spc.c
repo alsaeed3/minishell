@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_redir_to_spc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/02 17:56:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/04 15:28:33 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ void	check_quota(t_var *var, char *str)
 		var->i++;
 		var->j++;
 	}
-	else if ((str[var->i] == var->qchr) && var->qchr)
+	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
 		var->qchr = '\0';
 		var->qutrg = FALSE;
 		var->i++;
+		if (var->rdrtrg)
+		{
+			if (str[var->i] == ' ')
+				var->rdrtrg = FALSE;
+		}
 		var->j++;
 	}
 }
@@ -105,10 +110,9 @@ char	*conv_redir2spcs(char *str)
 		else if (str[var.i] != ' ' && var.rdrtrg)
 			var.nordr[var.j++] = ' ';
 	}
-	if (var.nordr[var.j])
-		var.nordr[++var.j] = '\0';
+	if (var.nordr || var.nordr[var.j])
+		var.nordr[var.j] = '\0';
 	free (str);
 	str = NULL;
-	// printf ("no_rdr: %s\n", var.nordr);
 	return (var.nordr);
 }

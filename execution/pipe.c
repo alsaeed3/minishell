@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/03 19:35:14 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 16:56:57 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	handle_pipe(t_parse *parser)
 {
 	// ft_putendl_fd("handle_pipe", 2);
 	int	i;
+	int	j;
 	int	fds[2];
 	int	pid;
 	int	status;
@@ -23,8 +24,19 @@ int	handle_pipe(t_parse *parser)
 
 	i = -1;
 	fd_in = 0;
+		
+
 	while (++i < parser->parts_num)
 	{
+		
+		j = -1;
+		while (++j < parser->in_rdr_num[i])
+		{
+			if (!parser->inputs_tokens[i] || !parser->inputs_redirections[i])
+				break ;
+			if (parser->inputs_tokens[i][j] == 1 && parser->inputs_redirections[i][j + 1] == NULL)
+				parser->h_index++;
+		}
 		if (i < parser->parts_num - 1)
 			pipe(fds);
 		pid = fork();

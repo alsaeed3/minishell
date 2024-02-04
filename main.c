@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/03 18:06:57 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 14:34:30 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,3 +121,8 @@ void	free_parser(t_parse **parse)
 
 //ls -la | wc| cat <<w >v
 //echo hi > x | <<aa cat >>x
+//<<aa cat >a|<<bb cat >>a   // working ok
+//ls > a | <<bb cat >>a // not appending
+//<a cat > b | <<vv cat >>b // not appending
+//<<aa <a cat > b | <<vv cat >>b // not appending
+// 

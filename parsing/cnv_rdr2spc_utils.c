@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cnv_rdr2spc_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/02 17:44:00 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/04 15:04:35 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ void	check_quotation(t_var *var, char *str)
 		else
 			var->nordr[var->j++] = str[var->i++];
 	}
-	else if ((str[var->i] == var->qchr) && var->qchr)
+	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
 		var->qchr = '\0';
 		var->qutrg = FALSE;
 		if (var->rdrtrg)
 		{
-			var->i++;
+			if (str[++var->i] == ' ')
+				var->rdrtrg = FALSE;
 			var->nordr[var->j++] = ' ';
 		}
 		else

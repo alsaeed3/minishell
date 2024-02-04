@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/03 19:32:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:06:38 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,24 @@
 
 void	exec_delegator(t_parse *parser)
 {
-	printf("exec_delegator\n");
-	printf("parser->parts_num: %d\n", parser->parts_num);
 	if (parser->parts_num == 1)
+	{
+		parser->h_index = 0;
 		handle_single(parser->cmds[0], parser, 0, 0);
+	}
 	else
+	{
+		parser->h_index = -1;
 		handle_pipe(parser);
+	}
+
+	while(parser->heredocs_num)
+	{
+		unlink(parser->heredoc_tmp_files[parser->heredocs_num - 1]);
+		parser->heredocs_num--;
+	}
+	
+
 }
 
 int	handle_single(char **inputs, t_parse *data, int piped, int x)
@@ -48,18 +60,7 @@ int	handle_single(char **inputs, t_parse *data, int piped, int x)
 
 void	choose_action(char **cmd, t_parse *data, int x)
 {
-	// if (!data->redir)
-	// {
-	// 	data->redir = 1;
-	// 	return ;
-	// }
-	// ft_putstr_fd("cmd: ", 2);
-	// ft_putstr_fd(cmd[0], 2);
-	// ft_putstr_fd(cmd[1], 2);
-	// ft_putstr_fd("\n", 2);
-
-	ft_putnbr_fd(x, 2);
-	ft_putstr_fd("\n", 2);
+	
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		handle_echo(data, x);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)

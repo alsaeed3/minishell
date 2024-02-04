@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/03 17:01:49 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 12:11:57 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ typedef struct s_parse
 	int 	fd_out;
 	char	*pwd;
 	int		exit_status;
-	int		redir;
+	int		h_index;
 }	t_parse;
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr);
