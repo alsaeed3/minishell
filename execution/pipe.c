@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/04 16:56:57 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 23:37:50 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	handle_pipe(t_parse *parser)
 	int	j;
 	int	fds[2];
 	int	pid;
-	int	status;
 	int	fd_in;
 
 	i = -1;
@@ -49,13 +48,16 @@ int	handle_pipe(t_parse *parser)
 				dup2(fds[STDOUT_FILENO], STDOUT_FILENO);
 			close(fds[0]);
 			handle_single(parser->cmds[i], parser, 1, i);
+			
 			exit(EXIT_SUCCESS);
 		}
 		// else
 		// {
-			waitpid(pid, &status, 0);
+			waitpid(pid, &parser->exit_status, 0);
 			close(fds[1]);
 			fd_in = fds[0];
+			// ft_putstr_fd("exit status: ", 2);
+			// ft_putnbr_fd(parser->exit_status, 2);
 		// }
 	}
 	return (0);

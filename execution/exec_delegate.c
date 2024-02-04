@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/04 17:52:00 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 23:25:37 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	exec_delegator(t_parse *parser)
 	if (parser->parts_num == 1)
 	{
 		parser->h_index = 0;
-		handle_single(parser->cmds[0], parser, 0, 0);
+		if(handle_single(parser->cmds[0], parser, 0, 0) == 1)
+			parser->exit_status = 1;
 	}
 	else
 	{
@@ -42,7 +43,7 @@ int	handle_single(char **inputs, t_parse *data, int piped, int x)
 	oldfd[1] = dup(1);
 	if (data->in_rdr_num[x] > 0)
 		if(redirect_from(data, x))
-			return (0);
+			return (1);
 	if (data->out_rdr_num[x] > 0)
 		redirect_to(data, x);
 	choose_action(inputs, data, x);

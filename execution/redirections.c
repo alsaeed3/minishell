@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/04 17:51:29 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/04 23:02:36 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 static char *get_file_name(t_parse *data, int x)
 {
 	int i;
-	int j;
 	char *filename;
 		
 	filename = NULL;
-	j = 0;
 	i = -1;
 	while(++i < data->in_rdr_num[x])
 	{
