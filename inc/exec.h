@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/03 19:25:18 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:47:25 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void		exit_pipe(t_parse *data);
 
 void		close_fds(t_parse *data);
 
-void		choose_action(char **inpts,t_parse *data, int x);
-void		handle_exec(char **inputs, t_parse *data);
+int		choose_action(char **inpts,t_parse *data, int x);
+int		handle_exec(char **inputs, t_parse *data);
 int			execute_2(char **inputs, t_parse *data);
 int			execute(char **inputs, t_parse *data);
 

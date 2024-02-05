@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/05 20:51:46 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/04 23:02:36 by habu-zua         ###   ########.fr       */
+>>>>>>> e15cd9636638f004ec032553aecc8512c217f825
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +19,9 @@
 static char *get_file_name(t_parse *data, int x)
 {
 	int i;
-	int j;
 	char *filename;
 		
 	filename = NULL;
-	j = 0;
 	i = -1;
 	while(++i < data->in_rdr_num[x])
 	{
