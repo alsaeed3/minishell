@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/04 14:23:34 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:31:54 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ t_bool	data_init(t_parse **data, char **env)
 	(*data)->pwd = getcwd(NULL, 0);
 	(*data)->envs_lst = NULL;
 	(*data)->heredoc_tmp_files = NULL;
+	(*data)->inputs_tokens = NULL;
+	(*data)->outputs_tokens = NULL;
+	(*data)->in_rdr_num = NULL;
+	(*data)->out_rdr_num = NULL;
 	(*data)->tot_inredir = 0;
 	(*data)->tot_outredir = 0;
 	(*data)->heredocs_num = 0;

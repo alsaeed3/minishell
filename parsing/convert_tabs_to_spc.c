@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_tabs_to_spc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 21:05:23 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:12:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ void	init_contabvar(t_var *var, char *str)
 
 char	*conv_tabs2spcs(char *str)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	init_contabvar(&var, str);
-	var.ret = malloc(sizeof(char *) * (var.len + 1));
+	var.ret = ft_calloc(var.len + 1, sizeof(char *));
+	if (!var.ret)
+		return (NULL);
 	while (++var.i < var.len)
 	{
 		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
@@ -44,8 +46,7 @@ char	*conv_tabs2spcs(char *str)
 			str[var.i] = ' ';
 		var.ret[var.j++] = str[var.i];
 	}
-	if (var.ret[var.j])
-		var.ret[var.j] = '\0';
+	var.ret[var.j] = '\0';
 	free (str);
 	str = NULL;
 	return (var.ret);

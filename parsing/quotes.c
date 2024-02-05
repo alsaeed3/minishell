@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 19:48:02 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 16:53:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	init_vars(t_var *var, char *str)
 
 t_bool	check_quotes(char *str)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	init_vars(&var, str);
 	while (++var.i < var.len)

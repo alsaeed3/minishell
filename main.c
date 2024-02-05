@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/04 14:34:30 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:17:52 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ int main(int ac, char **av, char **env)
 		if (cmd_line == NULL)
 		{
 			printf("exit\n");
-			// rl_clear_history();
+			rl_clear_history();
+			free(parser->pwd);
+			ft_free_array(parser->env);
+			free (parser);
+			parser = NULL;
 			exit(0);
 		}
 		add_history(cmd_line);
@@ -50,8 +54,6 @@ int main(int ac, char **av, char **env)
      	dup = ft_strdup(cmd_line);
 		if (parse_shell(dup, env, &parser))
 			continue ;
-		// if (dup)
-		// 	free (dup);
 		exec_delegator(parser);
 		free_parser(&parser);
 	}
@@ -91,32 +93,56 @@ void	ft_free_lst(t_env **stack)
 	}
 }
 
-void	ft_free_intarr(int **int_arr, int parts)
+void ft_free_intarr(int **int_arr)
 {
-	int	i;
+    size_t i;
+    size_t size;
 
+    // if (!int_arr)
+    //     return;
+    size = sizeof(int_arr) / sizeof(int_arr[0]);  // Correct size calculation
 	i = -1;
-	if (!int_arr)
-		return ;
-	while (++i < parts)
-	{
-		if (int_arr[i])
-			free (int_arr[i]);
-	}
-	if (int_arr)
-		free (int_arr);
+    while (++i < size)
+    {
+		ft_putnbr_fd(i, 2);
+		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("size: ", 2);
+		ft_putnbr_fd(size, 2);
+		ft_putstr_fd("\n", 2);
+        if (int_arr[i])
+        {
+			free(int_arr[i]);
+			int_arr[i] = NULL;  // Set the pointer to NULL after freeing
+        }
+    }
+	free(int_arr);
+	int_arr = NULL;  // Set the pointer to NULL after freeing to avoid potential issues
 }
+
+
 
 void	free_parser(t_parse **parse)
 {
 	free_char_triple_pointer((*parse)->inputs_redirections);
+	free_char_triple_pointer((*parse)->outputs_redirections);
 	free_char_triple_pointer((*parse)->cmds);
 	ft_free_array((*parse)->heredoc_tmp_files);
 	ft_free_lst(&(*parse)->envs_lst);
-	ft_free_intarr((*parse)->inputs_tokens, (*parse)->parts_num);
-	ft_free_intarr((*parse)->outputs_tokens, (*parse)->parts_num);
-	free ((*parse)->in_rdr_num);
-	free ((*parse)->out_rdr_num);
+	if ((*parse)->inputs_tokens)
+		ft_free_intarr((*parse)->inputs_tokens);
+	if ((*parse)->outputs_tokens)
+		ft_free_intarr((*parse)->outputs_tokens);
+	if ((*parse)->in_rdr_num)
+	{
+		free ((*parse)->in_rdr_num);
+		(*parse)->in_rdr_num = NULL;
+	}
+	if ((*parse)->out_rdr_num)
+	{
+		// printf("%d\n", (*parse)->out_rdr_num[1]);
+		free ((*parse)->out_rdr_num);
+		(*parse)->out_rdr_num = NULL;
+	}
 }
 
 //ls -la | wc| cat <<w >v

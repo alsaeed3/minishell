@@ -5,6 +5,10 @@
 		"initializer_list": "c",
 		"utility": "c",
 		"string": "c",
-		"parser.h": "c"
+		"parser.h": "c",
+		"iterator": "c",
+		"vector": "c",
+		"sstream": "c",
+		"libft.h": "c"
 	}
 }

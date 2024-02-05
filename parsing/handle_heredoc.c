@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/03 14:45:53 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:52:09 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	real_heredoc(t_hvr *hvr, t_parse *data)
 
 void	handle_heredoc(t_parse *data)
 {
-	t_hvr	hvr;
+	t_hvr	hvr = {0};
 
 	init_hvr(&hvr, data);
 	while (data->inputs_redirections && data->inputs_redirections[++hvr.i])

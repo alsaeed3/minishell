@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/04 12:11:57 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:28:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ int		size_without_spcs(char *str);
 void	jump_over_spaces(char *str, int *i);
 void	ft_free_lst(t_env **lst);
 void	free_parser(t_parse **parse);
-void	ft_free_intarr(int **int_arr, int parts);
+void ft_free_intarr(int **int_arr);
 void	check_quotation(t_var *var, char *str);
 void	check_pipe(t_var *var, char *str, int mode);
 void	check_quota(t_var *var, char *str);

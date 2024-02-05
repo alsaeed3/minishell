@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/03 13:54:00 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:58:07 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ t_bool	parse_shell(char *str, char **original_envs, t_parse **data)
 		return (TRUE);
 	str = conv_tabs2spcs(str);
 	if (prepare_parse(str))
+	{
+		free (str);
+		str = NULL;
 		return (TRUE);
+	}
 	str = delete_excess_spcs(str);
 	(*data)->envs_lst = get_envs_lst(original_envs);
 	str = expand_dollar_string(str, (*data)->envs_lst);

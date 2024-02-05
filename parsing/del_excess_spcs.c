@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_excess_spcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 20:53:57 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 16:53:36 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	jmp_mid_spcs(t_var *var, char *str, int mode)
 
 int	size_without_spcs(char *str)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	init_del_exspc(&var, str, 0);
 	while (++var.i < var.len)
@@ -67,7 +67,7 @@ int	size_without_spcs(char *str)
 
 char	*delete_excess_spcs(char *str)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	init_del_exspc(&var, str, 1);
 	while (++var.i < var.len)

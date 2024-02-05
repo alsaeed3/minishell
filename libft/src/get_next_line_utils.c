@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:09:01 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/16 15:42:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:08:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlen(char *buf)
 	i = 0;
 	if (!buf)
 		return (0);
-	while (buf[i] != '\0')
+	while (buf && buf[i] != '\0')
 		i++;
 	return (i);
 }

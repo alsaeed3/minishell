@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar2env.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 20:54:01 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 16:53:24 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	find_exp_size(t_var *var, char *str, t_env *env_lst)
 
 int	expand_dollar_count(char *str, t_env *env_lst)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	init_dollar_vars(&var, str, env_lst, 0);
 	while (++var.i < var.len && str[var.i])
@@ -79,7 +79,7 @@ int	expand_dollar_count(char *str, t_env *env_lst)
 
 char	*expand_dollar_string(char *str, t_env *env_lst)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	init_dollar_vars(&var, str, env_lst, 1);
 	var.ret = ft_calloc(var.expsize + 1, sizeof(char));

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/02 15:22:20 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 16:53:18 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	count_rdr_chars(t_var *var, char *str)
 
 int	**find_rdr_chars(char *str, char rdr, t_parse *data)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	if (init_rdr_vars(&var, data, str, rdr))
 		return (NULL);

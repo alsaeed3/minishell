@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_pipes_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 20:52:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:21:47 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:09:55 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static t_bool	check_error(t_var var, char *str)
 // (next to each other), if (< < or > > or >>> or <<<) or more
 t_bool	check_pipe_red_2(char *str)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	init_var(&var, str);
 	while (++var.i < var.len)

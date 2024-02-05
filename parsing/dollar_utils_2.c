@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:26:09 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 00:22:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:10:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	init_dollar_vars(t_var *var, char *str, t_env *env_lst, int mode)
 
 void	init_del_exspc(t_var *var, char *str, int mode)
 {
+	var->len = 0;
 	var->len = ft_strlen(str);
 	var->i = -1;
 	var->j = 0;

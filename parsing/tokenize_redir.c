@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_redir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/01 13:22:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 16:53:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	check_quot(t_var *var, char *str)
 
 int	**tokenize_redir(char *str, t_parse *data, char rdr)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	if (init_rdr_vars(&var, data, str, rdr))
 		return (NULL);

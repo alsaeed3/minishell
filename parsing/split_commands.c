@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/03 14:36:26 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:01:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	*find_cmds_num(char *str)
 {
-	t_cvr	cvr;
+	t_cvr	cvr = {0};
 
 	init_cvr(&cvr, str, 0);
 	cvr.cnum = ft_calloc(find_parts_num(str), sizeof(int));
@@ -34,14 +34,13 @@ int	*find_cmds_num(char *str)
 
 int	**find_cmds_chars_num(char *str)
 {
-	t_cvr	cvr;
+	t_cvr	cvr = {0};
 
 	init_cvr(&cvr, str, 1);
 	cvr.chrn = ft_calloc(cvr.parts_num, sizeof(int *));
 	cvr.i = -1;
 	while (++cvr.i < cvr.parts_num)
 		cvr.chrn[cvr.i] = ft_calloc(cvr.cnum[cvr.i], sizeof(int));
-	free (cvr.cnum);
 	cvr.i = -1;
 	while (++cvr.i < cvr.len && str[cvr.i])
 	{
@@ -58,6 +57,7 @@ int	**find_cmds_chars_num(char *str)
 		&& (str[cvr.i] != cvr.quchr) && cvr.qutrg)))
 			cvr.chrn[cvr.j][cvr.k] = ++cvr.chars_num;
 	}
+	free (cvr.cnum);
 	return (cvr.chrn);
 }
 
@@ -83,11 +83,11 @@ void	check_end_cmd(t_cvr *cvr, char *str)
 
 char	***split_cmds(char *str)
 {
-	t_cvr	cvr;
+	t_cvr	cvr = {0};
 
 	init_cvr(&cvr, str, 2);
 	malloc_cmds(&cvr);
-	ft_free_intarr(cvr.chrn, cvr.parts_num);
+	ft_free_intarr(cvr.chrn);
 	while (++cvr.i < cvr.len)
 	{
 		check_qut_pipe(&cvr, str);
@@ -102,5 +102,9 @@ char	***split_cmds(char *str)
 	}
 	if (cvr.cmds[cvr.j])
 		cvr.cmds[++cvr.j] = NULL;
+	if (cvr.cnum)
+		free (cvr.cnum);
+	free (str);
+	str = NULL;
 	return (cvr.cmds);
 }

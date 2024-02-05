@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/02/04 17:34:10 by habu-zua         ###   ########.fr        #
+#    Updated: 2024/02/05 21:04:41 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ OBJS_DIR = parsing/objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 OBJSX_DIR = execution/objs/
 OBJSX = $(addprefix $(OBJSX_DIR), $(SRCSX:.c=.o))
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 LDFLAGS = -L$(LIBFT_DIR) -lft -lreadline -lncurses
 
 LIBFT_DIR = libft

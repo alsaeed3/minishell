@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_redir_to_spc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/04 15:28:33 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:53:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	init_nordr_vars(t_var *var, char *str, int mode)
 
 int	count_size_without_redir(char *str)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	init_nordr_vars(&var, str, 0);
 	while (++var.i < var.len && str[var.i])
@@ -95,7 +95,7 @@ int	count_size_without_redir(char *str)
 
 char	*conv_redir2spcs(char *str)
 {
-	t_var	var;
+	t_var	var = {0};
 
 	init_nordr_vars(&var, str, 1);
 	while (++var.i < var.len && str[var.i])

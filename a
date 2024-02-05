@@ -1,0 +1,15 @@
+Makefile
+a
+execution
+inc
+leaks.sh
+leaks2.sh
+libft
+main.c
+main2-print.c
+minishell
+minishell.dSYM
+minishell_tester
+parsing
+readline.supp
+test_cases
