@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/31 00:35:11 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:12:29 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void	handle_exec(char **inputs, t_parse *data)
+int	handle_exec(char **inputs, t_parse *data)
 {
+	int 	ret;
 	pid_t	pid;
 
+	ret = 0;
 	if (!check_exec(inputs, data))
 	{
-		data->exit_status = 127;
-		ft_error("\t\tminishell: Unknown command\n");
-		return ;
+		ft_error("\t\tminishell: Unknown commanddd\n");
+		return (127);
 	}
 	pid = fork();
 	if (pid == 0)
@@ -28,12 +29,15 @@ void	handle_exec(char **inputs, t_parse *data)
 		g_signal = 3;
 		if (execute(inputs, data) != 0)
 			exit(errno);
-		exit(EXIT_SUCCESS);
+		exit(0);
 	}
 	else if (pid < 0)
-		exit(EXIT_FAILURE);
+		exit(1);
 	else
-		waitpid(pid, &data->exit_status, 0);
+		waitpid(pid, &ret, 0);
+	if (WIFEXITED(ret))
+		ret = WEXITSTATUS(ret);
+	return (ret);
 }
 
 int	execute(char **inputs, t_parse *data)

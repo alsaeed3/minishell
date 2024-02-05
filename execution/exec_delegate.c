@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/04 23:25:37 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:13:48 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,34 @@
 
 void	exec_delegator(t_parse *parser)
 {
+	int	ret;
+	
+	ret = 0;
 	if (parser->parts_num == 1)
 	{
 		parser->h_index = 0;
-		if(handle_single(parser->cmds[0], parser, 0, 0) == 1)
-			parser->exit_status = 1;
+		ret = handle_single(parser->cmds[0], parser, 0, 0);
 	}
 	else
 	{
 		parser->h_index = -1;
-		handle_pipe(parser);
+		ret = handle_pipe(parser);
 	}
 	while(parser->heredocs_num)
 	{
 		unlink(parser->heredoc_tmp_files[parser->heredocs_num - 1]);
 		parser->heredocs_num--;
 	}
-	
-
+	parser->exit_status = ret;
 }
 
 int	handle_single(char **inputs, t_parse *data, int piped, int x)
 {
 	(void)piped;
 	int		oldfd[2];
+	int ret;
 
+	ret = 0;
 	oldfd[0] = dup(0);
 	oldfd[1] = dup(1);
 	if (data->in_rdr_num[x] > 0)
@@ -46,7 +49,7 @@ int	handle_single(char **inputs, t_parse *data, int piped, int x)
 			return (1);
 	if (data->out_rdr_num[x] > 0)
 		redirect_to(data, x);
-	choose_action(inputs, data, x);
+	ret = choose_action(inputs, data, x);
 	dup2(oldfd[0], 0);
 	dup2(oldfd[1], 1);
 	close_fds(data);
@@ -54,12 +57,14 @@ int	handle_single(char **inputs, t_parse *data, int piped, int x)
 	close(oldfd[1]);
 	// if (piped)
 	// 	exit_pipe(data);
-	return (0);
+	return (ret);
 }
 
-void	choose_action(char **cmd, t_parse *data, int x)
+int	choose_action(char **cmd, t_parse *data, int x)
 {
+	int	ret;
 	
+	ret = 0;
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		handle_echo(data, x);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
@@ -75,5 +80,6 @@ void	choose_action(char **cmd, t_parse *data, int x)
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		handle_unset(cmd, data);
 	else
-		handle_exec(cmd, data);
+		ret = handle_exec(cmd, data);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/03 13:54:00 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:31:04 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ t_bool	prepare_parse(char *str)
 
 t_bool	parse_shell(char *str, char **original_envs, t_parse **data)
 {
+	(void)original_envs;
 	if (!str || !str[0])
 		return (TRUE);
 	str = conv_tabs2spcs(str);
 	if (prepare_parse(str))
 		return (TRUE);
 	str = delete_excess_spcs(str);
-	(*data)->envs_lst = get_envs_lst(original_envs);
+	(*data)->envs_lst = get_envs_lst((*data)->env);
 	str = expand_dollar_string(str, (*data)->envs_lst);
 	(*data)->parts_num = find_parts_num(str);
 	(*data)->in_rdr_num = find_rdr_num(str, '<', (*data));
