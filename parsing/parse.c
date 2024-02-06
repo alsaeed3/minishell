@@ -3,52 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/16 14:56:05 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/31 21:04:02 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse *parser)
+t_bool	prepare_parse(char *str)
 {
-	if (!cmd_line || ft_strcmp(cmd_line, "\n") == 0)
-		return (TRUE);
-	cmd_line = conv_tabs2spcs(cmd_line);
-	if (check_quotes(cmd_line))
+	if (check_quotes(str))
 	{
 		printf("Quote Error\n");
 		return (TRUE);
 	}
-	parser->envs = get_envs(original_envs);
-	cmd_line = expand_dollar_string(cmd_line, parser->envs);
-	printf("expand_dollar_string {%s}\n", cmd_line);
-	cmd_line = delete_excess_spcs(cmd_line);
-	printf("delete_excess_spcs %s\n", cmd_line);
-	if (check_pipe_redir(cmd_line))
+	if (check_pipe_redir(str))
 	{
 		printf("Pipe-Redir Error\n");
 		return (TRUE);
 	}
-	if (check_pipe_red_2(cmd_line))
+	if (check_pipe_red_2(str))
 	{
 		printf("Pipe-Redir-2 Error\n");
 		return (TRUE);
 	}
-	parser->parts_num = find_parts_num(cmd_line);
-	parser->in_redir_num = find_infiles_heredocs_num(cmd_line);
-	parser->inputs_redirections = hold_input_file_names(cmd_line);
-	parser->inputs_tokens = tokenize_inputs(cmd_line);
-	parser->out_redir_num = find_outfiles_appends_num(cmd_line);
-	parser->outputs_redirections = hold_output_file_names(cmd_line);
-	parser->outputs_tokens = tokenize_outputs(cmd_line);
-	printf("before conv_redir2spcs {%s}\n", cmd_line);
-	cmd_line = conv_redir2spcs(cmd_line);
-	printf("conv_redir2spcs {%s}\n", cmd_line);
-	cmd_line = delete_excess_spcs(cmd_line);
-	printf("delete_excess_spcs {%s}\n", cmd_line);
-	parser->cmds = split_cmds(cmd_line);
+	return (FALSE);
+}
+
+t_bool	parse_shell(char *str, char **original_envs, t_parse **data)
+{
+	if (!str[0])
+		return (TRUE);
+	str = conv_tabs2spcs(str);
+	if (prepare_parse(str))
+		return (TRUE);
+	str = delete_excess_spcs(str);
+	(*data)->envs_lst = get_envs_lst(original_envs);
+	str = expand_dollar_string(str, (*data)->envs_lst);
+	(*data)->parts_num = find_parts_num(str);
+	(*data)->in_rdr_num = find_rdr_num(str, '<', (*data));
+	(*data)->inputs_redirections = hold_rdr_names(str, '<', (*data));
+	(*data)->inputs_tokens = tokenize_redir(str, (*data), '<');
+	find_heredocs_num((*data));
+	handle_heredoc((*data));
+	(*data)->out_rdr_num = find_rdr_num(str, '>', (*data));
+	(*data)->outputs_redirections = hold_rdr_names(str, '>', (*data));
+	(*data)->outputs_tokens = tokenize_redir(str, (*data), '>');
+	str = conv_redir2spcs(str);
+	str = delete_excess_spcs(str);
+	(*data)->cmds = split_cmds(str);
 	return (FALSE);
 }

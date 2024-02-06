@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:09:01 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/09/01 17:12:32 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:42:14 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,34 @@ size_t	ft_strlen_nl(char *str)
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*join;
-	size_t	i;
-	size_t	j;
-	size_t	len;
+// char	*ft_strjoin(char *s1, char *s2)
+// {
+// 	char	*join;
+// 	size_t	i;
+// 	size_t	j;
+// 	size_t	len;
 
-	i = 0;
-	len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	if (!s1 || !s2)
-		return (NULL);
-	join = malloc(sizeof(char) * len);
-	if (!join)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-		join[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j] != '\0')
-	{
-		join[i + j] = s2[j];
-		j++;
-	}
-	join[i + j] = '\0';
-	return (join);
-}
+// 	i = 0;
+// 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+// 	if (!s1 || !s2)
+// 		return (NULL);
+// 	join = malloc(sizeof(char) * len);
+// 	if (!join)
+// 		return (NULL);
+// 	while (s1[i] != '\0')
+// 	{
+// 		join[i] = s1[i];
+// 		i++;
+// 	}
+// 	j = 0;
+// 	while (s2[j] != '\0')
+// 	{
+// 		join[i + j] = s2[j];
+// 		j++;
+// 	}
+// 	join[i + j] = '\0';
+// 	return (join);
+// }
 
 char	*ret_line(char *stash)
 {
