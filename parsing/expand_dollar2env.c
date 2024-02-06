@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 16:53:24 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:58:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,15 @@ void	find_exp_size(t_var *var, char *str, t_env *env_lst)
 		if (ft_getenv(var->env, env_lst))
 			var->size += ft_strlen(ft_getenv(var->env, env_lst));
 		if (var->env)
-		{
-			free (var->env);
-			var->env = NULL;
-		}
+			free_set_null(var->env);
 	}
 }
 
 int	expand_dollar_count(char *str, t_env *env_lst)
 {
-	t_var	var = {0};
+	t_var	var;
 
+	var = (t_var){0};
 	init_dollar_vars(&var, str, env_lst, 0);
 	while (++var.i < var.len && str[var.i])
 	{
@@ -79,8 +77,9 @@ int	expand_dollar_count(char *str, t_env *env_lst)
 
 char	*expand_dollar_string(char *str, t_env *env_lst)
 {
-	t_var	var = {0};
+	t_var	var;
 
+	var = (t_var){0};
 	init_dollar_vars(&var, str, env_lst, 1);
 	var.ret = ft_calloc(var.expsize + 1, sizeof(char));
 	if (!var.ret)
@@ -100,7 +99,6 @@ char	*expand_dollar_string(char *str, t_env *env_lst)
 			var.ret[var.j++] = str[var.i];
 	}
 	var.ret[var.j] = '\0';
-	free (str);
-	str = NULL;
+	free_set_null(str);
 	return (var.ret);
 }

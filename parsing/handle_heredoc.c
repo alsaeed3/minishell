@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 16:52:09 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 21:05:33 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ char	*generate_file_names(int pos)
 	pos_char = ft_itoa(pos);
 	name2 = ".tmp";
 	tmp = ft_strjoin(name, pos_char);
-	free (pos_char);
+	free_set_null(pos_char);
 	ret_name = ft_strjoin(tmp, name2);
-	free (tmp);
+	free_set_null(tmp);
 	return (ret_name);
 }
 
@@ -60,8 +60,7 @@ static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 			|| ft_strcmp(hvr->line, \
 			data->inputs_redirections[hvr->i][hvr->j]) == 0)
 			{
-				free(hvr->line);
-				hvr->line = NULL;
+				free_set_null(hvr->line);
 				break ;
 			}
 		}
@@ -92,8 +91,7 @@ static void	real_heredoc(t_hvr *hvr, t_parse *data)
 				break ;
 			write(hvr->wrfd, hvr->line, ft_strlen(hvr->line));
 			write(hvr->wrfd, "\n", 1);
-			free(hvr->line);
-			hvr->line = NULL;
+			free_set_null(hvr->line);
 		}
 		close(hvr->wrfd);
 	}
@@ -101,21 +99,20 @@ static void	real_heredoc(t_hvr *hvr, t_parse *data)
 
 void	handle_heredoc(t_parse *data)
 {
-	t_hvr	hvr = {0};
+	t_hvr	hvr;
 
+	hvr = (t_hvr){0};
 	init_hvr(&hvr, data);
 	while (data->inputs_redirections && data->inputs_redirections[++hvr.i])
 	{
 		hvr.j = -1;
 		while (data->inputs_redirections[hvr.i][++hvr.j])
 		{
-			if (data->inputs_tokens[hvr.i][hvr.j] == 1 && !fake_heredoc(&hvr, data))
+			if (data->inputs_tokens[hvr.i][hvr.j] == 1 \
+			&& !fake_heredoc(&hvr, data))
 				real_heredoc(&hvr, data);
 			if (data->inputs_tokens[hvr.i][hvr.j] == 1 && hvr.line)
-			{
-				free(hvr.line);
-				hvr.line = NULL;
-			}
+				free_set_null(hvr.line);
 		}
 	}
 	if (data->heredocs_num)
@@ -123,7 +120,6 @@ void	handle_heredoc(t_parse *data)
 	if (!data->heredocs_num)
 	{
 		if (data->heredoc_tmp_files)
-			free(data->heredoc_tmp_files);
-		data->heredoc_tmp_files = NULL;
+			free_set_null(data->heredoc_tmp_files);
 	}
 }

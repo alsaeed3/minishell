@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 20:24:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/04 11:46:34 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/06 21:16:05 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ t_bool	process_line(t_hvr *hvr, t_parse *data)
 		{
 			data->heredocs_num--;
 			unlink(data->heredoc_tmp_files[hvr->k - 1]);
-			free (data->heredoc_tmp_files[hvr->k - 1]);
-			data->heredoc_tmp_files[hvr->k - 1] = NULL;
+			free_set_null(data->heredoc_tmp_files[hvr->k - 1]);
 			hvr->k--;
 		}
 		close(hvr->rdfd);
-		free(hvr->line);
-		hvr->line = NULL;
 		return (TRUE);
 	}
 	return (FALSE);
@@ -40,14 +37,14 @@ void	init_hvr(t_hvr *hvr, t_parse *data)
 {
 	hvr->i = -1;
 	hvr->k = 0;
-	// hvr->line = NULL;
+	hvr->line = NULL;
 	hvr->wrfd = 0;
-	// data->heredoc_tmp_files = NULL;
-	// if (data->heredocs_num > 0)
-	// {
-	data->heredoc_tmp_files = ft_calloc(data->heredocs_num + 1, \
-	sizeof(char *));
-	if (!data->heredoc_tmp_files)
-		return ;
-	// }
+	data->heredoc_tmp_files = NULL;
+	if (data->heredocs_num > 0)
+	{
+		data->heredoc_tmp_files = ft_calloc(data->heredocs_num + 1, \
+		sizeof(char *));
+		if (!data->heredoc_tmp_files)
+			return ;
+	}
 }

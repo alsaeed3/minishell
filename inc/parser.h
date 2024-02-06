@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 18:28:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 21:40:16 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ char	*conv_redir2spcs(char *cmd_line);
 int		*find_cmds_num(char *cmd_line);
 int		**find_cmds_chars_num(char *cmd_line);
 char	***split_cmds(char *cmd_line);
-t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser);
+t_bool	parse_shell(char *str, t_parse **data);
 int		count_size_without_redir(char *cmd_line);
 void	find_heredocs_num(t_parse *data);
 void	handle_heredoc(t_parse *data);
@@ -204,9 +204,13 @@ int		size_without_spcs(char *str);
 void	jump_over_spaces(char *str, int *i);
 void	ft_free_lst(t_env **lst);
 void	free_parser(t_parse **parse);
-void ft_free_intarr(int **int_arr);
+void	ft_free_intarr(int **int_arr, int parts_num);
 void	check_quotation(t_var *var, char *str);
 void	check_pipe(t_var *var, char *str, int mode);
 void	check_quota(t_var *var, char *str);
+void	free_set_null(void *ptr);
+void	set_up_prompt(t_parse **parser, char **dup, char *cmd_line);
+void	free_util_1(t_parse **parser);
+int		init_main(t_parse **parser, char **dup, char **env);
 
 #endif

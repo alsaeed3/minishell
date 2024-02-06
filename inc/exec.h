@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/05 20:47:25 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:25:54 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		exit_pipe(t_parse *data);
 
 void		close_fds(t_parse *data);
 
-int		choose_action(char **inpts,t_parse *data, int x);
+int		choose_action(char **cmd, t_parse *data, int x);
 int		handle_exec(char **inputs, t_parse *data);
 int			execute_2(char **inputs, t_parse *data);
 int			execute(char **inputs, t_parse *data);
@@ -68,6 +68,10 @@ void		sig_switcher(int sig);
 // void	is_parent_child_sig(int sig);
 void		ft_error(char *str);
 
-
+int		execute_pipe(char **cmd, t_parse *data);
+int		handle_exec_pipe(char **inputs, t_parse *data, int x);
+t_bool	is_built_in(char *cmd);
+int		ret_execute(char **cmd, t_parse *data);
+void	choose_built_in(char **cmd, t_parse *data, int x);
 
 #endif

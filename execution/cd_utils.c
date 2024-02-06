@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:54:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 18:43:36 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/06 21:08:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	change_env_pwd(t_parse *data)
 	{
 		pwd = ft_strjoin("PWD=", data->pwd);
 		replace_var(pwd, data, var_index(pwd, data));
-		free(pwd);
+		free_set_null(pwd);
 	}
 	else
 	{
 		pwd = ft_strjoin("PWD=", data->pwd);
 		data->env = export_env(data->env, pwd);
-		free(pwd);
+		free_set_null(pwd);
 	}
 }
 
@@ -41,12 +41,12 @@ void	change_env_oldpwd(t_parse *data)
 		pwd = ft_strjoin("PWD=", data->pwd);
 		oldpwd = ft_strjoin("OLD", pwd);
 		replace_var(oldpwd, data, var_index("OLDPWD=", data));
-		free(oldpwd);
-		free(pwd);
+		free_set_null(oldpwd);
+		free_set_null(pwd);
 	}
 	else
 		data->env = export_env(data->env, "OLDPWD");
-	free(data->pwd);
+	free_set_null(data->pwd);
 }
 
 int	change_pwd(t_parse *data, char *input)
@@ -60,13 +60,13 @@ int	change_pwd(t_parse *data, char *input)
 		ft_putstr_fd("Error retrieving current directory\n", 2);
 		pwd = data->pwd;
 		data->pwd = ft_strjoin(pwd, "/.");
-		free(pwd);
+		free_set_null(pwd);
 	}
 	if (cwd)
 	{
 		change_env_oldpwd(data);
 		change_env_pwd(data);
 	}
-	free(cwd);
+	free_set_null(cwd);
 	return (1);
 }

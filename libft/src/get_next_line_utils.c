@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:09:01 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 21:08:56 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 21:00:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*update_stash(char *stash)
 	if (i < ft_strlen(stash))
 		update = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
 	if (!update)
-		return (free(stash), NULL);
+		return (free_set_null(stash), NULL);
 	i++;
 	j = 0;
 	while (stash[i])
@@ -117,6 +117,6 @@ char	*update_stash(char *stash)
 	}
 	update[j] = '\0';
 	if (update[0] == '\0')
-		return (free(update), free(stash), NULL);
-	return (free(stash), update);
+		return (free_set_null(update), free_set_null(stash), NULL);
+	return (free_set_null(stash), update);
 }

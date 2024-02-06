@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 16:53:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:43:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ void	quote_context(char *str, t_var *var)
 
 int	*find_rdr_num(char *str, char rdr, t_parse *data)
 {
-	t_var	var = {0};
+	t_var	var;
 
+	var = (t_var){0};
 	init_rdr_num(&var, str);
 	var.rnum = ft_calloc(var.parts_num, sizeof(int));
 	while (++var.i < var.len)

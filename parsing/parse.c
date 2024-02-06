@@ -6,11 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/05 17:58:07 by alsaeed          ###   ########.fr       */
-=======
-/*   Updated: 2024/02/05 21:31:04 by habu-zua         ###   ########.fr       */
->>>>>>> e15cd9636638f004ec032553aecc8512c217f825
+/*   Updated: 2024/02/06 20:58:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +32,14 @@ t_bool	prepare_parse(char *str)
 	return (FALSE);
 }
 
-t_bool	parse_shell(char *str, char **original_envs, t_parse **data)
+t_bool	parse_shell(char *str, t_parse **data)
 {
-	(void)original_envs;
 	if (!str || !str[0])
 		return (TRUE);
 	str = conv_tabs2spcs(str);
 	if (prepare_parse(str))
 	{
-		free (str);
-		str = NULL;
+		free_set_null(str);
 		return (TRUE);
 	}
 	str = delete_excess_spcs(str);

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 21:17:52 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 21:49:47 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,46 +22,60 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
-	parser = NULL;
-	dup = NULL;
-	parser = ft_calloc(1, sizeof(t_parse));
-	if (!parser)
-		return (0);
-	if (data_init(&parser, env))
-		return (0);
+	if (init_main(&parser, &dup, env))
+		return (1);
 	while (1)
 	{
 		set_signals(&parser);
 		if (data_reset(&parser))
 			continue ;
 		cmd_line = readline("minishell$ ");
-		if (g_signal == 99)
-			parser->exit_status = 1;
-		g_signal = 1;
-		if (cmd_line == NULL)
-		{
-			printf("exit\n");
-			rl_clear_history();
-			free(parser->pwd);
-			ft_free_array(parser->env);
-			free (parser);
-			parser = NULL;
-			exit(0);
-		}
-		add_history(cmd_line);
-		if (g_signal == 99)
-			parser->exit_status = 1;
-     	dup = ft_strdup(cmd_line);
-		if (parse_shell(dup, env, &parser))
+		set_up_prompt(&parser, &dup, cmd_line);
+		if (parse_shell(dup, &parser))
 			continue ;
 		exec_delegator(parser);
 		free_parser(&parser);
 	}
-	free(parser->pwd);
-	ft_free_array(parser->env);
-	free(parser);
-	parser = NULL;
+	free_util_1(&parser);
 	return (0);
+}
+
+int		init_main(t_parse **parser, char **dup, char **env)
+{
+	parser = NULL;
+	dup = NULL;
+	if (ft_calloc_pro((&parser, 1 , sizeof(t_parse))))
+		return (1);
+	if (!parser)
+		return (1);
+	if (data_init(parser, env))
+		return (1);
+	return (0);
+}
+
+void	set_up_prompt(t_parse **parser, char **dup, char *cmd_line)
+{
+	if (g_signal == 99)
+		(*parser)->exit_status = 1;
+	g_signal = 1;
+	if (cmd_line == NULL)
+	{
+		printf("exit\n");
+		rl_clear_history();
+		free_util_1(&*parser);
+		exit(0);
+	}
+	add_history(cmd_line);
+	if (g_signal == 99)
+		(*parser)->exit_status = 1;
+	*dup = ft_strdup(cmd_line);
+}
+
+void	free_util_1(t_parse **parser)
+{
+	free_set_null((*parser)->pwd);
+	ft_free_array((*parser)->env);
+	free_set_null((*parser));
 }
 
 void	ft_free_lst(t_env **stack)
@@ -75,48 +89,37 @@ void	ft_free_lst(t_env **stack)
 		while (curr->next != NULL)
 		{
 			if (curr->info)
-				free (curr->info);
+				free_set_null(curr->info);
 			if (curr->key)
-				free (curr->key);
+				free_set_null(curr->key);
 			next = curr->next;
-			free (curr);
+			free_set_null(curr);
 			curr = next;
 		}
 		if (curr != NULL)
 		{
 			if (curr->info)
-				free (curr->info);
+				free_set_null(curr->info);
 			if (curr->key)
-				free (curr->key);
-			free (curr);
+				free_set_null(curr->key);
+			free_set_null(curr);
 		}
 	}
 }
 
-void ft_free_intarr(int **int_arr)
+void ft_free_intarr(int **int_arr, int parts_num)
 {
     size_t i;
-    size_t size;
 
-    // if (!int_arr)
-    //     return;
-    size = sizeof(int_arr) / sizeof(int_arr[0]);  // Correct size calculation
+	if (!int_arr)
+		return ;
 	i = -1;
-    while (++i < size)
+    while (++i < (size_t)parts_num)
     {
-		ft_putnbr_fd(i, 2);
-		ft_putstr_fd("\n", 2);
-		ft_putstr_fd("size: ", 2);
-		ft_putnbr_fd(size, 2);
-		ft_putstr_fd("\n", 2);
         if (int_arr[i])
-        {
-			free(int_arr[i]);
-			int_arr[i] = NULL;  // Set the pointer to NULL after freeing
-        }
+			free_set_null(int_arr[i]);
     }
-	free(int_arr);
-	int_arr = NULL;  // Set the pointer to NULL after freeing to avoid potential issues
+	free_set_null(int_arr);
 }
 
 
@@ -129,20 +132,13 @@ void	free_parser(t_parse **parse)
 	ft_free_array((*parse)->heredoc_tmp_files);
 	ft_free_lst(&(*parse)->envs_lst);
 	if ((*parse)->inputs_tokens)
-		ft_free_intarr((*parse)->inputs_tokens);
+		ft_free_intarr((*parse)->inputs_tokens, (*parse)->parts_num);
 	if ((*parse)->outputs_tokens)
-		ft_free_intarr((*parse)->outputs_tokens);
+		ft_free_intarr((*parse)->outputs_tokens, (*parse)->parts_num);
 	if ((*parse)->in_rdr_num)
-	{
-		free ((*parse)->in_rdr_num);
-		(*parse)->in_rdr_num = NULL;
-	}
+		free_set_null((*parse)->in_rdr_num);
 	if ((*parse)->out_rdr_num)
-	{
-		// printf("%d\n", (*parse)->out_rdr_num[1]);
-		free ((*parse)->out_rdr_num);
-		(*parse)->out_rdr_num = NULL;
-	}
+		free_set_null((*parse)->out_rdr_num);
 }
 
 //ls -la | wc| cat <<w >v

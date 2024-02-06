@@ -6,11 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/05 20:51:46 by alsaeed          ###   ########.fr       */
-=======
-/*   Updated: 2024/02/04 23:02:36 by habu-zua         ###   ########.fr       */
->>>>>>> e15cd9636638f004ec032553aecc8512c217f825
+/*   Updated: 2024/02/06 19:31:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +70,6 @@ void redirect_to(t_parse *data, int x)
 				fd = open(filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
 			else
 				fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-			// free(filename);
 			if (fd < 0)
 			{
 				ft_putstr_fd("Error: wrong permissions\n", 2);

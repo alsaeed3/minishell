@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 16:53:08 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 21:11:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ static void	init_vars(t_var *var, char *str)
 
 t_bool	check_quotes(char *str)
 {
-	t_var	var = {0};
+	t_var	var;
 
+	var = (t_var){0};
 	init_vars(&var, str);
 	while (++var.i < var.len)
 	{
@@ -73,26 +74,3 @@ void	remove_cmdline_quotes(char *str, char **ret, int char_num)
 	}
 	(*ret)[++k] = '\0';
 }
-
-// int main(void)
-// {
-// 	int	char_num = 0;
-// 	char *ret;
-
-// 	while(1)
-// 	{
-// 		char *input = readline("$ ");
-// 		if (check_quotes(input))
-// 			printf("Error\n");
-// 		else
-// 		{
-// 			printf ("correct\n");
-// 			// get_str_quotes(input, &ret, char_num);
-// 			// printf("%s\n", ret);
-// 			// free (ret);
-// 		}
-// 		printf("-----\n");
-// 		free (input);
-// 	}
-//     return 0;
-// }

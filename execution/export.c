@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/28 18:01:32 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/06 21:03:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ void	replace_var(char *new_var, t_parse *data, int index)
 		if(ft_strchr(data->env[index], '='))
 		{
 			old_var = ft_strjoin(data->env[index], ft_strchr(new_var, '=') + 1);
-			free(data->env[index]);
+			free_set_null(data->env[index]);
 			data->env[index] = old_var;
 		}
 		else
 		{
 			old_var = ft_strjoin(data->env[index], "=");
-			free(data->env[index]);
+			free_set_null(data->env[index]);
 			data->env[index] = ft_strjoin(old_var, ft_strchr(new_var, '=') + 1);
-			free(old_var);
+			free_set_null(old_var);
 		}
 	else
 	{
-		free(data->env[index]);
+		free_set_null(data->env[index]);
 		data->env[index] = ft_strdup(new_var);
 	}
 	

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:40:34 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/02 14:48:55 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 18:13:09 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	parent_sig(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
-		// rl_replace_line("", 1);
+		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
 		g_signal = 99;
@@ -35,7 +35,7 @@ void	child_sig(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
-		// rl_replace_line("", 1);
+		rl_replace_line("", 1);
 		rl_on_new_line();
 		g_signal = 130;
 		return ;
@@ -53,7 +53,7 @@ void	heredoc_sig(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
-		// rl_replace_line("", 1);
+		rl_replace_line("", 1);
 		close(0);
 		rl_on_new_line();
 		rl_redisplay();

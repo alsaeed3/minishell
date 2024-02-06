@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 16:53:36 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:59:05 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void	jmp_mid_spcs(t_var *var, char *str, int mode)
 
 int	size_without_spcs(char *str)
 {
-	t_var	var = {0};
+	t_var	var;
 
+	var = (t_var){0};
 	init_del_exspc(&var, str, 0);
 	while (++var.i < var.len)
 	{
@@ -67,8 +68,9 @@ int	size_without_spcs(char *str)
 
 char	*delete_excess_spcs(char *str)
 {
-	t_var	var = {0};
+	t_var	var;
 
+	var = (t_var){0};
 	init_del_exspc(&var, str, 1);
 	while (++var.i < var.len)
 	{
@@ -89,7 +91,6 @@ char	*delete_excess_spcs(char *str)
 	}
 	if (var.ret[var.j])
 		var.ret[++var.j] = '\0';
-	free (str);
-	str = NULL;
+	free_set_null(str);
 	return (var.ret);
 }

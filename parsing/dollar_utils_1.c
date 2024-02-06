@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:23:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 21:26:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:58:58 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,7 @@ void	expand_dollar(t_var *var, char *str, t_env *env_lst)
 				var->ret[var->j++] = var->envalu[var->k++];
 		}
 		if (var->env)
-		{
-			free (var->env);
-			var->env = NULL;
-		}
+			free_set_null(var->env);
 	}
 }
 

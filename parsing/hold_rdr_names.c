@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 21:04:01 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:49:26 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 		return (NULL);
 	var.rcn = find_rdr_chars(str, rdr, data);
 	var.rnms = malloc_rdr_names(var.parts_num, var.rnum, var.rcn);
+	ft_free_intarr(var.rcn, var.parts_num);
 	while (++var.i < var.len && str[var.i])
 	{
 		hold_rdr_1(&var, str);
@@ -123,9 +124,5 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 	}
 	if (var.rnms[var.j])
 		var.rnms[++var.j] = NULL;
-	if (var.rcn)
-		ft_free_intarr(var.rcn);
-	// if(var.rnum)
-	// 	free (var.rnum);
 	return (var.rnms);
 }

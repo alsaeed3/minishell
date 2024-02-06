@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 20:52:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 21:09:55 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:42:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,9 @@ static t_bool	check_error(t_var var, char *str)
 // (next to each other), if (< < or > > or >>> or <<<) or more
 t_bool	check_pipe_red_2(char *str)
 {
-	t_var	var = {0};
+	t_var	var;
 
+	var = (t_var){0};
 	init_var(&var, str);
 	while (++var.i < var.len)
 	{

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:45:27 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 21:04:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 21:06:25 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,10 @@ void	free_char_triple_pointer(char ***pointer)
 		while (pointer[i][++j])
 		{
 			if (pointer[i][j])
-			{
-				free (pointer[i][j]);
-				pointer[i][j] = NULL;
-			}
+				free_set_null(pointer[i][j]);
 		}
 		if (pointer[i])
-		{
-			free (pointer[i]);
-			pointer[i] = NULL;
-		}
+			free_set_null(pointer[i]);
 	}
-	free (pointer);
-	pointer = NULL;
+	free_set_null(pointer);
 }

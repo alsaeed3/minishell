@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/04 14:43:15 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:24:49 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static int	is_n_flag(char *str)
 
 void	handle_echo(t_parse *data, int x)
 {
-	// ft_putendl_fd("handle_echo", 2);
-	// ft_putendl_fd(data->cmds[1][1], 2);
 	int	i;
 	int	n_flag;
 

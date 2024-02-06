@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 21:12:57 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 21:17:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ void	init_contabvar(t_var *var, char *str)
 
 char	*conv_tabs2spcs(char *str)
 {
-	t_var	var = {0};
+	t_var	var;
 
+	var = (t_var){0};
 	init_contabvar(&var, str);
-	var.ret = ft_calloc(var.len + 1, sizeof(char *));
-	if (!var.ret)
-		return (NULL);
+	
 	while (++var.i < var.len)
 	{
 		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
@@ -47,23 +46,6 @@ char	*conv_tabs2spcs(char *str)
 		var.ret[var.j++] = str[var.i];
 	}
 	var.ret[var.j] = '\0';
-	free (str);
-	str = NULL;
+	free_set_null(str);
 	return (var.ret);
 }
-
-// int main(void)
-// {
-// 	char *str;
-// 	char *hell;
-
-// 	while (1)
-// 	{
-// 		str = readline("> ");
-// 		hell = conv_tabs2spcs(str);
-// 		free(str);
-// 		printf("%s\n", hell);
-// 		free(hell);
-// 	}
-// 	return (0);
-// }

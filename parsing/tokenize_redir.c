@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 16:53:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 21:01:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ void	check_quot(t_var *var, char *str)
 
 int	**tokenize_redir(char *str, t_parse *data, char rdr)
 {
-	t_var	var = {0};
+	t_var	var;
 
+	var = (t_var){0};
 	if (init_rdr_vars(&var, data, str, rdr))
 		return (NULL);
 	var.tkn = ft_calloc(var.parts_num, sizeof(int *));
@@ -58,29 +59,3 @@ int	**tokenize_redir(char *str, t_parse *data, char rdr)
 	}
 	return (var.tkn);
 }
-
-// int main(void)
-// {
-// 	while (1)
-// 	{
-// 		char *read = readline("$> ");
-// 		char *input = ft_strdup(read);
-// 		int	var.parts_num = find_var.parts_num(input);
-// 		int *redir_num = find_infiles_heredocs_num(input, var.parts_num);
-// 		int **var.tkn = tokenize_inputs(input, var.parts_num, redir_num);
-// 		free (input);
-// 		int	j;
-// 		int i = -1;
-// 		while (++i < var.parts_num)
-// 		{
-// 			j = -1;
-// 			while (++j < redir_num[i])
-// 				printf("part: %d, token: %d = %d\n", i, j, var.tkn[i][j]);
-// 		}
-// 		free (redir_num);
-// 		i = -1;
-// 		while (++i < var.parts_num)
-// 			free (var.tkn[i]);
-// 		free (var.tkn);
-// 	}
-// }
