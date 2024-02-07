@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/06 13:24:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:54:36 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	handle_echo(t_parse *data, int x)
 	}
 	while (data->cmds[x][i])
 	{
-		if(ft_strcmp(data->cmds[x][i],"$?") == 0)
+		if (ft_strcmp(data->cmds[x][i], "$?") == 0)
 			ft_putnbr_fd(data->exit_status, 1);
 		else
 			write(1, data->cmds[x][i], ft_strlen(data->cmds[x][i]));
@@ -51,5 +51,4 @@ void	handle_echo(t_parse *data, int x)
 	}
 	if (n_flag)
 		write(1, "\n", 1);
-	
 }

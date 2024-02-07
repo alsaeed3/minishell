@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/31 23:14:04 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:19:36 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	find_parts_num(char *str)
 			quo_trigger = TRUE;
 		}
 		else if ((str[i] == quo_char) && quo_trigger)
-			quo_trigger = false;
+			quo_trigger = FALSE;
 		if (str[i] == '|' && !quo_trigger)
 			parts_num++;
 	}

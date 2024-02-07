@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+         #
+#    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/02/06 17:01:09 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/02/07 16:49:31 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,9 @@ SRCS =	cmds_utils.c \
 		parse.c \
 		quotes.c \
 		split_commands.c \
-		tokenize_redir.c
+		tokenize_redir.c \
+		free_utils.c
+		
 
 SRCSX = exec_delegate.c \
 		execute.c \
@@ -53,7 +55,7 @@ SRCSX = exec_delegate.c \
 		close_fds.c \
 		free.c \
 		signal.c \
-		ft_error.c \
+		ft_error.c
 
 OBJS_DIR = parsing/objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))

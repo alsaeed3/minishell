@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 20:58:21 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 13:12:20 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ t_bool	prepare_parse(char *str)
 	return (FALSE);
 }
 
-t_bool	parse_shell(char *str, t_parse **data)
+t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 {
+	str = ft_strdup(cmd_line);
 	if (!str || !str[0])
 		return (TRUE);
 	str = conv_tabs2spcs(str);

@@ -3,34 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 21:40:16 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:47:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
- extern int	g_signal;
 
-# include "../libft/inc/libft.h"	// libft library
-# include <stdio.h>       			// printf
-# include <stdlib.h>      			// malloc, free, exit
-# include <unistd.h>      			// write, access, fork, execve, getpid
-# include <sys/types.h>   			// pid_t
-# include <sys/wait.h>    			// wait, waitpid, wait3, wait4
-# include <signal.h>     			// signal, sigaction, sigemptyset, sigaddset, kill
-# include <errno.h>       			// perror, strerror
-# include <fcntl.h>       			// open, close, dup, dup2, pipe
-# include <sys/stat.h>   			// stat, lstat, fstat
-# include <dirent.h>      			// opendir, readdir, closedir
-# include <unistd.h>      			// unlink, getcwd, chdir
-# include <termios.h>     			// tcsetattr, tcgetattr
-# include <curses.h>      			// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-# include <sys/ioctl.h>   			// ioctl
-# include <getopt.h>      			// getopt
-# include <limits.h>      			// PATH_MAX
+# include "../libft/inc/libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <dirent.h>
+# include <unistd.h>
+# include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/time.h>
@@ -112,9 +107,9 @@ typedef struct s_env_size
 
 typedef struct s_env
 {
-	char		*key;
-	char		*info;
-	struct s_env *next;
+	char			*key;
+	char			*info;
+	struct s_env	*next;
 }	t_env;
 
 typedef struct s_parse
@@ -133,12 +128,21 @@ typedef struct s_parse
 	t_env	*envs_lst;
 	char	**env;
 	char	**heredoc_tmp_files;
-	int 	fd_in;
-	int 	fd_out;
+	int		fd_in;
+	int		fd_out;
 	char	*pwd;
 	int		exit_status;
 	int		h_index;
 }	t_parse;
+
+typedef struct s_main
+{
+	t_parse	*parser;
+	char	*cmd_line;
+	char	*dup;
+}	t_main;
+
+extern int	g_signal;
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr);
 void	quote_context(char *str, t_var *var);
@@ -166,7 +170,7 @@ char	*conv_redir2spcs(char *cmd_line);
 int		*find_cmds_num(char *cmd_line);
 int		**find_cmds_chars_num(char *cmd_line);
 char	***split_cmds(char *cmd_line);
-t_bool	parse_shell(char *str, t_parse **data);
+t_bool	parse_shell(char *cmd_line, char *str, t_parse **data);
 int		count_size_without_redir(char *cmd_line);
 void	find_heredocs_num(t_parse *data);
 void	handle_heredoc(t_parse *data);
@@ -209,8 +213,8 @@ void	check_quotation(t_var *var, char *str);
 void	check_pipe(t_var *var, char *str, int mode);
 void	check_quota(t_var *var, char *str);
 void	free_set_null(void *ptr);
-void	set_up_prompt(t_parse **parser, char **dup, char *cmd_line);
+void	set_up_prompt(t_parse **parser, char *cmd_line);
 void	free_util_1(t_parse **parser);
-int		init_main(t_parse **parser, char **dup, char **env);
+int		init_main(t_parse *parser, char **dup, char **env);
 
 #endif

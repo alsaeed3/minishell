@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 21:05:33 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:53:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 		{
 			g_signal = 2;
 			hvr->line = readline("> ");
-			if (hvr->line == NULL || hvr->line[0] == '\0' \
-			|| ft_strcmp(hvr->line, \
+			if (hvr->line == NULL || ft_strcmp(hvr->line, \
 			data->inputs_redirections[hvr->i][hvr->j]) == 0)
 			{
 				free_set_null(hvr->line);
@@ -117,9 +116,4 @@ void	handle_heredoc(t_parse *data)
 	}
 	if (data->heredocs_num)
 		data->heredoc_tmp_files[hvr.k] = NULL;
-	if (!data->heredocs_num)
-	{
-		if (data->heredoc_tmp_files)
-			free_set_null(data->heredoc_tmp_files);
-	}
 }

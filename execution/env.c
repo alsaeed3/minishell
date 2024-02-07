@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:00:50 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/06 21:05:21 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:52:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	**dup_env(char **env)
 
 void	handle_env(char **env)
 {
-	printf("handle_env\n");
 	int		i;
 	int		j;
 	char	*str;

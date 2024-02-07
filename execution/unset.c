@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:23:49 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/28 17:52:17 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:48:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-
 
 char	**unset_env(char **old_env, int index)
 {
@@ -56,7 +55,7 @@ void	handle_unset(char **inputs, t_parse *data)
 		}
 		else
 		{
-			ft_error("unset: invalid identifier\n");
+			ft_error("unset: invalid identifier");
 			data->exit_status = 1;
 			return ;
 		}

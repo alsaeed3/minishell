@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:40:34 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/06 18:13:09 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:55:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	sig_switcher(int sig)
 		parent_sig(sig);
 }
 
-void set_signals(t_parse **parser)
+void	set_signals(t_parse **parser)
 {
-		signal(SIGINT, sig_switcher);
-		signal(SIGQUIT, sig_switcher);
-		if (g_signal != 1)
-			(*parser)->exit_status = g_signal;
-		g_signal = 1;
+	signal(SIGINT, sig_switcher);
+	signal(SIGQUIT, sig_switcher);
+	if (g_signal != 1)
+		(*parser)->exit_status = g_signal;
+	g_signal = 1;
 }

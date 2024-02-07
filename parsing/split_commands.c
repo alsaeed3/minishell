@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 21:37:44 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:47:16 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	*find_cmds_num(char *str)
 
 	cvr = (t_cvr){0};
 	init_cvr(&cvr, str, 0);
-	if (ft_calloc_pro((void **)&cvr.cnum, find_parts_num(str), sizeof(int)))
+	cvr.cnum = ft_calloc(find_parts_num(str), sizeof(int));
+	if (!cvr.cnum)
 		return (NULL);
 	while (++cvr.i < cvr.len)
 	{
@@ -28,7 +29,7 @@ int	*find_cmds_num(char *str)
 			cvr.qutrg = TRUE;
 		}
 		else if ((str[cvr.i] == cvr.quchr) && cvr.qutrg)
-			cvr.qutrg = false;
+			cvr.qutrg = FALSE;
 		fcn_cont(&cvr, str);
 	}
 	return (cvr.cnum);

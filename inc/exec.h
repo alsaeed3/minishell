@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/06 16:25:54 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:45:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include "./parser.h"
 # define FORKED_CHILD 0
 
+typedef struct s_pipe
+{
+	int	i;
+	int	fds[2];
+	int	pid[2048];
+	int	fd_in;
+	int	ret;
+}	t_pipe;
 
 void		exec_delegator(t_parse *parser);
 void		handle_cd(char **args, t_parse *data);
@@ -49,15 +57,14 @@ char		**gen_paths(int index, t_parse *data, char *input);
 int			check_exec_path(char **inputs, t_parse *data);
 int			check_exec(char **inputs, t_parse *data);
 
-
 int			handle_pipe(t_parse *parser);
-int			handle_single(char **inputs, t_parse *data, int piped, int x);
-void		exit_pipe(t_parse *data);
+void		handle_pipe_child(t_parse *parser, t_pipe *pipes);
+int			handle_single(char **inputs, t_parse *data, int x);
 
 void		close_fds(t_parse *data);
 
-int		choose_action(char **cmd, t_parse *data, int x);
-int		handle_exec(char **inputs, t_parse *data);
+int			choose_action(char **cmd, t_parse *data, int x);
+int			handle_exec(char **inputs, t_parse *data);
 int			execute_2(char **inputs, t_parse *data);
 int			execute(char **inputs, t_parse *data);
 
@@ -65,13 +72,18 @@ void		free_exit(t_parse *data, int status);
 
 void		set_signals(t_parse **parser);
 void		sig_switcher(int sig);
-// void	is_parent_child_sig(int sig);
+
 void		ft_error(char *str);
 
-int		execute_pipe(char **cmd, t_parse *data);
-int		handle_exec_pipe(char **inputs, t_parse *data, int x);
-t_bool	is_built_in(char *cmd);
-int		ret_execute(char **cmd, t_parse *data);
-void	choose_built_in(char **cmd, t_parse *data, int x);
+int			execute_pipe(char **cmd, t_parse *data);
+void		handle_exec_pipe(char **inputs, t_parse *data, int x);
+t_bool		is_built_in(char *cmd);
+int			ret_execute(char **cmd, t_parse *data);
+void		choose_built_in(char **cmd, t_parse *data, int x);
+
+void		init_t_pipe(t_pipe *pipe);
+void		free_close_fd(t_parse *data, int oldfd[2], int mode, int status);
+void		print_message(char *cmd, char *message);
+void		dup2_close(int oldfd[2]);
 
 #endif

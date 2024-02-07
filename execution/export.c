@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/06 21:03:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 15:38:40 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ int	var_index(char *name, t_parse *data)
 
 void	replace_var(char *new_var, t_parse *data, int index)
 {
-	char *old_var;
+	char	*old_var;
+
 	if (ft_strchr(new_var, '+'))
-		if(ft_strchr(data->env[index], '='))
+	{
+		if (ft_strchr(data->env[index], '='))
 		{
 			old_var = ft_strjoin(data->env[index], ft_strchr(new_var, '=') + 1);
 			free_set_null(data->env[index]);
@@ -50,12 +52,12 @@ void	replace_var(char *new_var, t_parse *data, int index)
 			data->env[index] = ft_strjoin(old_var, ft_strchr(new_var, '=') + 1);
 			free_set_null(old_var);
 		}
+	}
 	else
 	{
 		free_set_null(data->env[index]);
 		data->env[index] = ft_strdup(new_var);
 	}
-	
 }
 
 char	**export_env(char **old_env, char *export)
@@ -111,28 +113,25 @@ void	handle_export(char **inputs, t_parse *data)
 	int	index;
 
 	i = 1;
-	if (inputs[i])
-	{
-		while (inputs[i])
-		{
-			index = var_index(inputs[i], data);
-			if (index >= 0 && check_export(inputs[i]))
-				replace_var(inputs[i], data, index);
-			else if (check_export(inputs[i]))
-			{
-				data->env = export_env(data->env, inputs[i]);
-				if (!data->env)
-					exit(EXIT_FAILURE);
-			}
-			else
-			{
-				ft_error("export: bad identifier\n");
-				data->exit_status = 1;
-				return ;
-			}
-			i++;
-		}
-	}
-	else
+	if (!inputs[i])
 		export_alone(data);
+	while (inputs[i])
+	{
+		index = var_index(inputs[i], data);
+		if (index >= 0 && check_export(inputs[i]))
+			replace_var(inputs[i], data, index);
+		else if (check_export(inputs[i]))
+		{
+			data->env = export_env(data->env, inputs[i]);
+			if (!data->env)
+				exit(EXIT_FAILURE);
+		}
+		else
+		{
+			ft_error("export: bad identifier");
+			data->exit_status = 1;
+			return ;
+		}
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 21:17:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 13:27:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*conv_tabs2spcs(char *str)
 
 	var = (t_var){0};
 	init_contabvar(&var, str);
-	
+	var.ret = ft_calloc(var.len + 1, sizeof(char));
 	while (++var.i < var.len)
 	{
 		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)

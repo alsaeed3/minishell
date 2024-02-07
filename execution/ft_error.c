@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 14:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/28 14:51:13 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:49:47 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void ft_error(char *str)
+void	ft_error(char *str)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putstr_fd(str, 2);

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:54:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/06 21:08:21 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 13:38:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	change_pwd(t_parse *data, char *input)
 	cwd = getcwd(NULL, 0);
 	if (!cwd && input && ft_strcmp(".", input) == 0)
 	{
-		ft_putstr_fd("Error retrieving current directory\n", 2);
+		ft_putstr_fd("Error retrieving current directory", 2);
 		pwd = data->pwd;
 		data->pwd = ft_strjoin(pwd, "/.");
 		free_set_null(pwd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:20:59 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 21:50:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:46:10 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,5 @@ int			ft_space_arg(char **s);
 int			ft_array_size(char **array);
 char		**ft_get_array(int ac, char **av);
 void		free_set_null(void *ptr);
-int			ft_calloc_pro(char **ptr, size_t count, size_t size);
 
 #endif

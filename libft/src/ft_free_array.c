@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 14:33:05 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 21:49:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:38:38 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,4 @@ void	free_set_null(void *ptr)
 		free (ptr);
 		ptr = NULL;
 	}
-}
-
-int		ft_calloc_pro(void **ptr, size_t count, size_t size)
-{
-	*ptr = ft_calloc(count, size);
-	if (!ptr)
-		return (1);
-	return (0);
 }

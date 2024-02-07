@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/28 17:51:53 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:51:32 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	is_number(char *str)
 void	handle_exit(char **args, t_parse *data)
 {
 	int	status;
-	int	error;
 
 	status = 0;
 	if (args[1])
@@ -40,19 +39,17 @@ void	handle_exit(char **args, t_parse *data)
 		{
 			if (args[2])
 			{
-				ft_error("\tminishell: too many argument\n");
+				ft_error("\tminishell: too many argument");
 				data->exit_status = 2;
 				return ;
 			}
-			status = ft_atoi(args[1], &error);
-			if (status > 255)
-				status = 255;
-			else if (status < 0)
+			status = ft_atoi(args[1], NULL);
+			if (status > 255 || status < 0)
 				status = 255;
 		}
 		else
 		{
-			ft_error("\t\tminishell: numeric argument is required\n");
+			ft_error("\t\tminishell: numeric argument is required");
 			data->exit_status = 2;
 		}
 	}
