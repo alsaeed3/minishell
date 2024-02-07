@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 16:04:02 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 17:23:24 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_exit(t_parse *data, int status)
 {
 	free_env(data->env);
 	free_set_null(data->pwd);
+	rl_clear_history();
 	exit(status);
 }
 
@@ -30,6 +31,7 @@ void	free_close_fd(t_parse *data, int oldfd[2], int mode, int status)
 		close(oldfd[0]);
 		close(oldfd[1]);
 	}
+	rl_clear_history();
 	exit(status);
 }
 

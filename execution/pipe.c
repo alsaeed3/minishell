@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 16:45:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/07 17:22:26 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	handle_pipe(t_parse *parser)
 
 void	handle_pipe_child(t_parse *parser, t_pipe *pipes)
 {
+	sleep (20);
 	dup2(pipes->fd_in, 0);
 	if (pipes->i < parser->parts_num - 1)
 		dup2(pipes->fds[1], 1);
@@ -74,6 +75,7 @@ void	handle_pipe_child(t_parse *parser, t_pipe *pipes)
 		free_set_null(parser->pwd);
 		ft_free_array(parser->env);
 		free_set_null(parser);
+		rl_clear_history();
 		exit(EXIT_SUCCESS);
 	}
 	else
