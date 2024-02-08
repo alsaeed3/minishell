@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/08 16:08:01 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:43:07 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_bool	check_errors(char *str)
 {
 	if (check_quotes(str) || check_pipe_red_2(str) || check_pipe_redir(str))
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
 		free_set_null(str);
 		return (TRUE);
 	}

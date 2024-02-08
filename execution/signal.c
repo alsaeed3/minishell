@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:40:34 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 19:44:05 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 21:02:43 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ void	heredoc_sig(int sig)
 	{
 		ft_putstr_fd("\n", 1);
 		rl_replace_line("", 1);
+		close(0);
 		rl_on_new_line();
-		rl_redisplay();
-		g_signal = 130;
 	}
 }
 

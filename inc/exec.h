@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/08 16:14:50 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 21:26:54 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			var_index(char *name, t_parse *data);
 void		replace_var(char *new_var, t_parse *data, int index);
 char		**export_env(char **old_env, char *export);
 void		export_alone(t_parse *data);
-void		handle_export(char **inputs, t_parse *data);
+int			handle_export(char **inputs, t_parse *data);
 void		change_env_pwd(t_parse *data);
 void		change_env_oldpwd(t_parse *data);
 int			change_pwd(t_parse *data, char *input);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 17:23:24 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 21:30:34 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	free_exit(t_parse *data, int status)
 {
+	free_parser(&data);
 	free_env(data->env);
 	free_set_null(data->pwd);
+	free_set_null(data);
 	rl_clear_history();
+	// ft_putendl_fd("exit", 1);
 	exit(status);
 }
 

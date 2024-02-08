@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 15:38:40 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 21:27:42 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	export_alone(t_parse *data)
 	free_env(temp_env);
 }
 
-void	handle_export(char **inputs, t_parse *data)
+int	handle_export(char **inputs, t_parse *data)
 {
 	int	i;
 	int	index;
@@ -124,14 +124,15 @@ void	handle_export(char **inputs, t_parse *data)
 		{
 			data->env = export_env(data->env, inputs[i]);
 			if (!data->env)
-				exit(EXIT_FAILURE);
+				return (1);
 		}
 		else
 		{
-			ft_error("export: bad identifier");
-			data->exit_status = 1;
-			return ;
+			ft_error("export: not a valid identifier");
+			return (1);
 		}
 		i++;
+		
 	}
+	return (0);
 }

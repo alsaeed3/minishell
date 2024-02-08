@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_delegate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/08 16:14:59 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 21:24:08 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	choose_action(char **cmd, t_parse *data, int x)
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		handle_exit(cmd, data);
 	else if (ft_strcmp(cmd[0], "export") == 0)
-		handle_export(cmd, data);
+		ret = handle_export(cmd, data);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		handle_unset(cmd, data);
 	else
