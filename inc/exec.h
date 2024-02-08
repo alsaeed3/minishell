@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 16:45:29 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:14:50 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int			check_exec_path(char **inputs, t_parse *data);
 int			check_exec(char **inputs, t_parse *data);
 
 int			handle_pipe(t_parse *parser);
-void		handle_pipe_child(t_parse *parser, t_pipe *pipes);
 int			handle_single(char **inputs, t_parse *data, int x);
 
 void		close_fds(t_parse *data);
@@ -75,11 +74,7 @@ void		sig_switcher(int sig);
 
 void		ft_error(char *str);
 
-int			execute_pipe(char **cmd, t_parse *data);
 void		handle_exec_pipe(char **inputs, t_parse *data, int x);
-t_bool		is_built_in(char *cmd);
-int			ret_execute(char **cmd, t_parse *data);
-void		choose_built_in(char **cmd, t_parse *data, int x);
 
 void		init_t_pipe(t_pipe *pipe);
 void		free_close_fd(t_parse *data, int oldfd[2], int mode, int status);

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 17:23:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 15:22:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	handle_exec(char **inputs, t_parse *data)
 		print_message(inputs[0], ": command not found");
 		return (127);
 	}
+	g_signal = 3;
 	pid = fork();
 	if (pid == 0)
 	{
-		g_signal = 3;
 		if (execute(inputs, data) != 0)
 			exit(errno);
 		free_close_fd(data, 0, 0, 0);
@@ -56,6 +56,7 @@ void	handle_exec_pipe(char **inputs, t_parse *data, int x)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(inputs[0], 2);
 		ft_putendl_fd(": command not found", 2);
+		rl_clear_history();
 		free_close_fd(data, oldfd, 1, 127);
 	}
 	g_signal = 3;

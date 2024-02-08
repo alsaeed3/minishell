@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/07 13:12:20 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:08:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
-
-t_bool	prepare_parse(char *str)
-{
-	if (check_quotes(str))
-	{
-		printf("Quote Error\n");
-		return (TRUE);
-	}
-	if (check_pipe_redir(str))
-	{
-		printf("Pipe-Redir Error\n");
-		return (TRUE);
-	}
-	if (check_pipe_red_2(str))
-	{
-		printf("Pipe-Redir-2 Error\n");
-		return (TRUE);
-	}
-	return (FALSE);
-}
 
 t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 {
@@ -38,11 +18,8 @@ t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 	if (!str || !str[0])
 		return (TRUE);
 	str = conv_tabs2spcs(str);
-	if (prepare_parse(str))
-	{
-		free_set_null(str);
+	if (check_errors(str))
 		return (TRUE);
-	}
 	str = delete_excess_spcs(str);
 	(*data)->envs_lst = get_envs_lst((*data)->env);
 	str = expand_dollar_string(str, (*data)->envs_lst);
@@ -58,5 +35,16 @@ t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 	str = conv_redir2spcs(str);
 	str = delete_excess_spcs(str);
 	(*data)->cmds = split_cmds(str);
+	return (FALSE);
+}
+
+t_bool	check_errors(char *str)
+{
+	if (check_quotes(str) || check_pipe_red_2(str) || check_pipe_redir(str))
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token", 2);
+		free_set_null(str);
+		return (TRUE);
+	}
 	return (FALSE);
 }

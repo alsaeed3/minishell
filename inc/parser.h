@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/07 14:47:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:07:45 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,5 +216,6 @@ void	free_set_null(void *ptr);
 void	set_up_prompt(t_parse **parser, char *cmd_line);
 void	free_util_1(t_parse **parser);
 int		init_main(t_parse *parser, char **dup, char **env);
+t_bool	check_errors(char *str);
 
 #endif

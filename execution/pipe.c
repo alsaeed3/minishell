@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 17:22:26 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:20:10 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,52 @@ void	init_t_pipe(t_pipe *pipes)
 	pipes->ret = 0;
 }
 
+int	handle_single(char **inputs, t_parse *data, int x)
+{
+	int	oldfd[2];
+	int	ret;
+
+	ret = 0;
+	oldfd[0] = dup(0);
+	oldfd[1] = dup(1);
+	if (data->in_rdr_num[x] > 0)
+		if (redirect_from(data, x))
+			return (1);
+	if (data->out_rdr_num[x] > 0)
+		redirect_to(data, x);
+	ret = choose_action(inputs, data, x);
+	dup2(oldfd[0], 0);
+	dup2(oldfd[1], 1);
+	close_fds(data);
+	close(oldfd[0]);
+	close(oldfd[1]);
+	return (ret);
+}
+
+static void	piping(t_parse *parser, t_pipe *pipes)
+{
+	set_h_index(parser, pipes->i);
+	if (pipes->i < parser->parts_num - 1)
+		pipe(pipes->fds);
+	g_signal = 3;
+	pipes->pid[pipes->i] = fork();
+	if (pipes->pid[pipes->i] == -1)
+		free_close_fd(parser, pipes->fds, 1, 1);
+	else if (pipes->pid[pipes->i] == 0)
+	{
+		dup2(pipes->fd_in, 0);
+		if (pipes->i < parser->parts_num - 1)
+			close(pipes->fds[0]);
+		dup2(pipes->fds[1], 1);
+		pipes->ret = handle_single(parser->cmds[pipes->i], parser, pipes->i);
+		free_close_fd(parser, pipes->fds, 1, pipes->ret);
+	}
+	close(pipes->fds[1]);
+	if (pipes->fd_in)
+		close(pipes->fd_in);
+	pipes->fd_in = pipes->fds[0];
+}
+
 int	handle_pipe(t_parse *parser)
 {
 	t_pipe	pipes;
@@ -42,71 +88,14 @@ int	handle_pipe(t_parse *parser)
 	init_t_pipe(&pipes);
 	while (++pipes.i < parser->parts_num)
 	{
-		set_h_index(parser, pipes.i);
-		if (pipes.i < parser->parts_num - 1)
-			pipe(pipes.fds);
-		pipes.pid[pipes.i] = fork();
-		if (pipes.pid[pipes.i] == -1)
-			exit(1);
-		else if (pipes.pid[pipes.i] == 0)
-			handle_pipe_child(parser, &pipes);
+		piping(parser, &pipes);
 	}
 	pipes.i = -1;
 	while (++pipes.i < parser->parts_num)
-		waitpid(pipes.pid[pipes.i], &pipes.ret, 0);
-	if (WIFEXITED(pipes.ret))
-		pipes.ret = WEXITSTATUS(pipes.ret);
-	close(pipes.fds[1]);
-	pipes.fd_in = pipes.fds[0];
-	return (pipes.ret);
-}
-
-void	handle_pipe_child(t_parse *parser, t_pipe *pipes)
-{
-	sleep (20);
-	dup2(pipes->fd_in, 0);
-	if (pipes->i < parser->parts_num - 1)
-		dup2(pipes->fds[1], 1);
-	close(pipes->fds[0]);
-	if (is_built_in(parser->cmds[pipes->i][0]))
 	{
-		choose_built_in(parser->cmds[pipes->i], parser, pipes->i);
-		free_parser(&parser);
-		free_set_null(parser->pwd);
-		ft_free_array(parser->env);
-		free_set_null(parser);
-		rl_clear_history();
-		exit(EXIT_SUCCESS);
+		waitpid(pipes.pid[pipes.i], &pipes.ret, 0);
+		if (WIFEXITED(pipes.ret))
+			pipes.ret = WEXITSTATUS(pipes.ret);
 	}
-	else
-		handle_exec_pipe(parser->cmds[pipes->i], \
-		parser, pipes->i);
-}
-
-void	choose_built_in(char **cmd, t_parse *data, int x)
-{
-	int		oldfd[2];
-
-	oldfd[0] = dup(0);
-	oldfd[1] = dup(1);
-	if (data->in_rdr_num[x] > 0)
-		if (redirect_from(data, x))
-			return ;
-	if (data->out_rdr_num[x] > 0)
-		redirect_to(data, x);
-	if (ft_strcmp(cmd[0], "echo") == 0)
-		handle_echo(data, x);
-	else if (ft_strcmp(cmd[0], "pwd") == 0)
-		handle_pwd(data);
-	else if (ft_strcmp(cmd[0], "cd") == 0)
-		handle_cd(cmd, data);
-	else if (ft_strcmp(cmd[0], "env") == 0)
-		handle_env(data->env);
-	else if (ft_strcmp(cmd[0], "exit") == 0)
-		handle_exit(cmd, data);
-	else if (ft_strcmp(cmd[0], "export") == 0)
-		handle_export(cmd, data);
-	else if (ft_strcmp(cmd[0], "unset") == 0)
-		handle_unset(cmd, data);
-	dup2_close(oldfd);
+	return (pipes.ret);
 }

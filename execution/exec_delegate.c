@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 16:05:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:14:59 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,34 +27,13 @@ void	exec_delegator(t_parse *parser)
 		parser->h_index = -1;
 		ret = handle_pipe(parser);
 	}
+	g_signal = 1;
 	while (parser->heredocs_num)
 	{
 		unlink(parser->heredoc_tmp_files[parser->heredocs_num - 1]);
 		parser->heredocs_num--;
 	}
 	parser->exit_status = ret;
-}
-
-int	handle_single(char **inputs, t_parse *data, int x)
-{
-	int	oldfd[2];
-	int	ret;
-
-	ret = 0;
-	oldfd[0] = dup(0);
-	oldfd[1] = dup(1);
-	if (data->in_rdr_num[x] > 0)
-		if (redirect_from(data, x))
-			return (1);
-	if (data->out_rdr_num[x] > 0)
-		redirect_to(data, x);
-	ret = choose_action(inputs, data, x);
-	dup2(oldfd[0], 0);
-	dup2(oldfd[1], 1);
-	close_fds(data);
-	close(oldfd[0]);
-	close(oldfd[1]);
-	return (ret);
 }
 
 int	handle_single_pipe(char **inputs, t_parse *data, int x)
@@ -100,23 +79,4 @@ int	choose_action(char **cmd, t_parse *data, int x)
 	else
 		ret = handle_exec(cmd, data);
 	return (ret);
-}
-
-t_bool	is_built_in(char *cmd)
-{
-	if (ft_strcmp(cmd, "echo") == 0)
-		return (TRUE);
-	else if (ft_strcmp(cmd, "pwd") == 0)
-		return (TRUE);
-	else if (ft_strcmp(cmd, "cd") == 0)
-		return (TRUE);
-	else if (ft_strcmp(cmd, "env") == 0)
-		return (TRUE);
-	else if (ft_strcmp(cmd, "exit") == 0)
-		return (TRUE);
-	else if (ft_strcmp(cmd, "export") == 0)
-		return (TRUE);
-	else if (ft_strcmp(cmd, "unset") == 0)
-		return (TRUE);
-	return (FALSE);
 }
