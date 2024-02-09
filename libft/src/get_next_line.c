@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 22:35:56 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/09/01 17:11:35 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:59:51 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*free_strjoin(char *s1, char *s2)
 
 	joint = ft_strjoin(s1, s2);
 	if (s1)
-		free(s1);
+		free_set_null(s1);
 	return (joint);
 }
 
@@ -40,13 +40,13 @@ static char	*ft_read(int fd, char *stash)
 	{
 		read_bytes = read(fd, buf, BUFFER_SIZE);
 		if (read_bytes == -1)
-			return (free(buf), NULL);
+			return (free_set_null(buf), NULL);
 		buf[read_bytes] = '\0';
 		stash = free_strjoin(stash, buf);
 		if (ft_strchr(stash, '\n'))
 			break ;
 	}
-	free(buf);
+	free_set_null(buf);
 	return (stash);
 }
 

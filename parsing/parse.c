@@ -6,64 +6,45 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/28 16:27:11 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/08 20:43:07 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-t_bool	parse_shell(char *cmd_line, char **original_envs, t_parse **parser)
+t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 {
-	if (!cmd_line || ft_strcmp(cmd_line, "\n") == 0)
+	str = ft_strdup(cmd_line);
+	if (!str || !str[0])
 		return (TRUE);
-	cmd_line = conv_tabs2spcs(cmd_line);
-	if (check_quotes(cmd_line))
+	str = conv_tabs2spcs(str);
+	if (check_errors(str))
+		return (TRUE);
+	str = delete_excess_spcs(str);
+	(*data)->envs_lst = get_envs_lst((*data)->env);
+	str = expand_dollar_string(str, (*data)->envs_lst);
+	(*data)->parts_num = find_parts_num(str);
+	(*data)->in_rdr_num = find_rdr_num(str, '<', (*data));
+	(*data)->inputs_redirections = hold_rdr_names(str, '<', (*data));
+	(*data)->inputs_tokens = tokenize_redir(str, (*data), '<');
+	find_heredocs_num((*data));
+	handle_heredoc((*data));
+	(*data)->out_rdr_num = find_rdr_num(str, '>', (*data));
+	(*data)->outputs_redirections = hold_rdr_names(str, '>', (*data));
+	(*data)->outputs_tokens = tokenize_redir(str, (*data), '>');
+	str = conv_redir2spcs(str);
+	str = delete_excess_spcs(str);
+	(*data)->cmds = split_cmds(str);
+	return (FALSE);
+}
+
+t_bool	check_errors(char *str)
+{
+	if (check_quotes(str) || check_pipe_red_2(str) || check_pipe_redir(str))
 	{
-		// printf("Quote Error\n");
+		ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
+		free_set_null(str);
 		return (TRUE);
 	}
-	(*parser)->envs_lst = get_envs_lst(original_envs);
-	cmd_line = expand_dollar_string(cmd_line, (*parser)->envs_lst);
-	// printf("expand_dollar_string {%s}\n", cmd_line);
-	cmd_line = delete_excess_spcs(cmd_line);
-	// printf("delete_excess_spcs %s\n", cmd_line);
-	// if (check_pipe_redir(cmd_line))
-	// {
-	// 	printf("Pipe-Redir Error\n");
-	// 	return (TRUE);
-	// }
-	// if (check_pipe_red_2(cmd_line))
-	// {
-	// 	printf("Pipe-Redir-2 Error\n");
-	// 	return (TRUE);
-	// }
-	(*parser)->parts_num = find_parts_num(cmd_line);
-	(*parser)->in_redir_num = find_infiles_heredocs_num(cmd_line);
-	(*parser)->inputs_redirections = hold_input_file_names(cmd_line);
-	(*parser)->inputs_tokens = tokenize_inputs(cmd_line);
-	// printf("---------> before heredoc\n");
-	// for (int i = 0; i < (*parser)->parts_num; i++)
-	// {
-	// 	int j = -1;
-	// 	while ((*parser)->inputs_redirections[i][++j])
-	// 		printf("%s\n", (*parser)->inputs_redirections[i][j]);
-	// }
-	// printf("---------> before heredoc\n");
-	find_heredocs_num(*parser);
-	handle_heredoc(*parser);
-	// for (int ak = 0; ak < (*parser)->heredocs_num; ak++)
-	// 	printf("%s\n", (*parser)->heredoc_tmp_files[ak]);
-	// read_heredocs(*parser);
-	(*parser)->out_redir_num = find_outfiles_appends_num(cmd_line);
-	(*parser)->outputs_redirections = hold_output_file_names(cmd_line);
-	(*parser)->outputs_tokens = tokenize_outputs(cmd_line);
-	// printf("before conv_redir2spcs {%s}\n", cmd_line);
-	cmd_line = conv_redir2spcs(cmd_line);
-	// printf("conv_redir2spcs {%s}\n", cmd_line);
-	cmd_line = delete_excess_spcs(cmd_line);
-	// printf("delete_excess_spcs {%s}\n", cmd_line);
-	(*parser)->cmds = split_cmds(cmd_line);
-	// printf("cmds in parse_Shell\n");
-	// printf("\n");
 	return (FALSE);
 }
