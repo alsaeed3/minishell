@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:36:23 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/20 20:01:21 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:47:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!join)
 		return (NULL);
 	i = 0;
-	if (s1)
+	while (s1 && s1[i] != '\0')
 	{
-		while (s1[i] != '\0')
-		{
-			join[i] = s1[i];
-			i++;
-		}
+		join[i] = s1[i];
+		i++;
 	}
 	j = 0;
 	while (s2 && s2[j] != '\0')

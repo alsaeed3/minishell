@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 14:48:47 by alsaeed           #+#    #+#              #
-#    Updated: 2024/01/20 15:24:32 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/02/08 15:59:06 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,18 +41,18 @@ $(OBJS_DIR)%.o: src/%.c
 
 $(NAME): 		$(OBJS)
 	@$(ARFLAGS) $(NAME) $(OBJS)
-	@echo "libft Compiled : \033[1;32mOK\n\033[0m"
+	@echo "libft Compiled : \033[1;32mOK\033[0m"
 
 clean:
 	@if [ -e $(OBJS_DIR) ]; then \
 		rm -rf $(OBJS_DIR); \
-		echo "libft Clean : \033[32mOK\n\033[0m"; \
+		echo "libft Clean : \033[32mOK\033[0m"; \
 	fi
 
 fclean: 		clean
 	@if [ -e $(NAME) ]; then \
 		$(RM) $(NAME); \
-		echo "libft Full-Clean : \033[32mOK\n\033[0m"; \
+		echo "libft Full-Clean : \033[32mOK\033[0m"; \
 	fi
 re: 			fclean all
 

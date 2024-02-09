@@ -6,47 +6,34 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:28:28 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/20 16:45:45 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:01:16 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
 
-t_env	*ft_env_last(t_env *head)
-{
-	while (head->next != NULL)
-		head = head->next;
-	return (head);
-}
-
-static int		get_key_size(char *env)
-{
-	int		i;
-
-	i = 0;
-	while (env[i] != '=')
-		i++;
-	return (i);		
-}
-
-static char		*get_env_key(char *env)
+static char	*get_env_key(char *env)
 {
 	char	*key;
 	int		i;
 
 	i = 0;
-	key = ft_calloc(get_key_size(env) + 1, sizeof(char));
+	while (env[i] != '=')
+		i++;
+	key = ft_calloc(i + 1, sizeof(char));
+	i = 0;
 	while (env[i] != '=')
 	{
-		key[i] = env[i];	
+		key[i] = env[i];
 		i++;
 	}
 	key[i] = '\0';
-	return (key);		
+	return (key);
 }
 
-static int	get_info_size(char *env)
+static char	*get_env_info(char *env)
 {
+	char	*info;
 	int		i;
 	int		j;
 
@@ -59,17 +46,8 @@ static int	get_info_size(char *env)
 		j++;
 		i++;
 	}
-	return (j);	
-}
-
-static char		*get_env_info(char *env)
-{
-	char	*info;
-	int		i;
-	int		j;
-
+	info = ft_calloc(j + 1, sizeof(char));
 	i = 0;
-	info = ft_calloc(get_info_size(env) + 1, sizeof(char));
 	while (env[i] != '=')
 		i++;
 	i++;
@@ -77,7 +55,7 @@ static char		*get_env_info(char *env)
 	while (env[i] != '\0')
 		info[j++] = env[i++];
 	info[j] = '\0';
-	return (info);	
+	return (info);
 }
 
 t_env	*add_env(t_env *head, char *env)
@@ -88,8 +66,6 @@ t_env	*add_env(t_env *head, char *env)
 	if (head == NULL)
 	{
 		new_env = (t_env *)ft_calloc(1, sizeof(t_env));
-		if (!new_env)
-			return (NULL);
 		new_env->key = get_env_key(env);
 		new_env->info = get_env_info(env);
 		new_env->next = NULL;
@@ -100,8 +76,6 @@ t_env	*add_env(t_env *head, char *env)
 	{
 		last_env = ft_env_last(head);
 		new_env = (t_env *)ft_calloc(1, sizeof(t_env));
-		if (!new_env)
-			return (NULL);
 		new_env->key = get_env_key(env);
 		new_env->info = get_env_info(env);
 		new_env->next = NULL;
@@ -110,46 +84,9 @@ t_env	*add_env(t_env *head, char *env)
 	return (head);
 }
 
-// t_env	*unset_env(t_env *head, char *env_key)
-// {
-// 	t_env	*curr;
-// 	t_env	*tmp;
-// 	t_env	*prev;
-
-// 	curr = head;
-// 	tmp = NULL;
-// 	prev = NULL;
-// 	while (curr != NULL)
-// 	{
-// 		if (ft_strcmp(env_key, curr->key) == 0)
-// 		{
-// 			if (!prev) // it is head node
-// 			{
-// 				tmp = head;
-// 				head = head->next;
-// 				head->env_size->envs_size--;
-// 			}
-// 			else // it is non-head node
-// 			{
-// 				tmp = curr;
-// 				prev->next = curr->next;
-// 				head->env_size->envs_size--;
-// 			}
-// 			free(tmp->full_env);
-// 			free(tmp->key);
-// 			free(tmp->info);
-// 			free(tmp);
-// 			break;
-// 		}
-// 		prev = curr;
-// 		curr = curr->next;
-// 	}
-// 	return (head);
-// }
-
 t_env	*get_envs_lst(char **original_envs)
 {
-	t_env		*envs;
+	t_env	*envs;
 	int		i;
 
 	i = 0;
@@ -161,27 +98,6 @@ t_env	*get_envs_lst(char **original_envs)
 	}
 	return (envs);
 }
-
-// char	**get_envs_array(t_env *env_lst)
-// {
-// 	char	**envs_array;
-// 	t_env	*curr;
-// 	int		i;
-
-// 	curr = env_lst;
-// 	envs_array = ft_calloc(env_lst->env_size->envs_size + 1, sizeof(char *));
-// 	if (!envs_array)
-// 		return (NULL);
-// 	i = 0;
-// 	while (curr != NULL)
-// 	{
-// 		envs_array[i] = ft_strdup(curr->full_env);
-// 		i++;
-// 		curr = curr->next;
-// 	}
-// 	envs_array[i] = NULL;
-// 	return (envs_array);
-// }
 
 char	*ft_getenv(char *key, t_env *envs)
 {

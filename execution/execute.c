@@ -6,34 +6,63 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/29 22:16:18 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:50:01 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void	handle_exec(char **inputs, t_parse *data)
+int	handle_exec(char **inputs, t_parse *data)
 {
+	int		ret;
 	pid_t	pid;
-	
+
+	ret = 0;
 	if (!check_exec(inputs, data))
 	{
-		data->exit_status = 127;
-		ft_error("\t\tminishell: Unknown command\n");
-		return ;
+		print_message(inputs[0], ": command not found");
+		return (127);
 	}
+	g_signal = 3;
 	pid = fork();
 	if (pid == 0)
 	{
-		g_signal = 3;
 		if (execute(inputs, data) != 0)
 			exit(errno);
-		exit(EXIT_SUCCESS);
+		free_close_fd(data, 0, 0, 0);
 	}
 	else if (pid < 0)
-		exit(EXIT_FAILURE);
+		exit(1);
 	else
-		waitpid(pid, &data->exit_status, 0);
+		waitpid(pid, &ret, 0);
+	if (WIFEXITED(ret))
+		ret = WEXITSTATUS(ret);
+	return (ret);
+}
+
+void	handle_exec_pipe(char **inputs, t_parse *data, int x)
+{
+	int	oldfd[2];
+
+	oldfd[0] = dup(0);
+	oldfd[1] = dup(1);
+	if (data->in_rdr_num[x] > 0)
+		if (redirect_from(data, x))
+			return ;
+	if (data->out_rdr_num[x] > 0)
+		redirect_to(data, x);
+	if (!check_exec(inputs, data))
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(inputs[0], 2);
+		ft_putendl_fd(": command not found", 2);
+		rl_clear_history();
+		free_close_fd(data, oldfd, 1, 127);
+	}
+	g_signal = 3;
+	if (execute(inputs, data) != 0)
+		free_close_fd(data, oldfd, 1, errno);
+	free_close_fd(data, oldfd, 1, 0);
 }
 
 int	execute(char **inputs, t_parse *data)
@@ -72,12 +101,3 @@ int	execute_2(char **inputs, t_parse *data)
 	}
 	return (1);
 }
-
-
-/*
-127: command not found
-126: permission denied
-128: invalid argument
-130: ctrl + c
-
-*/

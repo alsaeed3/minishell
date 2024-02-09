@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:40:34 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/28 17:31:51 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:50:01 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void	parent_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_putstr_fd("\n", 1);
-		// rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
 		g_signal = 99;
+		rl_replace_line("", 0);
+		ft_putstr_fd("\n", 1);
+		rl_on_new_line();
+		if (waitpid(-1, NULL, WNOHANG) != -1)
+			return ;
+		rl_redisplay();
 		return ;
 	}
 	else if (sig == SIGQUIT)
@@ -35,7 +37,7 @@ void	child_sig(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
-		// rl_replace_line("", 1);
+		rl_replace_line("", 1);
 		rl_on_new_line();
 		g_signal = 130;
 		return ;
@@ -53,11 +55,9 @@ void	heredoc_sig(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
-		// rl_replace_line("", 1);
+		rl_replace_line("", 1);
 		close(0);
 		rl_on_new_line();
-		rl_redisplay();
-		g_signal = 130;
 	}
 }
 
@@ -71,11 +71,11 @@ void	sig_switcher(int sig)
 		parent_sig(sig);
 }
 
-void set_signals(t_parse *parser)
+void	set_signals(t_parse **parser)
 {
-		signal(SIGINT, sig_switcher);
-		signal(SIGQUIT, sig_switcher);
-		if (g_signal != 1)
-			parser->exit_status = g_signal;
-		g_signal = 1;
+	signal(SIGINT, sig_switcher);
+	signal(SIGQUIT, sig_switcher);
+	if (g_signal != 1)
+		(*parser)->exit_status = g_signal;
+	g_signal = 1;
 }

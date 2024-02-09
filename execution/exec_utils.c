@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:26:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 18:48:33 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/06 21:05:10 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ char	**gen_paths(int index, t_parse *data, char *input)
 	i = 0;
 	str = ft_strdup(&data->env[index][5]);
 	paths = ft_split(str, ':');
-	free(str);
+	free_set_null(str);
 	while (paths[i])
 	{
 		temp = paths[i];
 		paths[i] = ft_strjoin(paths[i], "/");
-		free(temp);
+		free_set_null(temp);
 		temp = paths[i];
 		paths[i] = ft_strjoin(paths[i], input);
-		free(temp);
+		free_set_null(temp);
 		i++;
 	}
 	return (paths);

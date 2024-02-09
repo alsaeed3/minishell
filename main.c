@@ -6,45 +6,38 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/28 18:32:36 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:52:15 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/exec.h"
 
-int  g_signal = 0; 
+int	g_signal = 0;
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
+	t_main	main;
+
 	(void)ac;
 	(void)av;
-	t_parse	*parser;
-	parser = ft_calloc(1, sizeof(t_parse));
-	char	*cmd_line;
-
-	data_init(&parser, env);
+	main = (t_main){0};
+	main.parser = ft_calloc(1, sizeof(t_parse));
+	if (!main.parser)
+		return (1);
+	if (data_init(&main.parser, env))
+		return (1);
 	while (1)
 	{
-		set_signals(parser);
-		data_reset(&parser);
-		
-		cmd_line = readline("MINISHELL$ ");
-		if (g_signal == 99)
-			parser->exit_status = 1;
-		g_signal = 1;
-		if (!cmd_line)
-			exit(0);
-		add_history(cmd_line);
-		if (g_signal == 99)
-			parser->exit_status = 1;
-     	char	*dup = ft_strdup(cmd_line);
-		if (parse_shell(dup, env, &parser))
+		set_signals(&main.parser);
+		if (data_reset(&main.parser))
 			continue ;
-		free (dup);
-		exec_delegator(parser);
+		main.cmd_line = readline("minishell$ ");
+		set_up_prompt(&main.parser, main.cmd_line);
+		if (parse_shell(main.cmd_line, main.dup, &main.parser))
+			continue ;
+		exec_delegator(main.parser);
+		free_parser(&main.parser);
 	}
+	free_util_1(&main.parser);
 	return (0);
 }
-
-
-//ls -la | wc| cat <<w >v

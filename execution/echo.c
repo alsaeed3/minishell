@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/27 11:17:04 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:54:36 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,28 @@ static int	is_n_flag(char *str)
 	return (0);
 }
 
-void	handle_echo(t_parse *data)
+void	handle_echo(t_parse *data, int x)
 {
-	printf("handle_echo\n");
 	int	i;
 	int	n_flag;
 
 	i = 1;
 	n_flag = 1;
-	while (data->cmds[0][i] && is_n_flag(data->cmds[0][i]))
+	while (data->cmds[x][i] && is_n_flag(data->cmds[x][i]))
 	{
 		n_flag = 0;
 		i++;
 	}
-	while (data->cmds[0][i])
+	while (data->cmds[x][i])
 	{
-		write(1, data->cmds[0][i], ft_strlen(data->cmds[0][i]));
-		if (data->cmds[0][i + 1])
+		if (ft_strcmp(data->cmds[x][i], "$?") == 0)
+			ft_putnbr_fd(data->exit_status, 1);
+		else
+			write(1, data->cmds[x][i], ft_strlen(data->cmds[x][i]));
+		if (data->cmds[x][i + 1])
 			write(1, " ", 1);
 		i++;
 	}
 	if (n_flag)
 		write(1, "\n", 1);
-	
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:35:24 by alsaeed           #+#    #+#             */
-/*   Updated: 2023/09/01 17:59:32 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/02 20:27:07 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ char	*ft_strdup(char *s1)
 	int		count;
 
 	count = 0;
+	dup = NULL;
+	if (!s1)
+		return (NULL);
 	dup = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!dup)
 		return (NULL);

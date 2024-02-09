@@ -3,57 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/01/26 19:09:54 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/08 16:20:10 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-int	handle_pipe(t_parse *parser)
+static void	set_h_index(t_parse *parser, int i)
 {
-	int	i;
-	int	fds[2];
-	int	pid;
-	int	status;
-	int	fd_in;
+	int	j;
 
-	i = 0;
-	fd_in = 0;
-	while (i < parser->parts_num)
+	j = -1;
+	while (++j < parser->in_rdr_num[i])
 	{
-		if (i < parser->parts_num - 1)
-			pipe(fds);
-		pid = fork();
-		if (pid == -1)
-			exit(EXIT_FAILURE);
-		else if (pid == FORKED_CHILD)
-		{
-			dup2(fd_in, STDIN_FILENO);
-			if (i < parser->parts_num - 1)
-				dup2(fds[STDOUT_FILENO], STDOUT_FILENO);
-			close(fds[0]);
-			handle_single(parser->cmds[i], parser, 1, i);
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
-			close(fds[1]);
-			fd_in = fds[0];
-			i++;
-		}
+		if (!parser->inputs_tokens[i] || !parser->inputs_redirections[i])
+			break ;
+		if (parser->inputs_tokens[i][j] == 1 \
+		&& parser->inputs_redirections[i][j + 1] == NULL)
+			parser->h_index++;
 	}
-	return (0);
 }
 
-void	exit_pipe(t_parse *data)
+void	init_t_pipe(t_pipe *pipes)
 {
-	// free_inputs(data->env);
-	// if (g_user_input)
-	// 	free(g_user_input);
-	free(data->pwd);
-	exit(EXIT_SUCCESS);
+	*pipes = (t_pipe){0};
+	pipes->i = -1;
+	pipes->fd_in = 0;
+	pipes->ret = 0;
+}
+
+int	handle_single(char **inputs, t_parse *data, int x)
+{
+	int	oldfd[2];
+	int	ret;
+
+	ret = 0;
+	oldfd[0] = dup(0);
+	oldfd[1] = dup(1);
+	if (data->in_rdr_num[x] > 0)
+		if (redirect_from(data, x))
+			return (1);
+	if (data->out_rdr_num[x] > 0)
+		redirect_to(data, x);
+	ret = choose_action(inputs, data, x);
+	dup2(oldfd[0], 0);
+	dup2(oldfd[1], 1);
+	close_fds(data);
+	close(oldfd[0]);
+	close(oldfd[1]);
+	return (ret);
+}
+
+static void	piping(t_parse *parser, t_pipe *pipes)
+{
+	set_h_index(parser, pipes->i);
+	if (pipes->i < parser->parts_num - 1)
+		pipe(pipes->fds);
+	g_signal = 3;
+	pipes->pid[pipes->i] = fork();
+	if (pipes->pid[pipes->i] == -1)
+		free_close_fd(parser, pipes->fds, 1, 1);
+	else if (pipes->pid[pipes->i] == 0)
+	{
+		dup2(pipes->fd_in, 0);
+		if (pipes->i < parser->parts_num - 1)
+			close(pipes->fds[0]);
+		dup2(pipes->fds[1], 1);
+		pipes->ret = handle_single(parser->cmds[pipes->i], parser, pipes->i);
+		free_close_fd(parser, pipes->fds, 1, pipes->ret);
+	}
+	close(pipes->fds[1]);
+	if (pipes->fd_in)
+		close(pipes->fd_in);
+	pipes->fd_in = pipes->fds[0];
+}
+
+int	handle_pipe(t_parse *parser)
+{
+	t_pipe	pipes;
+
+	init_t_pipe(&pipes);
+	while (++pipes.i < parser->parts_num)
+	{
+		piping(parser, &pipes);
+	}
+	pipes.i = -1;
+	while (++pipes.i < parser->parts_num)
+	{
+		waitpid(pipes.pid[pipes.i], &pipes.ret, 0);
+		if (WIFEXITED(pipes.ret))
+			pipes.ret = WEXITSTATUS(pipes.ret);
+	}
+	return (pipes.ret);
 }
