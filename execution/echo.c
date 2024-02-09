@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 18:00:27 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 22:01:17 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,49 +26,49 @@ static int	is_n_flag(char *str)
 	}
 	return (0);
 }
-static t_bool	check_dol_ques(char *str)
-{
-	int	i;
-	int len;
+// static t_bool	check_dol_ques(char *str)
+// {
+// 	int	i;
+// 	int len;
 
-	len = ft_strlen(str);
-	i = -1;
-	while (++i < len)
-	{
-		if (str[i] == '$')
-			return (TRUE);
-	} 
-	return (FALSE);
-}
+// 	len = ft_strlen(str);
+// 	i = -1;
+// 	while (++i < len)
+// 	{
+// 		if (str[i] == '$')
+// 			return (TRUE);
+// 	} 
+// 	return (FALSE);
+// }
 
-static void	print_dol_ques(char *str, t_parse *data)
-{
-	int	i;
-	int j;
-	int len;
-	char *ret;
+// static void	print_dol_ques(char *str, t_parse *data)
+// {
+// 	int	i;
+// 	int j;
+// 	int len;
+// 	char *ret;
 
-	len = ft_strlen(str);
-	i = -1;
-	j = 0;
-	while (++i < len)
-	{
-		if (str[i] == '$')
-		{
-			if (str[i + 1] == '?')
+// 	len = ft_strlen(str);
+// 	i = -1;
+// 	j = 0;
+// 	while (++i < len)
+// 	{
+// 		if (str[i] == '$')
+// 		{
+// 			if (str[i + 1] == '?')
 			
-			else if (str[i + 1] == '0')
-				ft_putstr_fd("minishell", 1);
-			else if ((str[i + 1] >= 'a' && str[i + 1] <= 'z') \
-			|| (str[i + 1] >= 'A' && str[i + 1] <= 'Z'))
-				return ;
-			i++;
-			continue;
-		}
-		else
-			(str[i], 1);
-	}
-}
+// 			else if (str[i + 1] == '0')
+// 				ft_putstr_fd("minishell", 1);
+// 			else if ((str[i + 1] >= 'a' && str[i + 1] <= 'z') \
+// 			|| (str[i + 1] >= 'A' && str[i + 1] <= 'Z'))
+// 				return ;
+// 			i++;
+// 			continue;
+// 		}
+// 		else
+// 			(str[i], 1);
+// 	}
+// }
 
 void	handle_echo(t_parse *data, int x)
 {

@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 17:29:30 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 19:22:08 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_bool		data_init(t_parse **data, char **env);
 t_bool		data_reset(t_parse **data);
 
 int			redirect_from(t_parse *data, int x);
-void		redirect_to(t_parse *data, int x);
+int			redirect_to(t_parse *data, int x);
 
 char		**gen_paths(int index, t_parse *data, char *input);
 int			check_exec_path(char **inputs, t_parse *data);
