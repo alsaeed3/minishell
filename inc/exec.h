@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/08 21:26:54 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 17:29:30 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,8 @@ void		init_t_pipe(t_pipe *pipe);
 void		free_close_fd(t_parse *data, int oldfd[2], int mode, int status);
 void		print_message(char *cmd, char *message);
 void		dup2_close(int oldfd[2]);
+
+void 	expand_dolar_sign(char **inputs, t_parse *data);
+
 
 #endif

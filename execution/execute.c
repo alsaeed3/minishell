@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 14:50:01 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 16:30:47 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	handle_exec_pipe(char **inputs, t_parse *data, int x)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(inputs[0], 2);
 		ft_putendl_fd(": command not found", 2);
-		rl_clear_history();
+		// rl_clear_history();
 		free_close_fd(data, oldfd, 1, 127);
 	}
 	g_signal = 3;

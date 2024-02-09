@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 14:51:07 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 16:30:47 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_exit(t_parse *data, int status)
 	free_env(data->env);
 	free_set_null(data->pwd);
 	free_set_null(data);
-	rl_clear_history();
+	// rl_clear_history();
 	ft_putendl_fd("exit", 1);
 	exit(status);
 }
@@ -34,7 +34,7 @@ void	free_close_fd(t_parse *data, int oldfd[2], int mode, int status)
 		close(oldfd[0]);
 		close(oldfd[1]);
 	}
-	rl_clear_history();
+	// rl_clear_history();
 	exit(status);
 }
 

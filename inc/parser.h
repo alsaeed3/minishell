@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/08 16:07:45 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/09 16:54:52 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,6 @@ void	is_dollar(t_var *var, char *str);
 void	expand_dollar(t_var *var, char *str, t_env *env_lst);
 void	sd_quote_trg(t_var *var, char *str);
 void	dollar_heredoc_deli(char *str, t_var *var);
-t_bool	exp_dlr_cnt_1(t_var *var, char *str);
 void	init_dollar_vars(t_var *var, char *str, t_env *env_lst, int mode);
 int		find_env_size(char *str, int i);
 int		expand_dollar_count(char *str, t_env *env_lst);
