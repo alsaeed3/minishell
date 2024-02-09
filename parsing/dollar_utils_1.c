@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:23:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 20:58:58 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/09 10:52:05 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,7 @@ void	rdr_trigger(t_var *var, char *str)
 
 void	is_dollar(t_var *var, char *str)
 {
-	if (var->i < var->len - 2 && str[var->i] == '$' \
-	&& !(str[var->i + 1] >= 65 && str[var->i + 1] <= 90) \
-	&& !(str[var->i + 1] >= 97 && str[var->i + 1] <= 122) && !var->squtrg)
-		var->i += 2;
-	else if (str[var->i] == '$' && ((str[var->i + 1] >= 65 \
+	if (str[var->i] == '$' && ((str[var->i + 1] >= 65 \
 	&& str[var->i + 1] <= 90) || (str[var->i + 1] >= 97 \
 	&& str[var->i + 1] <= 122)) && !var->squtrg && !var->rdrtrg)
 		var->dlrtrg = TRUE;

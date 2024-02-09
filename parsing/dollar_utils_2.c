@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:26:09 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/05 21:10:37 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/09 10:57:54 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,8 @@ t_bool	exp_dlr_cnt_1(t_var *var, char *str)
 		var->rdrtrg = TRUE;
 	else if (var->i < var->len - 1 && (str[var->i] == '<' \
 	&& str[var->i + 1] == '<') && !var->squtrg && !var->dqutrg && var->rdrtrg)
-		var->rdrtrg = FALSE;
-	if (var->i < var->len - 2 && str[var->i] == '$' && !(str[var->i + 1] >= 65 \
-	&& str[var->i + 1] <= 90) && !(str[var->i + 1] >= 97 \
-	&& str[var->i + 1] <= 122) && !var->squtrg)
 	{
-		var->i += 2;
+		var->rdrtrg = FALSE;
 		return (TRUE);
 	}
 	return (FALSE);

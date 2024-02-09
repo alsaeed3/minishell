@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 14:54:36 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/09 11:31:11 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,47 @@ static int	is_n_flag(char *str)
 	return (0);
 }
 
+static t_bool	check_dol_ques(char *str)
+{
+	int	i;
+	int len;
+
+	len = ft_strlen(str);
+	i = -1;
+	while (++i < len)
+	{
+		if (str[i] == '$')
+			return (TRUE);
+	} 
+	return (FALSE);
+}
+
+static void	print_dol_ques(char *str, t_parse *data)
+{
+	int	i;
+	int len;
+
+	len = ft_strlen(str);
+	i = -1;
+	while (++i < len)
+	{
+		if (str[i] == '$')
+		{
+			if (str[i + 1] == '?')
+				ft_putnbr_fd(data->exit_status, 1);
+			else if (str[i + 1] == '0')
+				ft_putstr_fd("minishell", 1);
+			else if ((str[i + 1] >= 'a' && str[i + 1] <= 'z') \
+			|| (str[i + 1] >= 'A' && str[i + 1] <= 'Z'))
+				return ;
+			i++;
+			continue;
+		}
+		else
+			ft_putchar_fd(str[i], 1);
+	}
+}
+
 void	handle_echo(t_parse *data, int x)
 {
 	int	i;
@@ -41,8 +82,8 @@ void	handle_echo(t_parse *data, int x)
 	}
 	while (data->cmds[x][i])
 	{
-		if (ft_strcmp(data->cmds[x][i], "$?") == 0)
-			ft_putnbr_fd(data->exit_status, 1);
+		if (check_dol_ques(data->cmds[x][i]))
+			print_dol_ques(data->cmds[x][i], data);
 		else
 			write(1, data->cmds[x][i], ft_strlen(data->cmds[x][i]));
 		if (data->cmds[x][i + 1])
