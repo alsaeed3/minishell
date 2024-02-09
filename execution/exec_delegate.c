@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/08 21:24:08 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 17:56:42 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,37 @@ void	exec_delegator(t_parse *parser)
 	parser->exit_status = ret;
 }
 
+
+void expand_dolar_sign(char **inputs, t_parse *data)
+{
+	int	i;
+	int	j;
+	char	*tmp;
+
+	i = 0;
+	while (inputs[i])
+	{
+		j = 0;
+		while (inputs[i][j])
+		{
+			if (inputs[i][j] == '$')
+			{
+				inputs[i] = ft_strreplace(inputs[i], "$?", tmp);
+				free(tmp);
+			}
+			j++;
+		}
+		i++;
+	}
+	
+}
+
 int	handle_single_pipe(char **inputs, t_parse *data, int x)
 {
 	int	oldfd[2];
 	int	ret;
 
+	expand_dolar_sign(inputs, data);
 	ret = 0;
 	oldfd[0] = dup(0);
 	oldfd[1] = dup(1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/08 16:20:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/09 17:29:55 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	handle_single(char **inputs, t_parse *data, int x)
 	int	oldfd[2];
 	int	ret;
 
+	expand_dolar_sign(inputs, data);
+	
 	ret = 0;
 	oldfd[0] = dup(0);
 	oldfd[1] = dup(1);
