@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 16:30:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:28:44 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	get_shlvl(t_parse *data)
 
 	index = 0;
 	shlvl = 0;
-	shlvl = ft_atoi(getenv("SHLVL"), NULL) + 1;
+	if (getenv("SHLVL"))
+		shlvl = ft_atoi(getenv("SHLVL"), NULL) + 1;
+	else
+		shlvl = 2;
 	index = var_index("SHLVL", data);
 	replace_var(ft_strjoin("SHLVL=", ft_itoa(shlvl)), data, index);
 }
@@ -28,7 +31,8 @@ t_bool	data_init(t_parse **data, char **env)
 {
 	if (!(*data))
 		return (TRUE);
-	(*data)->env = dup_env(env);
+	if(env)
+		(*data)->env = dup_env(env);
 	(*data)->pwd = getcwd(NULL, 0);
 	(*data)->envs_lst = NULL;
 	(*data)->heredoc_tmp_files = NULL;
