@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 15:04:33 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/09 19:28:10 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	redirect_from(t_parse *data, int x)
 	return (0);
 }
 
-void	redirect_to(t_parse *data, int x)
+int	redirect_to(t_parse *data, int x)
 {
 	int		fd;
 	char	*filename;
@@ -72,8 +72,8 @@ void	redirect_to(t_parse *data, int x)
 			fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 		if (fd < 0)
 		{
-			ft_putstr_fd("Error: wrong permissions", 2);
-			return ;
+			ft_putendl_fd("Error: wrong permissions", 2);
+			return (127) ;
 		}
 		i++;
 	}
@@ -81,4 +81,5 @@ void	redirect_to(t_parse *data, int x)
 	if (data->fd_out != 1)
 		close(data->fd_out);
 	data->fd_out = fd;
+	return (0);
 }

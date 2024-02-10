@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 17:29:55 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/09 19:27:13 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	handle_single(char **inputs, t_parse *data, int x)
 		if (redirect_from(data, x))
 			return (1);
 	if (data->out_rdr_num[x] > 0)
-		redirect_to(data, x);
+		if (redirect_to(data, x))
+			return (127);
 	ret = choose_action(inputs, data, x);
 	dup2(oldfd[0], 0);
 	dup2(oldfd[1], 1);
