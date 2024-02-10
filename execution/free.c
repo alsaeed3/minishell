@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 16:30:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:36:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ void	free_close_fd(t_parse *data, int oldfd[2], int mode, int status)
 	free_set_null(data);
 	if (mode == 1)
 	{
-		close(oldfd[0]);
-		close(oldfd[1]);
+		if (oldfd)
+		{
+			close(oldfd[0]);
+			close(oldfd[1]);
+		}
 	}
 	// rl_clear_history();
 	exit(status);
@@ -48,7 +51,7 @@ void	print_message(char *cmd, char *message)
 void	dup2_close(int oldfd[2])
 {
 	dup2(oldfd[0], 0);
-	dup2(oldfd[1], 1);
 	close(oldfd[0]);
+	dup2(oldfd[1], 1);
 	close(oldfd[1]);
 }

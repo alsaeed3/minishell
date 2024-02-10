@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_delegate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 13:10:58 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:27:23 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec_delegator(t_parse *parser)
 	if (parser->parts_num == 1)
 	{
 		parser->h_index = 0;
-		ret = handle_single(parser->cmds[0], parser, 0);
+		ret = handle_single(parser->cmds[0], parser, 0, NULL);
 	}
 	else
 	{
@@ -37,7 +37,7 @@ void	exec_delegator(t_parse *parser)
 }
 
 
-int	choose_action(char **cmd, t_parse *data, int x)
+int	choose_action(char **cmd, t_parse *data, int x, int fd[2])
 {
 	int	ret;
 
@@ -57,6 +57,6 @@ int	choose_action(char **cmd, t_parse *data, int x)
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		handle_unset(cmd, data);
 	else
-		ret = handle_exec(cmd, data);
+		ret = handle_exec(cmd, data, fd);
 	return (ret);
 }

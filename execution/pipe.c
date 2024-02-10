@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 11:57:36 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:30:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	init_t_pipe(t_pipe *pipes)
 	pipes->ret = 0;
 }
 
-int	handle_single(char **inputs, t_parse *data, int x)
+int	handle_single(char **inputs, t_parse *data, int x, int fds[2])
 {
 	int	oldfd[2];
 	int	ret;
-	
+
 	expand_dolar_sign(inputs, data);
 	
 	ret = 0;
@@ -51,12 +51,12 @@ int	handle_single(char **inputs, t_parse *data, int x)
 	if (data->out_rdr_num[x] > 0)
 		if (redirect_to(data, x))
 			return (127);
-	ret = choose_action(inputs, data, x);
+	ret = choose_action(inputs, data, x, fds);
 	dup2(oldfd[0], 0);
-	dup2(oldfd[1], 1);
-	close_fds(data);
 	close(oldfd[0]);
+	dup2(oldfd[1], 1);
 	close(oldfd[1]);
+	close_fds(data);
 	return (ret);
 }
 
@@ -75,13 +75,14 @@ static void	piping(t_parse *parser, t_pipe *pipes)
 		if (pipes->i < parser->parts_num - 1)
 			close(pipes->fds[0]);
 		dup2(pipes->fds[1], 1);
-		pipes->ret = handle_single(parser->cmds[pipes->i], parser, pipes->i);
+		pipes->ret = handle_single(parser->cmds[pipes->i], parser, pipes->i, pipes->fds);
 		free_close_fd(parser, pipes->fds, 1, pipes->ret);
 	}
 	close(pipes->fds[1]);
 	if (pipes->fd_in)
 		close(pipes->fd_in);
 	pipes->fd_in = pipes->fds[0];
+	
 }
 
 int	handle_pipe(t_parse *parser)
@@ -93,6 +94,7 @@ int	handle_pipe(t_parse *parser)
 	{
 		piping(parser, &pipes);
 	}
+	close_fds(parser);
 	pipes.i = -1;
 	while (++pipes.i < parser->parts_num)
 	{

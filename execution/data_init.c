@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 19:28:44 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:52:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	get_shlvl(t_parse *data)
 {
 	int	shlvl;
 	int	index;
+	char	*tmp;
+	char 	*new;
 
 	index = 0;
 	shlvl = 0;
@@ -24,7 +26,11 @@ void	get_shlvl(t_parse *data)
 	else
 		shlvl = 2;
 	index = var_index("SHLVL", data);
-	replace_var(ft_strjoin("SHLVL=", ft_itoa(shlvl)), data, index);
+	tmp = ft_itoa(shlvl);
+	new = ft_strjoin("SHLVL=", tmp);
+	free_set_null(tmp);
+	replace_var(new, data, index);
+	free_set_null(new);
 }
 
 t_bool	data_init(t_parse **data, char **env)

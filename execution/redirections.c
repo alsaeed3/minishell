@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 11:57:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:02:53 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	redirect_from(t_parse *data, int x)
 		return (1);
 	}
 	dup2(fd, 0);
+	close(fd);
 	if (data->fd_in != 0)
 		close(data->fd_in);
 	data->fd_in = fd;
@@ -79,6 +80,7 @@ int	redirect_to(t_parse *data, int x)
 		i++;
 	}
 	dup2(fd, 1);
+	close(fd);
 	if (data->fd_out != 1)
 		close(data->fd_out);
 	data->fd_out = fd;

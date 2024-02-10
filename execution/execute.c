@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 13:07:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:35:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-int	handle_exec(char **inputs, t_parse *data)
+int	handle_exec(char **inputs, t_parse *data, int fds[2])
 {
 	int		ret;
 	pid_t	pid;
@@ -27,12 +27,17 @@ int	handle_exec(char **inputs, t_parse *data)
 	pid = fork();
 	if (pid == 0)
 	{
+		if(fds)
+		{
+			close(fds[0]);
+			close(fds[1]);
+		}
 		if (execute(inputs, data) != 0)
 			exit(errno);
-		free_close_fd(data, 0, 0, 0);
+		free_close_fd(data, NULL, 0, 0);
 	}
 	else if (pid < 0)
-		exit(1);
+		free_close_fd(data, fds, 1, errno);
 	else
 		waitpid(pid, &ret, 0);
 	if (WIFEXITED(ret))

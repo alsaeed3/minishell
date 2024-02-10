@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 19:22:08 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:26:19 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int			check_exec_path(char **inputs, t_parse *data);
 int			check_exec(char **inputs, t_parse *data);
 
 int			handle_pipe(t_parse *parser);
-int			handle_single(char **inputs, t_parse *data, int x);
+int			handle_single(char **inputs, t_parse *data, int x, int fds[2]);
 
 void		close_fds(t_parse *data);
 
-int			choose_action(char **cmd, t_parse *data, int x);
-int			handle_exec(char **inputs, t_parse *data);
+int			choose_action(char **cmd, t_parse *data, int x, int fd[2]);
+int			handle_exec(char **inputs, t_parse *data, int fds[2]);
 int			execute_2(char **inputs, t_parse *data);
 int			execute(char **inputs, t_parse *data);
 
