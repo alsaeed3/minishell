@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cnv_rdr2spc_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/07 14:37:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/10 18:22:54 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ void	check_quotation(t_var *var, char *str)
 		var->qutrg = FALSE;
 		if (var->rdrtrg)
 		{
-			if (str[++var->i] == ' ')
+			if (str[var->i + 1] == ' ' || str[var->i + 1] == '<' || str[var->i + 1] == '>' || str[var->i + 1] == '|' || str[var->i + 1] == '\0')
+			{
+				var->i++;
 				var->rdrtrg = FALSE;
+			}
 			var->nordr[var->j++] = ' ';
 		}
 		else
@@ -96,7 +99,10 @@ t_bool	continue_conv(t_var *var, char *str)
 {
 	if (((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg))
 	{
-		var->nordr[var->j++] = str[var->i];
+		if (!var->rdrtrg)
+			var->nordr[var->j++] = str[var->i];
+		else
+			var->nordr[var->j++] = ' ';
 		var->qutrg = TRUE;
 		return (TRUE);
 	}

@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/10 10:53:18 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 17:50:34 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	hold_rdr_1(t_var *var, char *str)
 	}
 	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
-		if (str[++var->i] == ' ' && var->rdrtrg)
+		if ((str[var->i + 1] == ' ' || str[var->i + 1] == '<' || str[var->i + 1] == '>' || str[var->i + 1] == '|' || str[var->i + 1] == '\0') && var->rdrtrg)
 		{
 			var->rnms[var->j][var->k][++var->l] = '\0';
 			var->rdrtrg = FALSE;
@@ -89,14 +89,16 @@ static void	copy_and_null(t_var *var, char *str)
 	&& str[var->i] != '\0') && var->rdrtrg))
 	{
 		var->rnms[var->j][var->k][++var->l] = str[var->i];
-		if (str[var->i + 1] == '<' || str[var->i + 1] == '>' \
+		if ((str[var->i + 1] == '<' || str[var->i + 1] == '>' \
 		|| str[var->i + 1] == ' ' || str[var->i + 1] == '|' \
-		|| str[var->i + 1] == '\0')
+		|| str[var->i + 1] == '\0') && !var->qutrg)
 		{
 			var->rnms[var->j][var->k][++var->l] = '\0';
 			var->rdrtrg = FALSE;
 		}
 	}
+	else if (str[var->i] == ' ' && var->rdrtrg && var->qutrg)
+		var->rnms[var->j][var->k][++var->l] = str[var->i];
 }
 
 char	***hold_rdr_names(char *str, char rdr, t_parse *data)

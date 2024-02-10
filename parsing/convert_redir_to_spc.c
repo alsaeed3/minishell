@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   convert_redir_to_spc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 20:59:26 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/10 18:23:03 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
-/* In this function I'm converting all the redirections symbols with their */
-/* file names to spaces in the command line after saving all the file names */
-/* with their tokens */
 
 void	check_quota(t_var *var, char *str)
 {
@@ -40,7 +37,7 @@ void	check_quota(t_var *var, char *str)
 
 t_bool	continue_count(t_var *var, char *str)
 {
-	if (((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg))
+	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
 		var->j++;
 		var->qutrg = TRUE;

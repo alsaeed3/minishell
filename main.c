@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/10 13:22:12 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 17:38:27 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 		set_up_prompt(&main.parser, main.cmd_line);
 		if (parse_shell(main.cmd_line, main.dup, &main.parser))
 			continue ;
-		exec_delegator(main.parser);
+		// exec_delegator(main.parser);
 		free_parser(&main.parser);
 	}
 	free_util_1(&main.parser);

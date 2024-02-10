@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_rdr_chars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 20:43:04 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/10 17:54:41 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void	check_quout(t_var *var, char *str)
 	}
 	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
-		if (str[++var->i] == ' ' && var->rdrtrg)
+		if ((str[var->i + 1] == ' ' || str[var->i + 1] == '<' || str[var->i + 1] == '>' || str[var->i + 1] == '|' || str[var->i + 1] == '\0') && var->rdrtrg)
+		{
+			var->rcn[var->j][var->k] = ++var->cnum;
 			var->rdrtrg = FALSE;
+		}
 		var->qchr = '\0';
 		var->qutrg = FALSE;
 	}
@@ -84,10 +87,12 @@ static void	count_rdr_chars(t_var *var, char *str)
 		&& str[var->i] != '\0') && !var->qutrg && var->rdrtrg))
 	{
 		var->rcn[var->j][var->k] = ++var->cnum;
-		if (str[var->i + 1] == '<' || str[var->i + 1] == '>' \
-		|| str[var->i + 1] == ' ' || str[var->i + 1] == '|')
+		if ((str[var->i + 1] == '<' || str[var->i + 1] == '>' \
+		|| str[var->i + 1] == ' ' || str[var->i + 1] == '|') && !var->qutrg)
 			var->rdrtrg = FALSE;
 	}
+	else if (str[var->i] == ' ' && var->rdrtrg && var->qutrg)
+		var->rcn[var->j][var->k] = ++var->cnum;
 }
 
 int	**find_rdr_chars(char *str, char rdr, t_parse *data)

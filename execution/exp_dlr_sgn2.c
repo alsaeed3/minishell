@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:10:29 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 16:28:14 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 17:02:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,59 +157,44 @@ char *ft_strreplace(char *orig, char *rep, char *with)
     return result;
 }
 
-void inside_loop(char **inputs, int i, int j, t_parse *data)
+void inside_loop(char **input, char *c, t_parse *data)
 {
     char *tmp;
-    char c;
 
-    c = inputs[i][j + 1];
-    if (c == '?')
+    tmp = NULL;
+    if (*c == '?')
     {
         tmp = ft_itoa(data->exit_status);
-        inputs[i] = ft_strreplace(inputs[i], "$?", tmp);
+        *input = ft_strreplace(*input, "$?", tmp);
         free_set_null(tmp);
     }
-    else if (c == '0')
-        inputs[i] = ft_strreplace(inputs[i], "$0", "minishell");
-    else if (ft_isalpha(c) || ft_isdigit(c) || c == '_' || c == '*')
+    else if (*c == '0')
+        *input = ft_strreplace(*input, "$0", "minishell");
+    else if (ft_isalpha(*c) || ft_isdigit(*c) || *c == '_' || *c == '*')
     {
-        tmp = ft_strjoin("$", &c);
-        inputs[i] = ft_strreplace(inputs[i], tmp, "");
+        tmp = ft_strjoin("$", c);
+        *input = ft_strreplace(*input, tmp,"");
         free_set_null(tmp);
     }
 }
-
 void expand_dolar_sign(char **inputs, t_parse *data)
 {
 	int	i;
 	int	j;
-	char	*tmp;
+    // int len;
     char c;
 
 	i = 0;
 	while (inputs[i])
 	{
+        // len = ft_strlen(inputs[i]);
 		j = 0;
 		while (inputs[i][j])
 		{
-			if (inputs[i][j] == '$')
+			if (/* j < len - 1 && */ inputs[i][j] == '$')
 			{
                 c = inputs[i][j + 1];
-				if (c == '?')
-				{
-					tmp = ft_itoa(data->exit_status);
-					inputs[i] = ft_strreplace(inputs[i], "$?", tmp);
-				    free_set_null(tmp);
-				}
-				else if (c == '0')
-					inputs[i] = ft_strreplace(inputs[i], "$0", "minishell");
-                else if (ft_isalpha(c) || ft_isdigit(c) || c == '_' || c == '*')
-                {
-                    
-                    tmp = ft_strjoin("$", &c);
-					inputs[i] = ft_strreplace(inputs[i], tmp, "");
-                    free_set_null(tmp);
-                }
+                inside_loop(&inputs[i], &c, data);
 				j++;
 			}
 			j++;
