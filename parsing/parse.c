@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/10 19:15:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:46:52 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,13 @@ t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 	(*data)->parts_num = find_parts_num(str);
 	(*data)->in_rdr_num = find_rdr_num(str, '<', (*data));
 	(*data)->inputs_redirections = hold_rdr_names(str, '<', (*data));
-	// ft_putchar_fd('{', 2);
-	// ft_putstr_fd((*data)->inputs_redirections[0][0], 2);
-	// ft_putchar_fd('}', 2);
-	// ft_putchar_fd('\n', 2);
 	(*data)->inputs_tokens = tokenize_redir(str, (*data), '<');
 	find_heredocs_num((*data));
 	handle_heredoc((*data));
 	(*data)->out_rdr_num = find_rdr_num(str, '>', (*data));
 	(*data)->outputs_redirections = hold_rdr_names(str, '>', (*data));
-	// ft_putchar_fd('{', 2);
-	// ft_putstr_fd((*data)->outputs_redirections[0][0], 2);
-	// ft_putchar_fd('}', 2);
-	// ft_putchar_fd('\n', 2);
 	(*data)->outputs_tokens = tokenize_redir(str, (*data), '>');
 	str = conv_redir2spcs(str);
-	// ft_putchar_fd('{', 2);
-	// ft_putstr_fd(str, 2);
-	// ft_putchar_fd('}', 2);
-	// ft_putchar_fd('\n', 2);
 	str = delete_excess_spcs(str);
 	(*data)->cmds = split_cmds(str);
 	return (FALSE);

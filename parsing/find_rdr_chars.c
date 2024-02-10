@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/10 17:54:41 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:45:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	check_quout(t_var *var, char *str)
 		}
 		var->qchr = '\0';
 		var->qutrg = FALSE;
+		var->i++;
 	}
 }
 

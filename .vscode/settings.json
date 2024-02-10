@@ -2,6 +2,7 @@
 	"files.associations": {
 		"libft.h": "c",
 		"errno.h": "c",
-		"exec.h": "c"
+		"exec.h": "c",
+		"sstream": "c"
 	}
 }
