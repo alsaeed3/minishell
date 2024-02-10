@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 19:27:13 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 11:57:36 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	handle_single(char **inputs, t_parse *data, int x)
 {
 	int	oldfd[2];
 	int	ret;
-
+	
 	expand_dolar_sign(inputs, data);
 	
 	ret = 0;

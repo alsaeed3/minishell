@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 19:28:10 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 11:57:47 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static char	*get_file_name(t_parse *data, int x)
 
 int	redirect_from(t_parse *data, int x)
 {
+	
 	int		fd;
 	char	*filename;
 

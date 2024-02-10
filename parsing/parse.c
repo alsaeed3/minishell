@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/09 19:38:03 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 13:21:37 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ t_bool	check_errors(char *str)
 {
 	if (check_quotes(str) || check_pipe_red_2(str) || check_pipe_redir(str))
 	{
-		
 		ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-		
 		free_set_null(str);
 		return (TRUE);
 	}

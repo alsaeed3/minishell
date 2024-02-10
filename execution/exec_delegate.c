@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 11:13:48 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 13:10:58 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,97 +35,7 @@ void	exec_delegator(t_parse *parser)
 	}
 	parser->exit_status = ret;
 }
-char *ft_strreplace(char *orig, char *rep, char *with) {
-	char *result; // the return string
-	char *ins;    // the next insert point
-	char *tmp;    // varies
-	int len_rep;  // length of rep (the string to remove)
-	int len_with; // length of with (the string to replace rep with)
-	int len_front; // distance between rep and end of last rep
-	int count;    // number of replacements
 
-	// sanity checks and initialization
-	if (!orig || !rep)
-		return NULL;
-	len_rep = strlen(rep);
-	if (len_rep == 0)
-		return NULL; // empty rep causes infinite loop during count
-	if (!with)
-		with = "";
-	len_with = strlen(with);
-	ins = orig;
-	for (count = 0; (tmp = strstr(ins, rep)); ++count) {
-		ins = tmp + len_rep;
-	}
-	result = malloc(strlen(orig) + (len_with - len_rep) * count + 1);
-	tmp = result;
-	if (!result)
-		return NULL;
-	while (count--) {
-		ins = strstr(orig, rep);
-		len_front = ins - orig;
-		tmp = strncpy(tmp, orig, len_front) + len_front;
-		tmp = strcpy(tmp, with) + len_with;
-		orig += len_front + len_rep; // move to next "end of rep"
-	}
-	strcpy(tmp, orig);
-	return result;
-}
-
-void expand_dolar_sign(char **inputs, t_parse *data)
-{
-	int	i;
-	int	j;
-	char	*tmp;
-
-	i = 0;
-	while (inputs[i])
-	{
-		j = 0;
-		while (inputs[i][j])
-		{
-			if (inputs[i][j] == '$')
-			{
-				if (inputs[i][j + 1] == '?')
-				{
-					tmp = ft_itoa(data->exit_status);
-					inputs[i] = ft_strreplace(inputs[i], "$?", tmp);
-				}
-				else if (inputs[i][j + 1] == '0')
-					inputs[i] = ft_strreplace(inputs[i], "$0", "minishell");
-				else if (ft_isalpha(inputs[i][j + 1]) || ft_isdigit(inputs[i][j + 1] || inputs[i][j + 1] == '_' \
-					|| inputs[i][j + 1] == '*'))
-					break;
-				j++;
-				free_set_null(tmp);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-int	handle_single_pipe(char **inputs, t_parse *data, int x)
-{
-	int	oldfd[2];
-	int	ret;
-
-	// expand_dolar_sign(inputs, data);
-	ret = 0;
-	oldfd[0] = dup(0);
-	oldfd[1] = dup(1);
-	if (data->in_rdr_num[x] > 0)
-		if (redirect_from(data, x))
-			return (1);
-	if (data->out_rdr_num[x] > 0)
-		redirect_to(data, x);
-	ret = choose_action(inputs, data, x);
-	dup2(oldfd[0], 0);
-	dup2(oldfd[1], 1);
-	close(oldfd[0]);
-	close(oldfd[1]);
-	return (ret);
-}
 
 int	choose_action(char **cmd, t_parse *data, int x)
 {

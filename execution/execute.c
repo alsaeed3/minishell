@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 16:30:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 13:07:47 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	handle_exec_pipe(char **inputs, t_parse *data, int x)
 int	execute(char **inputs, t_parse *data)
 {
 	int			index;
-
 	index = var_index("PATH=", data);
 	if (ft_strchr(inputs[0], '/') && (access(inputs[0], X_OK) == 0))
 	{
@@ -92,10 +91,18 @@ int	execute_2(char **inputs, t_parse *data)
 	i = 0;
 	index = var_index("PATH=", data);
 	paths = gen_paths(index, data, inputs[0]);
+	// for (int j = 0; inputs[j]; j++)
+	// {
+	// 	printf("inputs[%d] = {%s}\n", j, inputs[j]);
+	// 	for(int k = 0; inputs[j][k]; k++)
+	// 		printf("inputs[%d][%d] = {%d}\n", j, k, (int)inputs[j][k]);
+	// 	printf("--------------------------------\n");
+	// }
+
 	while (paths[i])
 	{
 		if (access(paths[i], X_OK) == 0
-			&& execve(paths[i], inputs, data->env) != -1)
+			&& execve(paths[i], &inputs[0], data->env) != -1)
 			return (0);
 		i++;
 	}
