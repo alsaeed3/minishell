@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:28:28 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/01/30 22:01:16 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/10 20:36:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ t_env	*get_envs_lst(char **original_envs)
 	int		i;
 
 	i = 0;
+	if (original_envs == NULL)
+		return (NULL);
 	envs = NULL;
 	while (original_envs[i])
 	{

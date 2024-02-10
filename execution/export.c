@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 17:22:55 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:45:06 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	var_index(char *name, t_parse *data)
 	int		x;
 
 	x = 0;
+	if (!data->env)
+		return (-1);
 	while (data->env[x])
 	{
 		y = 0;
@@ -37,6 +39,8 @@ void	replace_var(char *new_var, t_parse *data, int index)
 {
 	char	*old_var;
 
+	if (index < 0)
+		return ;
 	if (ft_strchr(new_var, '+'))
 	{
 		if (ft_strchr(data->env[index], '='))
