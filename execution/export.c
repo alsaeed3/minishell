@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 20:45:06 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 15:54:22 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,6 @@ void	export_alone(t_parse *data)
 	free_env(temp_env);
 }
 
-// static char	*expand_dollar(char *str)
-// {
-// 	char	*ret;
-
-// 	while (e)
-// }
-
 int	handle_export(char **inputs, t_parse *data)
 {
 	int	i;
@@ -128,14 +121,6 @@ int	handle_export(char **inputs, t_parse *data)
 		export_alone(data);
 	while (inputs[i])
 	{
-		// ft_putendl_fd(inputs[i], 1);
-		// if(ft_strcmp(inputs[i], "a=$?") == 0)
-		// {
-		// 	free_set_null(inputs[i]);
-		// 	inputs[i] = ft_strjoin("a=", ft_itoa(data->exit_status));
-		// }
-		// ft_putendl_fd(inputs[i], 1);
-
 		index = var_index(inputs[i], data);
 		if (index >= 0 && check_export(inputs[i]))
 			replace_var(inputs[i], data, index);
