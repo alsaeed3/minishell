@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar2env.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 20:58:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 int	find_env_size(char *str, int i)
 {

@@ -3,41 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   exec_delegate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 22:27:23 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 14:32:00 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void	exec_delegator(t_parse *parser)
+void	exec_delegator(t_parse *data)
 {
 	int	ret;
 
 	ret = 0;
-	if (parser->parts_num == 1)
+	if (data->parts_num == 1)
 	{
-		parser->h_index = 0;
-		ret = handle_single(parser->cmds[0], parser, 0, NULL);
+		data->h_index = 0;
+		ret = handle_single(data->cmds[0], data, 0);
 	}
 	else
 	{
-		parser->h_index = -1;
-		ret = handle_pipe(parser);
+		data->h_index = -1;
+		ret = handle_pipe(data);
 	}
 	g_signal = 1;
-	while (parser->heredocs_num)
+	while (data->heredocs_num)
 	{
-		unlink(parser->heredoc_tmp_files[parser->heredocs_num - 1]);
-		parser->heredocs_num--;
+		unlink(data->heredoc_tmp_files[data->heredocs_num - 1]);
+		data->heredocs_num--;
 	}
-	parser->exit_status = ret;
+	data->exit_status = ret;
 }
 
 
-int	choose_action(char **cmd, t_parse *data, int x, int fd[2])
+int	handle_single(char **inputs, t_parse *data, int x)
+{
+	int	ret;
+
+	expand_dolar_sign(inputs, data);
+
+	ret = 0;
+	if ((data->fds->oldfd[0] = dup(0)) == -1)
+		ft_putendl_fd("dup failed", 2);
+	if ((data->fds->oldfd[1] = dup(1)) == -1)
+		ft_putendl_fd("dup failed", 2);
+	if (data->in_rdr_num[x] > 0)
+		if (redirect_from(data, x))
+			return (1);
+	if (data->out_rdr_num[x] > 0)
+	{
+		ret = redirect_to(data, x);
+		if (ret == 127)
+			return (127);
+		else if (ret == 1)
+			return (0);
+	}
+	ret = choose_action(inputs, data, x);
+	if (dup2(data->fds->oldfd[0], 0) == -1)
+		ft_putendl_fd("dup2 failed", 2);
+	close(data->fds->oldfd[0]);
+	if (dup2(data->fds->oldfd[1], 1) == -1)
+		ft_putendl_fd("dup2 failed", 2);
+	close(data->fds->oldfd[1]);
+	close_fds(data);
+	return (ret);
+}
+
+int	choose_action(char **cmd, t_parse *data, int x)
 {
 	int	ret;
 
@@ -57,6 +90,6 @@ int	choose_action(char **cmd, t_parse *data, int x, int fd[2])
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		handle_unset(cmd, data);
 	else
-		ret = handle_exec(cmd, data, fd);
+		ret = handle_exec(cmd, data);
 	return (ret);
 }

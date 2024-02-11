@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 21:02:53 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 14:30:14 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int	redirect_from(t_parse *data, int x)
 		ft_error(strerror(ENOENT));
 		return (1);
 	}
-	dup2(fd, 0);
+	if(!data->cmds[x][0])
+		return (1);
+	if (dup2(fd, 0) == -1)
+		ft_putendl_fd("dup2 failed", 2);
 	close(fd);
 	if (data->fd_in != 0)
 		close(data->fd_in);
@@ -73,13 +76,13 @@ int	redirect_to(t_parse *data, int x)
 		else
 			fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 		if (fd < 0)
-		{
-			ft_putendl_fd("Error: wrong permissions", 2);
-			return (127) ;
-		}
+			return (ft_putendl_fd("Error: wrong permissions", 2), 127);
 		i++;
 	}
-	dup2(fd, 1);
+	if(!data->cmds[x][0])
+		return (1);
+	if (dup2(fd, 1) == -1)
+		ft_putendl_fd("dup2 failed", 2);
 	close(fd);
 	if (data->fd_out != 1)
 		close(data->fd_out);

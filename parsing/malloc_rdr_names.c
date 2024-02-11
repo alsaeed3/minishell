@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_rdr_names.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:45:27 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 21:06:25 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 //  char ***inputs needs to be changes to the structure, 
 // then use the structre counterpart.

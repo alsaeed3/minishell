@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_envs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:28:28 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/10 20:36:48 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 static char	*get_env_key(char *env)
 {

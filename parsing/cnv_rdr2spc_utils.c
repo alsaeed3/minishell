@@ -6,11 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/10 18:22:54 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 13:58:06 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 void	check_rdrc(t_var *var, char *str)
 {
@@ -103,12 +103,14 @@ t_bool	continue_conv(t_var *var, char *str)
 			var->nordr[var->j++] = str[var->i];
 		else
 			var->nordr[var->j++] = ' ';
+		var->qchr = str[var->i];
 		var->qutrg = TRUE;
 		return (TRUE);
 	}
 	else if (str[var->i] == var->qchr && var->qutrg)
 	{
 		var->nordr[var->j++] = str[var->i];
+		var->qchr = '\0';
 		var->qutrg = FALSE;
 		return (TRUE);
 	}

@@ -1,18 +1,1 @@
- x
-Makefile
-cc1
-execution
-inc
-leaks.sh
-libft
-main.c
-minishell
-minishell.dSYM
-out
-parsing
-readline.supp
-t
-v
-x
-x 
-y
+11111111

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 20:52:21 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_bool	data_init(t_parse **data, char **env)
 	(*data)->fd_in = 0;
 	(*data)->fd_out = 1;
 	(*data)->h_index = -1;
+	(*data)->fds = ft_calloc(1, sizeof(t_fd));
 	get_shlvl(*data);
 	return (FALSE);
 }
@@ -68,19 +69,19 @@ t_bool	data_reset(t_parse **data)
 	return (FALSE);
 }
 
-void	set_up_prompt(t_parse **parser, char *cmd_line)
+void	set_up_prompt(t_parse **data, char *cmd_line)
 {
 	if (g_signal == 99)
-		(*parser)->exit_status = 1;
+		(*data)->exit_status = 1;
 	g_signal = 1;
 	if (cmd_line == NULL)
 	{
 		ft_putendl_fd("exit", 2);
 		// rl_clear_history();
-		free_util_1(parser);
+		free_util_1(data);
 		exit(0);
 	}
 	add_history(cmd_line);
 	if (g_signal == 99)
-		(*parser)->exit_status = 1;
+		(*data)->exit_status = 1;
 }

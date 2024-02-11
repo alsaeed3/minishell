@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 22:26:19 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 12:13:15 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-# include "./parser.h"
+# include "./data.h"
 # define FORKED_CHILD 0
 
 typedef struct s_pipe
@@ -25,7 +25,9 @@ typedef struct s_pipe
 	int	ret;
 }	t_pipe;
 
-void		exec_delegator(t_parse *parser);
+
+
+void		exec_delegator(t_parse *data);
 void		handle_cd(char **args, t_parse *data);
 int			var_index(char *name, t_parse *data);
 void		replace_var(char *new_var, t_parse *data, int index);
@@ -57,31 +59,30 @@ char		**gen_paths(int index, t_parse *data, char *input);
 int			check_exec_path(char **inputs, t_parse *data);
 int			check_exec(char **inputs, t_parse *data);
 
-int			handle_pipe(t_parse *parser);
-int			handle_single(char **inputs, t_parse *data, int x, int fds[2]);
+int			handle_pipe(t_parse *data);
+int			handle_single(char **inputs, t_parse *data, int x);
 
 void		close_fds(t_parse *data);
 
-int			choose_action(char **cmd, t_parse *data, int x, int fd[2]);
-int			handle_exec(char **inputs, t_parse *data, int fds[2]);
+int			choose_action(char **cmd, t_parse *data, int x);
+int			handle_exec(char **inputs, t_parse *data);
 int			execute_2(char **inputs, t_parse *data);
 int			execute(char **inputs, t_parse *data);
 
 void		free_exit(t_parse *data, int status);
 
-void		set_signals(t_parse **parser);
+void		set_signals(t_parse **data);
 void		sig_switcher(int sig);
 
 void		ft_error(char *str);
 
-void		handle_exec_pipe(char **inputs, t_parse *data, int x);
-
 void		init_t_pipe(t_pipe *pipe);
-void		free_close_fd(t_parse *data, int oldfd[2], int mode, int status);
+void		free_close_fd(t_parse *data, int mode, int status);
 void		print_message(char *cmd, char *message);
 void		dup2_close(int oldfd[2]);
 
 void 	expand_dolar_sign(char **inputs, t_parse *data);
+int	handle_single_pipe(char **inputs, t_parse *data, int x);
 
 
 #endif

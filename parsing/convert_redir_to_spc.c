@@ -6,11 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/10 18:23:03 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 13:38:28 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 void	check_quota(t_var *var, char *str)
 {
@@ -41,11 +41,13 @@ t_bool	continue_count(t_var *var, char *str)
 	{
 		var->j++;
 		var->qutrg = TRUE;
+		var->qchr = str[var->i];
 		return (TRUE);
 	}
 	else if (str[var->i] == var->qchr && var->qutrg)
 	{
 		var->j++;
+		var->qchr = '\0';
 		var->qutrg = FALSE;
 		return (TRUE);
 	}

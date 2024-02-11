@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:16:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/07 16:17:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
-void	free_util_1(t_parse **parser)
+void	free_util_1(t_parse **data)
 {
-	free_set_null((*parser)->pwd);
-	ft_free_array((*parser)->env);
-	free_set_null((*parser));
+	free_set_null((*data)->pwd);
+	ft_free_array((*data)->env);
+	free_set_null((*data));
 }
 
 void	ft_free_lst(t_env **stack)
@@ -63,7 +63,7 @@ void	ft_free_intarr(int **int_arr, int parts_num)
 	free_set_null(int_arr);
 }
 
-void	free_parser(t_parse **parse)
+void	free_data(t_parse **parse)
 {
 	if ((*parse)->inputs_redirections)
 		free_char_triple_pointer((*parse)->inputs_redirections);

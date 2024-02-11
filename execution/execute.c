@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/10 22:35:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 14:23:13 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-int	handle_exec(char **inputs, t_parse *data, int fds[2])
+int	handle_exec(char **inputs, t_parse *data)
 {
 	int		ret;
 	pid_t	pid;
@@ -24,50 +24,20 @@ int	handle_exec(char **inputs, t_parse *data, int fds[2])
 		return (127);
 	}
 	g_signal = 3;
-	pid = fork();
+	pid = fork(); 
 	if (pid == 0)
 	{
-		if(fds)
-		{
-			close(fds[0]);
-			close(fds[1]);
-		}
 		if (execute(inputs, data) != 0)
 			exit(errno);
-		free_close_fd(data, NULL, 0, 0);
+		free_close_fd(data, 0, 0);
 	}
 	else if (pid < 0)
-		free_close_fd(data, fds, 1, errno);
+		free_close_fd(data, 1, errno);
 	else
 		waitpid(pid, &ret, 0);
 	if (WIFEXITED(ret))
 		ret = WEXITSTATUS(ret);
 	return (ret);
-}
-
-void	handle_exec_pipe(char **inputs, t_parse *data, int x)
-{
-	int	oldfd[2];
-
-	oldfd[0] = dup(0);
-	oldfd[1] = dup(1);
-	if (data->in_rdr_num[x] > 0)
-		if (redirect_from(data, x))
-			return ;
-	if (data->out_rdr_num[x] > 0)
-		redirect_to(data, x);
-	if (!check_exec(inputs, data))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(inputs[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		// rl_clear_history();
-		free_close_fd(data, oldfd, 1, 127);
-	}
-	g_signal = 3;
-	if (execute(inputs, data) != 0)
-		free_close_fd(data, oldfd, 1, errno);
-	free_close_fd(data, oldfd, 1, 0);
 }
 
 int	execute(char **inputs, t_parse *data)
@@ -96,14 +66,6 @@ int	execute_2(char **inputs, t_parse *data)
 	i = 0;
 	index = var_index("PATH=", data);
 	paths = gen_paths(index, data, inputs[0]);
-	// for (int j = 0; inputs[j]; j++)
-	// {
-	// 	printf("inputs[%d] = {%s}\n", j, inputs[j]);
-	// 	for(int k = 0; inputs[j][k]; k++)
-	// 		printf("inputs[%d][%d] = {%d}\n", j, k, (int)inputs[j][k]);
-	// 	printf("--------------------------------\n");
-	// }
-
 	while (paths[i])
 	{
 		if (access(paths[i], X_OK) == 0
