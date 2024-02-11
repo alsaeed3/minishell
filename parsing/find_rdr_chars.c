@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:59:04 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	check_quout(t_var *var, char *str)
 	}
 	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
-		if ((str[var->i + 1] == ' ' || str[var->i + 1] == '<' || str[var->i + 1] == '>' || str[var->i + 1] == '|' || str[var->i + 1] == '\0') && var->rdrtrg)
+		if ((str[var->i + 1] == ' ' || str[var->i + 1] == '<' \
+		|| str[var->i + 1] == '>' || str[var->i + 1] == '|' \
+		|| str[var->i + 1] == '\0') && var->rdrtrg)
 		{
 			var->rcn[var->j][var->k] = ++var->cnum;
 			var->rdrtrg = FALSE;

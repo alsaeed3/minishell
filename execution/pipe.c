@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 13:04:17 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:28:43 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ void	init_t_pipe(t_pipe *pipes)
 	pipes->ret = 0;
 }
 
-
 static void	piping(t_parse *data, t_pipe *pipes)
 {
-	
 	set_h_index(data, pipes->i);
 	if (pipes->i < data->parts_num - 1)
 		pipe(data->fds->pfd);
@@ -49,9 +47,10 @@ static void	piping(t_parse *data, t_pipe *pipes)
 	else if (pipes->pid[pipes->i] == 0)
 	{
 		dup2(pipes->fd_in, 0);
-		if (pipes->i < data->parts_num - 1)
+		// if (pipes->i < data->parts_num - 1)
 			close(data->fds->pfd[0]);
 		dup2(data->fds->pfd[1], 1);
+		close(data->fds->pfd[1]);
 		pipes->ret = handle_single_pipe(data->cmds[pipes->i], data, pipes->i);
 		free_close_fd(data, 1, pipes->ret);
 	}
@@ -59,7 +58,6 @@ static void	piping(t_parse *data, t_pipe *pipes)
 	if (pipes->fd_in)
 		close(pipes->fd_in);
 	pipes->fd_in = data->fds->pfd[0];
-	
 }
 
 int	handle_pipe(t_parse *data)

@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:58:26 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static void	hold_rdr_1(t_var *var, char *str)
 	}
 	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
-		if ((str[var->i + 1] == ' ' || str[var->i + 1] == '<' || str[var->i + 1] == '>' \
-		|| str[var->i + 1] == '|' || str[var->i + 1] == '\0') && var->rdrtrg)
+		if ((str[var->i + 1] == ' ' || str[var->i + 1] == '<' \
+		|| str[var->i + 1] == '>' || str[var->i + 1] == '|' \
+		|| str[var->i + 1] == '\0') && var->rdrtrg)
 		{
 			var->rnms[var->j][var->k][++var->l] = '\0';
 			var->rdrtrg = FALSE;

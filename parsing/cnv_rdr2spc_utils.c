@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 13:58:06 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 16:04:09 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,7 @@ void	check_quotation(t_var *var, char *str)
 	{
 		var->qchr = '\0';
 		var->qutrg = FALSE;
-		if (var->rdrtrg)
-		{
-			if (str[var->i + 1] == ' ' || str[var->i + 1] == '<' || str[var->i + 1] == '>' || str[var->i + 1] == '|' || str[var->i + 1] == '\0')
-			{
-				var->i++;
-				var->rdrtrg = FALSE;
-			}
-			var->nordr[var->j++] = ' ';
-		}
-		else
-			var->nordr[var->j++] = str[var->i++];
+		if_else_conv(var, str);
 	}
 }
 

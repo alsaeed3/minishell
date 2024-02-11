@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:13:46 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	get_shlvl(t_parse *data)
 {
-	int	shlvl;
-	int	index;
+	int		shlvl;
+	int		index;
 	char	*tmp;
-	char 	*new;
+	char	*new;
 
 	index = 0;
 	shlvl = 0;
@@ -37,7 +37,7 @@ t_bool	data_init(t_parse **data, char **env)
 {
 	if (!(*data))
 		return (TRUE);
-	if(env)
+	if (env)
 		(*data)->env = dup_env(env);
 	(*data)->pwd = getcwd(NULL, 0);
 	(*data)->envs_lst = NULL;

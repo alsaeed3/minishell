@@ -153,8 +153,6 @@ extern int	g_signal;
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr);
 void	quote_context(char *str, t_var *var);
-void	jump_over_quote(char *cmd_line, int *i, int len);
-t_bool	prepare_parse(char *str);
 t_env	*add_env(t_env *head, char *env);
 t_env	*get_envs_lst(char **original_envs);
 t_env	*ft_env_last(t_env *head);
@@ -221,7 +219,7 @@ void	check_quota(t_var *var, char *str);
 void	free_set_null(void *ptr);
 void	set_up_prompt(t_parse **data, char *cmd_line);
 void	free_util_1(t_parse **data);
-int		init_main(t_parse *data, char **dup, char **env);
 t_bool	check_errors(char *str);
+void	if_else_conv(t_var *var, char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 14:23:13 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:05:55 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,14 @@ int	handle_exec(char **inputs, t_parse *data)
 		return (127);
 	}
 	g_signal = 3;
-	pid = fork(); 
+	pid = fork();
 	if (pid == 0)
 	{
+		// if(data->fds)
+		// {
+		// 	close(data->fds->oldfd[0]);
+		// 	close(data->fds->oldfd[1]);
+		// }
 		if (execute(inputs, data) != 0)
 			exit(errno);
 		free_close_fd(data, 0, 0);
@@ -42,7 +47,8 @@ int	handle_exec(char **inputs, t_parse *data)
 
 int	execute(char **inputs, t_parse *data)
 {
-	int			index;
+	int	index;
+
 	index = var_index("PATH=", data);
 	if (ft_strchr(inputs[0], '/') && (access(inputs[0], X_OK) == 0))
 	{

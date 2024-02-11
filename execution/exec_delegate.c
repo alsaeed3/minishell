@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 14:32:00 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:35:54 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,15 @@ void	exec_delegator(t_parse *data)
 	data->exit_status = ret;
 }
 
-
 int	handle_single(char **inputs, t_parse *data, int x)
 {
 	int	ret;
 
 	expand_dolar_sign(inputs, data);
-
 	ret = 0;
-	if ((data->fds->oldfd[0] = dup(0)) == -1)
-		ft_putendl_fd("dup failed", 2);
-	if ((data->fds->oldfd[1] = dup(1)) == -1)
-		ft_putendl_fd("dup failed", 2);
+	
+	data->fds->oldfd[0] = dup(0);
+	data->fds->oldfd[1] = dup(1);
 	if (data->in_rdr_num[x] > 0)
 		if (redirect_from(data, x))
 			return (1);
@@ -60,13 +57,13 @@ int	handle_single(char **inputs, t_parse *data, int x)
 			return (0);
 	}
 	ret = choose_action(inputs, data, x);
-	if (dup2(data->fds->oldfd[0], 0) == -1)
-		ft_putendl_fd("dup2 failed", 2);
-	close(data->fds->oldfd[0]);
-	if (dup2(data->fds->oldfd[1], 1) == -1)
-		ft_putendl_fd("dup2 failed", 2);
-	close(data->fds->oldfd[1]);
-	close_fds(data);
+	dup2(data->fds->oldfd[0], 0);
+	if (data->fds->oldfd[0] != 0)
+		close(data->fds->oldfd[0]);
+	dup2(data->fds->oldfd[1], 1);
+	if (data->fds->oldfd[1] != 1)
+		close(data->fds->oldfd[1]);
+	// close_fds(data);
 	return (ret);
 }
 

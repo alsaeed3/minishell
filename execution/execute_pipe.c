@@ -6,33 +6,25 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 13:28:07 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:37:53 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../inc/exec.h"
-
-int	execute_2_pipe(char **inputs, t_parse *data);
-int	choose_action_pipe(char **cmd, t_parse *data, int x);
-int	handle_exec_pipe(char **inputs, t_parse *data);
-int	execute_pipe(char **inputs, t_parse *data);
-int	execute_2_pipe(char **inputs, t_parse *data);
 
 int	handle_single_pipe(char **inputs, t_parse *data, int x)
 {
 	int	ret;
 
 	expand_dolar_sign(inputs, data);
-
 	ret = 0;
-	data->fds->oldfd[0] = dup(0);
-	data->fds->oldfd[1] = dup(1);
+	// data->fds->oldfd[0] = dup(0);
+	// data->fds->oldfd[1] = dup(1);
 	if (data->in_rdr_num[x] > 0)
 		if (redirect_from(data, x))
 			return (1);
 	if (data->out_rdr_num[x] > 0)
-    {
+	{
 		ret = redirect_to(data, x);
 		if (ret == 127)
 			return (127);
@@ -40,10 +32,10 @@ int	handle_single_pipe(char **inputs, t_parse *data, int x)
 			return (0);
 	}
 	ret = choose_action_pipe(inputs, data, x);
-	dup2(data->fds->oldfd[0], 0);
-	close(data->fds->oldfd[0]);
-	dup2(data->fds->oldfd[1], 1);
-	close(data->fds->oldfd[1]);
+	// dup2(data->fds->oldfd[0], 0);
+	// close(data->fds->oldfd[0]);
+	// dup2(data->fds->oldfd[1], 1);
+	// close(data->fds->oldfd[1]);
 	close_fds(data);
 	return (ret);
 }
@@ -80,27 +72,20 @@ int	handle_exec_pipe(char **inputs, t_parse *data)
 	if (!check_exec(inputs, data))
 	{
 		print_message(inputs[0], ": command not found");
+		close_new_fd(data);
 		return (127);
 	}
 	g_signal = 3;
-	if(data->fds)
-    {
-        close(data->fds->oldfd[0]);
-        close(data->fds->oldfd[1]);
-        close(data->fds->pfd[0]);
-        close(data->fds->pfd[1]);
-    }
-    
-    if (execute(inputs, data) != 0)
-        exit(errno);
-    free_close_fd(data, 0, 0);
-
+	close_new_fd(data);
+	if (execute(inputs, data) != 0)
+		free_close_fd(data, 0, errno);
 	return (ret);
 }
 
 int	execute_pipe(char **inputs, t_parse *data)
 {
 	int			index;
+
 	index = var_index("PATH=", data);
 	if (ft_strchr(inputs[0], '/') && (access(inputs[0], X_OK) == 0))
 	{

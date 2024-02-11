@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 16:05:04 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,21 @@ char	*conv_tabs2spcs(char *str)
 	var.ret[var.j] = '\0';
 	free_set_null(str);
 	return (var.ret);
+}
+
+void	if_else_conv(t_var *var, char *str)
+{
+	if (var->rdrtrg)
+	{
+		if (str[var->i + 1] == ' ' || str[var->i + 1] == '<' \
+		|| str[var->i + 1] == '>' || str[var->i + 1] == '|' \
+		|| str[var->i + 1] == '\0')
+		{
+			var->i++;
+			var->rdrtrg = FALSE;
+		}
+		var->nordr[var->j++] = ' ';
+	}
+	else
+		var->nordr[var->j++] = str[var->i++];
 }

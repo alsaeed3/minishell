@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 12:13:15 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:07:53 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ typedef struct s_pipe
 	int	fd_in;
 	int	ret;
 }	t_pipe;
-
-
 
 void		exec_delegator(t_parse *data);
 void		handle_cd(char **args, t_parse *data);
@@ -79,10 +77,16 @@ void		ft_error(char *str);
 void		init_t_pipe(t_pipe *pipe);
 void		free_close_fd(t_parse *data, int mode, int status);
 void		print_message(char *cmd, char *message);
-void		dup2_close(int oldfd[2]);
 
-void 	expand_dolar_sign(char **inputs, t_parse *data);
-int	handle_single_pipe(char **inputs, t_parse *data, int x);
+void		expand_dolar_sign(char **inputs, t_parse *data);
+int			handle_single_pipe(char **inputs, t_parse *data, int x);
 
+int			execute_2_pipe(char **inputs, t_parse *data);
+int			choose_action_pipe(char **cmd, t_parse *data, int x);
+int			handle_exec_pipe(char **inputs, t_parse *data);
+int			execute_pipe(char **inputs, t_parse *data);
+int			execute_2_pipe(char **inputs, t_parse *data);
+char		*ft_strreplace(char *orig, char *rep, char *with);
+void		close_new_fd(t_parse *data);
 
 #endif

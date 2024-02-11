@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 15:51:22 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:30:02 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*get_file_name(t_parse *data, int x)
 		else if (data->inputs_tokens[x][i] == 1 && data->heredocs_num \
 		&& data->h_index < data->heredocs_num)
 			filename = data->heredoc_tmp_files[data->h_index];
-		if(access(filename, F_OK) != 0)
+		if (access(filename, F_OK) != 0)
 		{
 			ft_error(strerror(ENOENT));
 			return (NULL);
@@ -37,7 +37,6 @@ static char	*get_file_name(t_parse *data, int x)
 
 int	redirect_from(t_parse *data, int x)
 {
-	
 	int		fd;
 	char	*filename;
 
@@ -53,17 +52,16 @@ int	redirect_from(t_parse *data, int x)
 		ft_error(strerror(ENOENT));
 		return (2);
 	}
-	if(!data->cmds[x][0])
+	if (!data->cmds[x][0])
 		return (1);
 	if (dup2(fd, 0) == -1)
 		ft_putendl_fd("dup2 failed", 2);
 	close(fd);
-	if (data->fd_in != 0)
-		close(data->fd_in);
-	data->fd_in = fd;
+	// if (data->fd_in != 0)
+	// 	close(data->fd_in);
+	// data->fd_in = fd;
 	return (0);
-}
-
+	}
 int	redirect_to(t_parse *data, int x)
 {
 	int		fd;
@@ -82,13 +80,13 @@ int	redirect_to(t_parse *data, int x)
 			return (ft_putendl_fd("Error: wrong permissions", 2), 127);
 		i++;
 	}
-	if(!data->cmds[x][0])
+	if (!data->cmds[x][0])
 		return (1);
 	if (dup2(fd, 1) == -1)
 		ft_putendl_fd("dup2 failed", 2);
 	close(fd);
-	if (data->fd_out != 1)
-		close(data->fd_out);
-	data->fd_out = fd;
+	// if (data->fd_out != 1)
+	// 	close(data->fd_out);
+	// data->fd_out = fd;
 	return (0);
 }

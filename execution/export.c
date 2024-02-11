@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 15:54:22 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:54:50 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,21 @@ char	**export_env(char **old_env, char *export)
 	return (new_env);
 }
 
+static int ft_strcmp1(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	if (s1[i] > s2[i])
+		return (1);
+	else if (s1[i] < s2[i])
+		return (-1);
+	else
+		return (0);
+}
+
 void	export_alone(t_parse *data)
 {
 	int		i;
@@ -97,7 +112,7 @@ void	export_alone(t_parse *data)
 	while (temp_env[i + 1])
 	{
 		j = i + 1;
-		if (strcmp(temp_env[i], temp_env[j]) > 0)
+		if (ft_strcmp1(temp_env[i], temp_env[j]) > 0)
 		{
 			swap = temp_env[j];
 			temp_env[j] = temp_env[i];
