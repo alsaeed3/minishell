@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_envs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:28:28 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:43:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ static char	*get_env_key(char *env)
 	char	*key;
 	int		i;
 
+	if (!env)
+		return (NULL);
 	i = 0;
-	while (env[i] != '=')
+	while (env[i] && env[i] != '=')
 		i++;
 	key = ft_calloc(i + 1, sizeof(char));
 	i = 0;
-	while (env[i] != '=')
+	while (env[i] && env[i] != '=')
 	{
 		key[i] = env[i];
 		i++;
@@ -34,25 +36,27 @@ static char	*get_env_key(char *env)
 static char	*get_env_info(char *env)
 {
 	char	*info;
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (env[i] != '=')
+	if (!env)
+		return (NULL);
+	while (env[i] && env[i] != '=')
 		i++;
 	j = 0;
-	while (env[i] != '\0')
+	while (env[i] && env[i] != '\0')
 	{
 		j++;
 		i++;
 	}
 	info = ft_calloc(j + 1, sizeof(char));
 	i = 0;
-	while (env[i] != '=')
+	while (env[i] && env[i] != '=')
 		i++;
 	i++;
 	j = 0;
-	while (env[i] != '\0')
+	while (i < ft_strlen(env) && env[i] != '\0')
 		info[j++] = env[i++];
 	info[j] = '\0';
 	return (info);
@@ -62,7 +66,9 @@ t_env	*add_env(t_env *head, char *env)
 {
 	t_env	*last_env;
 	t_env	*new_env;
-
+	
+	if (!env)
+		return (head);
 	if (head == NULL)
 	{
 		new_env = (t_env *)ft_calloc(1, sizeof(t_env));
