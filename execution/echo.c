@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 18:00:27 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:35:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,54 +26,12 @@ static int	is_n_flag(char *str)
 	}
 	return (0);
 }
-static t_bool	check_dol_ques(char *str)
-{
-	int	i;
-	int len;
-
-	len = ft_strlen(str);
-	i = -1;
-	while (++i < len)
-	{
-		if (str[i] == '$')
-			return (TRUE);
-	} 
-	return (FALSE);
-}
-
-static void	print_dol_ques(char *str, t_parse *data)
-{
-	int	i;
-	int j;
-	int len;
-	char *ret;
-
-	len = ft_strlen(str);
-	i = -1;
-	j = 0;
-	while (++i < len)
-	{
-		if (str[i] == '$')
-		{
-			if (str[i + 1] == '?')
-			
-			else if (str[i + 1] == '0')
-				ft_putstr_fd("minishell", 1);
-			else if ((str[i + 1] >= 'a' && str[i + 1] <= 'z') \
-			|| (str[i + 1] >= 'A' && str[i + 1] <= 'Z'))
-				return ;
-			i++;
-			continue;
-		}
-		else
-			(str[i], 1);
-	}
-}
 
 void	handle_echo(t_parse *data, int x)
 {
 	int	i;
 	int	n_flag;
+
 	i = 1;
 	n_flag = 1;
 	while (data->cmds[x][i] && is_n_flag(data->cmds[x][i]))
@@ -83,8 +41,6 @@ void	handle_echo(t_parse *data, int x)
 	}
 	while (data->cmds[x][i])
 	{
-		// if (check_dol_ques(data->cmds[x][i]))
-		// 	print_dol_ques(data->cmds[x][i], data);
 		write(1, data->cmds[x][i], ft_strlen(data->cmds[x][i]));
 		if (data->cmds[x][i + 1])
 			write(1, " ", 1);

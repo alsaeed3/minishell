@@ -6,11 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/07 16:19:36 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/13 21:29:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 int	find_parts_num(char *str)
 {
@@ -27,6 +27,12 @@ int	find_parts_num(char *str)
 	i = -1;
 	while (++i < len)
 	{
+		if ((str[i] == '"' && str[i + 1] == '"') \
+		|| (str[i] == '\'' && str[i + 1] == '\''))
+		{
+			i++;
+			continue;
+		}
 		if ((str[i] == '"' || str[i] == '\'') && !quo_trigger)
 		{
 			quo_char = str[i];

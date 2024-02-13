@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:48:10 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 20:48:53 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/13 21:17:40 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 void	fcn_cont(t_cvr *cvr, char *str)
 {

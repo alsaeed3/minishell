@@ -6,17 +6,32 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:16:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/07 16:17:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/13 20:15:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
-void	free_util_1(t_parse **parser)
+void	free_util_1(t_parse **data)
 {
-	free_set_null((*parser)->pwd);
-	ft_free_array((*parser)->env);
-	free_set_null((*parser));
+	if ((*data)->fds->oldfd[0])
+	{
+		close((*data)->fds->oldfd[0]);
+		(*data)->fds->oldfd[0] = 0;
+	}
+	if ((*data)->fds->oldfd[1])
+	{
+		close((*data)->fds->oldfd[1]);
+		(*data)->fds->oldfd[1] = 0;
+	}
+	if ((*data)->heredoc_tmp_files && (*data)->heredocs_num)
+		ft_free_array((*data)->heredoc_tmp_files);
+	if ((*data)->heredoc_tmp_files)
+		free_set_null((*data)->heredoc_tmp_files);
+	free_set_null((*data)->pwd);
+	ft_free_array((*data)->env);
+	free_set_null((*data)->fds);
+	free_set_null((*data));
 }
 
 void	ft_free_lst(t_env **stack)
@@ -63,24 +78,24 @@ void	ft_free_intarr(int **int_arr, int parts_num)
 	free_set_null(int_arr);
 }
 
-void	free_parser(t_parse **parse)
+void	free_data(t_parse **data)
 {
-	if ((*parse)->inputs_redirections)
-		free_char_triple_pointer((*parse)->inputs_redirections);
-	if ((*parse)->outputs_redirections)
-		free_char_triple_pointer((*parse)->outputs_redirections);
-	if ((*parse)->cmds)
-		free_char_triple_pointer((*parse)->cmds);
-	if ((*parse)->heredoc_tmp_files && (*parse)->heredocs_num)
-		ft_free_array((*parse)->heredoc_tmp_files);
-	if ((*parse)->envs_lst)
-		ft_free_lst(&(*parse)->envs_lst);
-	if ((*parse)->inputs_tokens)
-		ft_free_intarr((*parse)->inputs_tokens, (*parse)->parts_num);
-	if ((*parse)->outputs_tokens)
-		ft_free_intarr((*parse)->outputs_tokens, (*parse)->parts_num);
-	if ((*parse)->in_rdr_num)
-		free_set_null((*parse)->in_rdr_num);
-	if ((*parse)->out_rdr_num)
-		free_set_null((*parse)->out_rdr_num);
+	if ((*data)->inputs_redirections)
+		free_char_triple_pointer((*data)->inputs_redirections);
+	if ((*data)->outputs_redirections)
+		free_char_triple_pointer((*data)->outputs_redirections);
+	if ((*data)->cmds)
+		free_char_triple_pointer((*data)->cmds);
+	// if ((*data)->heredoc_tmp_files && (*data)->heredocs_num)
+	// 	ft_free_array((*data)->heredoc_tmp_files);
+	if ((*data)->envs_lst)
+		ft_free_lst(&(*data)->envs_lst);
+	if ((*data)->inputs_tokens)
+		ft_free_intarr((*data)->inputs_tokens, (*data)->parts_num);
+	if ((*data)->outputs_tokens)
+		ft_free_intarr((*data)->outputs_tokens, (*data)->parts_num);
+	if ((*data)->in_rdr_num)
+		free_set_null((*data)->in_rdr_num);
+	if ((*data)->out_rdr_num)
+		free_set_null((*data)->out_rdr_num);
 }

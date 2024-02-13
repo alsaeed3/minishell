@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:20:59 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/07 16:46:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 17:05:54 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ int			ft_atoi(char *s, int *error);
 void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(char *s1);
 char		*ft_strdup_nonl(char *s1);
+char		*ft_strstr(char *haystack, char *needle);
+char		*ft_strncpy(char *dest, char *src, size_t n);
+char		*ft_strcpy(char *dest, char *src);
 
 /* Singly-linked list functions */
 typedef struct s_list

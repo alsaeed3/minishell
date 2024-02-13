@@ -3,83 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   exec_delegate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 17:56:42 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:25:31 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void	exec_delegator(t_parse *parser)
+void	exec_delegator(t_parse *data)
 {
 	int	ret;
+	int hrnum;
 
 	ret = 0;
-	if (parser->parts_num == 1)
+	hrnum = data->heredocs_num;
+	if (data->parts_num == 1)
 	{
-		parser->h_index = 0;
-		ret = handle_single(parser->cmds[0], parser, 0);
+		data->h_index = 0;
+		ret = handle_single(data->cmds[0], data, 0);
 	}
 	else
 	{
-		parser->h_index = -1;
-		ret = handle_pipe(parser);
+		data->h_index = -1;
+		ret = handle_pipe(data);
 	}
 	g_signal = 1;
-	while (parser->heredocs_num)
+	while (hrnum)
 	{
-		unlink(parser->heredoc_tmp_files[parser->heredocs_num - 1]);
-		parser->heredocs_num--;
+		if (access(data->heredoc_tmp_files[hrnum - 1], F_OK) == 0)
+			unlink(data->heredoc_tmp_files[hrnum - 1]);
+		hrnum--;
 	}
-	parser->exit_status = ret;
+	data->exit_status = ret;
 }
 
-
-void expand_dolar_sign(char **inputs, t_parse *data)
+int	handle_single(char **inputs, t_parse *data, int x)
 {
-	int	i;
-	int	j;
-	char	*tmp;
-
-	i = 0;
-	while (inputs[i])
-	{
-		j = 0;
-		while (inputs[i][j])
-		{
-			if (inputs[i][j] == '$')
-			{
-				inputs[i] = ft_strreplace(inputs[i], "$?", tmp);
-				free(tmp);
-			}
-			j++;
-		}
-		i++;
-	}
-	
-}
-
-int	handle_single_pipe(char **inputs, t_parse *data, int x)
-{
-	int	oldfd[2];
 	int	ret;
 
 	expand_dolar_sign(inputs, data);
 	ret = 0;
-	oldfd[0] = dup(0);
-	oldfd[1] = dup(1);
+	data->fds->oldfd[0] = dup(0);
+	data->fds->oldfd[1] = dup(1);
 	if (data->in_rdr_num[x] > 0)
 		if (redirect_from(data, x))
 			return (1);
 	if (data->out_rdr_num[x] > 0)
-		redirect_to(data, x);
+	{
+		ret = redirect_to(data, x);
+		if (ret == 127)
+			return (127);
+		else if (ret == 1)
+			return (0);
+	}
 	ret = choose_action(inputs, data, x);
-	dup2(oldfd[0], 0);
-	dup2(oldfd[1], 1);
-	close(oldfd[0]);
-	close(oldfd[1]);
+	dup2(data->fds->oldfd[0], 0);
+	if (data->fds->oldfd[0] != 0)
+	{
+		close(data->fds->oldfd[0]);
+		data->fds->oldfd[0] = 0;
+	}
+	dup2(data->fds->oldfd[1], 1);
+	if (data->fds->oldfd[1] != 1)
+	{
+		close(data->fds->oldfd[1]);
+		data->fds->oldfd[1] = 0;
+	}
+	// close_fds(data);
 	return (ret);
 }
 

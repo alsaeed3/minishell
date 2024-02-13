@@ -6,11 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/08 20:43:07 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:57:55 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 {
@@ -19,7 +19,10 @@ t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 		return (TRUE);
 	str = conv_tabs2spcs(str);
 	if (check_errors(str))
+	{
+		(*data)->exit_status = 258;
 		return (TRUE);
+	}
 	str = delete_excess_spcs(str);
 	(*data)->envs_lst = get_envs_lst((*data)->env);
 	str = expand_dollar_string(str, (*data)->envs_lst);

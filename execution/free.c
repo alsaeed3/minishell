@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 16:30:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:36:32 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 
 void	free_exit(t_parse *data, int status)
 {
-	free_parser(&data);
+	if(data->fds)
+	{
+		if (data->fds->oldfd[0])
+		{
+			close(data->fds->oldfd[0]);
+			data->fds->oldfd[0] = 0;
+		}
+		if (data->fds->oldfd[1])
+		{
+			close(data->fds->oldfd[1]);
+			data->fds->oldfd[1] = 0;
+		}
+		free (data->fds);
+	}
+	free_data(&data);
 	free_env(data->env);
 	free_set_null(data->pwd);
 	free_set_null(data);
@@ -23,17 +37,27 @@ void	free_exit(t_parse *data, int status)
 	exit(status);
 }
 
-void	free_close_fd(t_parse *data, int oldfd[2], int mode, int status)
+void	free_close_fd(t_parse *data, int mode, int status)
 {
-	free_parser(&data);
+	free_data(&data);
 	free_set_null(data->pwd);
 	ft_free_array(data->env);
-	free_set_null(data);
 	if (mode == 1)
 	{
-		close(oldfd[0]);
-		close(oldfd[1]);
+		if (data->fds)
+		{
+			if (data->fds->oldfd[0])
+				close(data->fds->oldfd[0]);
+			if (data->fds->oldfd[1])
+				close(data->fds->oldfd[1]);
+			if (data->fds->pfd[0])
+				close(data->fds->pfd[0]);
+			if (data->fds->pfd[1])
+				close(data->fds->pfd[1]);
+			free(data->fds);
+		}
 	}
+	free_set_null(data);
 	// rl_clear_history();
 	exit(status);
 }
@@ -45,10 +69,30 @@ void	print_message(char *cmd, char *message)
 	ft_putendl_fd(message, 2);
 }
 
-void	dup2_close(int oldfd[2])
+
+void	close_new_fd(t_parse *data)
 {
-	dup2(oldfd[0], 0);
-	dup2(oldfd[1], 1);
-	close(oldfd[0]);
-	close(oldfd[1]);
+	if (data->fds)
+	{
+		if (data->fds->oldfd[0])
+		{
+			close(data->fds->oldfd[0]);
+			data->fds->oldfd[0] = 0;
+		}
+		if (data->fds->oldfd[1])
+		{
+			close(data->fds->oldfd[1]);
+			data->fds->oldfd[1] = 0;
+		}
+		if (data->fds->pfd[0])
+		{
+			close(data->fds->pfd[0]);
+			data->fds->pfd[0] = 0;
+		}
+		if (data->fds->pfd[1])
+		{
+			close(data->fds->pfd[1]);
+			data->fds->pfd[1] = 0;
+		}
+	}
 }

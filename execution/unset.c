@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:23:49 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 14:48:35 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 13:36:42 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ void	handle_unset(char **inputs, t_parse *data)
 	int	index;
 
 	i = 1;
+	index = 0;
 	while (inputs[i])
 	{
 		if (check_export(inputs[i]))
 		{
 			index = var_index(inputs[i], data);
-			if (index > 0)
+			if (index >= 0)
 				data->env = unset_env(data->env, index);
 			i++;
 		}
