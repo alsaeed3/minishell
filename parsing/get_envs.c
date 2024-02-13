@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:28:28 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/12 17:43:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/13 13:56:00 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static char	*get_env_key(char *env)
 	while (env[i] && env[i] != '=')
 		i++;
 	key = ft_calloc(i + 1, sizeof(char));
+	if (!key)
+		return (NULL);
 	i = 0;
 	while (env[i] && env[i] != '=')
 	{
@@ -51,6 +53,8 @@ static char	*get_env_info(char *env)
 		i++;
 	}
 	info = ft_calloc(j + 1, sizeof(char));
+	if (!info)
+		return (NULL);
 	i = 0;
 	while (env[i] && env[i] != '=')
 		i++;
@@ -82,6 +86,8 @@ t_env	*add_env(t_env *head, char *env)
 	{
 		last_env = ft_env_last(head);
 		new_env = (t_env *)ft_calloc(1, sizeof(t_env));
+		if (!new_env)
+			return (head);
 		new_env->key = get_env_key(env);
 		new_env->info = get_env_info(env);
 		new_env->next = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_dlr_sgn2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:10:29 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 16:54:53 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 21:09:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,17 @@ void	inside_loop(char **input, char *c, t_parse *data)
 
 void	expand_dolar_sign(char **inputs, t_parse *data)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 	char	c;
 
-	i = 0;
-	while (inputs[i])
+	if (!inputs || !*inputs)
+		return ;
+	i = -1;
+	while (++i < (size_t)ft_array_size(inputs))
 	{
-		j = 0;
-		while (inputs[i][j])
+		j = -1;
+		while (++j < ft_strlen(inputs[i]))
 		{
 			if (inputs[i][j] == '$')
 			{
@@ -51,8 +53,6 @@ void	expand_dolar_sign(char **inputs, t_parse *data)
 				inside_loop(&inputs[i], &c, data);
 				j++;
 			}
-			j++;
 		}
-		i++;
 	}
 }

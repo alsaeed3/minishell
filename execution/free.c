@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 21:07:48 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:36:32 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,16 @@ void	free_exit(t_parse *data, int status)
 {
 	if(data->fds)
 	{
-		// close(data->fds->oldfd[0]);
-		// close(data->fds->oldfd[1]);
+		if (data->fds->oldfd[0])
+		{
+			close(data->fds->oldfd[0]);
+			data->fds->oldfd[0] = 0;
+		}
+		if (data->fds->oldfd[1])
+		{
+			close(data->fds->oldfd[1]);
+			data->fds->oldfd[1] = 0;
+		}
 		free (data->fds);
 	}
 	free_data(&data);
@@ -38,11 +46,15 @@ void	free_close_fd(t_parse *data, int mode, int status)
 	{
 		if (data->fds)
 		{
-			// close(data->fds->oldfd[0]);
-			// close(data->fds->oldfd[1]);
-			close(data->fds->pfd[0]);
-			close(data->fds->pfd[1]);
-			free(data->fds);	
+			if (data->fds->oldfd[0])
+				close(data->fds->oldfd[0]);
+			if (data->fds->oldfd[1])
+				close(data->fds->oldfd[1]);
+			if (data->fds->pfd[0])
+				close(data->fds->pfd[0]);
+			if (data->fds->pfd[1])
+				close(data->fds->pfd[1]);
+			free(data->fds);
 		}
 	}
 	free_set_null(data);
@@ -62,13 +74,25 @@ void	close_new_fd(t_parse *data)
 {
 	if (data->fds)
 	{
-		// if (data->fds->oldfd[0] != 0)
-		// 	close(data->fds->oldfd[0]);
-		// if (data->fds->oldfd[1] != 1)
-		// 	close(data->fds->oldfd[1]);
-		if (data->fds->pfd[0] != 0)
+		if (data->fds->oldfd[0])
+		{
+			close(data->fds->oldfd[0]);
+			data->fds->oldfd[0] = 0;
+		}
+		if (data->fds->oldfd[1])
+		{
+			close(data->fds->oldfd[1]);
+			data->fds->oldfd[1] = 0;
+		}
+		if (data->fds->pfd[0])
+		{
 			close(data->fds->pfd[0]);
-		if (data->fds->pfd[1] != 1)
+			data->fds->pfd[0] = 0;
+		}
+		if (data->fds->pfd[1])
+		{
 			close(data->fds->pfd[1]);
+			data->fds->pfd[1] = 0;
+		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:16:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 18:36:30 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:15:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 
 void	free_util_1(t_parse **data)
 {
+	if ((*data)->fds->oldfd[0])
+	{
+		close((*data)->fds->oldfd[0]);
+		(*data)->fds->oldfd[0] = 0;
+	}
+	if ((*data)->fds->oldfd[1])
+	{
+		close((*data)->fds->oldfd[1]);
+		(*data)->fds->oldfd[1] = 0;
+	}
+	if ((*data)->heredoc_tmp_files && (*data)->heredocs_num)
+		ft_free_array((*data)->heredoc_tmp_files);
+	if ((*data)->heredoc_tmp_files)
+		free_set_null((*data)->heredoc_tmp_files);
 	free_set_null((*data)->pwd);
 	ft_free_array((*data)->env);
 	free_set_null((*data)->fds);
@@ -72,8 +86,8 @@ void	free_data(t_parse **data)
 		free_char_triple_pointer((*data)->outputs_redirections);
 	if ((*data)->cmds)
 		free_char_triple_pointer((*data)->cmds);
-	if ((*data)->heredoc_tmp_files && (*data)->heredocs_num)
-		ft_free_array((*data)->heredoc_tmp_files);
+	// if ((*data)->heredoc_tmp_files && (*data)->heredocs_num)
+	// 	ft_free_array((*data)->heredoc_tmp_files);
 	if ((*data)->envs_lst)
 		ft_free_lst(&(*data)->envs_lst);
 	if ((*data)->inputs_tokens)

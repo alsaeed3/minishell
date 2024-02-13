@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_delegate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 21:35:54 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:25:31 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	exec_delegator(t_parse *data)
 {
 	int	ret;
+	int hrnum;
 
 	ret = 0;
+	hrnum = data->heredocs_num;
 	if (data->parts_num == 1)
 	{
 		data->h_index = 0;
@@ -28,10 +30,11 @@ void	exec_delegator(t_parse *data)
 		ret = handle_pipe(data);
 	}
 	g_signal = 1;
-	while (data->heredocs_num)
+	while (hrnum)
 	{
-		unlink(data->heredoc_tmp_files[data->heredocs_num - 1]);
-		data->heredocs_num--;
+		if (access(data->heredoc_tmp_files[hrnum - 1], F_OK) == 0)
+			unlink(data->heredoc_tmp_files[hrnum - 1]);
+		hrnum--;
 	}
 	data->exit_status = ret;
 }
@@ -42,7 +45,6 @@ int	handle_single(char **inputs, t_parse *data, int x)
 
 	expand_dolar_sign(inputs, data);
 	ret = 0;
-	
 	data->fds->oldfd[0] = dup(0);
 	data->fds->oldfd[1] = dup(1);
 	if (data->in_rdr_num[x] > 0)
@@ -59,10 +61,16 @@ int	handle_single(char **inputs, t_parse *data, int x)
 	ret = choose_action(inputs, data, x);
 	dup2(data->fds->oldfd[0], 0);
 	if (data->fds->oldfd[0] != 0)
+	{
 		close(data->fds->oldfd[0]);
+		data->fds->oldfd[0] = 0;
+	}
 	dup2(data->fds->oldfd[1], 1);
 	if (data->fds->oldfd[1] != 1)
+	{
 		close(data->fds->oldfd[1]);
+		data->fds->oldfd[1] = 0;
+	}
 	// close_fds(data);
 	return (ret);
 }

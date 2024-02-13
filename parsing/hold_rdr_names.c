@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hold_rdr_names.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 15:58:26 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,12 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 	ft_free_intarr(var.rcn, var.parts_num);
 	while (++var.i < var.len && str[var.i])
 	{
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+		}
 		hold_rdr_1(&var, str);
 		if (!hold_rdr_2(&var, str, rdr))
 		{

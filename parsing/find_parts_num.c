@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_parts_num.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 21:29:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ int	find_parts_num(char *str)
 	i = -1;
 	while (++i < len)
 	{
+		if ((str[i] == '"' && str[i + 1] == '"') \
+		|| (str[i] == '\'' && str[i + 1] == '\''))
+		{
+			i++;
+			continue;
+		}
 		if ((str[i] == '"' || str[i] == '\'') && !quo_trigger)
 		{
 			quo_char = str[i];

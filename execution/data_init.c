@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 17:13:46 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:57:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_bool	data_init(t_parse **data, char **env)
 	(*data)->fd_out = 1;
 	(*data)->h_index = -1;
 	(*data)->fds = ft_calloc(1, sizeof(t_fd));
+	if (!(*data)->fds)
+		return (TRUE);
 	get_shlvl(*data);
 	return (FALSE);
 }

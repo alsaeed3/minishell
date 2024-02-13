@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 21:07:53 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:39:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 typedef struct s_pipe
 {
-	int	i;
-	int	fds[2];
-	int	pid[2048];
-	int	fd_in;
+	pid_t *pid;
+	int i;
+	int j;
+	int (*pipe_fds)[2];
 	int	ret;
 }	t_pipe;
 
@@ -77,6 +77,7 @@ void		ft_error(char *str);
 void		init_t_pipe(t_pipe *pipe);
 void		free_close_fd(t_parse *data, int mode, int status);
 void		print_message(char *cmd, char *message);
+char		*get_file_name(t_parse *data, int x);
 
 void		expand_dolar_sign(char **inputs, t_parse *data);
 int			handle_single_pipe(char **inputs, t_parse *data, int x);

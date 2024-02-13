@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_redir_to_spc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 13:38:28 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ int	count_size_without_redir(char *str)
 	init_nordr_vars(&var, str, 0);
 	while (++var.i < var.len && str[var.i])
 	{
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+		}
 		check_quota(&var, str);
 		check_rdrc(&var, str);
 		check_pipe(&var, str, 0);
@@ -101,6 +107,12 @@ char	*conv_redir2spcs(char *str)
 	init_nordr_vars(&var, str, 1);
 	while (++var.i < var.len && str[var.i])
 	{
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+		}
 		check_quotation(&var, str);
 		check_rdr(&var, str);
 		check_pipe(&var, str, 1);

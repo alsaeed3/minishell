@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/02/12 17:34:57 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/02/13 20:16:52 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ LDFLAGS = -L$(LIBFT_DIR) -lft -lreadline -lncurses
 LIBFT_DIR = libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
-all: $(LIBFT_LIB) $(NAME)
+all: $(LIBFT_LIB) $(NAME)																				
 
 $(OBJS_DIR)%.o: parsing/%.c
 	@mkdir -p $(OBJS_DIR)
