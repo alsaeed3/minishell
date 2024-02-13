@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:40:34 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 16:30:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	sig_switcher(int sig)
 		parent_sig(sig);
 }
 
-void	set_signals(t_parse **parser)
+void	set_signals(t_parse **data)
 {
 	signal(SIGINT, sig_switcher);
 	signal(SIGQUIT, sig_switcher);
 	if (g_signal != 1)
-		(*parser)->exit_status = g_signal;
+		(*data)->exit_status = g_signal;
 	g_signal = 1;
 }

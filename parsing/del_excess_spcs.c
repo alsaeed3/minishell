@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   del_excess_spcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 20:59:05 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 void	jump_over_spaces(char *str, int *i)
 {
@@ -74,6 +74,12 @@ char	*delete_excess_spcs(char *str)
 	init_del_exspc(&var, str, 1);
 	while (++var.i < var.len)
 	{
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+		}
 		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
 		{
 			var.qutrg = TRUE;

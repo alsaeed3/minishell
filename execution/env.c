@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:00:50 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 14:52:03 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/11 17:58:47 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	handle_env(char **env)
 	char	*str;
 
 	i = 0;
-	while (env[i])
+	if (!env)
+		return ;
+	while (i < envlen(env) && env[i])
 	{
 		str = ft_strnstr(env[i], "=", ft_strlen(env[i]));
 		if (str)

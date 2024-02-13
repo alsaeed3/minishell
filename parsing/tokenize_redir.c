@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_redir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 21:01:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
+#include "../inc/data.h"
 
 void	check_quot(t_var *var, char *str)
 {
@@ -44,6 +44,12 @@ int	**tokenize_redir(char *str, t_parse *data, char rdr)
 	var.i = -1;
 	while (++var.i < var.len)
 	{
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+		}
 		check_quot(&var, str);
 		if (str[var.i] == '|' && !var.qutrg)
 		{

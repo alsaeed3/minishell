@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   convert_redir_to_spc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 20:59:26 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/parser.h"
-/* In this function I'm converting all the redirections symbols with their */
-/* file names to spaces in the command line after saving all the file names */
-/* with their tokens */
+#include "../inc/data.h"
 
 void	check_quota(t_var *var, char *str)
 {
@@ -40,15 +37,17 @@ void	check_quota(t_var *var, char *str)
 
 t_bool	continue_count(t_var *var, char *str)
 {
-	if (((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg))
+	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
 		var->j++;
 		var->qutrg = TRUE;
+		var->qchr = str[var->i];
 		return (TRUE);
 	}
 	else if (str[var->i] == var->qchr && var->qutrg)
 	{
 		var->j++;
+		var->qchr = '\0';
 		var->qutrg = FALSE;
 		return (TRUE);
 	}
@@ -84,6 +83,12 @@ int	count_size_without_redir(char *str)
 	init_nordr_vars(&var, str, 0);
 	while (++var.i < var.len && str[var.i])
 	{
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+		}
 		check_quota(&var, str);
 		check_rdrc(&var, str);
 		check_pipe(&var, str, 0);
@@ -102,6 +107,12 @@ char	*conv_redir2spcs(char *str)
 	init_nordr_vars(&var, str, 1);
 	while (++var.i < var.len && str[var.i])
 	{
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+		}
 		check_quotation(&var, str);
 		check_rdr(&var, str);
 		check_pipe(&var, str, 1);

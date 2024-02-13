@@ -6,7 +6,7 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 17:22:55 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:54:50 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	var_index(char *name, t_parse *data)
 	int		x;
 
 	x = 0;
+	if (!data->env)
+		return (-1);
 	while (data->env[x])
 	{
 		y = 0;
@@ -37,6 +39,8 @@ void	replace_var(char *new_var, t_parse *data, int index)
 {
 	char	*old_var;
 
+	if (index < 0)
+		return ;
 	if (ft_strchr(new_var, '+'))
 	{
 		if (ft_strchr(data->env[index], '='))
@@ -81,6 +85,21 @@ char	**export_env(char **old_env, char *export)
 	return (new_env);
 }
 
+static int ft_strcmp1(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	if (s1[i] > s2[i])
+		return (1);
+	else if (s1[i] < s2[i])
+		return (-1);
+	else
+		return (0);
+}
+
 void	export_alone(t_parse *data)
 {
 	int		i;
@@ -93,7 +112,7 @@ void	export_alone(t_parse *data)
 	while (temp_env[i + 1])
 	{
 		j = i + 1;
-		if (strcmp(temp_env[i], temp_env[j]) > 0)
+		if (ft_strcmp1(temp_env[i], temp_env[j]) > 0)
 		{
 			swap = temp_env[j];
 			temp_env[j] = temp_env[i];
@@ -107,13 +126,6 @@ void	export_alone(t_parse *data)
 	free_env(temp_env);
 }
 
-// static char	*expand_dollar(char *str)
-// {
-// 	char	*ret;
-
-// 	while (e)
-// }
-
 int	handle_export(char **inputs, t_parse *data)
 {
 	int	i;
@@ -124,14 +136,6 @@ int	handle_export(char **inputs, t_parse *data)
 		export_alone(data);
 	while (inputs[i])
 	{
-		// ft_putendl_fd(inputs[i], 1);
-		// if(ft_strcmp(inputs[i], "a=$?") == 0)
-		// {
-		// 	free_set_null(inputs[i]);
-		// 	inputs[i] = ft_strjoin("a=", ft_itoa(data->exit_status));
-		// }
-		// ft_putendl_fd(inputs[i], 1);
-
 		index = var_index(inputs[i], data);
 		if (index >= 0 && check_export(inputs[i]))
 			replace_var(inputs[i], data, index);

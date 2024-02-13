@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:22:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/06 17:48:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/12 21:08:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	close_fds(t_parse *data)
 	else if (data->fd_out != 1)
 	{
 		close(data->fd_out);
-		data->fd_out = 1;
+		data->fd_out = 0;
 	}
 }

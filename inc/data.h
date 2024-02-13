@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   data.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:27:45 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/09 16:54:52 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/11 11:23:27 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef DATA_H
+# define DATA_H
 
 # include "../libft/inc/libft.h"
 # include <stdio.h>
@@ -112,6 +112,12 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_fd
+{
+	int		pfd[2];
+	int		oldfd[2];
+}	t_fd;
+
 typedef struct s_parse
 {
 	int		parts_num;
@@ -126,6 +132,7 @@ typedef struct s_parse
 	int		**outputs_tokens;
 	char	***cmds;
 	t_env	*envs_lst;
+	t_fd	*fds;
 	char	**env;
 	char	**heredoc_tmp_files;
 	int		fd_in;
@@ -137,7 +144,7 @@ typedef struct s_parse
 
 typedef struct s_main
 {
-	t_parse	*parser;
+	t_parse	*data;
 	char	*cmd_line;
 	char	*dup;
 }	t_main;
@@ -146,8 +153,6 @@ extern int	g_signal;
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr);
 void	quote_context(char *str, t_var *var);
-void	jump_over_quote(char *cmd_line, int *i, int len);
-t_bool	prepare_parse(char *str);
 t_env	*add_env(t_env *head, char *env);
 t_env	*get_envs_lst(char **original_envs);
 t_env	*ft_env_last(t_env *head);
@@ -206,15 +211,15 @@ void	init_del_exspc(t_var *var, char *str, int mode);
 int		size_without_spcs(char *str);
 void	jump_over_spaces(char *str, int *i);
 void	ft_free_lst(t_env **lst);
-void	free_parser(t_parse **parse);
+void	free_data(t_parse **parse);
 void	ft_free_intarr(int **int_arr, int parts_num);
 void	check_quotation(t_var *var, char *str);
 void	check_pipe(t_var *var, char *str, int mode);
 void	check_quota(t_var *var, char *str);
 void	free_set_null(void *ptr);
-void	set_up_prompt(t_parse **parser, char *cmd_line);
-void	free_util_1(t_parse **parser);
-int		init_main(t_parse *parser, char **dup, char **env);
+void	set_up_prompt(t_parse **data, char *cmd_line);
+void	free_util_1(t_parse **data);
 t_bool	check_errors(char *str);
+void	if_else_conv(t_var *var, char *str);
 
 #endif

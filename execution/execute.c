@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/09 16:30:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:13:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,25 @@ int	handle_exec(char **inputs, t_parse *data)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (data->fds)
+		{
+			if (data->fds->oldfd[0])
+			{
+				close(data->fds->oldfd[0]);
+				data->fds->oldfd[0] = 0;
+			}
+			if (data->fds->oldfd[1])
+			{
+				close(data->fds->oldfd[1]);
+				data->fds->oldfd[1] = 0;
+			}
+		}
 		if (execute(inputs, data) != 0)
 			exit(errno);
-		free_close_fd(data, 0, 0, 0);
+		free_close_fd(data, 0, 0);
 	}
 	else if (pid < 0)
-		exit(1);
+		free_close_fd(data, 1, errno);
 	else
 		waitpid(pid, &ret, 0);
 	if (WIFEXITED(ret))
@@ -40,38 +53,23 @@ int	handle_exec(char **inputs, t_parse *data)
 	return (ret);
 }
 
-void	handle_exec_pipe(char **inputs, t_parse *data, int x)
-{
-	int	oldfd[2];
-
-	oldfd[0] = dup(0);
-	oldfd[1] = dup(1);
-	if (data->in_rdr_num[x] > 0)
-		if (redirect_from(data, x))
-			return ;
-	if (data->out_rdr_num[x] > 0)
-		redirect_to(data, x);
-	if (!check_exec(inputs, data))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(inputs[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		// rl_clear_history();
-		free_close_fd(data, oldfd, 1, 127);
-	}
-	g_signal = 3;
-	if (execute(inputs, data) != 0)
-		free_close_fd(data, oldfd, 1, errno);
-	free_close_fd(data, oldfd, 1, 0);
-}
-
 int	execute(char **inputs, t_parse *data)
 {
-	int			index;
+	int	index;
 
 	index = var_index("PATH=", data);
 	if (ft_strchr(inputs[0], '/') && (access(inputs[0], X_OK) == 0))
 	{
+		if (data->fds->pfd[0])
+		{
+			close(data->fds->pfd[0]);
+			data->fds->pfd[0] = 0;
+		}
+		if (data->fds->pfd[1])
+		{
+			close(data->fds->pfd[1]);
+			data->fds->pfd[1] = 0;
+		}
 		if (execve(inputs[0], &inputs[0], data->env) != -1)
 			return (0);
 	}
@@ -89,13 +87,33 @@ int	execute_2(char **inputs, t_parse *data)
 	char		**paths;
 	int			index;
 
+	if (data->fds->oldfd[0])
+	{
+		close(data->fds->oldfd[0]);
+		data->fds->oldfd[0] = 0;
+	}
+	if (data->fds->oldfd[1])
+	{
+		close(data->fds->oldfd[1]);
+		data->fds->oldfd[1] = 0;
+	}
+	if (data->fds->pfd[0])
+	{
+		close(data->fds->pfd[0]);
+		data->fds->pfd[0] = 0;
+	}
+	if (data->fds->pfd[1])
+	{
+		close(data->fds->pfd[1]);
+		data->fds->pfd[1] = 0;
+	}
 	i = 0;
 	index = var_index("PATH=", data);
 	paths = gen_paths(index, data, inputs[0]);
 	while (paths[i])
 	{
 		if (access(paths[i], X_OK) == 0
-			&& execve(paths[i], inputs, data->env) != -1)
+			&& execve(paths[i], &inputs[0], data->env) != -1)
 			return (0);
 		i++;
 	}
