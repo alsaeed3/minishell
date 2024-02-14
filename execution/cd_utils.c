@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:54:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/07 13:38:29 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:32:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	change_pwd(t_parse *data, char *input)
 	char	*pwd;
 	char	*cwd;
 
+	if (var_index("PWD", data) < 0)
+		return (0);
 	cwd = getcwd(NULL, 0);
 	if (!cwd && input && ft_strcmp(".", input) == 0)
 	{
