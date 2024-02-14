@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 17:32:31 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ void	jump_over_spaces(char *str, int *i)
 	while (str[*i] == ' ')
 		(*i)++;
 	(*i)--;
+}
+
+static t_bool	delco_consqut(char *str, t_var *var)
+{
+	if ((str[var->i] == '"' && str[var->i + 1] == '"') \
+	|| (str[var->i] == '\'' && str[var->i + 1] == '\''))
+	{
+		var->size += 2;
+		var->i++;
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 void	jmp_mid_spcs(t_var *var, char *str, int mode)
@@ -50,6 +62,8 @@ int	size_without_spcs(char *str)
 	init_del_exspc(&var, str, 0);
 	while (++var.i < var.len)
 	{
+		if (delco_consqut(str, &var))
+			continue ;
 		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
 		{
 			var.qutrg = TRUE;
@@ -74,17 +88,8 @@ char	*delete_excess_spcs(char *str)
 	init_del_exspc(&var, str, 1);
 	while (++var.i < var.len)
 	{
-		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
-		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
-		{
-			var.i++;
-			continue;
-		}
-		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
-		{
-			var.qutrg = TRUE;
-			var.qchr = str[var.i];
-		}
+		if (del_consqut(str, &var))
+			continue ;
 		else if (str[var.i] == var.qchr && var.qutrg)
 		{
 			var.qchr = '\0';

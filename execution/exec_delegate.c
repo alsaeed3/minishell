@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/13 19:25:31 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 17:47:49 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exec_delegator(t_parse *data)
 {
 	int	ret;
-	int hrnum;
+	int	hrnum;
 
 	ret = 0;
 	hrnum = data->heredocs_num;
@@ -60,17 +60,9 @@ int	handle_single(char **inputs, t_parse *data, int x)
 	}
 	ret = choose_action(inputs, data, x);
 	dup2(data->fds->oldfd[0], 0);
-	if (data->fds->oldfd[0] != 0)
-	{
-		close(data->fds->oldfd[0]);
-		data->fds->oldfd[0] = 0;
-	}
+	close(data->fds->oldfd[0]);
 	dup2(data->fds->oldfd[1], 1);
-	if (data->fds->oldfd[1] != 1)
-	{
-		close(data->fds->oldfd[1]);
-		data->fds->oldfd[1] = 0;
-	}
+	close(data->fds->oldfd[1]);
 	// close_fds(data);
 	return (ret);
 }

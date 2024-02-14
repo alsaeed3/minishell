@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 16:51:06 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ int	count_size_without_redir(char *str)
 		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
 		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
 		{
+			var.j += 2;
 			var.i++;
-			continue;
+			continue ;
 		}
 		check_quota(&var, str);
 		check_rdrc(&var, str);
@@ -107,12 +108,8 @@ char	*conv_redir2spcs(char *str)
 	init_nordr_vars(&var, str, 1);
 	while (++var.i < var.len && str[var.i])
 	{
-		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
-		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
-		{
-			var.i++;
-			continue;
-		}
+		if (cons_quot_conv(&var, str))
+			continue ;
 		check_quotation(&var, str);
 		check_rdr(&var, str);
 		check_pipe(&var, str, 1);

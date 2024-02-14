@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 13:22:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 17:11:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,4 @@ void	handle_heredoc(t_parse *data)
 	}
 	if (data->heredocs_num)
 		data->heredoc_tmp_files[hvr.k] = NULL;
-}
-
-t_bool	null_deli(t_parse *data, t_hvr *hvr)
-{
-	if (data->inputs_redirections[hvr->i][hvr->j] == NULL \
-	&& data->inputs_redirections[hvr->i][hvr->j + 1] == NULL \
-	&& data->inputs_tokens[hvr->i][hvr->j] == 1)
-		return (TRUE);
-	return (FALSE);
 }

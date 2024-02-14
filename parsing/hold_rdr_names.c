@@ -6,13 +6,13 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 16:37:26 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/data.h"
 
-static void	hold_rdr_1(t_var *var, char *str)
+void	hold_rdr_1(t_var *var, char *str)
 {
 	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
@@ -115,13 +115,8 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 	ft_free_intarr(var.rcn, var.parts_num);
 	while (++var.i < var.len && str[var.i])
 	{
-		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
-		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
-		{
-			var.i++;
-			continue;
-		}
-		hold_rdr_1(&var, str);
+		if (cons_quot_hold(&var, str))
+			continue ;
 		if (!hold_rdr_2(&var, str, rdr))
 		{
 			if ((str[var.i] == '<' || str[var.i] == '>' \

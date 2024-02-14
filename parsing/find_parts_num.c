@@ -6,48 +6,51 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/13 21:29:56 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 15:52:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/data.h"
 
+static void	init_parts_num_vars(t_var *var, char *str)
+{
+	*var = (t_var){0};
+	var->qutrg = FALSE;
+	var->qchr = '\0';
+	var->parts_num = 1;
+	var->len = (int)ft_strlen(str);
+	var->i = -1;
+}
+
 int	find_parts_num(char *str)
 {
-	int		i;
-	int		parts_num;
-	t_bool	quo_trigger;
-	char	quo_char;
-	int		len;
+	t_var	var;
 
-	quo_trigger = FALSE;
-	quo_char = '\0';
-	parts_num = 1;
-	len = (int)ft_strlen(str);
-	i = -1;
-	while (++i < len)
+	init_parts_num_vars(&var, str);
+	while (++var.i < var.len)
 	{
-		if ((str[i] == '"' && str[i + 1] == '"') \
-		|| (str[i] == '\'' && str[i + 1] == '\''))
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
 		{
-			i++;
-			continue;
+			var.i++;
+			continue ;
 		}
-		if ((str[i] == '"' || str[i] == '\'') && !quo_trigger)
+		if ((str[var.i] == '"' || str[var.i] == '\'') && !var.qutrg)
 		{
-			quo_char = str[i];
-			quo_trigger = TRUE;
+			var.qchr = str[var.i];
+			var.qutrg = TRUE;
 		}
-		else if ((str[i] == quo_char) && quo_trigger)
-			quo_trigger = FALSE;
-		if (str[i] == '|' && !quo_trigger)
-			parts_num++;
+		else if ((str[var.i] == var.qchr) && var.qutrg)
+			var.qutrg = FALSE;
+		if (str[var.i] == '|' && !var.qutrg)
+			var.parts_num++;
 	}
-	return (parts_num);
+	return (var.parts_num);
 }
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr)
 {
+	*var = (t_var){0};
 	var->i = -1;
 	var->j = 0;
 	var->k = -1;
