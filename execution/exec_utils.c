@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:26:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/06 21:05:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 18:13:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,19 @@ int	check_exec(char **inputs, t_parse *data)
 	else
 		ret = check_exec_path(inputs, data);
 	return (ret);
+}
+
+int	ft_strcmp1(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	if (s1[i] > s2[i])
+		return (1);
+	else if (s1[i] < s2[i])
+		return (-1);
+	else
+		return (0);
 }

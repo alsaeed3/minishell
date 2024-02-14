@@ -6,11 +6,22 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/12 21:13:37 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 17:46:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
+
+static void	close_old_fds(t_parse *data)
+{
+	if (data->fds)
+	{
+		if (data->fds->oldfd[0])
+			close(data->fds->oldfd[0]);
+		if (data->fds->oldfd[1])
+			close(data->fds->oldfd[1]);
+	}
+}
 
 int	handle_exec(char **inputs, t_parse *data)
 {
@@ -27,19 +38,7 @@ int	handle_exec(char **inputs, t_parse *data)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (data->fds)
-		{
-			if (data->fds->oldfd[0])
-			{
-				close(data->fds->oldfd[0]);
-				data->fds->oldfd[0] = 0;
-			}
-			if (data->fds->oldfd[1])
-			{
-				close(data->fds->oldfd[1]);
-				data->fds->oldfd[1] = 0;
-			}
-		}
+		close_old_fds(data);
 		if (execute(inputs, data) != 0)
 			exit(errno);
 		free_close_fd(data, 0, 0);
@@ -88,25 +87,13 @@ int	execute_2(char **inputs, t_parse *data)
 	int			index;
 
 	if (data->fds->oldfd[0])
-	{
 		close(data->fds->oldfd[0]);
-		data->fds->oldfd[0] = 0;
-	}
 	if (data->fds->oldfd[1])
-	{
 		close(data->fds->oldfd[1]);
-		data->fds->oldfd[1] = 0;
-	}
 	if (data->fds->pfd[0])
-	{
 		close(data->fds->pfd[0]);
-		data->fds->pfd[0] = 0;
-	}
 	if (data->fds->pfd[1])
-	{
 		close(data->fds->pfd[1]);
-		data->fds->pfd[1] = 0;
-	}
 	i = 0;
 	index = var_index("PATH=", data);
 	paths = gen_paths(index, data, inputs[0]);

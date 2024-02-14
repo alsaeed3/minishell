@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 13:32:51 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 18:25:00 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 	(*data)->outputs_redirections = hold_rdr_names(str, '>', (*data));
 	(*data)->outputs_tokens = tokenize_redir(str, (*data), '>');
 	str = conv_redir2spcs(str);
+	ft_putendl_fd(str, 1);
 	str = delete_excess_spcs(str);
+	ft_putendl_fd(str, 1);
 	(*data)->cmds = split_cmds(str);
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/12 21:36:32 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 17:40:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_exit(t_parse *data, int status)
 {
-	if(data->fds)
+	if (data->fds)
 	{
 		if (data->fds->oldfd[0])
 		{
@@ -68,7 +68,6 @@ void	print_message(char *cmd, char *message)
 	ft_putstr_fd(cmd, 2);
 	ft_putendl_fd(message, 2);
 }
-
 
 void	close_new_fd(t_parse *data)
 {

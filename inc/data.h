@@ -149,6 +149,13 @@ typedef struct s_main
 	char	*dup;
 }	t_main;
 
+typedef struct t_inf
+{
+	int		i;
+	int		j;
+	char	*info;
+}	t_inf;
+
 extern int	g_signal;
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr);
@@ -165,11 +172,20 @@ t_bool	check_pipe_red_2(char *cmd_line);
 int		*find_rdr_num(char *str, char rdr, t_parse *data);
 int		**find_rdr_chars(char *str, char rdr, t_parse *data);
 char	***hold_rdr_names(char *str, char rdr, t_parse *data);
+void	hold_rdr_1(t_var *var, char *str);
 int		find_parts_num(char *cmd_line);
 char	***malloc_rdr_names(int parts_num, int *rdr_num, int **rdr_chars);
 void	free_char_triple_pointer(char ***pointer);
 t_bool	check_quotes(char *cmd_line);
-void	remove_cmdline_quotes(char *cmd_line, char **ret, int char_num);
+t_bool	check_cons_qut(t_var *var, char *str);
+t_bool	cons_quot_hold(t_var *var, char *str);
+t_bool	cons_quot_dollar(t_var *var, char *str);
+t_bool	cons_quot_conv(t_var *var, char *str);
+t_bool	cons_quot_cmd(t_cvr *cvr, char *str);
+t_bool	cnsqut_cmd_num(t_cvr *cvr, char *str);
+t_bool	rdr_consqut(char *str, t_var *var);
+t_bool	del_consqut(char *str, t_var *var);
+void	check_quout(t_var *var, char *str);
 int		**tokenize_redir(char *str, t_parse *data, char rdr);
 char	*conv_redir2spcs(char *cmd_line);
 int		*find_cmds_num(char *cmd_line);
@@ -206,6 +222,7 @@ void	sd_quote_trg(t_var *var, char *str);
 void	dollar_heredoc_deli(char *str, t_var *var);
 void	init_dollar_vars(t_var *var, char *str, t_env *env_lst, int mode);
 int		find_env_size(char *str, int i);
+t_bool	null_deli(t_parse *data, t_hvr *hvr);
 int		expand_dollar_count(char *str, t_env *env_lst);
 void	init_del_exspc(t_var *var, char *str, int mode);
 int		size_without_spcs(char *str);

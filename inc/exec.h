@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/13 22:09:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 18:17:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 
 typedef struct s_pipe
 {
-	pid_t *pid;
-	int i;
-	int j;
-	int (*pipe_fds)[2];
-	int	ret;
+	pid_t	*pid;
+	int		i;
+	int		j;
+	int		(*pipe_fds)[2];
+	int		ret;
 }	t_pipe;
 
 void		exec_delegator(t_parse *data);
@@ -52,6 +52,8 @@ t_bool		data_reset(t_parse **data);
 
 int			redirect_from(t_parse *data, int x);
 int			redirect_to(t_parse *data, int x);
+int			redirect_to_pipe(t_parse *data, t_pipe *pipes);
+int			redirect_from_pipe(t_parse *data, t_pipe *pipes);
 
 char		**gen_paths(int index, t_parse *data, char *input);
 int			check_exec_path(char **inputs, t_parse *data);
@@ -80,14 +82,16 @@ void		print_message(char *cmd, char *message);
 char		*get_file_name(t_parse *data, int x);
 
 void		expand_dolar_sign(char **inputs, t_parse *data);
-void 		handle_single_pipe(char **inputs, t_parse *data, t_pipe *pipes);
+void		handle_single_pipe(char **inputs, t_parse *data, t_pipe *pipes);
 
 int			execute_2_pipe(char **inputs, t_parse *data);
-int			choose_action_pipe(char **cmd, t_parse *data, int x);
+void		choose_action_pipe(char **cmd, t_parse *data, t_pipe *pipes, \
+			int fd);
 int			handle_exec_pipe(char **inputs, t_parse *data);
 int			execute_pipe(char **inputs, t_parse *data);
 int			execute_2_pipe(char **inputs, t_parse *data);
 char		*ft_strreplace(char *orig, char *rep, char *with);
 void		close_new_fd(t_parse *data);
+int			ft_strcmp1(char *s1, char *s2);
 
 #endif

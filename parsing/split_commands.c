@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/13 21:30:25 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 18:14:58 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ int	*find_cmds_num(char *str)
 		return (NULL);
 	while (++cvr.i < cvr.len)
 	{
+		if ((str[cvr.i] == '"' && str[cvr.i + 1] == '"') \
+		|| (str[cvr.i] == '\'' && str[cvr.i + 1] == '\''))
+		{
+			cvr.i++;
+			continue ;
+		}
 		if ((str[cvr.i] == '"' || str[cvr.i] == '\'') && !cvr.qutrg)
 		{
 			cvr.quchr = str[cvr.i];
@@ -47,19 +53,8 @@ int	**find_cmds_chars_num(char *str)
 	cvr.i = -1;
 	while (++cvr.i < cvr.len && str[cvr.i])
 	{
-		if ((str[cvr.i] == '"' && str[cvr.i + 1] == '"') \
-		|| (str[cvr.i] == '\'' && str[cvr.i + 1] == '\''))
-		{
-			cvr.i++;
-			continue;
-		}
-		count_qut_pipe(&cvr, str);
-		if (str[cvr.i] == ' ' && (cvr.i == 0 || str[cvr.i - 1] != ' ') \
-		&& (cvr.i == 0 || str[cvr.i - 1] != '|') && !cvr.qutrg)
-		{
-			cvr.k++;
-			cvr.chars_num = 0;
-		}
+		if (cnsqut_cmd_num(&cvr, str))
+			continue ;
 		if (((str[cvr.i] != '|' && str[cvr.i] != '"' && str[cvr.i] != '\'' \
 		&& str[cvr.i] != ' ' && str[cvr.i] != '\0') || ((str[cvr.i] != ' ' \
 		|| str[cvr.i] == '|' || str[cvr.i] != '"' || str[cvr.i] != '\'') \
@@ -100,13 +95,8 @@ char	***split_cmds(char *str)
 	ft_free_intarr(cvr.chrn, cvr.parts_num);
 	while (++cvr.i < cvr.len)
 	{
-		if ((str[cvr.i] == '"' && str[cvr.i + 1] == '"') \
-		|| (str[cvr.i] == '\'' && str[cvr.i + 1] == '\''))
-		{
-			cvr.i++;
-			continue;
-		}
-		check_qut_pipe(&cvr, str);
+		if (cons_quot_cmd(&cvr, str))
+			continue ;
 		if (str[cvr.i] == ' ' && (cvr.i == 0 || str[cvr.i - 1] != '|') \
 		&& !cvr.qutrg)
 		{

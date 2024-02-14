@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:48:44 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 13:30:02 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 17:38:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static void	cd_path(char **args, t_parse *data)
 			data->exit_status = 1;
 			return ;
 		}
-		args[1] = ft_strjoin((strchr(data->env[var_index("HOME=", data)], '=') + 1),
+		args[1] = ft_strjoin((strchr(data->env[var_index("HOME=", data)], \
+		'=') + 1),
 				(args[1] + 1));
 	}
 	else if (chdir(args[1]) == -1)
