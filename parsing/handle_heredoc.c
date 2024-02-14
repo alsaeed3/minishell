@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:22:10 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 			g_signal = 2;
 			hvr->line = readline("> ");
 			if (hvr->line == NULL || ft_strcmp(hvr->line, \
-			data->inputs_redirections[hvr->i][hvr->j]) == 0)
+			data->inputs_redirections[hvr->i][hvr->j]) == 0 \
+			|| (null_deli(data, hvr) && hvr->line[0] == '\0'))
 			{
 				free_set_null(hvr->line);
 				break ;
@@ -116,4 +117,13 @@ void	handle_heredoc(t_parse *data)
 	}
 	if (data->heredocs_num)
 		data->heredoc_tmp_files[hvr.k] = NULL;
+}
+
+t_bool	null_deli(t_parse *data, t_hvr *hvr)
+{
+	if (data->inputs_redirections[hvr->i][hvr->j] == NULL \
+	&& data->inputs_redirections[hvr->i][hvr->j + 1] == NULL \
+	&& data->inputs_tokens[hvr->i][hvr->j] == 1)
+		return (TRUE);
+	return (FALSE);
 }

@@ -221,5 +221,6 @@ void	set_up_prompt(t_parse **data, char *cmd_line);
 void	free_util_1(t_parse **data);
 t_bool	check_errors(char *str);
 void	if_else_conv(t_var *var, char *str);
+t_bool	null_deli(t_parse *data, t_hvr *hvr);
 
 #endif
