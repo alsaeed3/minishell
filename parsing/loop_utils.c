@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:21:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 17:05:40 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 18:43:24 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ t_bool	cons_quot_conv(t_var *var, char *str)
 	if ((str[var->i] == '"' && str[var->i + 1] == '"') \
 	|| (str[var->i] == '\'' && str[var->i + 1] == '\''))
 	{
-		var->nordr[var->j++] = str[var->i];
-		var->nordr[var->j++] = str[var->i + 1];
+		if (var->qutrg)
+		{
+			var->nordr[var->j++] = str[var->i];
+			var->nordr[var->j++] = str[var->i + 1];
+		}
 		var->i++;
 		return (TRUE);
 	}
