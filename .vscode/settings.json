@@ -3,6 +3,9 @@
 		"libft.h": "c",
 		"errno.h": "c",
 		"exec.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"locale": "c",
+		"iterator": "c",
+		"data.h": "c"
 	}
 }

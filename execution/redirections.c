@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 18:11:53 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 19:12:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	redirect_to(t_parse *data, int x)
 	return (0);
 }
 
-int	redirect_to_pipe(t_parse *data, t_pipe *pipes)
+int	redirect_from_pipe(t_parse *data, t_pipe *pipes)
 {
 	char	*filename;
 	int		fd;
@@ -106,7 +106,7 @@ int	redirect_to_pipe(t_parse *data, t_pipe *pipes)
 	return (fd);
 }
 
-int	redirect_from_pipe(t_parse *data, t_pipe *pipes)
+int	redirect_to_pipe(t_parse *data, t_pipe *pipes)
 {
 	char	*filename;
 	int		fd;

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 18:17:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 21:01:05 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct s_pipe
 	int		ret;
 }	t_pipe;
 
-void		exec_delegator(t_parse *data);
-void		handle_cd(char **args, t_parse *data);
+void		exec_delegator(t_parse **data);
+int			handle_cd(char **args, t_parse *data);
 int			var_index(char *name, t_parse *data);
 void		replace_var(char *new_var, t_parse *data, int index);
 char		**export_env(char **old_env, char *export);
@@ -44,7 +44,7 @@ void		handle_env(char **env);
 int			check_export(char *str);
 int			print_export(char **env);
 void		handle_echo(t_parse *data, int x);
-void		handle_unset(char **inputs, t_parse *data);
+int			handle_unset(char **inputs, t_parse *data);
 void		handle_pwd(t_parse *data);
 
 t_bool		data_init(t_parse **data, char **env);
@@ -87,6 +87,7 @@ void		handle_single_pipe(char **inputs, t_parse *data, t_pipe *pipes);
 int			execute_2_pipe(char **inputs, t_parse *data);
 void		choose_action_pipe(char **cmd, t_parse *data, t_pipe *pipes, \
 			int fd);
+int			handle_unset(char **inputs, t_parse *data);
 int			handle_exec_pipe(char **inputs, t_parse *data);
 int			execute_pipe(char **inputs, t_parse *data);
 int			execute_2_pipe(char **inputs, t_parse *data);
