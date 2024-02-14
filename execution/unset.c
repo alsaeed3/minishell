@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:23:49 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 13:36:42 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:57:07 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**unset_env(char **old_env, int index)
 	return (new_env);
 }
 
-void	handle_unset(char **inputs, t_parse *data)
+int	handle_unset(char **inputs, t_parse *data)
 {
 	int	i;
 	int	index;
@@ -58,7 +58,9 @@ void	handle_unset(char **inputs, t_parse *data)
 		{
 			ft_error("unset: invalid identifier");
 			data->exit_status = 1;
-			return ;
+			return (1);
 		}
+		i++;
 	}
+	return (0);
 }

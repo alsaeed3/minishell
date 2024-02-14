@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:54:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 13:32:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/14 20:52:47 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	change_pwd(t_parse *data, char *input)
 	{
 		change_env_oldpwd(data);
 		change_env_pwd(data);
+		free_set_null(cwd);
+		return (0);
 	}
 	free_set_null(cwd);
 	return (1);
