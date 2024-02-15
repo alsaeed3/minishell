@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 17:01:26 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 17:49:52 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ void	handle_single_pipe(char **inputs, t_parse *data, t_pipe *pipes)
 
 	ret = 0;
 	fd = 0;
-	ft_putendl_fd("pipe", 2);
 	expand_dolar_sign(inputs, data);
 	if (data->in_rdr_num[pipes->i] > 0)
 		fd = redirect_from_pipe(data, pipes);
-	ft_putendl_fd("pipe2", 2);
 	ft_free_array(&data->heredoc_tmp_files);
 	free_set_null((void **)&data->heredoc_tmp_files);
 	if (data->out_rdr_num[pipes->i] > 0)

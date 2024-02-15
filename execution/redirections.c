@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 17:04:20 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 19:09:05 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	redirect_from(t_parse *data, int x)
 	}
 	if (dup2(fd, 0) == -1)
 	{
-		ft_putendl_fd("dup2 failed", 2);
+		perror("dup2");
 		close(fd);
 		return (1);
 	}
@@ -75,7 +75,7 @@ int	redirect_to(t_parse *data, int x)
 			fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 		if (fd < 0)
 		{
-			ft_putendl_fd("Error: wrong permissions", 2);
+			perror("Error");
 			return (127);
 		}
 		i++;
@@ -94,12 +94,11 @@ int	redirect_from_pipe(t_parse *data, t_pipe *pipes)
 	filename = get_file_name(data, pipes->i);
 	if (!filename)
 		free_close_fd(data, 0, 1, pipes);
-	ft_putendl_fd("pipe3", 2);
 	close(STDIN_FILENO);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("open input file");
+		perror("Error");
 		free_set_null((void **)&pipes->pipe_fds);
 		free_set_null((void **)&pipes->pid);
 		free_close_fd(data, 0, 2, pipes);
@@ -127,7 +126,7 @@ int	redirect_to_pipe(t_parse *data, t_pipe *pipes)
 		fd = open(filename, flags, S_IRUSR | S_IWUSR);
 		if (fd < 0)
 		{
-			perror("open output file");
+			perror("Error");
 			free_close_fd(data, 0, 2, pipes);
 		}
 	}

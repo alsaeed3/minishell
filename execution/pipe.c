@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 15:20:02 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 19:22:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ static void	set_h_index(t_parse *data, int i)
 	}
 }
 
-void	init_t_pipe(t_pipe *pipes)
+static void	init_t_pipe(t_parse *data, t_pipe *pipes)
 {
 	*pipes = (t_pipe){0};
 	pipes->i = 0;
 	pipes->ret = 0;
+	pipes->pipe_fds = ft_calloc((data->parts_num - 1), \
+	sizeof(*pipes->pipe_fds));
+	pipes->pid = ft_calloc(data->parts_num, sizeof(*pipes->pid));
 }
 
 void	open_cmds_pipes(t_parse *data, t_pipe *pipes)
@@ -48,18 +51,18 @@ void	open_cmds_pipes(t_parse *data, t_pipe *pipes)
 	}
 }
 
-void	loop_pipe(t_parse *data, t_pipe *pipes)
+t_bool	loop_pipe(t_parse *data, t_pipe *pipes)
 {
 	set_h_index(data, pipes->i);
-	g_signal = 3;
 	pipes->pid[pipes->i] = fork();
 	if (pipes->pid[pipes->i] == -1)
 	{
 		perror("fork");
-		free_close_fd(data, 1, 1, pipes);
+		return (TRUE);
 	}
 	if (pipes->pid[pipes->i] == 0)
 	{
+		g_signal = 3;
 		if (pipes->pid)
 			free_set_null((void **)&pipes->pid);
 		if (pipes->i != 0)
@@ -74,19 +77,19 @@ void	loop_pipe(t_parse *data, t_pipe *pipes)
 		}
 		handle_single_pipe(data->cmds[pipes->i], data, pipes);
 	}
+	return (FALSE);
 }
 
 int	handle_pipe(t_parse *data)
 {
 	t_pipe	pipes;
 
-	init_t_pipe(&pipes);
-	pipes.pipe_fds = ft_calloc((data->parts_num - 1), sizeof(*pipes.pipe_fds));
-	pipes.pid = ft_calloc(data->parts_num, sizeof(*pipes.pid));
+	init_t_pipe(data, &pipes);
 	open_cmds_pipes(data, &pipes);
 	pipes.i = -1;
 	while (++pipes.i < data->parts_num)
-		loop_pipe(data, &pipes);
+		if (loop_pipe(data, &pipes))
+			break ;
 	pipes.i = -1;
 	while (++pipes.i < data->parts_num - 1)
 	{

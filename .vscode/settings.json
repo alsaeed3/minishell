@@ -6,6 +6,7 @@
 		"sstream": "c",
 		"locale": "c",
 		"iterator": "c",
-		"data.h": "c"
+		"data.h": "c",
+		"file2": "c"
 	}
 }

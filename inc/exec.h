@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 16:15:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 18:41:24 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void		sig_switcher(int sig);
 
 void		ft_error(char *str);
 
-void		init_t_pipe(t_pipe *pipe);
 void		free_close_fd(t_parse *data, int mode, int status, t_pipe *pipes);
 void		print_message(char *cmd, char *message);
 char		*get_file_name(t_parse *data, int x);
