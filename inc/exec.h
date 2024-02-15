@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 15:16:51 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 16:15:17 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void		close_fds(t_parse *data);
 
 int			choose_action(char **cmd, t_parse *data, int x);
 int			handle_exec(char **inputs, t_parse *data);
+int			handle_exec_pipe(char **inputs, t_parse *data, t_pipe *pipes);
 int			execute_2(char **inputs, t_parse *data);
 int			execute(char **inputs, t_parse *data);
 
@@ -88,7 +89,6 @@ int			execute_2_pipe(char **inputs, t_parse *data);
 void		choose_action_pipe(char **cmd, t_parse *data, t_pipe *pipes, \
 			int fd);
 int			handle_unset(char **inputs, t_parse *data);
-int			handle_exec_pipe(char **inputs, t_parse *data);
 int			execute_pipe(char **inputs, t_parse *data);
 int			execute_2_pipe(char **inputs, t_parse *data);
 char		*ft_strreplace(char *orig, char *rep, char *with);

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 15:10:34 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 17:06:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	set_up_prompt(t_parse **data, char *cmd_line)
 	if (cmd_line == NULL)
 	{
 		ft_putendl_fd("exit", 2);
-		rl_clear_history();
+		// rl_clear_history();
 		free_util_1(data);
 		exit(0);
 	}
