@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 20:57:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:17:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	handle_exec(char **inputs, t_parse *data)
 		close_old_fds(data);
 		if (execute(inputs, data) != 0)
 			exit(errno);
-		free_close_fd(data, 0, 0);
+		free_close_fd(data, 0, 0, NULL);
 	}
 	else if (pid < 0)
-		free_close_fd(data, 1, errno);
+		free_close_fd(data, 1, errno, NULL);
 	else
 		waitpid(pid, &ret, 0);
 	if (WIFEXITED(ret))

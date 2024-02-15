@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 17:37:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:20:02 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	open_cmds_pipes(t_parse *data, t_pipe *pipes)
 		{
 			perror("pipe");
 			free (pipes->pipe_fds);
-			free_close_fd(data, 1, 1);
+			free_close_fd(data, 1, 1, pipes);
 		}
 	}
 }
@@ -56,12 +56,12 @@ void	loop_pipe(t_parse *data, t_pipe *pipes)
 	if (pipes->pid[pipes->i] == -1)
 	{
 		perror("fork");
-		free(pipes->pipe_fds);
-		free (pipes->pid);
-		free_close_fd(data, 1, 1);
+		free_close_fd(data, 1, 1, pipes);
 	}
 	if (pipes->pid[pipes->i] == 0)
 	{
+		if (pipes->pid)
+			free_set_null((void **)&pipes->pid);
 		if (pipes->i != 0)
 			dup2(pipes->pipe_fds[pipes->i - 1][0], STDIN_FILENO);
 		if (pipes->i != data->parts_num - 1)
@@ -100,7 +100,7 @@ int	handle_pipe(t_parse *data)
 		if (WIFEXITED(pipes.ret))
 			pipes.ret = WEXITSTATUS(pipes.ret);
 	}
-	free (pipes.pipe_fds);
-	free (pipes.pid);
+	free_set_null((void **)&pipes.pipe_fds);
+	free_set_null((void **)&pipes.pid);
 	return (pipes.ret);
 }

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 19:08:01 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_bool	check_errors(char *str)
 	if (check_quotes(str) || check_pipe_red_2(str) || check_pipe_redir(str))
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-		free_set_null(str);
+		free_set_null((void **)&str);
 		return (TRUE);
 	}
 	return (FALSE);

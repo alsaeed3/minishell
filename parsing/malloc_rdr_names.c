@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_rdr_names.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:45:27 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	free_char_triple_pointer(char ***pointer)
 		while (pointer[i][++j])
 		{
 			if (pointer[i][j])
-				free_set_null(pointer[i][j]);
+				free_set_null((void **)&pointer[i][j]);
 		}
 		if (pointer[i])
-			free_set_null(pointer[i]);
+			free_set_null((void **)&pointer[i]);
 	}
-	free_set_null(pointer);
+	free_set_null((void **)&pointer);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:00:50 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/11 17:58:47 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	free_env(char **env)
 	i = 0;
 	env_len = envlen(env);
 	while (i < env_len)
-		free_set_null(env[i++]);
-	free_set_null(env);
+		free_set_null((void **)&env[i++]);
+	free_set_null((void **)&env);
 }
 
 int	envlen(char **env)

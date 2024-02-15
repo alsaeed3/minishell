@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_deallocate_lst.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:05:38 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/06 21:02:06 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:07:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	ft_deallocate_lst(t_list **stack)
 		while (curr->next != NULL)
 		{
 			next = curr->next;
-			free_set_null(curr);
+			free_set_null((void **)&curr);
 			curr = next;
 		}
 		if (curr != NULL)
-			free_set_null(curr);
+			free_set_null((void **)&curr);
 	}
 }

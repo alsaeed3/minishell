@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 17:11:29 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ char	*generate_file_names(int pos)
 	pos_char = ft_itoa(pos);
 	name2 = ".tmp";
 	tmp = ft_strjoin(name, pos_char);
-	free_set_null(pos_char);
+	free_set_null((void **)&pos_char);
 	ret_name = ft_strjoin(tmp, name2);
-	free_set_null(tmp);
+	free_set_null((void **)&tmp);
 	return (ret_name);
 }
 
@@ -60,7 +60,7 @@ static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 			data->inputs_redirections[hvr->i][hvr->j]) == 0 \
 			|| (null_deli(data, hvr) && hvr->line[0] == '\0'))
 			{
-				free_set_null(hvr->line);
+				free_set_null((void **)&hvr->line);
 				break ;
 			}
 		}
@@ -91,7 +91,7 @@ static void	real_heredoc(t_hvr *hvr, t_parse *data)
 				break ;
 			write(hvr->wrfd, hvr->line, ft_strlen(hvr->line));
 			write(hvr->wrfd, "\n", 1);
-			free_set_null(hvr->line);
+			free_set_null((void **)&hvr->line);
 		}
 		close(hvr->wrfd);
 	}
@@ -112,7 +112,7 @@ void	handle_heredoc(t_parse *data)
 			&& !fake_heredoc(&hvr, data))
 				real_heredoc(&hvr, data);
 			if (data->inputs_tokens[hvr.i][hvr.j] == 1 && hvr.line)
-				free_set_null(hvr.line);
+				free_set_null((void **)&hvr.line);
 		}
 	}
 	if (data->heredocs_num)

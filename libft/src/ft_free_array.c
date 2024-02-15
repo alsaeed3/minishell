@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 14:33:05 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/13 19:44:42 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:18:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void	ft_free_array(char **array)
 	i = 0;
 	while (array[i])
 	{
-		free_set_null(array[i]);
+		free_set_null((void **)&array[i]);
 		i++;
 	}
-	free_set_null(array);
+	free_set_null((void **)&array);
 }
 
-void	free_set_null(void *ptr)
+void	free_set_null(void **ptr)
 {
-	if (ptr != NULL)
+	if (*ptr != NULL)
 	{
-		free (ptr);
-		ptr = NULL;
+		free(*ptr);
+		*ptr = NULL;
 	}
 }

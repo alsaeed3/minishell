@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 19:12:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:18:17 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	redirect_from_pipe(t_parse *data, t_pipe *pipes)
 	filename = NULL;
 	filename = get_file_name(data, pipes->i);
 	if (!filename)
-		free_close_fd(data, 0, 1);
+		free_close_fd(data, 0, 1, pipes);
 	close(STDIN_FILENO);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -101,7 +101,7 @@ int	redirect_from_pipe(t_parse *data, t_pipe *pipes)
 		perror("open input file");
 		free(pipes->pipe_fds);
 		free (pipes->pid);
-		free_close_fd(data, 0, 2);
+		free_close_fd(data, 0, 2, pipes);
 	}
 	return (fd);
 }
@@ -127,10 +127,10 @@ int	redirect_to_pipe(t_parse *data, t_pipe *pipes)
 		if (fd < 0)
 		{
 			perror("open output file");
-			free(pipes->pipe_fds);
-			free (pipes->pid);
-			free_close_fd(data, 0, 2);
+			free_close_fd(data, 0, 2, pipes);
 		}
 	}
+	if (data->heredoc_tmp_files)
+		ft_free_array(data->heredoc_tmp_files);
 	return (fd);
 }

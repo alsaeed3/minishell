@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 17:32:31 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ char	*delete_excess_spcs(char *str)
 	}
 	if (var.ret[var.j])
 		var.ret[++var.j] = '\0';
-	free_set_null(str);
+	free_set_null((void **)&str);
 	return (var.ret);
 }
