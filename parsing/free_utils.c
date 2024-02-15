@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:16:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/15 15:10:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 16:21:39 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_util_1(t_parse **data)
 		(*data)->fds->oldfd[1] = 0;
 	}
 	free_set_null((void **)&(*data)->pwd);
-	ft_free_array((*data)->env);
+	ft_free_array(&(*data)->env);
 	free_set_null((void **)&(*data)->fds);
 	free_set_null((void **)&(*data));
 }
