@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:23:49 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 20:57:07 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:11:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ char	**unset_env(char **old_env, int index)
 	int		j;
 	char	**new_env;
 
-	i = 0;
-	j = 0;
+	if (!old_env)
+		return (NULL);
 	new_env = malloc(sizeof(char *) * (envlen(old_env) - 1));
 	if (!new_env)
 		exit(EXIT_FAILURE);
+	i = 0;
+	j = 0;
 	while (old_env[i])
 	{
 		if (i != index)
@@ -42,10 +44,11 @@ int	handle_unset(char **inputs, t_parse *data)
 {
 	int	i;
 	int	index;
+	int	len;
 
 	i = 1;
-	index = 0;
-	while (inputs[i])
+	len = ft_array_size(inputs);
+	while (i < len && inputs[i])
 	{
 		if (check_export(inputs[i]))
 		{

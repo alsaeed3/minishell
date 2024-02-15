@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/13 13:57:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:10:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	get_shlvl(t_parse *data)
 	index = var_index("SHLVL", data);
 	tmp = ft_itoa(shlvl);
 	new = ft_strjoin("SHLVL=", tmp);
-	free_set_null(tmp);
+	free_set_null((void **)&tmp);
 	replace_var(new, data, index);
-	free_set_null(new);
+	free_set_null((void **)&new);
 }
 
 t_bool	data_init(t_parse **data, char **env)
@@ -79,7 +79,7 @@ void	set_up_prompt(t_parse **data, char *cmd_line)
 	if (cmd_line == NULL)
 	{
 		ft_putendl_fd("exit", 2);
-		// rl_clear_history();
+		rl_clear_history();
 		free_util_1(data);
 		exit(0);
 	}

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 21:00:09 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:21:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,24 @@ void	handle_single_pipe(char **inputs, t_parse *data, t_pipe *pipes)
 	int		ret;
 
 	ret = 0;
+	fd = 0;
 	expand_dolar_sign(inputs, data);
 	if (data->in_rdr_num[pipes->i] > 0)
 		fd = redirect_from_pipe(data, pipes);
 	if (data->out_rdr_num[pipes->i] > 0)
 		fd = redirect_to_pipe(data, pipes);
-	if (!inputs[0])
+	if (data->heredoc_tmp_files)
+		ft_free_array(data->heredoc_tmp_files);
+	if (inputs && !inputs[0])
 	{
 		close(fd);
 		close_fds(data);
-		free(data->fds);
-		free(pipes->pipe_fds);
-		free (pipes->pid);
-		free_close_fd(data, 0, 0);
-	}	
-	if (inputs[0])
+		free_set_null((void **)&data->fds);
+		free_set_null((void **)&pipes->pipe_fds);
+		free_set_null((void **)&pipes->pid);
+		free_close_fd(data, 0, 0, pipes);
+	}
+	if (inputs && inputs[0])
 		choose_action_pipe(inputs, data, pipes, fd);
 }
 
@@ -59,10 +62,10 @@ void	choose_action_pipe(char **cmd, t_parse *data, t_pipe *pipes, int fd)
 		ret = handle_exec(cmd, data);
 	close(fd);
 	close_fds(data);
-	free(data->fds);
-	free(pipes->pipe_fds);
-	free (pipes->pid);
-	free_close_fd(data, 0, ret);
+	free_set_null((void **)&data->fds);
+	free_set_null((void **)&pipes->pipe_fds);
+	free_set_null((void **)&pipes->pid);
+	free_close_fd(data, 0, ret, pipes);
 }
 
 int	handle_exec_pipe(char **inputs, t_parse *data)
@@ -77,9 +80,8 @@ int	handle_exec_pipe(char **inputs, t_parse *data)
 		return (127);
 	}
 	g_signal = 3;
-	// close_new_fd(data);
 	if (execute(inputs, data) != 0)
-		free_close_fd(data, 0, errno);
+		free_close_fd(data, 0, errno, NULL);
 	return (ret);
 }
 

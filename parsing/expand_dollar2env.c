@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 16:48:06 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	find_exp_size(t_var *var, char *str, t_env *env_lst)
 		if (ft_getenv(var->env, env_lst))
 			var->size += ft_strlen(ft_getenv(var->env, env_lst));
 		if (var->env)
-			free_set_null(var->env);
+			free_set_null((void **)&var->env);
 	}
 }
 
@@ -107,6 +107,6 @@ char	*expand_dollar_string(char *str, t_env *env_lst)
 			var.ret[var.j++] = str[var.i];
 	}
 	var.ret[var.j] = '\0';
-	free_set_null(str);
+	free_set_null((void **)&str);
 	return (var.ret);
 }

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 16:51:06 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ char	*conv_redir2spcs(char *str)
 	}
 	if (var.nordr || var.nordr[var.j])
 		var.nordr[var.j] = '\0';
-	free_set_null(str);
+	free_set_null((void **)&str);
 	return (var.nordr);
 }

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 20:24:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 17:10:00 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	process_line(t_hvr *hvr, t_parse *data)
 		{
 			data->heredocs_num--;
 			unlink(data->heredoc_tmp_files[hvr->k - 1]);
-			free_set_null(data->heredoc_tmp_files[hvr->k - 1]);
+			free_set_null((void **)&data->heredoc_tmp_files[hvr->k - 1]);
 			hvr->k--;
 		}
 		close(hvr->rdfd);

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 20:52:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 16:36:19 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:35:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,7 @@ static t_bool	check_error(t_var var, char *str)
 	{
 		if (str[var.i + 1] == '|' || str[var.i + 1] == '\0' \
 		|| check_redir_end(str + (var.i + 1)))
-		{
-			ft_putchar_fd(str[var.i], 2);
-			ft_putchar_fd('\n', 2);
 			return (TRUE);
-		}
 	}
 	else if (str[var.i] == '|' && !var.qutrg)
 	{

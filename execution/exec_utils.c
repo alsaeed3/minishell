@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:26:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 18:13:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ char	**gen_paths(int index, t_parse *data, char *input)
 	i = 0;
 	str = ft_strdup(&data->env[index][5]);
 	paths = ft_split(str, ':');
-	free_set_null(str);
+	free_set_null((void **)&str);
 	while (paths[i])
 	{
 		temp = paths[i];
 		paths[i] = ft_strjoin(paths[i], "/");
-		free_set_null(temp);
+		free_set_null((void **)&temp);
 		temp = paths[i];
 		paths[i] = ft_strjoin(paths[i], input);
-		free_set_null(temp);
+		free_set_null((void **)&temp);
 		i++;
 	}
 	return (paths);

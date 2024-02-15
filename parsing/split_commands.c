@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 18:14:58 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	**find_cmds_chars_num(char *str)
 		&& (str[cvr.i] != cvr.quchr) && cvr.qutrg)))
 			cvr.chrn[cvr.j][cvr.k] = ++cvr.chars_num;
 	}
-	free_set_null(cvr.cnum);
+	free_set_null((void **)&cvr.cnum);
 	return (cvr.chrn);
 }
 
@@ -109,7 +109,7 @@ char	***split_cmds(char *str)
 	if (cvr.cmds[cvr.j])
 		cvr.cmds[++cvr.j] = NULL;
 	if (cvr.cnum)
-		free_set_null(cvr.cnum);
-	free_set_null(str);
+		free_set_null((void **)&cvr.cnum);
+	free_set_null((void **)&str);
 	return (cvr.cmds);
 }

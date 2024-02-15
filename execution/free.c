@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 17:40:41 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:15:53 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,35 +30,36 @@ void	free_exit(t_parse *data, int status)
 	}
 	free_data(&data);
 	free_env(data->env);
-	free_set_null(data->pwd);
-	free_set_null(data);
-	// rl_clear_history();
+	free_set_null((void **)&data->pwd);
+	free_set_null((void **)&data);
+	rl_clear_history();
 	ft_putendl_fd("exit", 1);
 	exit(status);
 }
 
-void	free_close_fd(t_parse *data, int mode, int status)
+void	free_close_fd(t_parse *data, int mode, int status, t_pipe *pipes)
 {
 	free_data(&data);
-	free_set_null(data->pwd);
+	free_set_null((void **)&data->pwd);
 	ft_free_array(data->env);
 	if (mode == 1)
 	{
 		if (data->fds)
 		{
-			if (data->fds->oldfd[0])
-				close(data->fds->oldfd[0]);
-			if (data->fds->oldfd[1])
-				close(data->fds->oldfd[1]);
-			if (data->fds->pfd[0])
-				close(data->fds->pfd[0]);
-			if (data->fds->pfd[1])
-				close(data->fds->pfd[1]);
-			free(data->fds);
+			close(data->fds->oldfd[0]);
+			close(data->fds->oldfd[1]);
+			close(data->fds->pfd[0]);
+			close(data->fds->pfd[1]);
+			free_set_null((void **)&data->fds);
 		}
 	}
-	free_set_null(data);
-	// rl_clear_history();
+	if (pipes)
+	{
+		free_set_null((void **)&pipes->pipe_fds);
+		free_set_null((void **)&pipes->pid);
+	}
+	free_set_null((void **)&data);
+	rl_clear_history();
 	exit(status);
 }
 

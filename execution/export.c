@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 21:04:11 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,20 @@ void	replace_var(char *new_var, t_parse *data, int index)
 		if (ft_strchr(data->env[index], '='))
 		{
 			old_var = ft_strjoin(data->env[index], ft_strchr(new_var, '=') + 1);
-			free_set_null(data->env[index]);
+			free_set_null((void **)&data->env[index]);
 			data->env[index] = old_var;
 		}
 		else
 		{
 			old_var = ft_strjoin(data->env[index], "=");
-			free_set_null(data->env[index]);
+			free_set_null((void **)&data->env[index]);
 			data->env[index] = ft_strjoin(old_var, ft_strchr(new_var, '=') + 1);
-			free_set_null(old_var);
+			free_set_null((void **)&old_var);
 		}
 	}
 	else
 	{
-		free_set_null(data->env[index]);
+		free_set_null((void **)&data->env[index]);
 		data->env[index] = ft_strdup(new_var);
 	}
 }

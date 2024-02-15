@@ -233,7 +233,6 @@ void	ft_free_intarr(int **int_arr, int parts_num);
 void	check_quotation(t_var *var, char *str);
 void	check_pipe(t_var *var, char *str, int mode);
 void	check_quota(t_var *var, char *str);
-void	free_set_null(void *ptr);
 void	set_up_prompt(t_parse **data, char *cmd_line);
 void	free_util_1(t_parse **data);
 t_bool	check_errors(char *str);

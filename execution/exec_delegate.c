@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 20:58:45 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:11:20 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	exec_delegator(t_parse **data)
 			unlink((*data)->heredoc_tmp_files[hrnum - 1]);
 		hrnum--;
 	}
+	if ((*data)->heredoc_tmp_files)
+		ft_free_array((*data)->heredoc_tmp_files);
 	(*data)->exit_status = ret;
 }
 
@@ -64,7 +66,6 @@ int	handle_single(char **inputs, t_parse *data, int x)
 	close(data->fds->oldfd[0]);
 	dup2(data->fds->oldfd[1], 1);
 	close(data->fds->oldfd[1]);
-	// close_fds(data);
 	return (ret);
 }
 
