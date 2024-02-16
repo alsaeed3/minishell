@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:03:01 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 21:09:48 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/16 18:10:35 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_export(char *str)
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(str[i]))
+	if (ft_isdigit(str[i]) || str[i] == '=' || str[i] == '+' /* || str[i] == '\0' */)
 		return (0);
 	while (str[i] && str[i] != '=')
 	{

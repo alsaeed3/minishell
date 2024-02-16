@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 19:09:05 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/16 19:42:11 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	redirect_to(t_parse *data, int x)
 		if (fd < 0)
 		{
 			perror("Error");
-			return (127);
+			return (1);
 		}
 		i++;
 	}
@@ -106,7 +106,7 @@ int	redirect_from_pipe(t_parse *data, t_pipe *pipes)
 	return (fd);
 }
 
-int	redirect_to_pipe(t_parse *data, t_pipe *pipes)
+int	redirect_to_pipe(t_parse **data, t_pipe *pipes)
 {
 	char	*filename;
 	int		fd;
@@ -114,11 +114,11 @@ int	redirect_to_pipe(t_parse *data, t_pipe *pipes)
 	int		flags;
 
 	i = -1;
-	while (++i < data->out_rdr_num[pipes->i])
+	while (++i < (*data)->out_rdr_num[pipes->i])
 	{
-		filename = data->outputs_redirections[pipes->i][i];
+		filename = (*data)->outputs_redirections[pipes->i][i];
 		flags = O_RDWR | O_CREAT;
-		if (data->outputs_tokens[pipes->i][i] == 1)
+		if ((*data)->outputs_tokens[pipes->i][i] == 1)
 			flags |= O_APPEND;
 		else
 			flags |= O_TRUNC;
@@ -127,7 +127,8 @@ int	redirect_to_pipe(t_parse *data, t_pipe *pipes)
 		if (fd < 0)
 		{
 			perror("Error");
-			free_close_fd(data, 0, 2, pipes);
+			(*data)->exit_status = 1;
+			free_close_fd((*data), 0, 1, pipes);
 		}
 	}
 	return (fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_delegate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 16:19:13 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/16 22:15:42 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	handle_single(char **inputs, t_parse *data, int x)
 		if (ret == 127)
 			return (127);
 		else if (ret == 1)
-			return (0);
+			return (1);
 	}
 	if (inputs[0])
 		ret = choose_action(inputs, data, x);
@@ -72,7 +72,7 @@ int	handle_single(char **inputs, t_parse *data, int x)
 int	choose_action(char **cmd, t_parse *data, int x)
 {
 	int	ret;
-
+	
 	ret = 0;
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		handle_echo(data, x);

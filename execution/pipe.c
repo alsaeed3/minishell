@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:16:41 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 19:22:29 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/16 19:33:51 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_bool	loop_pipe(t_parse *data, t_pipe *pipes)
 			close(pipes->pipe_fds[pipes->j][0]);
 			close(pipes->pipe_fds[pipes->j][1]);
 		}
-		handle_single_pipe(data->cmds[pipes->i], data, pipes);
+		handle_single_pipe(data->cmds[pipes->i], &data, pipes);
 	}
 	return (FALSE);
 }
