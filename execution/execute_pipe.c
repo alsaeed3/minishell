@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 17:49:52 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/16 19:32:27 by habu-zua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void	handle_single_pipe(char **inputs, t_parse *data, t_pipe *pipes)
+void	handle_single_pipe(char **inputs, t_parse **data1, t_pipe *pipes)
 {
 	int		fd;
 	int		ret;
-
+	t_parse	*data;
+	
+	data = *data1;
 	ret = 0;
 	fd = 0;
 	expand_dolar_sign(inputs, data);
@@ -25,7 +27,7 @@ void	handle_single_pipe(char **inputs, t_parse *data, t_pipe *pipes)
 	ft_free_array(&data->heredoc_tmp_files);
 	free_set_null((void **)&data->heredoc_tmp_files);
 	if (data->out_rdr_num[pipes->i] > 0)
-		fd = redirect_to_pipe(data, pipes);
+		fd = redirect_to_pipe(data1, pipes);
 	if (inputs && inputs[0])
 		choose_action_pipe(inputs, data, pipes, fd);
 	ft_free_array(&data->heredoc_tmp_files);
