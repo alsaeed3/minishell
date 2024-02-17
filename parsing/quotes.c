@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 18:14:31 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 18:25:16 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ static void	init_vars(t_var *var, char *str)
 
 t_bool	pass_consqut(char *str, t_var *var)
 {
-	if ((str[var->i] == '"' && str[var->i + 1] == '"') \
-	|| (str[var->i] == '\'' && str[var->i + 1] == '\''))
+	if (((str[var->i] == '"' && str[var->i + 1] == '"') \
+	|| (str[var->i] == '\'' && str[var->i + 1] == '\'')) \
+	&& !var->qutrg)
 	{
 		var->i++;
 		return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:48:44 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/14 20:54:16 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:17:53 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ static int	cd_minus(t_parse *data)
 
 static int	cd_path(char **args, t_parse *data)
 {
+	if (args[2])
+	{
+		ft_error("cd: too many arguments");
+		data->exit_status = 1;
+		return (1);
+	}
 	if (args[1][0] == '~')
 	{
 		if (var_index("HOME=", data) < 0)
@@ -54,7 +60,7 @@ static int	cd_path(char **args, t_parse *data)
 	}
 	if (chdir(args[1]) == -1)
 	{
-		ft_error("cd: no such file or directory");
+		ft_error("cd: No such file or directory");
 		data->exit_status = 1;
 		return (1);
 	}

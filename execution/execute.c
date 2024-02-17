@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/16 22:36:10 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/17 19:14:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,17 @@ int	handle_exec(char **inputs, t_parse *data)
 	ret = 0;
 	if (!check_exec(inputs, data))
 	{
-		print_message(inputs[0], ": command not found");
+		if (((inputs[0][0] == '.' && inputs[0][1] == '/') || inputs[0][0] == '/') \
+		&& access(inputs[0], F_OK) == 0)
+		{
+			print_message(inputs[0], ": Is a directory");
+			return (126);
+		}
+		else if (((inputs[0][0] == '.' && inputs[0][1] == '/') || inputs[0][0] == '/') \
+		&& access(inputs[0], F_OK) != 0)
+			print_message(inputs[0], ": No such file or directory");
+		else
+			print_message(inputs[0], ": command not found");
 		return (127);
 	}
 	g_signal = 3;
