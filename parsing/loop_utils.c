@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:21:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/17 18:25:11 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 23:02:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_bool	cons_quot_dollar(t_var *var, char *str)
 
 t_bool	cons_quot_conv(t_var *var, char *str)
 {
-	if (((str[var->i] == '"' && str[var->i + 1] == '"') \
+	if (var->i < var->len - 1 && ((str[var->i] == '"' && str[var->i + 1] == '"') \
 	|| (str[var->i] == '\'' && str[var->i + 1] == '\'')) \
 	&& !var->qutrg)
 	{

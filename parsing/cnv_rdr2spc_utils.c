@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cnv_rdr2spc_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 16:04:09 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/18 00:56:23 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/data.h"
-
-void	check_rdrc(t_var *var, char *str)
-{
-	if (var->i < var->len - 1 && ((str[var->i] == '<' \
-	&& str[var->i + 1] != '<' && (var->i == 0 || str[var->i - 1] != '<')) \
-	|| (str[var->i] == '>' && str[var->i + 1] != '>' && (var->i == 0 \
-	|| str[var->i - 1] != '>'))) && !var->rdrtrg && !var->qutrg)
-	{
-		var->rdrtrg = TRUE;
-		var->i++;
-		var->j++;
-		if (str[var->i] == ' ')
-			var->j++;
-	}
-	else if (var->i < var->len - 1 && ((str[var->i] == '<' \
-	&& str[var->i + 1] == '<') || (str[var->i] == '>' \
-	&& str[var->i + 1] == '>')) && !var->rdrtrg && !var->qutrg)
-	{
-		var->rdrtrg = TRUE;
-		var->i += 2;
-		var->j += 2;
-		if (str[var->i] == ' ')
-			var->j++;
-	}
-}
 
 void	check_quotation(t_var *var, char *str)
 {
@@ -55,6 +30,9 @@ void	check_quotation(t_var *var, char *str)
 	{
 		var->qchr = '\0';
 		var->qutrg = FALSE;
+		if (!var->rdrtrg)
+			var->nordr[var->j++] = str[var->i];
+		var->i++;
 		if_else_conv(var, str);
 	}
 }
@@ -87,7 +65,8 @@ void	check_rdr(t_var *var, char *str)
 
 t_bool	continue_conv(t_var *var, char *str)
 {
-	if (((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg))
+	if (var->i < var->len && ((str[var->i] == '\'' || str[var->i] == '"') \
+	&& !var->qutrg))
 	{
 		if (!var->rdrtrg)
 			var->nordr[var->j++] = str[var->i];
@@ -97,16 +76,16 @@ t_bool	continue_conv(t_var *var, char *str)
 		var->qutrg = TRUE;
 		return (TRUE);
 	}
-	else if (str[var->i] == var->qchr && var->qutrg)
+	else if (var->i < var->len && str[var->i] == var->qchr && var->qutrg)
 	{
 		var->nordr[var->j++] = str[var->i];
 		var->qchr = '\0';
 		var->qutrg = FALSE;
 		return (TRUE);
 	}
-	if (((str[var->i] != '<' && str[var->i] != '>' && str[var->i] != ' ' \
-	&& str[var->i] != '|' && str[var->i] != '\'' && str[var->i] != '"') \
-	&& !var->qutrg && var->rdrtrg))
+	if (var->i < var->len && ((str[var->i] != '<' && str[var->i] != '>' \
+	&& str[var->i] != ' ' && str[var->i] != '|' && str[var->i] != '\'' \
+	&& str[var->i] != '"') && !var->qutrg && var->rdrtrg))
 	{
 		var->nordr[var->j++] = ' ';
 		return (TRUE);
@@ -114,16 +93,14 @@ t_bool	continue_conv(t_var *var, char *str)
 	return (FALSE);
 }
 
-void	check_pipe(t_var *var, char *str, int mode)
+void	check_pipe(t_var *var, char *str)
 {
-	if ((str[var->i] == '|' || (str[var->i] == ' ' && \
-	(var->i == 0 || str[var->i - 1] != '<') && (var->i == 0 \
+	if (var->i < var->len && (str[var->i] == '|' || (str[var->i] == ' ' \
+	&& (var->i == 0 || str[var->i - 1] != '<') && (var->i == 0 \
 	|| str[var->i - 1] != '>'))) && var->rdrtrg && !var->qutrg)
 	{
-		if (str[var->i] == ' ' && mode == 0)
-			var->j++;
-		else if (str[var->i] == ' ' && mode == 1)
-			var->nordr[var->j++] = ' ';
+		if (str[var->i] == ' ')
+			var->nordr[var->size++] = ' ';
 		var->rdrtrg = FALSE;
 	}
 }
