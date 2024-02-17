@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:55:44 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 17:31:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 15:30:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ t_bool	del_consqut(char *str, t_var *var)
 	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
 		var->qutrg = TRUE;
-		var->qchr = str[var->i];
+		var->ret[var->j++] = str[var->i];
+		var->qchr = str[var->i++];
 	}
 	return (FALSE);
 }

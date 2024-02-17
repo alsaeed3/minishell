@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/15 19:23:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 15:52:31 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@ t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 	if (!str || !str[0])
 		return (TRUE);
 	str = conv_tabs2spcs(str);
+	// ft_putstr_fd("conv_tabs2spcs: ", 2);
+	// ft_putendl_fd(str, 2);
 	if (check_errors(str))
 	{
 		(*data)->exit_status = 258;
 		return (TRUE);
 	}
 	str = delete_excess_spcs(str);
+	// ft_putstr_fd("delete_excess_spcs: ", 2);
+	// ft_putendl_fd(str, 2);
 	(*data)->envs_lst = get_envs_lst((*data)->env);
 	str = expand_dollar_string(str, (*data)->envs_lst);
 	(*data)->parts_num = find_parts_num(str);
@@ -36,8 +40,16 @@ t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 	(*data)->outputs_redirections = hold_rdr_names(str, '>', (*data));
 	(*data)->outputs_tokens = tokenize_redir(str, (*data), '>');
 	str = conv_redir2spcs(str);
+	// ft_putstr_fd("conv_redir2spcs: ", 2);
+	// ft_putendl_fd(str, 2);
 	str = delete_excess_spcs(str);
+	// ft_putstr_fd("delete_excess_spcs: ", 2);
+	// ft_putendl_fd(str, 2);
 	(*data)->cmds = split_cmds(str);
+	// ft_putstr_fd("(*data)->cmds[0][0]: ", 2);
+	// ft_putendl_fd((*data)->cmds[0][0], 2);
+	// ft_putstr_fd("(*data)->cmds[0][0]: ", 2);
+	// ft_putendl_fd((*data)->cmds[0][1], 2);	
 	return (FALSE);
 }
 
