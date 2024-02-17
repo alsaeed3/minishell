@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:55:44 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/17 18:24:43 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 22:35:41 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ t_bool	del_consqut(char *str, t_var *var)
 		var->qutrg = TRUE;
 		var->ret[var->j++] = str[var->i];
 		var->qchr = str[var->i++];
+	}
+	else if (str[var->i] == var->qchr && var->qutrg)
+	{
+		var->qchr = '\0';
+		var->qutrg = FALSE;
+		var->ret[var->j++] = str[var->i++];
 	}
 	return (FALSE);
 }

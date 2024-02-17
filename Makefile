@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/02/17 20:21:07 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/02/17 23:39:58 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ OBJS_DIR = parsing/objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 OBJSX_DIR = execution/objs/
 OBJSX = $(addprefix $(OBJSX_DIR), $(SRCSX:.c=.o))
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 LDFLAGS = -L$(LIBFT_DIR) -lft -lreadline -lncurses
 
 LIBFT_DIR = libft
