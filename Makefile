@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/02/15 19:18:16 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/02/17 13:09:02 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,14 +76,14 @@ all: $(LIBFT_LIB) $(NAME)
 
 $(OBJS_DIR)%.o: parsing/%.c
 	@mkdir -p $(OBJS_DIR)
-	@clang $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 	
 $(OBJSX_DIR)%.o: execution/%.c
 	@mkdir -p $(OBJSX_DIR)
-	@clang $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 	
 $(NAME): $(OBJS) $(OBJSX) main.c
-	@clang $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main.c -o $(NAME) $(LDFLAGS)
+	@gcc $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main.c -o $(NAME) $(LDFLAGS)
 	@echo "minishell Compiled: \033[1;32mOK\033[0m"
 
 $(LIBFT_LIB):

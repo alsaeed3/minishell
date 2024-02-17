@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/16 19:32:27 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/17 00:58:15 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 void	handle_single_pipe(char **inputs, t_parse **data1, t_pipe *pipes)
 {
 	int		fd;
-	int		ret;
 	t_parse	*data;
 	
 	data = *data1;
-	ret = 0;
 	fd = 0;
 	expand_dolar_sign(inputs, data);
 	if (data->in_rdr_num[pipes->i] > 0)
