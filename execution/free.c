@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 17:54:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:25:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	free_exit(t_parse *data, int status)
 	free_set_null((void **)&data->pwd);
 	free_set_null((void **)&data);
 	// rl_clear_history();
-	ft_putendl_fd("exit", 1);
+	// ft_putendl_fd("exit", 1);
 	exit(status);
 }
 

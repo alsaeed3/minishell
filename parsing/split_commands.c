@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 18:25:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ int	*find_cmds_num(char *str)
 		return (NULL);
 	while (++cvr.i < cvr.len)
 	{
-		if ((str[cvr.i] == '"' && str[cvr.i + 1] == '"') \
-		|| (str[cvr.i] == '\'' && str[cvr.i + 1] == '\''))
+		if (((str[cvr.i] == '"' && str[cvr.i + 1] == '"') \
+		|| (str[cvr.i] == '\'' && str[cvr.i + 1] == '\'')) \
+		&& !cvr.qutrg)
 		{
 			cvr.i++;
 			continue ;

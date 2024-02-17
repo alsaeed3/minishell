@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/17 00:58:15 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:14:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	handle_single_pipe(char **inputs, t_parse **data1, t_pipe *pipes)
 	data = *data1;
 	fd = 0;
 	expand_dolar_sign(inputs, data);
+	if (data->in_rdr_num[pipes->i] > 0)
+		expand_dolar_sign(data->inputs_redirections[pipes->i], data);
+	if (data->out_rdr_num[pipes->i] > 0)	
+		expand_dolar_sign(data->outputs_redirections[pipes->i], data);
 	if (data->in_rdr_num[pipes->i] > 0)
 		fd = redirect_from_pipe(data, pipes);
 	ft_free_array(&data->heredoc_tmp_files);
@@ -73,8 +77,17 @@ int	handle_exec_pipe(char **inputs, t_parse *data, t_pipe *pipes)
 	ret = 0;
 	if (!check_exec(inputs, data))
 	{
-		print_message(inputs[0], ": command not found");
-		close_new_fd(data);
+		if (((inputs[0][0] == '.' && inputs[0][1] == '/') || inputs[0][0] == '/') \
+		&& access(inputs[0], F_OK) == 0)
+		{
+			print_message(inputs[0], ": Is a directory");
+			return (126);
+		}
+		else if (((inputs[0][0] == '.' && inputs[0][1] == '/') || inputs[0][0] == '/') \
+		&& access(inputs[0], F_OK) != 0)
+			print_message(inputs[0], ": No such file or directory");
+		else
+			print_message(inputs[0], ": command not found");
 		return (127);
 	}
 	g_signal = 3;

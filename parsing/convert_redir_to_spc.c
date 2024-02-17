@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 18:23:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ int	count_size_without_redir(char *str)
 	init_nordr_vars(&var, str, 0);
 	while (++var.i < var.len && str[var.i])
 	{
-		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
-		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		if (((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\'')) \
+		&& !var.qutrg)
 		{
 			var.j += 2;
 			var.i++;
