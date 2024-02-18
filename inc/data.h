@@ -156,6 +156,16 @@ typedef struct t_inf
 	char	*info;
 }	t_inf;
 
+typedef struct s_dlr
+{
+	t_bool	in_single_quotes;
+    t_bool	in_double_quotes;
+	int		i;
+    int		j;
+    char	*ret;
+	char	*expanded;
+}	t_dlr;
+
 extern int	g_signal;
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr);
@@ -229,7 +239,7 @@ void	jump_over_spaces(char *str, int *i);
 void	ft_free_lst(t_env **lst);
 void	free_data(t_parse **parse);
 void	ft_free_intarr(int **int_arr, int parts_num);
-void	check_quotation(t_var *var, char *str);
+t_bool	check_quotation(t_var *var, char *str);
 void	set_up_prompt(t_parse **data, char *cmd_line);
 void	free_util_1(t_parse **data);
 t_bool	check_errors(char *str);

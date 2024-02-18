@@ -6,35 +6,32 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/18 00:56:23 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/18 14:59:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/data.h"
 
-void	check_quotation(t_var *var, char *str)
+t_bool	check_quotation(t_var *var, char *str)
 {
 	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
 		var->qchr = str[var->i];
 		var->qutrg = TRUE;
 		if (var->rdrtrg)
-		{
-			var->i++;
 			var->nordr[var->j++] = ' ';
-		}
 		else
-			var->nordr[var->j++] = str[var->i++];
+			var->nordr[var->j++] = str[var->i];
+		return (TRUE);
 	}
 	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
 		var->qchr = '\0';
 		var->qutrg = FALSE;
-		if (!var->rdrtrg)
-			var->nordr[var->j++] = str[var->i];
-		var->i++;
 		if_else_conv(var, str);
+		return (TRUE);
 	}
+	return (FALSE);
 }
 
 void	check_rdr(t_var *var, char *str)
