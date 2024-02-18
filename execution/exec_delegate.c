@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/17 16:35:33 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/18 15:05:23 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,6 @@ int	handle_single(char **inputs, t_parse *data, int x)
 {
 	int	ret;
 
-	expand_dolar_sign(inputs, data);
-	if (data->in_rdr_num[x] > 0)
-		expand_dolar_sign(data->inputs_redirections[x], data);
-	if (data->out_rdr_num[x] > 0)	
-		expand_dolar_sign(data->outputs_redirections[x], data);
 	ret = 0;
 	data->fds->oldfd[0] = dup(0);
 	data->fds->oldfd[1] = dup(1);

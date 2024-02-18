@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/17 19:14:57 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/18 15:05:03 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ void	handle_single_pipe(char **inputs, t_parse **data1, t_pipe *pipes)
 	
 	data = *data1;
 	fd = 0;
-	expand_dolar_sign(inputs, data);
-	if (data->in_rdr_num[pipes->i] > 0)
-		expand_dolar_sign(data->inputs_redirections[pipes->i], data);
-	if (data->out_rdr_num[pipes->i] > 0)	
-		expand_dolar_sign(data->outputs_redirections[pipes->i], data);
 	if (data->in_rdr_num[pipes->i] > 0)
 		fd = redirect_from_pipe(data, pipes);
 	ft_free_array(&data->heredoc_tmp_files);

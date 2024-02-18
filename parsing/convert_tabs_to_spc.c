@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/18 00:39:20 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/18 14:51:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	if_else_conv(t_var *var, char *str)
 		var->nordr[var->j++] = ' ';
 	}
 	else
-		var->nordr[var->j++] = str[var->i++];
+		var->nordr[var->j++] = str[var->i];
 }
