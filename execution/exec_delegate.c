@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/18 15:05:23 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/18 22:07:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exec_delegator(t_parse **data)
 	if ((*data)->parts_num == 1)
 	{
 		(*data)->h_index = 0;
-		ret = handle_single((*data)->cmds[0], *data, 0);
+		ret = handle_single((*data)->cmds[0], *data);
 	}
 	else
 	{
@@ -41,26 +41,34 @@ void	exec_delegator(t_parse **data)
 	(*data)->exit_status = ret;
 }
 
-int	handle_single(char **inputs, t_parse *data, int x)
+int	handle_single(char **inputs, t_parse *data)
 {
 	int	ret;
 
 	ret = 0;
 	data->fds->oldfd[0] = dup(0);
 	data->fds->oldfd[1] = dup(1);
-	if (data->in_rdr_num[x] > 0)
-		if (redirect_from(data, x))
-			return (1);
-	if (data->out_rdr_num[x] > 0)
+	if (data->out_rdr_num[0] > 0)
 	{
-		ret = redirect_to(data, x);
-		if (ret == 127)
-			return (127);
-		else if (ret == 1)
+		ret = redirect_to(data);
+		if (ret == 1)
 			return (1);
+		else if (ret == 126)
+			return (126);
+		else if (ret == 127)
+			return (127);
 	}
+	if (data->in_rdr_num[0] > 0)
+		if (redirect_from(data))
+		{
+			dup2(data->fds->oldfd[0], 0);
+			close(data->fds->oldfd[0]);
+			dup2(data->fds->oldfd[1], 1);
+			close(data->fds->oldfd[1]);
+			return (1);
+		}
 	if (inputs[0])
-		ret = choose_action(inputs, data, x);
+		ret = choose_action(inputs, data);
 	dup2(data->fds->oldfd[0], 0);
 	close(data->fds->oldfd[0]);
 	dup2(data->fds->oldfd[1], 1);
@@ -68,13 +76,13 @@ int	handle_single(char **inputs, t_parse *data, int x)
 	return (ret);
 }
 
-int	choose_action(char **cmd, t_parse *data, int x)
+int	choose_action(char **cmd, t_parse *data)
 {
 	int	ret;
 	
 	ret = 0;
 	if (ft_strcmp(cmd[0], "echo") == 0)
-		handle_echo(data, x);
+		handle_echo(data, 0);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		handle_pwd(data);
 	else if (ft_strcmp(cmd[0], "cd") == 0)

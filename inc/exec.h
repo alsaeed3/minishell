@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/16 19:33:13 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/18 20:08:27 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void		handle_pwd(t_parse *data);
 t_bool		data_init(t_parse **data, char **env);
 t_bool		data_reset(t_parse **data);
 
-int			redirect_from(t_parse *data, int x);
-int			redirect_to(t_parse *data, int x);
-int			redirect_to_pipe(t_parse **data, t_pipe *pipes);
+int			redirect_from(t_parse *data);
+int			redirect_to(t_parse *data);
+int			redirect_to_pipe(t_parse *data, t_pipe *pipes);
 int			redirect_from_pipe(t_parse *data, t_pipe *pipes);
 
 char		**gen_paths(int index, t_parse *data, char *input);
@@ -60,11 +60,11 @@ int			check_exec_path(char **inputs, t_parse *data);
 int			check_exec(char **inputs, t_parse *data);
 
 int			handle_pipe(t_parse *data);
-int			handle_single(char **inputs, t_parse *data, int x);
+int			handle_single(char **inputs, t_parse *data);
 
 void		close_fds(t_parse *data);
 
-int			choose_action(char **cmd, t_parse *data, int x);
+int			choose_action(char **cmd, t_parse *data);
 int			handle_exec(char **inputs, t_parse *data);
 int			handle_exec_pipe(char **inputs, t_parse *data, t_pipe *pipes);
 int			execute_2(char **inputs, t_parse *data);
@@ -82,7 +82,7 @@ void		print_message(char *cmd, char *message);
 char		*get_file_name(t_parse *data, int x);
 
 void		expand_dolar_sign(char **inputs, t_parse *data);
-void		handle_single_pipe(char **inputs, t_parse **data, t_pipe *pipes);
+void		handle_single_pipe(char **inputs, t_parse *data, t_pipe *pipes);
 
 int			execute_2_pipe(char **inputs, t_parse *data);
 void		choose_action_pipe(char **cmd, t_parse *data, t_pipe *pipes, \

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/17 22:10:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/18 22:49:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	***split_cmds(char *str)
 	cvr = (t_cvr){0};
 	init_cvr(&cvr, str, 2);
 	malloc_cmds(&cvr);
-	ft_free_intarr(cvr.chrn, cvr.parts_num);
+	ft_free_intarr(&cvr.chrn, cvr.parts_num);
 	while (++cvr.i < cvr.len)
 	{
 		if (cons_quot_cmd(&cvr, str))
