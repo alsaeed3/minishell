@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/18 00:59:38 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/18 21:46:20 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int ac, char **av, char **env)
 		set_up_prompt(&main.data, main.cmd_line);
 		if (parse_shell(main.cmd_line, main.dup, &main.data))
 			continue ;
+		// ft_putchar_fd('{', 1); ft_putstr_fd(main.cmd_line, 1); ft_putendl_fd("}", 1);
 		exec_delegator(&main.data);
 		free_data(&main.data);
 	}

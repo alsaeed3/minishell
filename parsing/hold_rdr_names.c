@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 16:37:26 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/18 22:49:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 		return (NULL);
 	var.rcn = find_rdr_chars(str, rdr, data);
 	var.rnms = malloc_rdr_names(var.parts_num, var.rnum, var.rcn);
-	ft_free_intarr(var.rcn, var.parts_num);
+	ft_free_intarr(&var.rcn, var.parts_num);
 	while (++var.i < var.len && str[var.i])
 	{
 		if (cons_quot_hold(&var, str))

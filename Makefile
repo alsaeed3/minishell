@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/02/18 15:00:13 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/02/18 19:02:01 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SRCSX = exec_delegate.c \
 		echo.c \
 		pwd.c \
 		export.c \
-		export_utils.c\
+		export_utils.c \
 		exit.c \
 		env.c \
 		unset.c \
@@ -57,10 +57,8 @@ SRCSX = exec_delegate.c \
 		close_fds.c \
 		free.c \
 		signal.c \
-		ft_error.c\
-		exp_dlr_sgn2.c\
-		execute_pipe.c\
-		ft_strreplace.c\
+		ft_error.c \
+		execute_pipe.c
 
 OBJS_DIR = parsing/objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
