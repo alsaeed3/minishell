@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:15 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 17:35:12 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 18:09:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_file_dir(char **filename)
 		if (access(filename[0], X_OK) != 0)
 			print_message(filename[0], ": Permission denied");
 		else if (S_ISDIR(path_stat.st_mode))
-			print_message(filename[0], ": Is a directory");
+			print_message(filename[0], ": is a directory");
 		return (126);
 	}
 	else if (((filename[0][0] == '.' && filename[0][1] == '/') \

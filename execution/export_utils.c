@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:03:01 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 17:17:01 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 18:05:36 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	handle_non_numeric_arg(t_parse *data)
 {
 	ft_putendl_fd("exit", 1);
 	ft_putendl_fd("minishell: exit: numeric argument required", 2);
-	free_exit(data, 2);
+	free_exit(data, 255);
 }
 
 void	handle_too_many_args(t_parse *data)
