@@ -158,12 +158,13 @@ typedef struct t_inf
 
 typedef struct s_dlr
 {
-	t_bool	in_single_quotes;
-    t_bool	in_double_quotes;
-	int		i;
-    int		j;
-    char	*ret;
-	char 	*expanded;
+	t_bool		in_single_quotes;
+	t_bool		in_double_quotes;
+	int			i;
+	int			j;
+	int			len;
+	char		*ret;
+	char		*expanded;
 }	t_dlr;
 
 extern int	g_signal;
@@ -223,11 +224,6 @@ void	count_qut_pipe(t_cvr *cvr, char *str);
 void	check_qut_pipe(t_cvr *cvr, char *str);
 void	malloc_cmds(t_cvr *cvr);
 void	init_cvr(t_cvr *cvr, char *str, int mode);
-void	exp_dlr_cnt_2(t_var *var, char *str);
-void	rdr_trigger(t_var *var, char *str);
-void	is_dollar(t_var *var, char *str);
-void	expand_dollar(t_var *var, char *str, t_env *env_lst);
-void	sd_quote_trg(t_var *var, char *str);
 void	dollar_heredoc_deli(char *str, t_var *var);
 void	init_dollar_vars(t_var *var, char *str, t_env *env_lst, int mode);
 int		find_env_size(char *str, int i);
@@ -245,5 +241,7 @@ void	free_util_1(t_parse **data);
 t_bool	check_errors(char *str);
 void	if_else_conv(t_var *var, char *str);
 t_bool	null_deli(t_parse *data, t_hvr *hvr);
+char	*expand_dollar_2(char *variable, t_dlr *dlr, t_parse *data);
+char	*expand_dollar_sign(char *str, t_parse *data);
 
 #endif

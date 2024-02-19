@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/18 22:07:28 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 17:26:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ void	exec_delegator(t_parse **data)
 	(*data)->exit_status = ret;
 }
 
+void	close_some_fds(t_parse *data)
+{
+	if (data->fds)
+	{
+		dup2(data->fds->oldfd[0], 0);
+		close(data->fds->oldfd[0]);
+		dup2(data->fds->oldfd[1], 1);
+		close(data->fds->oldfd[1]);
+	}
+}
+
 int	handle_single(char **inputs, t_parse *data)
 {
 	int	ret;
@@ -59,27 +70,20 @@ int	handle_single(char **inputs, t_parse *data)
 			return (127);
 	}
 	if (data->in_rdr_num[0] > 0)
+	{
 		if (redirect_from(data))
-		{
-			dup2(data->fds->oldfd[0], 0);
-			close(data->fds->oldfd[0]);
-			dup2(data->fds->oldfd[1], 1);
-			close(data->fds->oldfd[1]);
-			return (1);
-		}
+			return (close_some_fds(data), 1);
+	}
 	if (inputs[0])
 		ret = choose_action(inputs, data);
-	dup2(data->fds->oldfd[0], 0);
-	close(data->fds->oldfd[0]);
-	dup2(data->fds->oldfd[1], 1);
-	close(data->fds->oldfd[1]);
+	close_some_fds(data);
 	return (ret);
 }
 
 int	choose_action(char **cmd, t_parse *data)
 {
 	int	ret;
-	
+
 	ret = 0;
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		handle_echo(data, 0);

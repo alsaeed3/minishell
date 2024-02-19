@@ -6,81 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 13:57:11 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 17:22:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
-
-t_bool	check_dir_out(char *str)
-{
-	struct stat	path_stat;
-	int			i;
-	int 		len;
-	int			size;
-	char		*direc;
-	t_bool 		dir;
-
-	i = -1;
-	dir = FALSE;
-	direc = NULL;
-	len = ft_strlen(str);
-	if (str[0] == '.' && str[1] == '/')
-	{
-		i += 2;
-		while (++i < len)
-		{
-			if (str[i] == '/')
-			{
-				dir = TRUE;
-				size = i;
-			}
-		}
-	}
-	if (dir)
-	{
-		direc = ft_substr(str, 0, size);
-		if (stat(direc, &path_stat) != 0)
-		{
-			free_set_null((void **)&direc);
-			return (TRUE);
-		}
-		if (S_ISDIR(path_stat.st_mode) != 1)
-		{
-			free_set_null((void **)&direc);
-			return (TRUE);
-		}
-	}
-	return (FALSE);
-}
-
-char	*get_file_name(t_parse *data, int x)
-{
-	int		i;
-	char	*filename;
-
-	filename = NULL;
-	i = -1;
-	while (++i < data->in_rdr_num[x])
-	{
-		if (data->inputs_tokens[x][i] == 0 && data->inputs_redirections[x][i])
-			filename = data->inputs_redirections[x][i];
-		else if (data->inputs_tokens[x][i] == 1 && data->heredocs_num \
-		&& data->h_index < data->heredocs_num)
-			filename = data->heredoc_tmp_files[data->h_index];
-		if (filename && (access(filename, F_OK) != 0 || check_dir_out(filename)))
-		{
-			print_message(filename, ": No such file or directory");
-			return (NULL);
-		}
-		if (filename && ((access(filename, F_OK) == 0 && access(filename, W_OK) == -1) || filename[0] == '/'))
-		{
-			print_message(filename, ": Permission denied");
-			return (NULL);
-		}
-	}
-	return (filename);
-}
 
 int	redirect_from(t_parse *data)
 {
@@ -106,42 +36,48 @@ int	redirect_from(t_parse *data)
 	return (0);
 }
 
+t_bool	is_dir_out(char *filename)
+{
+	if (check_dir_out(filename))
+	{
+		print_message(filename, ": No such file or directory");
+		return (TRUE);
+	}
+	if ((access(filename, F_OK) == 0 && access(filename, R_OK) == -1) \
+	|| filename[0] == '/')
+	{
+		print_message(filename, ": Permission denied");
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 int	redirect_to(t_parse *data)
 {
-	char		*filename;
-	int			fd;
-	int			i;
-	int			flags;
+	t_rdr		rdr;
 
-	i = -1;
-	while (++i < data->out_rdr_num[0])
+	rdr = (t_rdr){0};
+	rdr.i = -1;
+	while (++rdr.i < data->out_rdr_num[0])
 	{
-		filename = data->outputs_redirections[0][i];
-		if (check_dir_out(filename))
-		{
-            print_message(filename, ": No such file or directory");
+		rdr.filename = data->outputs_redirections[0][rdr.i];
+		if (is_dir_out(rdr.filename))
 			return (1);
-		}
-		if ((access(filename, F_OK) == 0 && access(filename, R_OK) == -1) || filename[0] == '/')
-		{
-            print_message(filename, ": Permission denied");
-			return (1);
-		}
-		flags = O_RDWR | O_CREAT;
-		if (data->outputs_tokens[0][i] == 1)
-			flags |= O_APPEND;
+		rdr.flags = O_RDWR | O_CREAT;
+		if (data->outputs_tokens[0][rdr.i] == 1)
+			rdr.flags |= O_APPEND;
 		else
-			flags |= O_TRUNC;
-		fd = open(filename, flags, S_IRUSR | S_IWUSR);
-		if (fd < 0)
+			rdr.flags |= O_TRUNC;
+		rdr.fd = open(rdr.filename, rdr.flags, S_IRUSR | S_IWUSR);
+		if (rdr.fd < 0)
 		{
 			perror("Error");
 			data->exit_status = 1;
 			return (1);
 		}
 	}
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
+	dup2(rdr.fd, STDOUT_FILENO);
+	close(rdr.fd);
 	return (0);
 }
 

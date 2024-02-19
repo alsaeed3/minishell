@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:26:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/16 22:38:50 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:47:13 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	check_exec(char **inputs, t_parse *data)
 {
 	int			ret;
 	struct stat	statounet;
-	
+
 	statounet.st_mode = 0;
 	ret = 0;
 	stat(inputs[0], &statounet);

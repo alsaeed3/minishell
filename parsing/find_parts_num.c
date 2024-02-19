@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 13:54:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 16:25:16 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr)
 		return (TRUE);
 	return (FALSE);
 }
-
