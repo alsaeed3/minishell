@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/18 21:48:06 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 17:33:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,13 @@ static void	close_old_fds(t_parse *data)
 
 int	handle_exec(char **inputs, t_parse *data)
 {
-    int		ret;
-    pid_t	pid;
-	struct stat path_stat;
+	int			ret;
+	pid_t		pid;
 
-    ret = 0;
-    if (!check_exec(inputs, data))
-    {
-        if (((inputs[0][0] == '.' && inputs[0][1] == '/') || inputs[0][0] == '/') \
-        && access(inputs[0], F_OK) == 0)
-		{
-            if (stat(inputs[0], &path_stat) != 0)
-			{
-                perror("stat");
-                return (126);
-            }
-            if (access(inputs[0], X_OK) != 0)
-                print_message(inputs[0], ": Permission denied");
-            else if (S_ISDIR(path_stat.st_mode))
-                print_message(inputs[0], ": Is a directory");
-            return (126);
-        }
-        else if (((inputs[0][0] == '.' && inputs[0][1] == '/') || inputs[0][0] == '/') \
-        && access(inputs[0], F_OK) != 0)
-            print_message(inputs[0], ": No such file or directory");
-        else
-            print_message(inputs[0], ": command not found");
-		return (127);
-    }
+	ret = 0;
+	ret = check_exec_file(inputs, data);
+	if (ret)
+		return (ret);
 	g_signal = 3;
 	pid = fork();
 	if (pid == 0)

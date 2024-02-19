@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/18 14:59:08 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 16:42:20 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,22 @@ void	check_rdr(t_var *var, char *str)
 	}
 }
 
+static void	if_else_cont_conv(t_var *var, char *str)
+{
+	if (!var->rdrtrg)
+		var->nordr[var->j++] = str[var->i];
+	else
+		var->nordr[var->j++] = ' ';
+	var->qchr = str[var->i];
+	var->qutrg = TRUE;
+}
+
 t_bool	continue_conv(t_var *var, char *str)
 {
 	if (var->i < var->len && ((str[var->i] == '\'' || str[var->i] == '"') \
 	&& !var->qutrg))
 	{
-		if (!var->rdrtrg)
-			var->nordr[var->j++] = str[var->i];
-		else
-			var->nordr[var->j++] = ' ';
-		var->qchr = str[var->i];
-		var->qutrg = TRUE;
+		if_else_cont_conv(var, str);
 		return (TRUE);
 	}
 	else if (var->i < var->len && str[var->i] == var->qchr && var->qutrg)

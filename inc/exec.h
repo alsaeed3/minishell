@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/18 20:08:27 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 17:38:00 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@ typedef struct s_pipe
 	int		(*pipe_fds)[2];
 	int		ret;
 }	t_pipe;
+
+typedef struct s_rdr
+{
+	struct stat	path_stat;
+	int			i;
+	int			len;
+	int			size;
+	char		*direc;
+	char		*filename;
+	int			fd;
+	int			flags;
+	t_bool		dir;
+}	t_rdr;
 
 void		exec_delegator(t_parse **data);
 int			handle_cd(char **args, t_parse *data);
@@ -71,6 +84,8 @@ int			execute_2(char **inputs, t_parse *data);
 int			execute(char **inputs, t_parse *data);
 
 void		free_exit(t_parse *data, int status);
+void		handle_non_numeric_arg(t_parse *data);
+void		handle_too_many_args(t_parse *data);
 
 void		set_signals(t_parse **data);
 void		sig_switcher(int sig);
@@ -90,8 +105,16 @@ void		choose_action_pipe(char **cmd, t_parse *data, t_pipe *pipes, \
 int			handle_unset(char **inputs, t_parse *data);
 int			execute_pipe(char **inputs, t_parse *data);
 int			execute_2_pipe(char **inputs, t_parse *data);
-char		*ft_strreplace(char *orig, char *rep, char *with);
 void		close_new_fd(t_parse *data);
 int			ft_strcmp1(char *s1, char *s2);
+
+void		init_rdr(char *str, t_rdr *rdr);
+t_bool		get_direc(t_rdr *rdr, char *str);
+t_bool		check_dir_out(char *str);
+t_bool		is_filename(char *filename);
+char		*get_file_name(t_parse *data, int x);
+
+int			check_file_dir(char **filename);
+int			check_exec_file(char **inputs, t_parse *data);
 
 #endif

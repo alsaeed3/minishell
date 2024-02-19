@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/17 22:29:38 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 16:26:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	jmp_mid_spcs(t_var *var, char *str, int mode)
 {
 	if (str[var->i] == ' ' && str[var->i + 1] == ' ' && !var->qutrg)
 	{
-		if (mode == 0 && str[var->i] != ' ' && (var->i < var->len - 1 || (var->i == var->len - 1 \
-		&& str[var->len - 1] != ' ')))
+		if (mode == 0 && str[var->i] != ' ' && (var->i < var->len - 1 \
+		|| (var->i == var->len - 1 && str[var->len - 1] != ' ')))
 			var->size++;
-		else if (mode == 1 && str[var->i] != ' ' && (var->i < var->len - 1 || (var->i == var->len - 1 \
-		&& str[var->len - 1] != ' ')))
+		else if (mode == 1 && str[var->i] != ' ' && (var->i < var->len - 1 \
+		|| (var->i == var->len - 1 && str[var->len - 1] != ' ')))
 			var->ret[var->j++] = str[var->i];
 		var->i++;
 	}

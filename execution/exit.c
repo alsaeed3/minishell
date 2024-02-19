@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/17 19:47:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 17:16:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	is_numeric(const char *str)
 	}
 	return (1);
 }
+
 static int	check_overflow(long long num, int sign, int digit)
 {
 	if (num > LONG_MAX / 10 || (num == LONG_MAX / 10 && digit > LLONG_MAX % 10))
@@ -63,31 +64,17 @@ long long	ft_atoll(const char *str, int *over_under_flow)
 	return (*over_under_flow = 0, num * sign);
 }
 
-void handle_non_numeric_arg(t_parse *data)
-{
-	ft_putendl_fd("exit", 1);
-	ft_putendl_fd("minishell: exit: numeric argument required", 2);
-	free_exit(data, 2);
-}
-
-static void	handle_too_many_args(t_parse *data)
-{
-	ft_putendl_fd("exit", 1);
-	ft_putendl_fd("minishell: exit: too many arguments", 2);
-	free_exit(data, 1);
-}
-
 void	handle_exit(char **args, t_parse *data)
 {
 	long long	status;
 	int			over_under_flow;
-	
+
 	if (args[1])
 	{
 		if (!is_numeric(args[1]))
-				handle_non_numeric_arg(data);
-		else if(args[2])
-				handle_too_many_args(data);
+			handle_non_numeric_arg(data);
+		else if (args[2])
+			handle_too_many_args(data);
 		else
 		{
 			status = ft_atoll(args[1], &over_under_flow);

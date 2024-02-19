@@ -6,7 +6,7 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
-#    Updated: 2024/02/18 19:02:01 by alsaeed          ###   ########.fr        #
+#    Updated: 2024/02/19 17:34:45 by alsaeed          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =	cmds_utils.c \
 		error_pipes.c \
 		error_pipes_2.c \
 		expand_dollar2env.c \
+		expand_dlr_sign.c \
 		find_parts_num.c \
 		find_rdr_chars.c \
 		find_rdr_num.c \
@@ -51,6 +52,7 @@ SRCSX = exec_delegate.c \
 		env.c \
 		unset.c \
 		data_init.c \
+		redirections_utils.c \
 		redirections.c \
 		exec_utils.c \
 		pipe.c \
@@ -58,7 +60,8 @@ SRCSX = exec_delegate.c \
 		free.c \
 		signal.c \
 		ft_error.c \
-		execute_pipe.c
+		exec_utils2.c \
+		execute_pipe.c 
 
 OBJS_DIR = parsing/objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
