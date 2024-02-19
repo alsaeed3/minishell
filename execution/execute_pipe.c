@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 17:36:22 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 20:58:37 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ void	choose_action_pipe(char **cmd, t_parse *data, t_pipe *pipes, int fd)
 	else if (ft_strcmp(cmd[0], "env") == 0)
 		handle_env(data->env);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		handle_exit(cmd, data);
+		handle_exit(cmd, data, pipes, 1);
 	else if (ft_strcmp(cmd[0], "export") == 0)
-		ret = handle_export(cmd, data);
+		ret = handle_export(cmd, data, 1);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		ret = handle_unset(cmd, data);
+	else if (ft_strchr(cmd[0], '='))
+		ret = handle_export(cmd, data, 0);
 	else
 		ret = handle_exec_pipe(cmd, data, pipes);
 	close(fd);

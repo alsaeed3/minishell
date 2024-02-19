@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:00:50 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 21:21:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,15 @@ void	handle_env(char **env)
 	int		i;
 	int		j;
 	char	*str;
+	// char	*tmp;
 
-	i = 0;
+	i = -1;
 	if (!env)
 		return ;
-	while (i < envlen(env) && env[i])
+	while (++i < envlen(env) && env[i])
 	{
+		if(ft_strlen((ft_strchr(env[i], '=') + 1)) == 0)
+			continue;
 		str = ft_strnstr(env[i], "=", ft_strlen(env[i]));
 		if (str)
 		{
@@ -74,6 +77,5 @@ void	handle_env(char **env)
 			}
 			ft_putchar('\n');
 		}
-		i++;
 	}
 }

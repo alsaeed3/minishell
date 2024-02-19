@@ -6,36 +6,36 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 17:56:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:34:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/data.h"
 
-t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
+t_bool	parse_shell(char *cmd_line, char **str, t_parse **data)
 {
-	str = ft_strdup(cmd_line);
-	if (!str || !str[0])
+	*str = ft_strdup(cmd_line);
+	if (!*str || !*str[0])
 		return (TRUE);
-	str = conv_tabs2spcs(str);
-	str = delete_excess_spcs(str);
-	if (check_errors(str))
+	*str = conv_tabs2spcs(*str);
+	*str = delete_excess_spcs(*str);
+	if (check_errors(*str))
 		return ((*data)->exit_status = 258, TRUE);
 	(*data)->envs_lst = get_envs_lst((*data)->env);
-	str = expand_dollar_string(str, (*data)->envs_lst);
-	str = expand_dollar_sign(str, *data);
-	(*data)->parts_num = find_parts_num(str);
-	(*data)->in_rdr_num = find_rdr_num(str, '<', (*data));
-	(*data)->inputs_redirections = hold_rdr_names(str, '<', (*data));
-	(*data)->inputs_tokens = tokenize_redir(str, (*data), '<');
+	*str = expand_dollar_string(*str, (*data)->envs_lst);
+	*str = expand_dollar_sign(*str, *data);
+	(*data)->parts_num = find_parts_num(*str);
+	(*data)->in_rdr_num = find_rdr_num(*str, '<', (*data));
+	(*data)->inputs_redirections = hold_rdr_names(*str, '<', (*data));
+	(*data)->inputs_tokens = tokenize_redir(*str, (*data), '<');
 	find_heredocs_num((*data));
 	handle_heredoc((*data));
-	(*data)->out_rdr_num = find_rdr_num(str, '>', (*data));
-	(*data)->outputs_redirections = hold_rdr_names(str, '>', (*data));
-	(*data)->outputs_tokens = tokenize_redir(str, (*data), '>');
-	str = conv_redir2spcs(str);
-	str = delete_excess_spcs(str);
-	(*data)->cmds = split_cmds(str);
+	(*data)->out_rdr_num = find_rdr_num(*str, '>', (*data));
+	(*data)->outputs_redirections = hold_rdr_names(*str, '>', (*data));
+	(*data)->outputs_tokens = tokenize_redir(*str, (*data), '>');
+	*str = conv_redir2spcs(*str);
+	*str = delete_excess_spcs(*str);
+	(*data)->cmds = split_cmds(*str);
 	return (FALSE);
 }
 

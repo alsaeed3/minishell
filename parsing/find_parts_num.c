@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 16:25:16 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:23:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	find_parts_num(char *str)
 	init_parts_num_vars(&var, str);
 	while (++var.i < var.len)
 	{
-		if (((str[var.i] == '"' && str[var.i + 1] == '"') \
+		if (var.i < var.len -1 && ((str[var.i] == '"' && str[var.i + 1] == '"') \
 		|| (str[var.i] == '\'' && str[var.i + 1] == '\'')) \
 		&& !var.qutrg)
 		{

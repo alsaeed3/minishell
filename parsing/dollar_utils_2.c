@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:26:09 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 16:40:32 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 18:41:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ t_bool	exp_dlr_cnt_1(t_var *var, char *str)
 	&& !var->squtrg && !var->dqutrg)
 	{
 		var->size++;
-		var->i++;
 		if (str[var->i] == '\'' && !var->squtrg && !var->dqutrg)
 			var->squtrg = TRUE;
 		else if (str[var->i] == '"' && !var->dqutrg && !var->squtrg)
 			var->dqutrg = TRUE;
+		var->i++;
 	}
 	if (var->i < var->len - 1 && ((str[var->i] == '<' \
 	&& str[var->i + 1] == '<') || (str[var->i] == '>' \

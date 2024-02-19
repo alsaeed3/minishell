@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:59:51 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 17:03:17 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 21:37:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_bool	is_filename(char *filename)
 		return (TRUE);
 	}
 	if (filename && ((access(filename, F_OK) == 0 \
-	&& access(filename, W_OK) == -1) || filename[0] == '/'))
+	&& access(filename, W_OK) == -1)))
 	{
 		print_message(filename, ": Permission denied");
 		return (TRUE);
