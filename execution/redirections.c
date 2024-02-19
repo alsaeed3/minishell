@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/18 23:12:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 13:57:11 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ char	*get_file_name(t_parse *data, int x)
 		else if (data->inputs_tokens[x][i] == 1 && data->heredocs_num \
 		&& data->h_index < data->heredocs_num)
 			filename = data->heredoc_tmp_files[data->h_index];
-		if (filename && access(filename, F_OK) != 0 || check_dir_out(filename))
+		if (filename && (access(filename, F_OK) != 0 || check_dir_out(filename)))
 		{
 			print_message(filename, ": No such file or directory");
 			return (NULL);
 		}
-		if (filename && (access(filename, F_OK) == 0 && access(filename, W_OK) == -1) || filename[0] == '/')
+		if (filename && ((access(filename, F_OK) == 0 && access(filename, W_OK) == -1) || filename[0] == '/'))
 		{
 			print_message(filename, ": Permission denied");
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/18 23:01:18 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 13:55:56 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,21 @@ void	check_quot(t_var *var, char *str)
 	}
 }
 
-void	set_token(t_var *var, char *str)
+void	set_token(t_var *var, char *str, char rdr)
 {
-	if (var->i < var->len - 1 && str[var->i] == '<' && str[var->i + 1] != '<' \
-	&& (var->i == 0 || str[var->i - 1] != '<') && !var->qutrg)
+	if (var->i < var->len - 1 && str[var->i] == rdr && str[var->i + 1] != rdr \
+	&& (var->i == 0 || str[var->i - 1] != rdr) && !var->qutrg)
 		var->tkn[var->j][++var->k] = 0;
-	else if (var->i < var->len - 1 && str[var->i] == '<' \
-	&& str[var->i + 1] == '<' && !var->qutrg)
+	else if (var->i < var->len - 1 && str[var->i] == rdr \
+	&& str[var->i + 1] == rdr && !var->qutrg)
 		var->tkn[var->j][++var->k] = 1;
-	if (var->i < var->len - 1 && str[var->i] == '>' && str[var->i + 1] != '>' \
-	&& (var->i == 0 || str[var->i - 1] != '>') && !var->qutrg)
-		var->tkn[var->j][++var->k] = 2;
-	else if (var->i < var->len - 1 && str[var->i] == '>' \
-	&& str[var->i + 1] == '>' && !var->qutrg)
-		var->tkn[var->j][++var->k] = 3;
 }
 
-int	**tokenize_redir(char *str, t_parse *data)
+int	**tokenize_redir(char *str, t_parse *data, char rdr)
 {
 	t_var	var;
 
-	if (init_tkn_vars(&var, data, str))
+	if (init_rdr_vars(&var, data, str, rdr))
 		return (NULL);
 	var.tkn = ft_calloc(var.parts_num, sizeof(int *));
 	while (++var.i < var.parts_num)
@@ -72,7 +66,7 @@ int	**tokenize_redir(char *str, t_parse *data)
 			var.j++;
 			var.k = -1;
 		}
-		set_token(&var, str);
+		set_token(&var, str, rdr);
 	}
 	return (var.tkn);
 }
