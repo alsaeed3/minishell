@@ -203,7 +203,7 @@ char	*conv_redir2spcs(char *cmd_line);
 int		*find_cmds_num(char *cmd_line);
 int		**find_cmds_chars_num(char *cmd_line);
 char	***split_cmds(char *cmd_line);
-t_bool	parse_shell(char *cmd_line, char *str, t_parse **data);
+t_bool	parse_shell(char *cmd_line, char **str, t_parse **data);
 void	find_heredocs_num(t_parse *data);
 void	handle_heredoc(t_parse *data);
 char	*generate_file_names(int pos);

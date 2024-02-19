@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/16 18:51:56 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:53:13 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,10 @@ void	export_alone(t_parse *data)
 	free_env(temp_env);
 }
 
-int	handle_export(char **inputs, t_parse *data)
+int	handle_export(char **inputs, t_parse *data, int i)
 {
-	int	i;
 	int	index;
 
-	i = 1;
 	if (!inputs[i])
 		export_alone(data);
 	while (inputs[i])

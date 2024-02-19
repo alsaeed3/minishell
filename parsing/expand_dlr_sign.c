@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:30:27 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 17:15:24 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:22:07 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char	*expand_dollar_sign(char *str, t_parse *data)
 				dlr.ret[dlr.j++] = str[dlr.i];
 	}
 	free_set_null((void **)&str);
-	dlr.ret[dlr.j] = '\0';
+	if (dlr.ret && dlr.j < (int)ft_strlen(str) && dlr.ret[dlr.j])
+		dlr.ret[dlr.j] = '\0';
 	return (dlr.ret);
 }

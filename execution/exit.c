@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 18:07:50 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:12:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,16 @@ long long	ft_atoll(const char *str, int *over_under_flow)
 	return (*over_under_flow = 0, num * sign);
 }
 
-void	handle_exit(char **args, t_parse *data)
+void	handle_exit(char **args, t_parse *data, t_pipe *pipes, int mode)
 {
 	long long	status;
 	int			over_under_flow;
 
+	if (mode == 1 && pipes)
+	{
+		free_set_null((void **)&pipes->pipe_fds);
+		free_set_null((void **)&pipes->pid);
+	}
 	if (args[1])
 	{
 		if (!is_numeric(args[1]))

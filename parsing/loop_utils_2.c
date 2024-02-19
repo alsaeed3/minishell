@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:55:44 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/18 23:13:56 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:25:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_bool	null_deli(t_parse *data, t_hvr *hvr)
 
 t_bool	rdr_consqut(char *str, t_var *var)
 {
-	if (((str[var->i] == '"' && str[var->i + 1] == '"') \
+	if (var->i < var->len -1 && ((str[var->i] == '"' && str[var->i + 1] == '"') \
 	|| (str[var->i] == '\'' && str[var->i + 1] == '\'')) \
 	&& !var->qutrg)
 	{

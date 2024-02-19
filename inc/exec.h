@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 17:38:00 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 20:54:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int			var_index(char *name, t_parse *data);
 void		replace_var(char *new_var, t_parse *data, int index);
 char		**export_env(char **old_env, char *export);
 void		export_alone(t_parse *data);
-int			handle_export(char **inputs, t_parse *data);
+int			handle_export(char **inputs, t_parse *data, int i);
 void		change_env_pwd(t_parse *data);
 void		change_env_oldpwd(t_parse *data);
 int			change_pwd(t_parse *data, char *input);
-void		handle_exit(char **inputs, t_parse *data);
+void		handle_exit(char **args, t_parse *data, t_pipe *pipes, int mode);
 void		free_env(char **env);
 int			envlen(char **env);
 char		**dup_env(char **env);

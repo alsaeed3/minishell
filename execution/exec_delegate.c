@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 17:26:37 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 20:56:39 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	handle_single(char **inputs, t_parse *data)
 
 int	choose_action(char **cmd, t_parse *data)
 {
-	int	ret;
+	int		ret;
 
 	ret = 0;
 	if (ft_strcmp(cmd[0], "echo") == 0)
@@ -94,11 +94,13 @@ int	choose_action(char **cmd, t_parse *data)
 	else if (ft_strcmp(cmd[0], "env") == 0)
 		handle_env(data->env);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		handle_exit(cmd, data);
+		handle_exit(cmd, data, NULL, 0);
 	else if (ft_strcmp(cmd[0], "export") == 0)
-		ret = handle_export(cmd, data);
+		ret = handle_export(cmd, data, 1);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		ret = handle_unset(cmd, data);
+	else if (ft_strchr(cmd[0], '='))
+		ret = handle_export(cmd, data, 0);
 	else
 		ret = handle_exec(cmd, data);
 	return (ret);
