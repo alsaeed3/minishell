@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 21:15:02 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 16:42:20 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 18:13:25 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,5 @@ void	check_pipe(t_var *var, char *str)
 	if (var->i < var->len && (str[var->i] == '|' || (str[var->i] == ' ' \
 	&& (var->i == 0 || str[var->i - 1] != '<') && (var->i == 0 \
 	|| str[var->i - 1] != '>'))) && var->rdrtrg && !var->qutrg)
-	{
-		if (str[var->i] == ' ')
-			var->nordr[var->size++] = ' ';
 		var->rdrtrg = FALSE;
-	}
 }
