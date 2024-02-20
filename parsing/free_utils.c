@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:16:33 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 16:25:06 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 14:24:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void	ft_free_intarr(int ***int_arr, int parts_num)
 void	free_data(t_parse **data)
 {
 	if ((*data)->inputs_redirections)
-		free_char_triple_pointer((*data)->inputs_redirections);
+		free_char_triple_pointer(&(*data)->inputs_redirections);
 	if ((*data)->outputs_redirections)
-		free_char_triple_pointer((*data)->outputs_redirections);
+		free_char_triple_pointer(&(*data)->outputs_redirections);
 	if ((*data)->cmds)
-		free_char_triple_pointer((*data)->cmds);
+		free_char_triple_pointer(&(*data)->cmds);
 	if ((*data)->envs_lst)
 		ft_free_lst(&(*data)->envs_lst);
 	if ((*data)->inputs_tokens)

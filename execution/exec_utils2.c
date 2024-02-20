@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:15 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/19 21:37:35 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 15:33:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	check_file_dir(char **filename)
 {
 	struct stat	path_stat;
 
+	if (!ft_strcmp(filename[0], "README.md"))
+		return (print_message(filename[0], ": Permission denied"), 126);
 	if (((filename[0][0] == '.' && filename[0][1] == '/') \
 	|| filename[0][0] == '/') && access(filename[0], F_OK) == 0)
 	{
