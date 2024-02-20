@@ -187,7 +187,7 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data);
 void	hold_rdr_1(t_var *var, char *str);
 int		find_parts_num(char *cmd_line);
 char	***malloc_rdr_names(int parts_num, int *rdr_num, int **rdr_chars);
-void	free_char_triple_pointer(char ***pointer);
+void	free_char_triple_pointer(char ****pointer);
 t_bool	check_quotes(char *cmd_line);
 t_bool	check_cons_qut(t_var *var, char *str);
 t_bool	cons_quot_hold(t_var *var, char *str);

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:48:44 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 18:55:47 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 14:48:38 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	cd_minus(t_parse *data)
 
 static int	cd_path(char **args, t_parse *data)
 {
+	char	*tmp;
+	
 	if (args[1][0] == '~')
 	{
 		if (var_index("HOME=", data) < 0)
@@ -49,8 +51,11 @@ static int	cd_path(char **args, t_parse *data)
 			data->exit_status = 1;
 			return (1);
 		}
+		tmp = args[1];
+		// free(args[1]);
 		args[1] = ft_strjoin((strchr(data->env[var_index("HOME=", data)], \
 		'=') + 1), (args[1] + 1));
+		free (tmp);
 	}
 	if (chdir(args[1]) == -1)
 	{
