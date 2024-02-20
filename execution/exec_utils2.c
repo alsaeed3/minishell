@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:15 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/20 16:05:51 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 17:51:01 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	check_file_dir(char **filename)
 {
 	struct stat	path_stat;
 
-	
 	if (((filename[0][0] == '.' && filename[0][1] == '/') \
 	|| filename[0][0] == '/') && access(filename[0], F_OK) == 0)
 	{

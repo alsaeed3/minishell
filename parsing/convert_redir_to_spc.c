@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 01:03:29 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/18 14:54:14 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 18:11:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*conv_redir2spcs(char *str)
 
 	var = (t_var){0};
 	init_nordr_vars(&var, str);
-	while (var.i < var.len - 1 && str[++var.i])
+	while (var.i < var.len && str[++var.i])
 	{
 		if (cons_quot_conv(&var, str) || check_quotation(&var, str))
 			continue ;
