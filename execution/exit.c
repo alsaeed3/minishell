@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 19:12:28 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 15:43:08 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,9 @@ void	handle_exit(char **args, t_parse *data, t_pipe *pipes, int mode)
 		{
 			status = ft_atoll(args[1], &over_under_flow);
 			if (over_under_flow)
-			{
-				ft_putendl_fd("exit", 1);
-				ft_putendl_fd("minishell: exit: numeric argument required", 2);
 				free_exit(data, 255);
-			}
-			ft_putendl_fd("exit", 1);
 			free_exit(data, status);
 		}
 	}
-	ft_putendl_fd("exit", 1);
 	free_exit(data, 0);
 }
