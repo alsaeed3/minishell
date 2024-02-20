@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:40:34 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/20 15:47:06 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 16:08:24 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	heredoc_sig(int sig)
 		// rl_replace_line("", 1);
 		close(0);
 		rl_on_new_line();
+		g_signal = 130;
 	}
 }
 
