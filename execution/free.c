@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 19:08:59 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 15:46:34 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	free_exit(t_parse *data, int status)
 {
+	ft_putendl_fd("exit", 1);
+	if (status == 255)
+		ft_putendl_fd("minishell: exit: numeric argument required", 2);
 	if (data->fds)
 	{
 		if (data->fds->oldfd[0])

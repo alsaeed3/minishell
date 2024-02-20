@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 20:58:37 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 15:39:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ void	choose_action_pipe(char **cmd, t_parse *data, t_pipe *pipes, int fd)
 		ret = handle_exec_pipe(cmd, data, pipes);
 	close(fd);
 	close_fds(data);
-	free_set_null((void **)&data->fds);
-	free_set_null((void **)&pipes->pipe_fds);
-	free_set_null((void **)&pipes->pid);
 	free_close_fd(data, 0, ret, pipes);
 }
 
