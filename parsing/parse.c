@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/20 18:30:57 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/21 15:43:24 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 {
 	str = ft_strdup(cmd_line);
-	if (!str && g_signal != 130)
+	if (!str)
 		return (TRUE);
 	if (!str[0])
 		return (free_set_null((void **)&str), TRUE);

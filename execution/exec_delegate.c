@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/19 20:56:39 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/21 15:58:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	handle_single(char **inputs, t_parse *data)
 	if (data->in_rdr_num[0] > 0)
 	{
 		if (redirect_from(data))
-			return (close_some_fds(data), 1);
+			return (1);
 	}
 	if (inputs[0])
 		ret = choose_action(inputs, data);

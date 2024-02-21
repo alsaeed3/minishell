@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/18 23:13:39 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/21 15:39:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 			hvr->line = readline("> ");
 			if (hvr->line == NULL || ft_strcmp(hvr->line, \
 			data->inputs_redirections[hvr->i][hvr->j]) == 0 \
-			|| (null_deli(data, hvr) && hvr->line[0] == '\0'))
+			|| (null_deli(data, hvr) && hvr->line[0] == '\0') || g_signal == 1)
 			{
 				free_set_null((void **)&hvr->line);
 				break ;
