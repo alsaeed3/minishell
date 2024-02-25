@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 16:30:06 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ int	expand_dollar_count(char *str, t_env *env_lst)
 	init_dollar_vars(&var, str, env_lst, 0);
 	while (++var.i < var.len && str[var.i])
 	{
-		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
-		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		if (((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\'')) \
+		&& !var.qutrg)
 		{
 			var.size += 2;
 			var.i++;
@@ -100,10 +101,10 @@ char	*expand_dollar_string(char *str, t_env *env_lst)
 		expand_dollar(&var, str, env_lst);
 		if (str[var.i] == '$' && ((str[var.i + 1] >= 65 \
 		&& str[var.i + 1] <= 90) || (str[var.i + 1] >= 97 \
-		&& str[var.i + 1] <= 122)) && !var.dlrtrg \
-		&& !var.squtrg && !var.rdrtrg)
+		&& str[var.i + 1] <= 122)) && !var.dlrtrg && !var.squtrg && !var.rdrtrg)
 			var.dlrtrg = TRUE;
-		else if (str[var.i] && (!var.dlrtrg || str[var.i] != '$'))
+		else if (var.j <= var.expsize && str[var.i] \
+		&& (!var.dlrtrg || str[var.i] != '$'))
 			var.ret[var.j++] = str[var.i];
 	}
 	var.ret[var.j] = '\0';

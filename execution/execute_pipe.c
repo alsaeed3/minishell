@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:01:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 17:49:52 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 15:39:35 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 void	handle_single_pipe(char **inputs, t_parse *data, t_pipe *pipes)
 {
 	int		fd;
-	int		ret;
 
-	ret = 0;
 	fd = 0;
-	expand_dolar_sign(inputs, data);
 	if (data->in_rdr_num[pipes->i] > 0)
 		fd = redirect_from_pipe(data, pipes);
 	ft_free_array(&data->heredoc_tmp_files);
@@ -51,32 +48,28 @@ void	choose_action_pipe(char **cmd, t_parse *data, t_pipe *pipes, int fd)
 	else if (ft_strcmp(cmd[0], "env") == 0)
 		handle_env(data->env);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		handle_exit(cmd, data);
+		handle_exit(cmd, data, pipes, 1);
 	else if (ft_strcmp(cmd[0], "export") == 0)
-		ret = handle_export(cmd, data);
+		ret = handle_export(cmd, data, 1);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		ret = handle_unset(cmd, data);
+	else if (ft_strchr(cmd[0], '='))
+		ret = handle_export(cmd, data, 0);
 	else
 		ret = handle_exec_pipe(cmd, data, pipes);
 	close(fd);
 	close_fds(data);
-	free_set_null((void **)&data->fds);
-	free_set_null((void **)&pipes->pipe_fds);
-	free_set_null((void **)&pipes->pid);
 	free_close_fd(data, 0, ret, pipes);
 }
 
 int	handle_exec_pipe(char **inputs, t_parse *data, t_pipe *pipes)
 {
-	int		ret;
+	int			ret;
 
 	ret = 0;
-	if (!check_exec(inputs, data))
-	{
-		print_message(inputs[0], ": command not found");
-		close_new_fd(data);
-		return (127);
-	}
+	ret = check_exec_file(inputs, data);
+	if (ret)
+		return (ret);
 	g_signal = 3;
 	if (execute(inputs, data) != 0)
 		free_close_fd(data, 0, errno, pipes);

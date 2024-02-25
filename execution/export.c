@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/20 17:53:22 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	export_alone(t_parse *data)
 	char	*swap;
 
 	i = 0;
+	if (!data->env || !data->env[0])
+		return ;
 	temp_env = dup_env(data->env);
 	while (temp_env[i + 1])
 	{
@@ -111,12 +113,10 @@ void	export_alone(t_parse *data)
 	free_env(temp_env);
 }
 
-int	handle_export(char **inputs, t_parse *data)
+int	handle_export(char **inputs, t_parse *data, int i)
 {
-	int	i;
 	int	index;
 
-	i = 1;
 	if (!inputs[i])
 		export_alone(data);
 	while (inputs[i])

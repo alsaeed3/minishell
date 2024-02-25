@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:38:57 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 16:11:18 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 17:33:48 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,13 @@ static void	close_old_fds(t_parse *data)
 
 int	handle_exec(char **inputs, t_parse *data)
 {
-	int		ret;
-	pid_t	pid;
+	int			ret;
+	pid_t		pid;
 
 	ret = 0;
-	if (!check_exec(inputs, data))
-	{
-		print_message(inputs[0], ": command not found");
-		return (127);
-	}
+	ret = check_exec_file(inputs, data);
+	if (ret)
+		return (ret);
 	g_signal = 3;
 	pid = fork();
 	if (pid == 0)

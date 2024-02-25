@@ -156,6 +156,17 @@ typedef struct t_inf
 	char	*info;
 }	t_inf;
 
+typedef struct s_dlr
+{
+	t_bool		in_single_quotes;
+	t_bool		in_double_quotes;
+	int			i;
+	int			j;
+	int			len;
+	char		*ret;
+	char		*expanded;
+}	t_dlr;
+
 extern int	g_signal;
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr);
@@ -169,13 +180,14 @@ char	*delete_excess_spcs(char *cmd_line);
 char	*expand_dollar_string(char *cmd_line, t_env *env_lst);
 t_bool	check_pipe_redir(char *str);
 t_bool	check_pipe_red_2(char *cmd_line);
+void	check_pipe(t_var *var, char *str);
 int		*find_rdr_num(char *str, char rdr, t_parse *data);
 int		**find_rdr_chars(char *str, char rdr, t_parse *data);
 char	***hold_rdr_names(char *str, char rdr, t_parse *data);
 void	hold_rdr_1(t_var *var, char *str);
 int		find_parts_num(char *cmd_line);
 char	***malloc_rdr_names(int parts_num, int *rdr_num, int **rdr_chars);
-void	free_char_triple_pointer(char ***pointer);
+void	free_char_triple_pointer(char ****pointer);
 t_bool	check_quotes(char *cmd_line);
 t_bool	check_cons_qut(t_var *var, char *str);
 t_bool	cons_quot_hold(t_var *var, char *str);
@@ -192,7 +204,6 @@ int		*find_cmds_num(char *cmd_line);
 int		**find_cmds_chars_num(char *cmd_line);
 char	***split_cmds(char *cmd_line);
 t_bool	parse_shell(char *cmd_line, char *str, t_parse **data);
-int		count_size_without_redir(char *cmd_line);
 void	find_heredocs_num(t_parse *data);
 void	handle_heredoc(t_parse *data);
 char	*generate_file_names(int pos);
@@ -205,7 +216,6 @@ void	expand_dollar(t_var *var, char *str, t_env *env_lst);
 void	sd_quote_trg(t_var *var, char *str);
 t_bool	process_line(t_hvr *hvr, t_parse *data);
 void	init_hvr(t_hvr *hvr, t_parse *data);
-void	check_rdrc(t_var *var, char *str);
 void	check_quot(t_var *var, char *str);
 void	check_rdr(t_var *var, char *str);
 t_bool	continue_conv(t_var *var, char *str);
@@ -214,11 +224,6 @@ void	count_qut_pipe(t_cvr *cvr, char *str);
 void	check_qut_pipe(t_cvr *cvr, char *str);
 void	malloc_cmds(t_cvr *cvr);
 void	init_cvr(t_cvr *cvr, char *str, int mode);
-void	exp_dlr_cnt_2(t_var *var, char *str);
-void	rdr_trigger(t_var *var, char *str);
-void	is_dollar(t_var *var, char *str);
-void	expand_dollar(t_var *var, char *str, t_env *env_lst);
-void	sd_quote_trg(t_var *var, char *str);
 void	dollar_heredoc_deli(char *str, t_var *var);
 void	init_dollar_vars(t_var *var, char *str, t_env *env_lst, int mode);
 int		find_env_size(char *str, int i);
@@ -229,14 +234,14 @@ int		size_without_spcs(char *str);
 void	jump_over_spaces(char *str, int *i);
 void	ft_free_lst(t_env **lst);
 void	free_data(t_parse **parse);
-void	ft_free_intarr(int **int_arr, int parts_num);
-void	check_quotation(t_var *var, char *str);
-void	check_pipe(t_var *var, char *str, int mode);
-void	check_quota(t_var *var, char *str);
+void	ft_free_intarr(int ***int_arr, int parts_num);
+t_bool	check_quotation(t_var *var, char *str);
 void	set_up_prompt(t_parse **data, char *cmd_line);
 void	free_util_1(t_parse **data);
 t_bool	check_errors(char *str);
 void	if_else_conv(t_var *var, char *str);
 t_bool	null_deli(t_parse *data, t_hvr *hvr);
+char	*expand_dollar_2(char *variable, t_dlr *dlr, t_parse *data);
+char	*expand_dollar_sign(char *str, t_parse *data);
 
 #endif

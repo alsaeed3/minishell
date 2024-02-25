@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 16:22:54 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	*find_cmds_num(char *str)
 		return (NULL);
 	while (++cvr.i < cvr.len)
 	{
-		if ((str[cvr.i] == '"' && str[cvr.i + 1] == '"') \
-		|| (str[cvr.i] == '\'' && str[cvr.i + 1] == '\''))
+		if (((str[cvr.i] == '"' && str[cvr.i + 1] == '"') \
+		|| (str[cvr.i] == '\'' && str[cvr.i + 1] == '\'')) && !cvr.qutrg)
 		{
 			cvr.i++;
 			continue ;
@@ -92,7 +92,7 @@ char	***split_cmds(char *str)
 	cvr = (t_cvr){0};
 	init_cvr(&cvr, str, 2);
 	malloc_cmds(&cvr);
-	ft_free_intarr(cvr.chrn, cvr.parts_num);
+	ft_free_intarr(&cvr.chrn, cvr.parts_num);
 	while (++cvr.i < cvr.len)
 	{
 		if (cons_quot_cmd(&cvr, str))

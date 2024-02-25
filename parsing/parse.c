@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/15 19:23:30 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/21 15:43:24 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 {
 	str = ft_strdup(cmd_line);
-	if (!str || !str[0])
+	if (!str)
 		return (TRUE);
+	if (!str[0])
+		return (free_set_null((void **)&str), TRUE);
 	str = conv_tabs2spcs(str);
-	if (check_errors(str))
-	{
-		(*data)->exit_status = 258;
-		return (TRUE);
-	}
 	str = delete_excess_spcs(str);
+	if (check_errors(str))
+		return ((*data)->exit_status = 258, TRUE);
 	(*data)->envs_lst = get_envs_lst((*data)->env);
 	str = expand_dollar_string(str, (*data)->envs_lst);
+	str = expand_dollar_sign(str, *data);
 	(*data)->parts_num = find_parts_num(str);
 	(*data)->in_rdr_num = find_rdr_num(str, '<', (*data));
 	(*data)->inputs_redirections = hold_rdr_names(str, '<', (*data));

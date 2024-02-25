@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:55:44 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 17:31:49 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 19:25:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 t_bool	cnsqut_cmd_num(t_cvr *cvr, char *str)
 {
-	if ((str[cvr->i] == '"' && str[cvr->i + 1] == '"') \
-	|| (str[cvr->i] == '\'' && str[cvr->i + 1] == '\''))
+	if (((str[cvr->i] == '"' && str[cvr->i + 1] == '"') \
+	|| (str[cvr->i] == '\'' && str[cvr->i + 1] == '\'')) \
+	&& !cvr->qutrg)
 	{
 		if (cvr->qutrg)
 		{
@@ -46,8 +47,9 @@ t_bool	null_deli(t_parse *data, t_hvr *hvr)
 
 t_bool	rdr_consqut(char *str, t_var *var)
 {
-	if ((str[var->i] == '"' && str[var->i + 1] == '"') \
-	|| (str[var->i] == '\'' && str[var->i + 1] == '\''))
+	if (var->i < var->len -1 && ((str[var->i] == '"' && str[var->i + 1] == '"') \
+	|| (str[var->i] == '\'' && str[var->i + 1] == '\'')) \
+	&& !var->qutrg)
 	{
 		var->i++;
 		return (TRUE);
@@ -58,8 +60,9 @@ t_bool	rdr_consqut(char *str, t_var *var)
 
 t_bool	del_consqut(char *str, t_var *var)
 {
-	if ((str[var->i] == '"' && str[var->i + 1] == '"') \
-	|| (str[var->i] == '\'' && str[var->i + 1] == '\''))
+	if (((str[var->i] == '"' && str[var->i + 1] == '"') \
+	|| (str[var->i] == '\'' && str[var->i + 1] == '\'')) \
+	&& !var->qutrg)
 	{
 		var->ret[var->j++] = str[var->i];
 		var->ret[var->j++] = str[var->i + 1];
@@ -69,7 +72,14 @@ t_bool	del_consqut(char *str, t_var *var)
 	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
 		var->qutrg = TRUE;
-		var->qchr = str[var->i];
+		var->ret[var->j++] = str[var->i];
+		var->qchr = str[var->i++];
+	}
+	else if (str[var->i] == var->qchr && var->qutrg)
+	{
+		var->qchr = '\0';
+		var->qutrg = FALSE;
+		var->ret[var->j++] = str[var->i++];
 	}
 	return (FALSE);
 }

@@ -6,34 +6,31 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 17:54:10 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/21 17:00:19 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void	free_exit(t_parse *data, int status)
+void	free_exit(t_parse *data, int status, int mode)
 {
+	ft_putendl_fd("exit", 1);
+	if (mode == 1)
+		ft_putendl_fd("minishell: exit: numeric argument required", 2);
+	if (mode == 2)
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
 	if (data->fds)
 	{
 		if (data->fds->oldfd[0])
-		{
 			close(data->fds->oldfd[0]);
-			data->fds->oldfd[0] = 0;
-		}
 		if (data->fds->oldfd[1])
-		{
 			close(data->fds->oldfd[1]);
-			data->fds->oldfd[1] = 0;
-		}
 		free (data->fds);
 	}
 	free_data(&data);
 	free_env(data->env);
 	free_set_null((void **)&data->pwd);
 	free_set_null((void **)&data);
-	// rl_clear_history();
-	ft_putendl_fd("exit", 1);
 	exit(status);
 }
 
@@ -60,7 +57,6 @@ void	free_close_fd(t_parse *data, int mode, int status, t_pipe *pipes)
 	}
 	free_set_null((void **)&data->fds);
 	free_set_null((void **)&data);
-	// rl_clear_history();
 	exit(status);
 }
 

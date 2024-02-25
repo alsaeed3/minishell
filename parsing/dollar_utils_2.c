@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:26:09 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:12:30 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,19 @@ t_bool	exp_dlr_cnt_1(t_var *var, char *str)
 	&& !var->squtrg && !var->dqutrg)
 	{
 		var->size++;
-		var->i++;
 		if (str[var->i] == '\'' && !var->squtrg && !var->dqutrg)
 			var->squtrg = TRUE;
 		else if (str[var->i] == '"' && !var->dqutrg && !var->squtrg)
 			var->dqutrg = TRUE;
+		var->i++;
 	}
-	if (var->i < var->len - 1 && (str[var->i] == '<' && str[var->i + 1] == '<') \
-	&& !var->squtrg && !var->dqutrg && !var->rdrtrg)
+	if (var->i < var->len - 1 && ((str[var->i] == '<' \
+	&& str[var->i + 1] == '<') || (str[var->i] == '>' \
+	&& str[var->i + 1] == '>')) && !var->squtrg && !var->dqutrg && !var->rdrtrg)
 		var->rdrtrg = TRUE;
-	else if (var->i < var->len - 1 && (str[var->i] == '<' \
-	&& str[var->i + 1] == '<') && !var->squtrg && !var->dqutrg && var->rdrtrg)
+	else if (var->i < var->len - 1 && ((str[var->i] == '<' \
+	&& str[var->i + 1] == '<') || (str[var->i] == '>' \
+	&& str[var->i + 1] == '>')) && !var->squtrg && !var->dqutrg && var->rdrtrg)
 	{
 		var->rdrtrg = FALSE;
 		return (TRUE);

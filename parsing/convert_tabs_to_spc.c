@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/18 14:51:29 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,12 @@ void	if_else_conv(t_var *var, char *str)
 {
 	if (var->rdrtrg)
 	{
-		if (str[var->i + 1] == ' ' || str[var->i + 1] == '<' \
-		|| str[var->i + 1] == '>' || str[var->i + 1] == '|' \
-		|| str[var->i + 1] == '\0')
-		{
-			var->i++;
+		if ((str[var->i] == ' ' || str[var->i] == '<' \
+		|| str[var->i] == '>' || str[var->i] == '|' \
+		|| str[var->i] == '\0') && !var->qutrg)
 			var->rdrtrg = FALSE;
-		}
 		var->nordr[var->j++] = ' ';
 	}
 	else
-		var->nordr[var->j++] = str[var->i++];
+		var->nordr[var->j++] = str[var->i];
 }

@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 16:19:13 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/21 16:09:43 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exec_delegator(t_parse **data)
 	if ((*data)->parts_num == 1)
 	{
 		(*data)->h_index = 0;
-		ret = handle_single((*data)->cmds[0], *data, 0);
+		ret = handle_single((*data)->cmds[0], *data);
 	}
 	else
 	{
@@ -41,41 +41,52 @@ void	exec_delegator(t_parse **data)
 	(*data)->exit_status = ret;
 }
 
-int	handle_single(char **inputs, t_parse *data, int x)
+void	close_some_fds(t_parse *data)
+{
+	if (data->fds)
+	{
+		dup2(data->fds->oldfd[0], 0);
+		close(data->fds->oldfd[0]);
+		dup2(data->fds->oldfd[1], 1);
+		close(data->fds->oldfd[1]);
+	}
+}
+
+int	handle_single(char **inputs, t_parse *data)
 {
 	int	ret;
 
-	expand_dolar_sign(inputs, data);
 	ret = 0;
 	data->fds->oldfd[0] = dup(0);
 	data->fds->oldfd[1] = dup(1);
-	if (data->in_rdr_num[x] > 0)
-		if (redirect_from(data, x))
-			return (1);
-	if (data->out_rdr_num[x] > 0)
+	if (data->out_rdr_num[0] > 0)
 	{
-		ret = redirect_to(data, x);
-		if (ret == 127)
+		ret = redirect_to(data);
+		if (ret == 1)
+			return (1);
+		else if (ret == 126)
+			return (126);
+		else if (ret == 127)
 			return (127);
-		else if (ret == 1)
-			return (0);
+	}
+	if (data->in_rdr_num[0] > 0)
+	{
+		if (redirect_from(data))
+			return (1);
 	}
 	if (inputs[0])
-		ret = choose_action(inputs, data, x);
-	dup2(data->fds->oldfd[0], 0);
-	close(data->fds->oldfd[0]);
-	dup2(data->fds->oldfd[1], 1);
-	close(data->fds->oldfd[1]);
+		ret = choose_action(inputs, data);
+	close_some_fds(data);
 	return (ret);
 }
 
-int	choose_action(char **cmd, t_parse *data, int x)
+int	choose_action(char **cmd, t_parse *data)
 {
-	int	ret;
+	int		ret;
 
 	ret = 0;
 	if (ft_strcmp(cmd[0], "echo") == 0)
-		handle_echo(data, x);
+		handle_echo(data, 0);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		handle_pwd(data);
 	else if (ft_strcmp(cmd[0], "cd") == 0)
@@ -83,11 +94,13 @@ int	choose_action(char **cmd, t_parse *data, int x)
 	else if (ft_strcmp(cmd[0], "env") == 0)
 		handle_env(data->env);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		handle_exit(cmd, data);
+		handle_exit(cmd, data, NULL, 0);
 	else if (ft_strcmp(cmd[0], "export") == 0)
-		ret = handle_export(cmd, data);
+		ret = handle_export(cmd, data, 1);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		ret = handle_unset(cmd, data);
+	else if (ft_strchr(cmd[0], '='))
+		ret = handle_export(cmd, data, 0);
 	else
 		ret = handle_exec(cmd, data);
 	return (ret);

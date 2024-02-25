@@ -6,11 +6,34 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:10:29 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/17 18:00:06 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
+
+static char	*ft_strdup_2(char *str)
+{
+	char	*ret;
+	size_t	i;
+	size_t	j;
+	size_t	len;
+
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	ret = ft_calloc(3, sizeof(char));
+	if (!ret)
+		return (NULL);
+	i = 0;
+	while (i < len && str[i] != '$' && str[i])
+		i++;
+	j = 0;
+	while (j < 2 && i < len && str[i])
+		ret[j++] = str[i++];
+	ret[i] = '\0';
+	return (ret);
+}
 
 void	inside_loop(char **input, char *c, t_parse *data)
 {
@@ -25,9 +48,9 @@ void	inside_loop(char **input, char *c, t_parse *data)
 	}
 	else if (*c == '0')
 		*input = ft_strreplace(*input, "$0", "minishell");
-	else if (ft_isalpha(*c) || ft_isdigit(*c) || *c == '_' || *c == '*')
+	else if (*c >= '1' && *c <= '9')
 	{
-		tmp = ft_strjoin("$", c);
+		tmp = ft_strdup_2(*input);
 		*input = ft_strreplace(*input, tmp, "");
 		free_set_null((void **)&tmp);
 	}

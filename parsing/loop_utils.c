@@ -6,7 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:21:50 by alsaeed           #+#    #+#             */
-/*   Updated: 2024/02/14 18:43:24 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/19 16:24:57 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 t_bool	check_cons_qut(t_var *var, char *str)
 {
-	if ((str[var->i] == '"' && str[var->i + 1] == '"') \
-	|| (str[var->i] == '\'' && str[var->i + 1] == '\''))
+	if (((str[var->i] == '"' && str[var->i + 1] == '"') \
+	|| (str[var->i] == '\'' && str[var->i + 1] == '\'')) \
+	&& !var->qutrg)
 	{
 		if (var->qutrg)
 		{
@@ -31,8 +32,9 @@ t_bool	check_cons_qut(t_var *var, char *str)
 
 t_bool	cons_quot_hold(t_var *var, char *str)
 {
-	if ((str[var->i] == '"' && str[var->i + 1] == '"') \
-	|| (str[var->i] == '\'' && str[var->i + 1] == '\''))
+	if (((str[var->i] == '"' && str[var->i + 1] == '"') \
+	|| (str[var->i] == '\'' && str[var->i + 1] == '\'')) \
+	&& !var->qutrg)
 	{
 		if (var->qutrg)
 		{
@@ -48,8 +50,9 @@ t_bool	cons_quot_hold(t_var *var, char *str)
 
 t_bool	cons_quot_dollar(t_var *var, char *str)
 {
-	if ((str[var->i] == '"' && str[var->i + 1] == '"') \
-	|| (str[var->i] == '\'' && str[var->i + 1] == '\''))
+	if (((str[var->i] == '"' && str[var->i + 1] == '"') \
+	|| (str[var->i] == '\'' && str[var->i + 1] == '\'')) \
+	&& !var->qutrg)
 	{
 		var->ret[var->j++] = str[var->i];
 		var->ret[var->j++] = str[var->i + 1];
@@ -62,8 +65,9 @@ t_bool	cons_quot_dollar(t_var *var, char *str)
 
 t_bool	cons_quot_conv(t_var *var, char *str)
 {
-	if ((str[var->i] == '"' && str[var->i + 1] == '"') \
-	|| (str[var->i] == '\'' && str[var->i + 1] == '\''))
+	if (var->i < var->len - 1 && ((str[var->i] == '"' \
+	&& str[var->i + 1] == '"') || (str[var->i] == '\'' \
+	&& str[var->i + 1] == '\'')) && !var->qutrg)
 	{
 		if (var->qutrg)
 		{
@@ -78,8 +82,9 @@ t_bool	cons_quot_conv(t_var *var, char *str)
 
 t_bool	cons_quot_cmd(t_cvr *cvr, char *str)
 {
-	if ((str[cvr->i] == '"' && str[cvr->i + 1] == '"') \
-	|| (str[cvr->i] == '\'' && str[cvr->i + 1] == '\''))
+	if (((str[cvr->i] == '"' && str[cvr->i + 1] == '"') \
+	|| (str[cvr->i] == '\'' && str[cvr->i + 1] == '\'')) \
+	&& !cvr->qutrg)
 	{
 		if (cvr->qutrg)
 		{

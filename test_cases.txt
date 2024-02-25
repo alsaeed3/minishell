@@ -1,8 +1,0 @@
-18 for tukka
-
-1\ "when we unset all the envs"
-2\ echo "" | echo | echo | << "" | << k | << h | echo
-3\  << "" | < "" 
-4\ env -i ./minishell
-5\/dev/random ./minishell
-6\echo $
