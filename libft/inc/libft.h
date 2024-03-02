@@ -6,7 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:20:59 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/11 17:05:54 by habu-zua         ###   ########.fr       */
+=======
+/*   Updated: 2024/02/15 16:19:03 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +104,11 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
-void		ft_free_array(char **array);
+void		ft_free_array(char ***array);
 int			ft_isspace_str(char *s);
 int			ft_space_arg(char **s);
 int			ft_array_size(char **array);
 char		**ft_get_array(int ac, char **av);
-void		free_set_null(void *ptr);
+void		free_set_null(void **ptr);
 
 #endif

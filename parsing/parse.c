@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/11 15:57:55 by habu-zua         ###   ########.fr       */
+=======
+/*   Updated: 2024/02/21 15:43:24 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +19,25 @@
 t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 {
 	str = ft_strdup(cmd_line);
-	if (!str || !str[0])
+	if (!str)
 		return (TRUE);
+	if (!str[0])
+		return (free_set_null((void **)&str), TRUE);
 	str = conv_tabs2spcs(str);
+<<<<<<< HEAD
 	if (check_errors(str))
 	{
 		(*data)->exit_status = 258;
 		return (TRUE);
 	}
+=======
+>>>>>>> main
 	str = delete_excess_spcs(str);
+	if (check_errors(str))
+		return ((*data)->exit_status = 258, TRUE);
 	(*data)->envs_lst = get_envs_lst((*data)->env);
 	str = expand_dollar_string(str, (*data)->envs_lst);
+	str = expand_dollar_sign(str, *data);
 	(*data)->parts_num = find_parts_num(str);
 	(*data)->in_rdr_num = find_rdr_num(str, '<', (*data));
 	(*data)->inputs_redirections = hold_rdr_names(str, '<', (*data));
@@ -46,7 +58,7 @@ t_bool	check_errors(char *str)
 	if (check_quotes(str) || check_pipe_red_2(str) || check_pipe_redir(str))
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-		free_set_null(str);
+		free_set_null((void **)&str);
 		return (TRUE);
 	}
 	return (FALSE);

@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/14 16:22:08 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +115,7 @@ int	**find_rdr_chars(char *str, char rdr, t_parse *data)
 	var.i = -1;
 	while (++var.i < var.len && str[var.i])
 	{
+<<<<<<< HEAD
 		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
 		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
 		{
@@ -118,6 +123,10 @@ int	**find_rdr_chars(char *str, char rdr, t_parse *data)
 			continue;
 		}
 		check_quout(&var, str);
+=======
+		if (check_cons_qut(&var, str))
+			continue ;
+>>>>>>> main
 		if (str[var.i] == '|' && !var.qutrg && !var.rdrtrg \
 			&& var.j < var.parts_num)
 		{

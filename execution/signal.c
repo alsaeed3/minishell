@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:40:34 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+=======
+/*   Updated: 2024/02/21 17:05:20 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +21,16 @@ void	parent_sig(int sig)
 	if (sig == SIGINT)
 	{
 		g_signal = 99;
-		// rl_replace_line("", 0);
 		ft_putstr_fd("\n", 1);
-		// rl_on_new_line();
+		rl_on_new_line();
 		if (waitpid(-1, NULL, WNOHANG) != -1)
 			return ;
-		// rl_redisplay();
+		rl_redisplay();
 		return ;
 	}
 	else if (sig == SIGQUIT)
 	{
-		// rl_redisplay();
+		rl_redisplay();
 		return ;
 	}
 }
@@ -37,8 +40,7 @@ void	child_sig(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
-		// rl_replace_line("", 1);
-		// rl_on_new_line();
+		rl_on_new_line();
 		g_signal = 130;
 		return ;
 	}
@@ -54,10 +56,9 @@ void	heredoc_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_putstr_fd("\n", 1);
-		// rl_replace_line("", 1);
 		close(0);
-		// rl_on_new_line();
+		ft_putstr_fd("\n", 1);
+		g_signal = 1;
 	}
 }
 

@@ -6,7 +6,11 @@
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:23:49 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/11 13:36:42 by habu-zua         ###   ########.fr       */
+=======
+/*   Updated: 2024/02/15 15:11:01 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +22,13 @@ char	**unset_env(char **old_env, int index)
 	int		j;
 	char	**new_env;
 
-	i = 0;
-	j = 0;
+	if (!old_env)
+		return (NULL);
 	new_env = malloc(sizeof(char *) * (envlen(old_env) - 1));
 	if (!new_env)
 		exit(EXIT_FAILURE);
+	i = 0;
+	j = 0;
 	while (old_env[i])
 	{
 		if (i != index)
@@ -38,14 +44,20 @@ char	**unset_env(char **old_env, int index)
 	return (new_env);
 }
 
-void	handle_unset(char **inputs, t_parse *data)
+int	handle_unset(char **inputs, t_parse *data)
 {
 	int	i;
 	int	index;
+	int	len;
 
 	i = 1;
+<<<<<<< HEAD
 	index = 0;
 	while (inputs[i])
+=======
+	len = ft_array_size(inputs);
+	while (i < len && inputs[i])
+>>>>>>> main
 	{
 		if (check_export(inputs[i]))
 		{
@@ -58,7 +70,9 @@ void	handle_unset(char **inputs, t_parse *data)
 		{
 			ft_error("unset: invalid identifier");
 			data->exit_status = 1;
-			return ;
+			return (1);
 		}
+		i++;
 	}
+	return (0);
 }

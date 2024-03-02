@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/19 19:35:53 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +18,7 @@
 
 void	init_rdr_num(t_var *var, char *str)
 {
+	*var = (t_var){0};
 	var->i = -1;
 	var->j = 0;
 	var->k = 0;
@@ -62,11 +67,11 @@ int	*find_rdr_num(char *str, char rdr, t_parse *data)
 {
 	t_var	var;
 
-	var = (t_var){0};
 	init_rdr_num(&var, str);
 	var.rnum = ft_calloc(var.parts_num, sizeof(int));
 	while (++var.i < var.len)
 	{
+<<<<<<< HEAD
 		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
 		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
 		{
@@ -74,6 +79,10 @@ int	*find_rdr_num(char *str, char rdr, t_parse *data)
 			continue;
 		}
 		quote_context(str, &var);
+=======
+		if (rdr_consqut(str, &var))
+			continue ;
+>>>>>>> main
 		if (str[var.i] == '|' && !var.qutrg && var.j < var.parts_num)
 			var.j++;
 		if (var.i < var.len - 1 && (str[var.i] == rdr && str[var.i + 1] != rdr \

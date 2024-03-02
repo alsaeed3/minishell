@@ -4,11 +4,18 @@
 		"errno.h": "c",
 		"exec.h": "c",
 		"sstream": "c",
+<<<<<<< HEAD
 		"array": "c",
 		"iterator": "c",
 		"string": "c",
 		"string_view": "c",
 		"vector": "c",
 		"__node_handle": "c"
+=======
+		"locale": "c",
+		"iterator": "c",
+		"data.h": "c",
+		"file2": "c"
+>>>>>>> main
 	}
 }

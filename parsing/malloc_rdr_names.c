@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_rdr_names.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:45:27 by alsaeed           #+#    #+#             */
 /*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/05 00:45:27 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/20 14:30:24 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +47,26 @@ char	***malloc_rdr_names(int parts_num, int *rdr_num, int **rdr_chars)
 	return (rdr_names);
 }
 
-void	free_char_triple_pointer(char ***pointer)
+void	free_char_triple_pointer(char ****pointer)
 {
 	int		i;
 	int		j;
+	int		len;
 
-	if (!pointer)
+	if (!pointer || !(*pointer))
 		return ;
 	i = -1;
-	while (pointer[++i])
+	while ((*pointer)[++i])
 	{
 		j = -1;
-		while (pointer[i][++j])
+		len = ft_array_size((*pointer)[i]);
+		while (++j <= len)
 		{
-			if (pointer[i][j])
-				free_set_null(pointer[i][j]);
+			if ((*pointer)[i][j])
+				free_set_null((void **)&(*pointer)[i][j]);
 		}
-		if (pointer[i])
-			free_set_null(pointer[i]);
+		if ((*pointer)[i])
+			free_set_null((void **)&(*pointer)[i]);
 	}
-	free_set_null(pointer);
+	free_set_null((void **)pointer);
 }

@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:28:28 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/13 13:56:00 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/14 18:14:17 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +41,7 @@ static char	*get_env_key(char *env)
 
 static char	*get_env_info(char *env)
 {
+<<<<<<< HEAD
 	char	*info;
 	size_t	i;
 	size_t	j;
@@ -48,10 +53,22 @@ static char	*get_env_info(char *env)
 		i++;
 	j = 0;
 	while (env[i] && env[i] != '\0')
+=======
+	t_inf	inf;
+
+	inf = (t_inf){0};
+	if (!env)
+		return (NULL);
+	while (env[inf.i] && env[inf.i] != '=')
+		inf.i++;
+	inf.j = 0;
+	while (env[inf.i] && env[inf.i] != '\0')
+>>>>>>> main
 	{
-		j++;
-		i++;
+		inf.j++;
+		inf.i++;
 	}
+<<<<<<< HEAD
 	info = ft_calloc(j + 1, sizeof(char));
 	if (!info)
 		return (NULL);
@@ -64,16 +81,35 @@ static char	*get_env_info(char *env)
 		info[j++] = env[i++];
 	info[j] = '\0';
 	return (info);
+=======
+	inf.info = ft_calloc(inf.j + 1, sizeof(char));
+	if (!inf.info)
+		return (NULL);
+	inf.i = 0;
+	while (env[inf.i] && env[inf.i] != '=')
+		inf.i++;
+	inf.i++;
+	inf.j = 0;
+	while (inf.i < (int)ft_strlen(env) && env[inf.i] != '\0')
+		inf.info[inf.j++] = env[inf.i++];
+	inf.info[inf.j] = '\0';
+	return (inf.info);
+>>>>>>> main
 }
 
 t_env	*add_env(t_env *head, char *env)
 {
 	t_env	*last_env;
 	t_env	*new_env;
+<<<<<<< HEAD
 	
 	if (!env)
 		return (head);
 	if (head == NULL)
+=======
+
+	if (env && head == NULL)
+>>>>>>> main
 	{
 		new_env = (t_env *)ft_calloc(1, sizeof(t_env));
 		new_env->key = get_env_key(env);
@@ -82,7 +118,7 @@ t_env	*add_env(t_env *head, char *env)
 		head = new_env;
 		return (head);
 	}
-	if (head != NULL)
+	if (env && head != NULL)
 	{
 		last_env = ft_env_last(head);
 		new_env = (t_env *)ft_calloc(1, sizeof(t_env));

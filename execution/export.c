@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/11 20:54:50 by habu-zua         ###   ########.fr       */
+=======
+/*   Updated: 2024/02/20 17:53:22 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +50,20 @@ void	replace_var(char *new_var, t_parse *data, int index)
 		if (ft_strchr(data->env[index], '='))
 		{
 			old_var = ft_strjoin(data->env[index], ft_strchr(new_var, '=') + 1);
-			free_set_null(data->env[index]);
+			free_set_null((void **)&data->env[index]);
 			data->env[index] = old_var;
 		}
 		else
 		{
 			old_var = ft_strjoin(data->env[index], "=");
-			free_set_null(data->env[index]);
+			free_set_null((void **)&data->env[index]);
 			data->env[index] = ft_strjoin(old_var, ft_strchr(new_var, '=') + 1);
-			free_set_null(old_var);
+			free_set_null((void **)&old_var);
 		}
 	}
 	else
 	{
-		free_set_null(data->env[index]);
+		free_set_null((void **)&data->env[index]);
 		data->env[index] = ft_strdup(new_var);
 	}
 }
@@ -108,6 +112,8 @@ void	export_alone(t_parse *data)
 	char	*swap;
 
 	i = 0;
+	if (!data->env || !data->env[0])
+		return ;
 	temp_env = dup_env(data->env);
 	while (temp_env[i + 1])
 	{
@@ -126,12 +132,14 @@ void	export_alone(t_parse *data)
 	free_env(temp_env);
 }
 
+<<<<<<< HEAD
 int	handle_export(char **inputs, t_parse *data)
+=======
+int	handle_export(char **inputs, t_parse *data, int i)
+>>>>>>> main
 {
-	int	i;
 	int	index;
 
-	i = 1;
 	if (!inputs[i])
 		export_alone(data);
 	while (inputs[i])

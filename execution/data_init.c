@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/13 13:57:41 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/21 16:35:13 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +32,15 @@ void	get_shlvl(t_parse *data)
 	index = var_index("SHLVL", data);
 	tmp = ft_itoa(shlvl);
 	new = ft_strjoin("SHLVL=", tmp);
+<<<<<<< HEAD
 	free_set_null(tmp);
 	replace_var(new, data, index);
 	free_set_null(new);
+=======
+	free_set_null((void **)&tmp);
+	replace_var(new, data, index);
+	free_set_null((void **)&new);
+>>>>>>> main
 }
 
 t_bool	data_init(t_parse **data, char **env)
@@ -75,11 +85,17 @@ void	set_up_prompt(t_parse **data, char *cmd_line)
 {
 	if (g_signal == 99)
 		(*data)->exit_status = 1;
+<<<<<<< HEAD
 	g_signal = 1;
 	if (cmd_line == NULL)
 	{
 		ft_putendl_fd("exit", 2);
 		// rl_clear_history();
+=======
+	if (cmd_line == NULL)
+	{
+		ft_putendl_fd("exit", 2);
+>>>>>>> main
 		free_util_1(data);
 		exit(0);
 	}

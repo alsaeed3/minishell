@@ -6,13 +6,17 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/18 22:49:01 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/data.h"
 
-static void	hold_rdr_1(t_var *var, char *str)
+void	hold_rdr_1(t_var *var, char *str)
 {
 	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
@@ -112,9 +116,10 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 		return (NULL);
 	var.rcn = find_rdr_chars(str, rdr, data);
 	var.rnms = malloc_rdr_names(var.parts_num, var.rnum, var.rcn);
-	ft_free_intarr(var.rcn, var.parts_num);
+	ft_free_intarr(&var.rcn, var.parts_num);
 	while (++var.i < var.len && str[var.i])
 	{
+<<<<<<< HEAD
 		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
 		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
 		{
@@ -122,6 +127,10 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 			continue;
 		}
 		hold_rdr_1(&var, str);
+=======
+		if (cons_quot_hold(&var, str))
+			continue ;
+>>>>>>> main
 		if (!hold_rdr_2(&var, str, rdr))
 		{
 			if ((str[var.i] == '<' || str[var.i] == '>' \

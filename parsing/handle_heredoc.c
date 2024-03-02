@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:16:57 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/11 11:37:59 by habu-zua         ###   ########.fr       */
+=======
+/*   Updated: 2024/02/21 16:31:09 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +46,9 @@ char	*generate_file_names(int pos)
 	pos_char = ft_itoa(pos);
 	name2 = ".tmp";
 	tmp = ft_strjoin(name, pos_char);
-	free_set_null(pos_char);
+	free_set_null((void **)&pos_char);
 	ret_name = ft_strjoin(tmp, name2);
-	free_set_null(tmp);
+	free_set_null((void **)&tmp);
 	return (ret_name);
 }
 
@@ -57,9 +61,10 @@ static t_bool	fake_heredoc(t_hvr *hvr, t_parse *data)
 			g_signal = 2;
 			hvr->line = readline("> ");
 			if (hvr->line == NULL || ft_strcmp(hvr->line, \
-			data->inputs_redirections[hvr->i][hvr->j]) == 0)
+			data->inputs_redirections[hvr->i][hvr->j]) == 0 \
+			|| (null_deli(data, hvr) && hvr->line[0] == '\0') || g_signal == 1)
 			{
-				free_set_null(hvr->line);
+				free_set_null((void **)&hvr->line);
 				break ;
 			}
 		}
@@ -90,7 +95,7 @@ static void	real_heredoc(t_hvr *hvr, t_parse *data)
 				break ;
 			write(hvr->wrfd, hvr->line, ft_strlen(hvr->line));
 			write(hvr->wrfd, "\n", 1);
-			free_set_null(hvr->line);
+			free_set_null((void **)&hvr->line);
 		}
 		close(hvr->wrfd);
 	}
@@ -111,9 +116,11 @@ void	handle_heredoc(t_parse *data)
 			&& !fake_heredoc(&hvr, data))
 				real_heredoc(&hvr, data);
 			if (data->inputs_tokens[hvr.i][hvr.j] == 1 && hvr.line)
-				free_set_null(hvr.line);
+				free_set_null((void **)&hvr.line);
 		}
 	}
 	if (data->heredocs_num)
 		data->heredoc_tmp_files[hvr.k] = NULL;
+	if (!data->heredocs_num)
+		ft_free_array(&data->heredoc_tmp_files);
 }

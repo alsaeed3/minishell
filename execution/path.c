@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:13:53 by habu-zua          #+#    #+#             */
-/*   Updated: 2024/02/06 21:03:02 by alsaeed          ###   ########.fr       */
+/*   Updated: 2024/02/15 14:09:46 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ char	**gen_paths(int index, t_parse *data, char *input)
 	i = 0;
 	str = ft_strdup(&data->env[index][5]);
 	paths = ft_split(str, ':');
-	free_set_null(str);
+	free_set_null((void **)&str);
 	while (paths[i])
 	{
 		temp = paths[i];
 		paths[i] = ft_strjoin(paths[i], "/");
-		free_set_null(temp);
+		free_set_null((void **)&temp);
 		temp = paths[i];
 		paths[i] = ft_strjoin(paths[i], input);
-		free_set_null(temp);
+		free_set_null((void **)&temp);
 		i++;
 	}
 	return (paths);

@@ -6,27 +6,37 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/13 21:29:56 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/19 19:23:04 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/data.h"
+<<<<<<< HEAD
+=======
+
+static void	init_parts_num_vars(t_var *var, char *str)
+{
+	*var = (t_var){0};
+	var->qutrg = FALSE;
+	var->qchr = '\0';
+	var->parts_num = 1;
+	var->len = (int)ft_strlen(str);
+	var->i = -1;
+}
+>>>>>>> main
 
 int	find_parts_num(char *str)
 {
-	int		i;
-	int		parts_num;
-	t_bool	quo_trigger;
-	char	quo_char;
-	int		len;
+	t_var	var;
 
-	quo_trigger = FALSE;
-	quo_char = '\0';
-	parts_num = 1;
-	len = (int)ft_strlen(str);
-	i = -1;
-	while (++i < len)
+	init_parts_num_vars(&var, str);
+	while (++var.i < var.len)
 	{
+<<<<<<< HEAD
 		if ((str[i] == '"' && str[i + 1] == '"') \
 		|| (str[i] == '\'' && str[i + 1] == '\''))
 		{
@@ -34,20 +44,31 @@ int	find_parts_num(char *str)
 			continue;
 		}
 		if ((str[i] == '"' || str[i] == '\'') && !quo_trigger)
+=======
+		if (var.i < var.len -1 && ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\'')) \
+		&& !var.qutrg)
+>>>>>>> main
 		{
-			quo_char = str[i];
-			quo_trigger = TRUE;
+			var.i++;
+			continue ;
 		}
-		else if ((str[i] == quo_char) && quo_trigger)
-			quo_trigger = FALSE;
-		if (str[i] == '|' && !quo_trigger)
-			parts_num++;
+		if ((str[var.i] == '"' || str[var.i] == '\'') && !var.qutrg)
+		{
+			var.qchr = str[var.i];
+			var.qutrg = TRUE;
+		}
+		else if ((str[var.i] == var.qchr) && var.qutrg)
+			var.qutrg = FALSE;
+		if (str[var.i] == '|' && !var.qutrg)
+			var.parts_num++;
 	}
-	return (parts_num);
+	return (var.parts_num);
 }
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr)
 {
+	*var = (t_var){0};
 	var->i = -1;
 	var->j = 0;
 	var->k = -1;
