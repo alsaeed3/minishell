@@ -6,11 +6,19 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/01 13:22:10 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   Updated: 2024/02/19 16:22:08 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 void	check_quot(t_var *var, char *str)
 {
@@ -31,6 +39,19 @@ void	check_quot(t_var *var, char *str)
 	}
 }
 
+<<<<<<< HEAD
+=======
+void	set_token(t_var *var, char *str, char rdr)
+{
+	if (var->i < var->len - 1 && str[var->i] == rdr && str[var->i + 1] != rdr \
+	&& (var->i == 0 || str[var->i - 1] != rdr) && !var->qutrg)
+		var->tkn[var->j][++var->k] = 0;
+	else if (var->i < var->len - 1 && str[var->i] == rdr \
+	&& str[var->i + 1] == rdr && !var->qutrg)
+		var->tkn[var->j][++var->k] = 1;
+}
+
+>>>>>>> main
 int	**tokenize_redir(char *str, t_parse *data, char rdr)
 {
 	t_var	var;
@@ -43,12 +64,22 @@ int	**tokenize_redir(char *str, t_parse *data, char rdr)
 	var.i = -1;
 	while (++var.i < var.len)
 	{
+<<<<<<< HEAD
+=======
+		if (((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\'')) && !var.qutrg)
+		{
+			var.i++;
+			continue ;
+		}
+>>>>>>> main
 		check_quot(&var, str);
 		if (str[var.i] == '|' && !var.qutrg)
 		{
 			var.j++;
 			var.k = -1;
 		}
+<<<<<<< HEAD
 		if (var.i < var.len - 1 && str[var.i] == rdr && str[var.i + 1] != rdr \
 		&& (var.i == 0 || str[var.i - 1] != rdr) && !var.qutrg)
 			var.tkn[var.j][++var.k] = 0;
@@ -84,3 +115,9 @@ int	**tokenize_redir(char *str, t_parse *data, char rdr)
 // 		free (var.tkn);
 // 	}
 // }
+=======
+		set_token(&var, str, rdr);
+	}
+	return (var.tkn);
+}
+>>>>>>> main

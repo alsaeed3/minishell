@@ -6,27 +6,55 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:23:50 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/31 21:27:09 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   Updated: 2024/02/19 16:22:54 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 int	*find_cmds_num(char *str)
 {
 	t_cvr	cvr;
 
+<<<<<<< HEAD
 	init_cvr(&cvr, str, 0);
 	cvr.cnum = ft_calloc(find_parts_num(str), sizeof(int));
 	while (++cvr.i < cvr.len)
 	{
+=======
+	cvr = (t_cvr){0};
+	init_cvr(&cvr, str, 0);
+	cvr.cnum = ft_calloc(find_parts_num(str), sizeof(int));
+	if (!cvr.cnum)
+		return (NULL);
+	while (++cvr.i < cvr.len)
+	{
+		if (((str[cvr.i] == '"' && str[cvr.i + 1] == '"') \
+		|| (str[cvr.i] == '\'' && str[cvr.i + 1] == '\'')) && !cvr.qutrg)
+		{
+			cvr.i++;
+			continue ;
+		}
+>>>>>>> main
 		if ((str[cvr.i] == '"' || str[cvr.i] == '\'') && !cvr.qutrg)
 		{
 			cvr.quchr = str[cvr.i];
 			cvr.qutrg = TRUE;
 		}
 		else if ((str[cvr.i] == cvr.quchr) && cvr.qutrg)
+<<<<<<< HEAD
 			cvr.qutrg = false;
+=======
+			cvr.qutrg = FALSE;
+>>>>>>> main
 		fcn_cont(&cvr, str);
 	}
 	return (cvr.cnum);
@@ -41,6 +69,7 @@ int	**find_cmds_chars_num(char *str)
 	cvr.i = -1;
 	while (++cvr.i < cvr.parts_num)
 		cvr.chrn[cvr.i] = ft_calloc(cvr.cnum[cvr.i], sizeof(int));
+<<<<<<< HEAD
 	free (cvr.cnum);
 	cvr.i = -1;
 	while (++cvr.i < cvr.len && str[cvr.i])
@@ -52,12 +81,23 @@ int	**find_cmds_chars_num(char *str)
 			cvr.k++;
 			cvr.chars_num = 0;
 		}
+=======
+	cvr.i = -1;
+	while (++cvr.i < cvr.len && str[cvr.i])
+	{
+		if (cnsqut_cmd_num(&cvr, str))
+			continue ;
+>>>>>>> main
 		if (((str[cvr.i] != '|' && str[cvr.i] != '"' && str[cvr.i] != '\'' \
 		&& str[cvr.i] != ' ' && str[cvr.i] != '\0') || ((str[cvr.i] != ' ' \
 		|| str[cvr.i] == '|' || str[cvr.i] != '"' || str[cvr.i] != '\'') \
 		&& (str[cvr.i] != cvr.quchr) && cvr.qutrg)))
 			cvr.chrn[cvr.j][cvr.k] = ++cvr.chars_num;
 	}
+<<<<<<< HEAD
+=======
+	free_set_null((void **)&cvr.cnum);
+>>>>>>> main
 	return (cvr.chrn);
 }
 
@@ -85,12 +125,23 @@ char	***split_cmds(char *str)
 {
 	t_cvr	cvr;
 
+<<<<<<< HEAD
 	init_cvr(&cvr, str, 2);
 	malloc_cmds(&cvr);
 	ft_free_intarr(cvr.chrn, cvr.parts_num);
 	while (++cvr.i < cvr.len)
 	{
 		check_qut_pipe(&cvr, str);
+=======
+	cvr = (t_cvr){0};
+	init_cvr(&cvr, str, 2);
+	malloc_cmds(&cvr);
+	ft_free_intarr(&cvr.chrn, cvr.parts_num);
+	while (++cvr.i < cvr.len)
+	{
+		if (cons_quot_cmd(&cvr, str))
+			continue ;
+>>>>>>> main
 		if (str[cvr.i] == ' ' && (cvr.i == 0 || str[cvr.i - 1] != '|') \
 		&& !cvr.qutrg)
 		{
@@ -102,7 +153,13 @@ char	***split_cmds(char *str)
 	}
 	if (cvr.cmds[cvr.j])
 		cvr.cmds[++cvr.j] = NULL;
+<<<<<<< HEAD
 	free (str);
 	str = NULL;
+=======
+	if (cvr.cnum)
+		free_set_null((void **)&cvr.cnum);
+	free_set_null((void **)&str);
+>>>>>>> main
 	return (cvr.cmds);
 }

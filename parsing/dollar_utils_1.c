@@ -6,11 +6,19 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:23:29 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/31 21:26:12 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   Updated: 2024/02/19 16:27:49 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 void	exp_dlr_cnt_2(t_var *var, char *str)
 {
@@ -28,7 +36,11 @@ void	exp_dlr_cnt_2(t_var *var, char *str)
 	}
 	if (str[var->i] == '$' && ((str[var->i + 1] >= 65 \
 	&& str[var->i + 1] <= 90) || (str[var->i + 1] >= 97 \
+<<<<<<< HEAD
 	&& str[var->i + 1] <= 122)) && !var->dlrtrg && !var->squtrg && !var->rdrtrg)
+=======
+	&& str[var->i + 1] <= 122)) && !var->dlrtrg && !var->squtrg)
+>>>>>>> main
 		var->dlrtrg = TRUE;
 	else if (str[var->i] && (!var->dlrtrg || str[var->i] != '$'))
 		var->size++;
@@ -58,6 +70,7 @@ void	rdr_trigger(t_var *var, char *str)
 
 void	is_dollar(t_var *var, char *str)
 {
+<<<<<<< HEAD
 	if (var->i < var->len - 2 && str[var->i] == '$' \
 	&& !(str[var->i + 1] >= 65 && str[var->i + 1] <= 90) \
 	&& !(str[var->i + 1] >= 97 && str[var->i + 1] <= 122) && !var->squtrg)
@@ -65,12 +78,22 @@ void	is_dollar(t_var *var, char *str)
 	else if (str[var->i] == '$' && ((str[var->i + 1] >= 65 \
 	&& str[var->i + 1] <= 90) || (str[var->i + 1] >= 97 \
 	&& str[var->i + 1] <= 122)) && !var->squtrg && !var->rdrtrg)
+=======
+	if (str[var->i] == '$' && ((str[var->i + 1] >= 65 \
+	&& str[var->i + 1] <= 90) || (str[var->i + 1] >= 97 \
+	&& str[var->i + 1] <= 122)) && !var->squtrg)
+>>>>>>> main
 		var->dlrtrg = TRUE;
 }
 
 void	expand_dollar(t_var *var, char *str, t_env *env_lst)
 {
+<<<<<<< HEAD
 	if (var->dlrtrg && ((str[var->i] >= 65 && str[var->i] <= 90) \
+=======
+	if ((var->i == 0 || str[var->i - 1] == '$') \
+	&& var->dlrtrg && ((str[var->i] >= 65 && str[var->i] <= 90) \
+>>>>>>> main
 	|| (str[var->i] >= 97 && str[var->i] <= 122)))
 	{
 		var->env = ft_calloc(find_env_size(str, var->i) + 1, sizeof(char));
@@ -90,10 +113,14 @@ void	expand_dollar(t_var *var, char *str, t_env *env_lst)
 				var->ret[var->j++] = var->envalu[var->k++];
 		}
 		if (var->env)
+<<<<<<< HEAD
 		{
 			free (var->env);
 			var->env = NULL;
 		}
+=======
+			free_set_null((void **)&var->env);
+>>>>>>> main
 	}
 }
 

@@ -6,11 +6,19 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 20:52:54 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/30 22:21:47 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   Updated: 2024/02/15 14:35:08 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 static t_bool	check_end_pipe(char *str)
 {
@@ -93,6 +101,10 @@ t_bool	check_pipe_red_2(char *str)
 {
 	t_var	var;
 
+<<<<<<< HEAD
+=======
+	var = (t_var){0};
+>>>>>>> main
 	init_var(&var, str);
 	while (++var.i < var.len)
 	{

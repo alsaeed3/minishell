@@ -6,11 +6,19 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:48:10 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/31 20:49:02 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   Updated: 2024/02/14 18:23:14 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 void	fcn_cont(t_cvr *cvr, char *str)
 {
@@ -94,13 +102,20 @@ void	malloc_cmds(t_cvr *cvr)
 				return ;
 		}
 	}
+<<<<<<< HEAD
 	free (cvr->cnum);
+=======
+>>>>>>> main
 	cvr->i = -1;
 	cvr->j = 0;
 }
 
 void	init_cvr(t_cvr *cvr, char *str, int mode)
 {
+<<<<<<< HEAD
+=======
+	*cvr = (t_cvr){0};
+>>>>>>> main
 	cvr->i = -1;
 	cvr->j = 0;
 	cvr->k = 0;

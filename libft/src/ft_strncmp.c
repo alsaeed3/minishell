@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:32:06 by alsaeed           #+#    #+#             */
 /*   Updated: 2024/01/31 01:12:36 by alsaeed          ###   ########.fr       */
+=======
+/*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/10 15:32:06 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/07 14:37:46 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +35,15 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 	return (0);
 }
 
+<<<<<<< HEAD
 int ft_strcmp(char *s1, char *s2)
 {
 	int i;
+=======
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+>>>>>>> main
 
 	i = 0;
 	if (ft_strlen(s1) != ft_strlen(s2))
@@ -42,4 +55,8 @@ int ft_strcmp(char *s1, char *s2)
 		i++;
 	}
 	return (0);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

@@ -6,6 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/31 23:14:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -38,10 +39,57 @@ int	find_parts_num(char *str)
 			parts_num++;
 	}
 	return (parts_num);
+=======
+/*   Updated: 2024/02/19 19:23:04 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+
+static void	init_parts_num_vars(t_var *var, char *str)
+{
+	*var = (t_var){0};
+	var->qutrg = FALSE;
+	var->qchr = '\0';
+	var->parts_num = 1;
+	var->len = (int)ft_strlen(str);
+	var->i = -1;
+}
+
+int	find_parts_num(char *str)
+{
+	t_var	var;
+
+	init_parts_num_vars(&var, str);
+	while (++var.i < var.len)
+	{
+		if (var.i < var.len -1 && ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\'')) \
+		&& !var.qutrg)
+		{
+			var.i++;
+			continue ;
+		}
+		if ((str[var.i] == '"' || str[var.i] == '\'') && !var.qutrg)
+		{
+			var.qchr = str[var.i];
+			var.qutrg = TRUE;
+		}
+		else if ((str[var.i] == var.qchr) && var.qutrg)
+			var.qutrg = FALSE;
+		if (str[var.i] == '|' && !var.qutrg)
+			var.parts_num++;
+	}
+	return (var.parts_num);
+>>>>>>> main
 }
 
 t_bool	init_rdr_vars(t_var *var, t_parse *data, char *str, char rdr)
 {
+<<<<<<< HEAD
+=======
+	*var = (t_var){0};
+>>>>>>> main
 	var->i = -1;
 	var->j = 0;
 	var->k = -1;

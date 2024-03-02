@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
 /*   Updated: 2024/02/02 14:49:16 by alsaeed          ###   ########.fr       */
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/04 17:02:42 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/21 16:35:07 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/exec.h"
 
+<<<<<<< HEAD
 int	g_signal = 0; 
 
 int main(int ac, char **av, char **env)
@@ -125,3 +133,34 @@ void	free_parser(t_parse **parse)
 }
 
 //ls -la | wc| cat <<w >v
+=======
+int	g_signal = 0;
+
+int	main(int ac, char **av, char **env)
+{
+	t_main	main;
+
+	(void)ac;
+	(void)av;
+	main = (t_main){0};
+	main.data = ft_calloc(1, sizeof(t_parse));
+	if (!main.data)
+		return (1);
+	if (data_init(&main.data, env))
+		return (1);
+	while (1)
+	{
+		set_signals(&main.data);
+		if (data_reset(&main.data))
+			continue ;
+		main.cmd_line = readline("minishell$ ");
+		set_up_prompt(&main.data, main.cmd_line);
+		if (parse_shell(main.cmd_line, main.dup, &main.data))
+			continue ;
+		exec_delegator(&main.data);
+		free_data(&main.data);
+	}
+	free_util_1(&main.data);
+	return (0);
+}
+>>>>>>> main

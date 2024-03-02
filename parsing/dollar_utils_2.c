@@ -6,11 +6,19 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:26:09 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/31 00:22:42 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   Updated: 2024/02/20 16:12:30 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 void	dollar_heredoc_deli(char *str, t_var *var)
 {
@@ -28,11 +36,15 @@ t_bool	exp_dlr_cnt_1(t_var *var, char *str)
 	&& !var->squtrg && !var->dqutrg)
 	{
 		var->size++;
+<<<<<<< HEAD
 		var->i++;
+=======
+>>>>>>> main
 		if (str[var->i] == '\'' && !var->squtrg && !var->dqutrg)
 			var->squtrg = TRUE;
 		else if (str[var->i] == '"' && !var->dqutrg && !var->squtrg)
 			var->dqutrg = TRUE;
+<<<<<<< HEAD
 	}
 	if (var->i < var->len - 1 && (str[var->i] == '<' && str[var->i + 1] == '<') \
 	&& !var->squtrg && !var->dqutrg && !var->rdrtrg)
@@ -45,6 +57,19 @@ t_bool	exp_dlr_cnt_1(t_var *var, char *str)
 	&& str[var->i + 1] <= 122) && !var->squtrg)
 	{
 		var->i += 2;
+=======
+		var->i++;
+	}
+	if (var->i < var->len - 1 && ((str[var->i] == '<' \
+	&& str[var->i + 1] == '<') || (str[var->i] == '>' \
+	&& str[var->i + 1] == '>')) && !var->squtrg && !var->dqutrg && !var->rdrtrg)
+		var->rdrtrg = TRUE;
+	else if (var->i < var->len - 1 && ((str[var->i] == '<' \
+	&& str[var->i + 1] == '<') || (str[var->i] == '>' \
+	&& str[var->i + 1] == '>')) && !var->squtrg && !var->dqutrg && var->rdrtrg)
+	{
+		var->rdrtrg = FALSE;
+>>>>>>> main
 		return (TRUE);
 	}
 	return (FALSE);
@@ -75,6 +100,10 @@ void	init_dollar_vars(t_var *var, char *str, t_env *env_lst, int mode)
 
 void	init_del_exspc(t_var *var, char *str, int mode)
 {
+<<<<<<< HEAD
+=======
+	var->len = 0;
+>>>>>>> main
 	var->len = ft_strlen(str);
 	var->i = -1;
 	var->j = 0;

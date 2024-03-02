@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:26:06 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/31 20:53:18 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/19 16:47:13 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +26,27 @@ char	**gen_paths(int index, t_parse *data, char *input)
 	i = 0;
 	str = ft_strdup(&data->env[index][5]);
 	paths = ft_split(str, ':');
+<<<<<<< HEAD
 	free (str);
 	str = NULL;
+=======
+	free_set_null((void **)&str);
+>>>>>>> main
 	while (paths[i])
 	{
 		temp = paths[i];
 		paths[i] = ft_strjoin(paths[i], "/");
+<<<<<<< HEAD
 		free(temp);
 		temp = paths[i];
 		paths[i] = ft_strjoin(paths[i], input);
 		free(temp);
+=======
+		free_set_null((void **)&temp);
+		temp = paths[i];
+		paths[i] = ft_strjoin(paths[i], input);
+		free_set_null((void **)&temp);
+>>>>>>> main
 		i++;
 	}
 	return (paths);
@@ -80,3 +95,21 @@ int	check_exec(char **inputs, t_parse *data)
 		ret = check_exec_path(inputs, data);
 	return (ret);
 }
+<<<<<<< HEAD
+=======
+
+int	ft_strcmp1(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	if (s1[i] > s2[i])
+		return (1);
+	else if (s1[i] < s2[i])
+		return (-1);
+	else
+		return (0);
+}
+>>>>>>> main

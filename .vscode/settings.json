@@ -1,5 +1,6 @@
 {
 	"files.associations": {
+<<<<<<< HEAD
 		"parser.h": "c",
 		"__hash_table": "c",
 		"__split_buffer": "c",
@@ -12,5 +13,15 @@
 		"unordered_map": "c",
 		"utility": "c",
 		"vector": "c"
+=======
+		"libft.h": "c",
+		"errno.h": "c",
+		"exec.h": "c",
+		"sstream": "c",
+		"locale": "c",
+		"iterator": "c",
+		"data.h": "c",
+		"file2": "c"
+>>>>>>> main
 	}
 }

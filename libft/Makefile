@@ -6,7 +6,11 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 14:48:47 by alsaeed           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/01/20 15:24:32 by alsaeed          ###   ########.fr        #
+=======
+#    Updated: 2024/02/17 20:20:22 by alsaeed          ###   ########.fr        #
+>>>>>>> main
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,22 +41,38 @@ all: 			$(NAME)
 
 $(OBJS_DIR)%.o: src/%.c
 	@mkdir -p $(OBJS_DIR)
+<<<<<<< HEAD
 	@clang $(CFLAGS) -c $< -o $@
 
 $(NAME): 		$(OBJS)
 	@$(ARFLAGS) $(NAME) $(OBJS)
 	@echo "libft Compiled : \033[1;32mOK\n\033[0m"
+=======
+	@cc $(CFLAGS) -c $< -o $@
+
+$(NAME): 		$(OBJS)
+	@$(ARFLAGS) $(NAME) $(OBJS)
+	@echo "libft Compiled : \033[1;32mOK\033[0m"
+>>>>>>> main
 
 clean:
 	@if [ -e $(OBJS_DIR) ]; then \
 		rm -rf $(OBJS_DIR); \
+<<<<<<< HEAD
 		echo "libft Clean : \033[32mOK\n\033[0m"; \
+=======
+		echo "libft Clean : \033[32mOK\033[0m"; \
+>>>>>>> main
 	fi
 
 fclean: 		clean
 	@if [ -e $(NAME) ]; then \
 		$(RM) $(NAME); \
+<<<<<<< HEAD
 		echo "libft Full-Clean : \033[32mOK\n\033[0m"; \
+=======
+		echo "libft Full-Clean : \033[32mOK\033[0m"; \
+>>>>>>> main
 	fi
 re: 			fclean all
 

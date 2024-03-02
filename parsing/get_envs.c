@@ -6,23 +6,44 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 20:28:28 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/30 22:01:16 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   Updated: 2024/02/14 18:14:17 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 static char	*get_env_key(char *env)
 {
 	char	*key;
 	int		i;
 
+<<<<<<< HEAD
 	i = 0;
 	while (env[i] != '=')
 		i++;
 	key = ft_calloc(i + 1, sizeof(char));
 	i = 0;
 	while (env[i] != '=')
+=======
+	if (!env)
+		return (NULL);
+	i = 0;
+	while (env[i] && env[i] != '=')
+		i++;
+	key = ft_calloc(i + 1, sizeof(char));
+	if (!key)
+		return (NULL);
+	i = 0;
+	while (env[i] && env[i] != '=')
+>>>>>>> main
 	{
 		key[i] = env[i];
 		i++;
@@ -33,6 +54,7 @@ static char	*get_env_key(char *env)
 
 static char	*get_env_info(char *env)
 {
+<<<<<<< HEAD
 	char	*info;
 	int		i;
 	int		j;
@@ -56,6 +78,33 @@ static char	*get_env_info(char *env)
 		info[j++] = env[i++];
 	info[j] = '\0';
 	return (info);
+=======
+	t_inf	inf;
+
+	inf = (t_inf){0};
+	if (!env)
+		return (NULL);
+	while (env[inf.i] && env[inf.i] != '=')
+		inf.i++;
+	inf.j = 0;
+	while (env[inf.i] && env[inf.i] != '\0')
+	{
+		inf.j++;
+		inf.i++;
+	}
+	inf.info = ft_calloc(inf.j + 1, sizeof(char));
+	if (!inf.info)
+		return (NULL);
+	inf.i = 0;
+	while (env[inf.i] && env[inf.i] != '=')
+		inf.i++;
+	inf.i++;
+	inf.j = 0;
+	while (inf.i < (int)ft_strlen(env) && env[inf.i] != '\0')
+		inf.info[inf.j++] = env[inf.i++];
+	inf.info[inf.j] = '\0';
+	return (inf.info);
+>>>>>>> main
 }
 
 t_env	*add_env(t_env *head, char *env)
@@ -63,7 +112,11 @@ t_env	*add_env(t_env *head, char *env)
 	t_env	*last_env;
 	t_env	*new_env;
 
+<<<<<<< HEAD
 	if (head == NULL)
+=======
+	if (env && head == NULL)
+>>>>>>> main
 	{
 		new_env = (t_env *)ft_calloc(1, sizeof(t_env));
 		new_env->key = get_env_key(env);
@@ -72,10 +125,19 @@ t_env	*add_env(t_env *head, char *env)
 		head = new_env;
 		return (head);
 	}
+<<<<<<< HEAD
 	if (head != NULL)
 	{
 		last_env = ft_env_last(head);
 		new_env = (t_env *)ft_calloc(1, sizeof(t_env));
+=======
+	if (env && head != NULL)
+	{
+		last_env = ft_env_last(head);
+		new_env = (t_env *)ft_calloc(1, sizeof(t_env));
+		if (!new_env)
+			return (head);
+>>>>>>> main
 		new_env->key = get_env_key(env);
 		new_env->info = get_env_info(env);
 		new_env->next = NULL;
@@ -90,6 +152,11 @@ t_env	*get_envs_lst(char **original_envs)
 	int		i;
 
 	i = 0;
+<<<<<<< HEAD
+=======
+	if (original_envs == NULL)
+		return (NULL);
+>>>>>>> main
 	envs = NULL;
 	while (original_envs[i])
 	{
