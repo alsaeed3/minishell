@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
+=======
 /*   Updated: 2024/02/19 16:30:06 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +98,18 @@ char	*expand_dollar_string(char *str, t_env *env_lst)
 		return (NULL);
 	while (++var.i < var.len && str[var.i])
 	{
+<<<<<<< HEAD
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+		}
+		sd_quote_trg(&var, str);
+=======
 		if (cons_quot_dollar(&var, str))
 			continue ;
+>>>>>>> main
 		rdr_trigger(&var, str);
 		is_dollar(&var, str);
 		expand_dollar(&var, str, env_lst);

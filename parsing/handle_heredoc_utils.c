@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 20:24:19 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/02/13 19:36:12 by alsaeed          ###   ########.fr       */
+=======
 /*   Updated: 2024/02/21 16:31:17 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +18,11 @@
 
 t_bool	process_line(t_hvr *hvr, t_parse *data)
 {
+<<<<<<< HEAD
+	char c[2];
+=======
 	char	c[2];
+>>>>>>> main
 
 	if (hvr->line == NULL || ft_strcmp(hvr->line, \
 	data->inputs_redirections[hvr->i][hvr->j]) == 0 \

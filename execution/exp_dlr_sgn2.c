@@ -6,12 +6,18 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:10:29 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/02/13 21:09:22 by alsaeed          ###   ########.fr       */
+=======
 /*   Updated: 2024/02/17 18:00:06 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
+<<<<<<< HEAD
+=======
 static char	*ft_strdup_2(char *str)
 {
 	char	*ret;
@@ -35,6 +41,7 @@ static char	*ft_strdup_2(char *str)
 	return (ret);
 }
 
+>>>>>>> main
 void	inside_loop(char **input, char *c, t_parse *data)
 {
 	char	*tmp;
@@ -44,6 +51,17 @@ void	inside_loop(char **input, char *c, t_parse *data)
 	{
 		tmp = ft_itoa(data->exit_status);
 		*input = ft_strreplace(*input, "$?", tmp);
+<<<<<<< HEAD
+		free_set_null(tmp);
+	}
+	else if (*c == '0')
+		*input = ft_strreplace(*input, "$0", "minishell");
+	else if (ft_isalpha(*c) || ft_isdigit(*c) || *c == '_' || *c == '*')
+	{
+		tmp = ft_strjoin("$", c);
+		*input = ft_strreplace(*input, tmp, "");
+		free_set_null(tmp);
+=======
 		free_set_null((void **)&tmp);
 	}
 	else if (*c == '0')
@@ -53,6 +71,7 @@ void	inside_loop(char **input, char *c, t_parse *data)
 		tmp = ft_strdup_2(*input);
 		*input = ft_strreplace(*input, tmp, "");
 		free_set_null((void **)&tmp);
+>>>>>>> main
 	}
 }
 

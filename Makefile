@@ -6,7 +6,11 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
+<<<<<<< HEAD
+#    Updated: 2024/02/13 20:16:52 by alsaeed          ###   ########.fr        #
+=======
 #    Updated: 2024/02/21 16:17:57 by alsaeed          ###   ########.fr        #
+>>>>>>> main
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,15 +63,22 @@ SRCSX = exec_delegate.c \
 		close_fds.c \
 		free.c \
 		signal.c \
+<<<<<<< HEAD
+		ft_error.c\
+		exp_dlr_sgn2.c\
+		execute_pipe.c\
+		ft_strreplace.c\
+=======
 		ft_error.c \
 		exec_utils2.c \
 		execute_pipe.c 
+>>>>>>> main
 
 OBJS_DIR = parsing/objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 OBJSX_DIR = execution/objs/
 OBJSX = $(addprefix $(OBJSX_DIR), $(SRCSX:.c=.o))
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 LDFLAGS = -L$(LIBFT_DIR) -lft -lreadline -lncurses
 
 LIBFT_DIR = libft

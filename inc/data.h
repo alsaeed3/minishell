@@ -234,14 +234,25 @@ int		size_without_spcs(char *str);
 void	jump_over_spaces(char *str, int *i);
 void	ft_free_lst(t_env **lst);
 void	free_data(t_parse **parse);
+<<<<<<< HEAD
+void	ft_free_intarr(int **int_arr, int parts_num);
+void	check_quotation(t_var *var, char *str);
+void	check_pipe(t_var *var, char *str, int mode);
+void	check_quota(t_var *var, char *str);
+void	free_set_null(void *ptr);
+=======
 void	ft_free_intarr(int ***int_arr, int parts_num);
 t_bool	check_quotation(t_var *var, char *str);
+>>>>>>> main
 void	set_up_prompt(t_parse **data, char *cmd_line);
 void	free_util_1(t_parse **data);
 t_bool	check_errors(char *str);
 void	if_else_conv(t_var *var, char *str);
+<<<<<<< HEAD
+=======
 t_bool	null_deli(t_parse *data, t_hvr *hvr);
 char	*expand_dollar_2(char *variable, t_dlr *dlr, t_parse *data);
 char	*expand_dollar_sign(char *str, t_parse *data);
+>>>>>>> main
 
 #endif

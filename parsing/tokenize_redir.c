@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 16:01:18 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
+=======
 /*   Updated: 2024/02/19 16:22:08 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +57,19 @@ int	**tokenize_redir(char *str, t_parse *data, char rdr)
 	var.i = -1;
 	while (++var.i < var.len)
 	{
+<<<<<<< HEAD
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+=======
 		if (((str[var.i] == '"' && str[var.i + 1] == '"') \
 		|| (str[var.i] == '\'' && str[var.i + 1] == '\'')) && !var.qutrg)
 		{
 			var.i++;
 			continue ;
+>>>>>>> main
 		}
 		check_quot(&var, str);
 		if (str[var.i] == '|' && !var.qutrg)

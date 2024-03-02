@@ -10,7 +10,11 @@
 			"name": "Debug",
 			"program": "/Users/alsaeed/Desktop/minishell/minishell",
 			"args": [],
+<<<<<<< HEAD
+			"cwd": "/Users/alsaeed/Desktop/minishell"
+=======
 			"cwd": "/Users/alsaeed/Desktop/minishell/"
+>>>>>>> main
 		}
 	]
 }

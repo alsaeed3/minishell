@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/02/11 20:54:50 by habu-zua         ###   ########.fr       */
+=======
 /*   Updated: 2024/02/20 17:53:22 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +89,21 @@ char	**export_env(char **old_env, char *export)
 	return (new_env);
 }
 
+static int ft_strcmp1(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	if (s1[i] > s2[i])
+		return (1);
+	else if (s1[i] < s2[i])
+		return (-1);
+	else
+		return (0);
+}
+
 void	export_alone(t_parse *data)
 {
 	int		i;
@@ -113,7 +132,11 @@ void	export_alone(t_parse *data)
 	free_env(temp_env);
 }
 
+<<<<<<< HEAD
+int	handle_export(char **inputs, t_parse *data)
+=======
 int	handle_export(char **inputs, t_parse *data, int i)
+>>>>>>> main
 {
 	int	index;
 

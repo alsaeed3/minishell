@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
+=======
 /*   Updated: 2024/02/18 14:51:29 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +35,12 @@ char	*conv_tabs2spcs(char *str)
 	var.ret = ft_calloc(var.len + 1, sizeof(char));
 	while (++var.i < var.len)
 	{
+		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
+		{
+			var.i++;
+			continue;
+		}
 		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
 		{
 			var.qchr = str[var.i];
@@ -54,6 +64,19 @@ void	if_else_conv(t_var *var, char *str)
 {
 	if (var->rdrtrg)
 	{
+<<<<<<< HEAD
+		if (str[var->i + 1] == ' ' || str[var->i + 1] == '<' \
+		|| str[var->i + 1] == '>' || str[var->i + 1] == '|' \
+		|| str[var->i + 1] == '\0')
+		{
+			var->i++;
+			var->rdrtrg = FALSE;
+		}
+		var->nordr[var->j++] = ' ';
+	}
+	else
+		var->nordr[var->j++] = str[var->i++];
+=======
 		if ((str[var->i] == ' ' || str[var->i] == '<' \
 		|| str[var->i] == '>' || str[var->i] == '|' \
 		|| str[var->i] == '\0') && !var->qutrg)
@@ -62,4 +85,5 @@ void	if_else_conv(t_var *var, char *str)
 	}
 	else
 		var->nordr[var->j++] = str[var->i];
+>>>>>>> main
 }
