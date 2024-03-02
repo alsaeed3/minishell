@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:35:04 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/01 17:16:08 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/07 14:38:56 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +20,11 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
 
+<<<<<<< HEAD
 	if (count > SIZE_MAX / size)
+=======
+	if (count > (SIZE_MAX / size) || !size || !count)
+>>>>>>> main
 		return (NULL);
 	ptr = malloc(size * count);
 	if (!ptr)

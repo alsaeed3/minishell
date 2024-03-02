@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
 /*   Updated: 2024/01/21 16:27:06 by habu-zua         ###   ########.fr       */
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
+/*   Updated: 2024/02/20 17:53:22 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +25,11 @@ int	var_index(char *name, t_parse *data)
 	int		x;
 
 	x = 0;
+<<<<<<< HEAD
+=======
+	if (!data->env)
+		return (-1);
+>>>>>>> main
 	while (data->env[x])
 	{
 		y = 0;
@@ -35,6 +47,7 @@ int	var_index(char *name, t_parse *data)
 
 void	replace_var(char *new_var, t_parse *data, int index)
 {
+<<<<<<< HEAD
 	printf("replace_var\n");
 	if(ft_strchr(new_var , '+'))
 		data->env[index] = ft_strjoin(data->env[index], ft_strchr(new_var, '=')+1);
@@ -43,6 +56,33 @@ void	replace_var(char *new_var, t_parse *data, int index)
 			free(data->env[index]);
 			data->env[index] = ft_strdup(new_var);
 		}
+=======
+	char	*old_var;
+
+	if (index < 0)
+		return ;
+	if (ft_strchr(new_var, '+'))
+	{
+		if (ft_strchr(data->env[index], '='))
+		{
+			old_var = ft_strjoin(data->env[index], ft_strchr(new_var, '=') + 1);
+			free_set_null((void **)&data->env[index]);
+			data->env[index] = old_var;
+		}
+		else
+		{
+			old_var = ft_strjoin(data->env[index], "=");
+			free_set_null((void **)&data->env[index]);
+			data->env[index] = ft_strjoin(old_var, ft_strchr(new_var, '=') + 1);
+			free_set_null((void **)&old_var);
+		}
+	}
+	else
+	{
+		free_set_null((void **)&data->env[index]);
+		data->env[index] = ft_strdup(new_var);
+	}
+>>>>>>> main
 }
 
 char	**export_env(char **old_env, char *export)
@@ -74,11 +114,20 @@ void	export_alone(t_parse *data)
 	char	*swap;
 
 	i = 0;
+<<<<<<< HEAD
+=======
+	if (!data->env || !data->env[0])
+		return ;
+>>>>>>> main
 	temp_env = dup_env(data->env);
 	while (temp_env[i + 1])
 	{
 		j = i + 1;
+<<<<<<< HEAD
 		if (strcmp(temp_env[i], temp_env[j]) > 0)
+=======
+		if (ft_strcmp1(temp_env[i], temp_env[j]) > 0)
+>>>>>>> main
 		{
 			swap = temp_env[j];
 			temp_env[j] = temp_env[i];
@@ -92,6 +141,7 @@ void	export_alone(t_parse *data)
 	free_env(temp_env);
 }
 
+<<<<<<< HEAD
 void	handle_export(char **inputs, t_parse *data)
 {
 	int	i;
@@ -121,4 +171,31 @@ void	handle_export(char **inputs, t_parse *data)
 	else
 		export_alone(data);
 	// g_status = 0;
+=======
+int	handle_export(char **inputs, t_parse *data, int i)
+{
+	int	index;
+
+	if (!inputs[i])
+		export_alone(data);
+	while (inputs[i])
+	{
+		index = var_index(inputs[i], data);
+		if (index >= 0 && check_export(inputs[i]))
+			replace_var(inputs[i], data, index);
+		else if (check_export(inputs[i]))
+		{
+			data->env = export_env(data->env, inputs[i]);
+			if (!data->env)
+				return (1);
+		}
+		else
+		{
+			ft_error("export: not a valid identifier");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+>>>>>>> main
 }

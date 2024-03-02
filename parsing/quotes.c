@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
@@ -36,10 +37,63 @@ t_bool	check_quotes(char *cmd_line)
 					quo_trigger = FALSE;
 					quo_char = '\0';
 					break;
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/09 17:08:50 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/17 18:25:16 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+
+static void	init_vars(t_var *var, char *str)
+{
+	var->i = -1;
+	var->qutrg = FALSE;
+	var->qchr = '\0';
+	var->len = ft_strlen(str);
+}
+
+t_bool	pass_consqut(char *str, t_var *var)
+{
+	if (((str[var->i] == '"' && str[var->i + 1] == '"') \
+	|| (str[var->i] == '\'' && str[var->i + 1] == '\'')) \
+	&& !var->qutrg)
+	{
+		var->i++;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+t_bool	check_quotes(char *str)
+{
+	t_var	var;
+
+	var = (t_var){0};
+	init_vars(&var, str);
+	while (++var.i < var.len)
+	{
+		if (pass_consqut(str, &var))
+			continue ;
+		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
+		{
+			var.qutrg = TRUE;
+			var.qchr = str[var.i];
+			while (++var.i < var.len)
+			{
+				if (str[var.i] == var.qchr)
+				{
+					var.qutrg = FALSE;
+					var.qchr = '\0';
+					break ;
+>>>>>>> main
 				}
 			}
 		}
 	}
+<<<<<<< HEAD
 	return (quo_trigger);
 }
 
@@ -95,3 +149,7 @@ void	remove_cmdline_quotes(char *cmd_line, char **ret, int char_num)
 //     return 0;
 // }
 		
+=======
+	return (var.qutrg);
+}
+>>>>>>> main
