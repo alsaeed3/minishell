@@ -6,29 +6,34 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 17:26:04 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/20 17:54:18 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/21 17:00:19 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-void	free_exit(t_parse *data, int status)
+void	free_exit(t_parse *data, int status, int mode)
 {
 	ft_putendl_fd("exit", 1);
+<<<<<<< HEAD
 	if (status == 255)
 		ft_putendl_fd("minishell: exit: numeric argument required", 2);
+=======
+	if (mode == 1)
+		ft_putendl_fd("minishell: exit: numeric argument required", 2);
+	if (mode == 2)
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
+>>>>>>> main
 	if (data->fds)
 	{
 		if (data->fds->oldfd[0])
-		{
 			close(data->fds->oldfd[0]);
-			data->fds->oldfd[0] = 0;
-		}
 		if (data->fds->oldfd[1])
-		{
 			close(data->fds->oldfd[1]);
-			data->fds->oldfd[1] = 0;
-		}
 		free (data->fds);
 	}
 	free_data(&data);

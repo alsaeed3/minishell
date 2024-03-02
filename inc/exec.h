@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:51:06 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/20 15:43:28 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/21 17:01:25 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +87,13 @@ int			handle_exec_pipe(char **inputs, t_parse *data, t_pipe *pipes);
 int			execute_2(char **inputs, t_parse *data);
 int			execute(char **inputs, t_parse *data);
 
+<<<<<<< HEAD
 void		free_exit(t_parse *data, int status);
 void		handle_non_numeric_arg(t_parse *data);
 void		handle_too_many_args(t_parse *data);
+=======
+void		free_exit(t_parse *data, int status, int mode);
+>>>>>>> main
 
 void		set_signals(t_parse **data);
 void		sig_switcher(int sig);

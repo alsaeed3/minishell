@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:57:59 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/20 15:43:08 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/21 16:58:56 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +81,30 @@ void	handle_exit(char **args, t_parse *data, t_pipe *pipes, int mode)
 	if (args[1])
 	{
 		if (!is_numeric(args[1]))
+<<<<<<< HEAD
 			handle_non_numeric_arg(data);
 		else if (args[2])
 			handle_too_many_args(data);
+=======
+			free_exit(data, 255, 1);
+		else if (args[2])
+			free_exit(data, 1, 2);
+>>>>>>> main
 		else
 		{
 			status = ft_atoll(args[1], &over_under_flow);
 			if (over_under_flow)
+<<<<<<< HEAD
 				free_exit(data, 255);
 			free_exit(data, status);
 		}
 	}
 	free_exit(data, 0);
+=======
+				free_exit(data, 255, 1);
+			free_exit(data, status, 0);
+		}
+	}
+	free_exit(data, 0, 0);
+>>>>>>> main
 }

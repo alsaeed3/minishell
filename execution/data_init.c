@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:56:10 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/20 18:31:18 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/21 16:35:13 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +79,12 @@ void	set_up_prompt(t_parse **data, char *cmd_line)
 {
 	if (g_signal == 99)
 		(*data)->exit_status = 1;
+<<<<<<< HEAD
 	g_signal = 1;
 	if (cmd_line == NULL && g_signal != 130)
+=======
+	if (cmd_line == NULL)
+>>>>>>> main
 	{
 		ft_putendl_fd("exit", 2);
 		free_util_1(data);
