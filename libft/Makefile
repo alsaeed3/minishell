@@ -6,7 +6,11 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 14:48:47 by alsaeed           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/02/08 15:59:06 by alsaeed          ###   ########.fr        #
+=======
+#    Updated: 2024/02/17 20:20:22 by alsaeed          ###   ########.fr        #
+>>>>>>> main
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +41,11 @@ all: 			$(NAME)
 
 $(OBJS_DIR)%.o: src/%.c
 	@mkdir -p $(OBJS_DIR)
+<<<<<<< HEAD
 	@clang $(CFLAGS) -c $< -o $@
+=======
+	@cc $(CFLAGS) -c $< -o $@
+>>>>>>> main
 
 $(NAME): 		$(OBJS)
 	@$(ARFLAGS) $(NAME) $(OBJS)

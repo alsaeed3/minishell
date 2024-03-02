@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:00:50 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/07 14:52:03 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/20 15:44:30 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +24,13 @@ void	free_env(char **env)
 	i = 0;
 	env_len = envlen(env);
 	while (i < env_len)
+<<<<<<< HEAD
 		free_set_null(env[i++]);
 	free_set_null(env);
+=======
+		free_set_null((void **)&env[i++]);
+	free_set_null((void **)&env);
+>>>>>>> main
 }
 
 int	envlen(char **env)
@@ -58,9 +67,19 @@ void	handle_env(char **env)
 	int		j;
 	char	*str;
 
+<<<<<<< HEAD
 	i = 0;
 	while (env[i])
 	{
+=======
+	i = -1;
+	if (!env)
+		return ;
+	while (++i < envlen(env) && env[i])
+	{
+		if (ft_strlen((ft_strchr(env[i], '=') + 1)) == 0)
+			continue ;
+>>>>>>> main
 		str = ft_strnstr(env[i], "=", ft_strlen(env[i]));
 		if (str)
 		{
@@ -72,6 +91,9 @@ void	handle_env(char **env)
 			}
 			ft_putchar('\n');
 		}
+<<<<<<< HEAD
 		i++;
+=======
+>>>>>>> main
 	}
 }

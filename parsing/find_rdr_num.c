@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   find_rdr_num.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
@@ -14,6 +15,20 @@
 
 void	init_rdr_num(t_var *var, char *str)
 {
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/16 21:47:49 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/19 19:35:53 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+
+void	init_rdr_num(t_var *var, char *str)
+{
+	*var = (t_var){0};
+>>>>>>> main
 	var->i = -1;
 	var->j = 0;
 	var->k = 0;
@@ -62,12 +77,20 @@ int	*find_rdr_num(char *str, char rdr, t_parse *data)
 {
 	t_var	var;
 
+<<<<<<< HEAD
 	var = (t_var){0};
+=======
+>>>>>>> main
 	init_rdr_num(&var, str);
 	var.rnum = ft_calloc(var.parts_num, sizeof(int));
 	while (++var.i < var.len)
 	{
+<<<<<<< HEAD
 		quote_context(str, &var);
+=======
+		if (rdr_consqut(str, &var))
+			continue ;
+>>>>>>> main
 		if (str[var.i] == '|' && !var.qutrg && var.j < var.parts_num)
 			var.j++;
 		if (var.i < var.len - 1 && (str[var.i] == rdr && str[var.i + 1] != rdr \

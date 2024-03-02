@@ -6,7 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:25:23 by habu-zua          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/09 11:31:11 by alsaeed          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/14 20:55:43 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +31,7 @@ static int	is_n_flag(char *str)
 	return (0);
 }
 
+<<<<<<< HEAD
 static t_bool	check_dol_ques(char *str)
 {
 	int	i;
@@ -68,6 +73,8 @@ static void	print_dol_ques(char *str, t_parse *data)
 	}
 }
 
+=======
+>>>>>>> main
 void	handle_echo(t_parse *data, int x)
 {
 	int	i;
@@ -82,10 +89,14 @@ void	handle_echo(t_parse *data, int x)
 	}
 	while (data->cmds[x][i])
 	{
+<<<<<<< HEAD
 		if (check_dol_ques(data->cmds[x][i]))
 			print_dol_ques(data->cmds[x][i], data);
 		else
 			write(1, data->cmds[x][i], ft_strlen(data->cmds[x][i]));
+=======
+		write(1, data->cmds[x][i], ft_strlen(data->cmds[x][i]));
+>>>>>>> main
 		if (data->cmds[x][i + 1])
 			write(1, " ", 1);
 		i++;

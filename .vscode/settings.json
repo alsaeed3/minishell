@@ -1,5 +1,6 @@
 {
 	"files.associations": {
+<<<<<<< HEAD
 		"array": "c",
 		"string_view": "c",
 		"initializer_list": "c",
@@ -10,5 +11,15 @@
 		"vector": "c",
 		"sstream": "c",
 		"libft.h": "c"
+=======
+		"libft.h": "c",
+		"errno.h": "c",
+		"exec.h": "c",
+		"sstream": "c",
+		"locale": "c",
+		"iterator": "c",
+		"data.h": "c",
+		"file2": "c"
+>>>>>>> main
 	}
 }

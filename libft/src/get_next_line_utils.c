@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:09:01 by alsaeed           #+#    #+#             */
 /*   Updated: 2024/02/06 21:00:08 by alsaeed          ###   ########.fr       */
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/09 14:09:01 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/19 19:24:48 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +24,11 @@ size_t	ft_strlen(char *buf)
 	size_t	i;
 
 	i = 0;
+<<<<<<< HEAD
 	if (!buf)
+=======
+	if (!buf || !(*buf))
+>>>>>>> main
 		return (0);
 	while (buf && buf[i] != '\0')
 		i++;
@@ -36,6 +47,7 @@ size_t	ft_strlen_nl(char *str)
 	return (i);
 }
 
+<<<<<<< HEAD
 // char	*ft_strjoin(char *s1, char *s2)
 // {
 // 	char	*join;
@@ -65,6 +77,8 @@ size_t	ft_strlen_nl(char *str)
 // 	return (join);
 // }
 
+=======
+>>>>>>> main
 char	*ret_line(char *stash)
 {
 	char	*ret;
@@ -106,6 +120,7 @@ char	*update_stash(char *stash)
 	if (i < ft_strlen(stash))
 		update = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
 	if (!update)
+<<<<<<< HEAD
 		return (free_set_null(stash), NULL);
 	i++;
 	j = 0;
@@ -119,4 +134,16 @@ char	*update_stash(char *stash)
 	if (update[0] == '\0')
 		return (free_set_null(update), free_set_null(stash), NULL);
 	return (free_set_null(stash), update);
+=======
+		return (free_set_null((void **)&stash), NULL);
+	i++;
+	j = 0;
+	while (stash[i])
+		update[j++] = stash[i++];
+	update[j] = '\0';
+	if (update[0] == '\0')
+		return (free_set_null((void **)&update), \
+		free_set_null((void **)&stash), NULL);
+	return (free_set_null((void **)&stash), update);
+>>>>>>> main
 }

@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   convert_tabs_to_spc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
@@ -11,6 +12,16 @@
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/18 14:51:29 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 void	init_contabvar(t_var *var, char *str)
 {
@@ -46,6 +57,26 @@ char	*conv_tabs2spcs(char *str)
 		var.ret[var.j++] = str[var.i];
 	}
 	var.ret[var.j] = '\0';
+<<<<<<< HEAD
 	free_set_null(str);
 	return (var.ret);
 }
+=======
+	free_set_null((void **)&str);
+	return (var.ret);
+}
+
+void	if_else_conv(t_var *var, char *str)
+{
+	if (var->rdrtrg)
+	{
+		if ((str[var->i] == ' ' || str[var->i] == '<' \
+		|| str[var->i] == '>' || str[var->i] == '|' \
+		|| str[var->i] == '\0') && !var->qutrg)
+			var->rdrtrg = FALSE;
+		var->nordr[var->j++] = ' ';
+	}
+	else
+		var->nordr[var->j++] = str[var->i];
+}
+>>>>>>> main

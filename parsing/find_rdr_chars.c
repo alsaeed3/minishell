@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   find_rdr_chars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
@@ -11,6 +12,16 @@
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/05 00:57:18 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/14 16:22:08 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 // to find each infile/heredoc file name characters and store them into
 // a double pointer to use it later in mallocing
@@ -24,10 +35,23 @@ void	check_quout(t_var *var, char *str)
 	}
 	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
+<<<<<<< HEAD
 		if (str[++var->i] == ' ' && var->rdrtrg)
 			var->rdrtrg = FALSE;
 		var->qchr = '\0';
 		var->qutrg = FALSE;
+=======
+		if ((str[var->i + 1] == ' ' || str[var->i + 1] == '<' \
+		|| str[var->i + 1] == '>' || str[var->i + 1] == '|' \
+		|| str[var->i + 1] == '\0') && var->rdrtrg)
+		{
+			var->rcn[var->j][var->k] = ++var->cnum;
+			var->rdrtrg = FALSE;
+		}
+		var->qchr = '\0';
+		var->qutrg = FALSE;
+		var->i++;
+>>>>>>> main
 	}
 }
 
@@ -84,10 +108,19 @@ static void	count_rdr_chars(t_var *var, char *str)
 		&& str[var->i] != '\0') && !var->qutrg && var->rdrtrg))
 	{
 		var->rcn[var->j][var->k] = ++var->cnum;
+<<<<<<< HEAD
 		if (str[var->i + 1] == '<' || str[var->i + 1] == '>' \
 		|| str[var->i + 1] == ' ' || str[var->i + 1] == '|')
 			var->rdrtrg = FALSE;
 	}
+=======
+		if ((str[var->i + 1] == '<' || str[var->i + 1] == '>' \
+		|| str[var->i + 1] == ' ' || str[var->i + 1] == '|') && !var->qutrg)
+			var->rdrtrg = FALSE;
+	}
+	else if (str[var->i] == ' ' && var->rdrtrg && var->qutrg)
+		var->rcn[var->j][var->k] = ++var->cnum;
+>>>>>>> main
 }
 
 int	**find_rdr_chars(char *str, char rdr, t_parse *data)
@@ -103,7 +136,12 @@ int	**find_rdr_chars(char *str, char rdr, t_parse *data)
 	var.i = -1;
 	while (++var.i < var.len && str[var.i])
 	{
+<<<<<<< HEAD
 		check_quout(&var, str);
+=======
+		if (check_cons_qut(&var, str))
+			continue ;
+>>>>>>> main
 		if (str[var.i] == '|' && !var.qutrg && !var.rdrtrg \
 			&& var.j < var.parts_num)
 		{

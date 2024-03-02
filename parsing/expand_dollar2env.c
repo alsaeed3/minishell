@@ -6,11 +6,19 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:17:54 by alsaeed           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/09 10:58:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parser.h"
+=======
+/*   Updated: 2024/02/19 16:30:06 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+>>>>>>> main
 
 int	find_env_size(char *str, int i)
 {
@@ -50,7 +58,11 @@ void	find_exp_size(t_var *var, char *str, t_env *env_lst)
 		if (ft_getenv(var->env, env_lst))
 			var->size += ft_strlen(ft_getenv(var->env, env_lst));
 		if (var->env)
+<<<<<<< HEAD
 			free_set_null(var->env);
+=======
+			free_set_null((void **)&var->env);
+>>>>>>> main
 	}
 }
 
@@ -62,6 +74,17 @@ int	expand_dollar_count(char *str, t_env *env_lst)
 	init_dollar_vars(&var, str, env_lst, 0);
 	while (++var.i < var.len && str[var.i])
 	{
+<<<<<<< HEAD
+=======
+		if (((str[var.i] == '"' && str[var.i + 1] == '"') \
+		|| (str[var.i] == '\'' && str[var.i + 1] == '\'')) \
+		&& !var.qutrg)
+		{
+			var.size += 2;
+			var.i++;
+			continue ;
+		}
+>>>>>>> main
 		if (!exp_dlr_cnt_1(&var, str))
 		{
 			if (str[var.i] == '$' && ((str[var.i + 1] >= 65 \
@@ -86,12 +109,18 @@ char	*expand_dollar_string(char *str, t_env *env_lst)
 		return (NULL);
 	while (++var.i < var.len && str[var.i])
 	{
+<<<<<<< HEAD
 		sd_quote_trg(&var, str);
+=======
+		if (cons_quot_dollar(&var, str))
+			continue ;
+>>>>>>> main
 		rdr_trigger(&var, str);
 		is_dollar(&var, str);
 		expand_dollar(&var, str, env_lst);
 		if (str[var.i] == '$' && ((str[var.i + 1] >= 65 \
 		&& str[var.i + 1] <= 90) || (str[var.i + 1] >= 97 \
+<<<<<<< HEAD
 		&& str[var.i + 1] <= 122)) && !var.dlrtrg \
 		&& !var.squtrg && !var.rdrtrg)
 			var.dlrtrg = TRUE;
@@ -100,5 +129,15 @@ char	*expand_dollar_string(char *str, t_env *env_lst)
 	}
 	var.ret[var.j] = '\0';
 	free_set_null(str);
+=======
+		&& str[var.i + 1] <= 122)) && !var.dlrtrg && !var.squtrg && !var.rdrtrg)
+			var.dlrtrg = TRUE;
+		else if (var.j <= var.expsize && str[var.i] \
+		&& (!var.dlrtrg || str[var.i] != '$'))
+			var.ret[var.j++] = str[var.i];
+	}
+	var.ret[var.j] = '\0';
+	free_set_null((void **)&str);
+>>>>>>> main
 	return (var.ret);
 }

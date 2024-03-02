@@ -6,7 +6,11 @@
 #    By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:33:15 by alsaeed           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/02/08 15:58:47 by alsaeed          ###   ########.fr        #
+=======
+#    Updated: 2024/02/21 16:17:57 by alsaeed          ###   ########.fr        #
+>>>>>>> main
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +26,10 @@ SRCS =	cmds_utils.c \
 		error_pipes.c \
 		error_pipes_2.c \
 		expand_dollar2env.c \
+<<<<<<< HEAD
+=======
+		expand_dlr_sign.c \
+>>>>>>> main
 		find_parts_num.c \
 		find_rdr_chars.c \
 		find_rdr_num.c \
@@ -34,6 +42,11 @@ SRCS =	cmds_utils.c \
 		quotes.c \
 		split_commands.c \
 		tokenize_redir.c \
+<<<<<<< HEAD
+=======
+		loop_utils.c \
+		loop_utils_2.c \
+>>>>>>> main
 		free_utils.c
 		
 
@@ -44,18 +57,32 @@ SRCSX = exec_delegate.c \
 		echo.c \
 		pwd.c \
 		export.c \
+<<<<<<< HEAD
 		export_utils.c\
+=======
+		export_utils.c \
+>>>>>>> main
 		exit.c \
 		env.c \
 		unset.c \
 		data_init.c \
+<<<<<<< HEAD
+=======
+		redirections_utils.c \
+>>>>>>> main
 		redirections.c \
 		exec_utils.c \
 		pipe.c \
 		close_fds.c \
 		free.c \
 		signal.c \
+<<<<<<< HEAD
 		ft_error.c
+=======
+		ft_error.c \
+		exec_utils2.c \
+		execute_pipe.c 
+>>>>>>> main
 
 OBJS_DIR = parsing/objs/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
@@ -67,6 +94,7 @@ LDFLAGS = -L$(LIBFT_DIR) -lft -lreadline -lncurses
 LIBFT_DIR = libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
+<<<<<<< HEAD
 all: $(LIBFT_LIB) $(NAME)
 
 $(OBJS_DIR)%.o: parsing/%.c
@@ -79,6 +107,20 @@ $(OBJSX_DIR)%.o: execution/%.c
 	
 $(NAME): $(OBJS) $(OBJSX) main.c
 	@clang $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main.c -o $(NAME) $(LDFLAGS)
+=======
+all: $(LIBFT_LIB) $(NAME)																				
+
+$(OBJS_DIR)%.o: parsing/%.c
+	@mkdir -p $(OBJS_DIR)
+	@cc $(CFLAGS) -c $< -o $@
+	
+$(OBJSX_DIR)%.o: execution/%.c
+	@mkdir -p $(OBJSX_DIR)
+	@cc $(CFLAGS) -c $< -o $@
+	
+$(NAME): $(OBJS) $(OBJSX) main.c
+	@cc $(CFLAGS) $(OBJS) $(OBJSX) $(LIBFT_LIB) main.c -o $(NAME) $(LDFLAGS)
+>>>>>>> main
 	@echo "minishell Compiled: \033[1;32mOK\033[0m"
 
 $(LIBFT_LIB):

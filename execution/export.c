@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
 /*   Updated: 2024/02/08 21:27:42 by habu-zua         ###   ########.fr       */
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/14 14:51:21 by habu-zua          #+#    #+#             */
+/*   Updated: 2024/02/20 17:53:22 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +25,11 @@ int	var_index(char *name, t_parse *data)
 	int		x;
 
 	x = 0;
+<<<<<<< HEAD
+=======
+	if (!data->env)
+		return (-1);
+>>>>>>> main
 	while (data->env[x])
 	{
 		y = 0;
@@ -37,25 +49,44 @@ void	replace_var(char *new_var, t_parse *data, int index)
 {
 	char	*old_var;
 
+<<<<<<< HEAD
+=======
+	if (index < 0)
+		return ;
+>>>>>>> main
 	if (ft_strchr(new_var, '+'))
 	{
 		if (ft_strchr(data->env[index], '='))
 		{
 			old_var = ft_strjoin(data->env[index], ft_strchr(new_var, '=') + 1);
+<<<<<<< HEAD
 			free_set_null(data->env[index]);
+=======
+			free_set_null((void **)&data->env[index]);
+>>>>>>> main
 			data->env[index] = old_var;
 		}
 		else
 		{
 			old_var = ft_strjoin(data->env[index], "=");
+<<<<<<< HEAD
 			free_set_null(data->env[index]);
 			data->env[index] = ft_strjoin(old_var, ft_strchr(new_var, '=') + 1);
 			free_set_null(old_var);
+=======
+			free_set_null((void **)&data->env[index]);
+			data->env[index] = ft_strjoin(old_var, ft_strchr(new_var, '=') + 1);
+			free_set_null((void **)&old_var);
+>>>>>>> main
 		}
 	}
 	else
 	{
+<<<<<<< HEAD
 		free_set_null(data->env[index]);
+=======
+		free_set_null((void **)&data->env[index]);
+>>>>>>> main
 		data->env[index] = ft_strdup(new_var);
 	}
 }
@@ -89,11 +120,20 @@ void	export_alone(t_parse *data)
 	char	*swap;
 
 	i = 0;
+<<<<<<< HEAD
+=======
+	if (!data->env || !data->env[0])
+		return ;
+>>>>>>> main
 	temp_env = dup_env(data->env);
 	while (temp_env[i + 1])
 	{
 		j = i + 1;
+<<<<<<< HEAD
 		if (strcmp(temp_env[i], temp_env[j]) > 0)
+=======
+		if (ft_strcmp1(temp_env[i], temp_env[j]) > 0)
+>>>>>>> main
 		{
 			swap = temp_env[j];
 			temp_env[j] = temp_env[i];
@@ -107,12 +147,19 @@ void	export_alone(t_parse *data)
 	free_env(temp_env);
 }
 
+<<<<<<< HEAD
 int	handle_export(char **inputs, t_parse *data)
 {
 	int	i;
 	int	index;
 
 	i = 1;
+=======
+int	handle_export(char **inputs, t_parse *data, int i)
+{
+	int	index;
+
+>>>>>>> main
 	if (!inputs[i])
 		export_alone(data);
 	while (inputs[i])
@@ -132,7 +179,10 @@ int	handle_export(char **inputs, t_parse *data)
 			return (1);
 		}
 		i++;
+<<<<<<< HEAD
 		
+=======
+>>>>>>> main
 	}
 	return (0);
 }

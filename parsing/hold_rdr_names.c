@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   hold_rdr_names.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
@@ -13,6 +14,18 @@
 #include "../inc/parser.h"
 
 static void	hold_rdr_1(t_var *var, char *str)
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/18 22:49:01 by alsaeed          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/data.h"
+
+void	hold_rdr_1(t_var *var, char *str)
+>>>>>>> main
 {
 	if ((str[var->i] == '\'' || str[var->i] == '"') && !var->qutrg)
 	{
@@ -21,13 +34,23 @@ static void	hold_rdr_1(t_var *var, char *str)
 	}
 	else if ((str[var->i] == var->qchr) && var->qutrg)
 	{
+<<<<<<< HEAD
 		if (str[++var->i] == ' ' && var->rdrtrg)
+=======
+		if ((str[var->i + 1] == ' ' || str[var->i + 1] == '<' \
+		|| str[var->i + 1] == '>' || str[var->i + 1] == '|' \
+		|| str[var->i + 1] == '\0') && var->rdrtrg)
+>>>>>>> main
 		{
 			var->rnms[var->j][var->k][++var->l] = '\0';
 			var->rdrtrg = FALSE;
 		}
 		var->qchr = '\0';
 		var->qutrg = FALSE;
+<<<<<<< HEAD
+=======
+		var->i++;
+>>>>>>> main
 	}
 	if (str[var->i] == '|' && !var->qutrg && !var->rdrtrg \
 	&& var->j < var->parts_num)
@@ -89,14 +112,25 @@ static void	copy_and_null(t_var *var, char *str)
 	&& str[var->i] != '\0') && var->rdrtrg))
 	{
 		var->rnms[var->j][var->k][++var->l] = str[var->i];
+<<<<<<< HEAD
 		if (str[var->i + 1] == '<' || str[var->i + 1] == '>' \
 		|| str[var->i + 1] == ' ' || str[var->i + 1] == '|' \
 		|| str[var->i + 1] == '\0')
+=======
+		if ((str[var->i + 1] == '<' || str[var->i + 1] == '>' \
+		|| str[var->i + 1] == ' ' || str[var->i + 1] == '|' \
+		|| str[var->i + 1] == '\0') && !var->qutrg)
+>>>>>>> main
 		{
 			var->rnms[var->j][var->k][++var->l] = '\0';
 			var->rdrtrg = FALSE;
 		}
 	}
+<<<<<<< HEAD
+=======
+	else if (str[var->i] == ' ' && var->rdrtrg && var->qutrg)
+		var->rnms[var->j][var->k][++var->l] = str[var->i];
+>>>>>>> main
 }
 
 char	***hold_rdr_names(char *str, char rdr, t_parse *data)
@@ -107,10 +141,18 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 		return (NULL);
 	var.rcn = find_rdr_chars(str, rdr, data);
 	var.rnms = malloc_rdr_names(var.parts_num, var.rnum, var.rcn);
+<<<<<<< HEAD
 	ft_free_intarr(var.rcn, var.parts_num);
 	while (++var.i < var.len && str[var.i])
 	{
 		hold_rdr_1(&var, str);
+=======
+	ft_free_intarr(&var.rcn, var.parts_num);
+	while (++var.i < var.len && str[var.i])
+	{
+		if (cons_quot_hold(&var, str))
+			continue ;
+>>>>>>> main
 		if (!hold_rdr_2(&var, str, rdr))
 		{
 			if ((str[var.i] == '<' || str[var.i] == '>' \

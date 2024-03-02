@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: alsaeed <alsaeed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 22:35:56 by alsaeed           #+#    #+#             */
 /*   Updated: 2024/02/06 20:59:51 by alsaeed          ###   ########.fr       */
+=======
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/14 22:35:56 by alsaeed           #+#    #+#             */
+/*   Updated: 2024/02/15 14:09:24 by alsaeed          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +25,11 @@ static char	*free_strjoin(char *s1, char *s2)
 
 	joint = ft_strjoin(s1, s2);
 	if (s1)
+<<<<<<< HEAD
 		free_set_null(s1);
+=======
+		free_set_null((void **)&s1);
+>>>>>>> main
 	return (joint);
 }
 
@@ -40,13 +51,21 @@ static char	*ft_read(int fd, char *stash)
 	{
 		read_bytes = read(fd, buf, BUFFER_SIZE);
 		if (read_bytes == -1)
+<<<<<<< HEAD
 			return (free_set_null(buf), NULL);
+=======
+			return (free_set_null((void **)&buf), NULL);
+>>>>>>> main
 		buf[read_bytes] = '\0';
 		stash = free_strjoin(stash, buf);
 		if (ft_strchr(stash, '\n'))
 			break ;
 	}
+<<<<<<< HEAD
 	free_set_null(buf);
+=======
+	free_set_null((void **)&buf);
+>>>>>>> main
 	return (stash);
 }
 
