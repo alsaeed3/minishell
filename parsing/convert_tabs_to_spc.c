@@ -6,11 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:38:22 by alsaeed           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
-=======
-/*   Updated: 2024/02/18 14:51:29 by alsaeed          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/09/29 10:41:38 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +60,6 @@ void	if_else_conv(t_var *var, char *str)
 {
 	if (var->rdrtrg)
 	{
-<<<<<<< HEAD
-		if (str[var->i + 1] == ' ' || str[var->i + 1] == '<' \
-		|| str[var->i + 1] == '>' || str[var->i + 1] == '|' \
-		|| str[var->i + 1] == '\0')
-		{
-			var->i++;
-			var->rdrtrg = FALSE;
-		}
-		var->nordr[var->j++] = ' ';
-	}
-	else
-		var->nordr[var->j++] = str[var->i++];
-=======
 		if ((str[var->i] == ' ' || str[var->i] == '<' \
 		|| str[var->i] == '>' || str[var->i] == '|' \
 		|| str[var->i] == '\0') && !var->qutrg)
@@ -85,5 +68,4 @@ void	if_else_conv(t_var *var, char *str)
 	}
 	else
 		var->nordr[var->j++] = str[var->i];
->>>>>>> main
 }
