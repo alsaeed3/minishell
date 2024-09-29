@@ -6,11 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 18:46:19 by alsaeed           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
-=======
-/*   Updated: 2024/02/18 22:49:01 by alsaeed          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/09/29 10:26:28 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,18 +115,8 @@ char	***hold_rdr_names(char *str, char rdr, t_parse *data)
 	ft_free_intarr(&var.rcn, var.parts_num);
 	while (++var.i < var.len && str[var.i])
 	{
-<<<<<<< HEAD
-		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
-		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
-		{
-			var.i++;
-			continue;
-		}
-		hold_rdr_1(&var, str);
-=======
 		if (cons_quot_hold(&var, str))
 			continue ;
->>>>>>> main
 		if (!hold_rdr_2(&var, str, rdr))
 		{
 			if ((str[var.i] == '<' || str[var.i] == '>' \

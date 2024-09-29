@@ -6,17 +6,11 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 21:45:33 by alsaeed           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/13 21:29:56 by alsaeed          ###   ########.fr       */
-=======
-/*   Updated: 2024/02/19 19:23:04 by alsaeed          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/09/29 10:28:38 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/data.h"
-<<<<<<< HEAD
-=======
 
 static void	init_parts_num_vars(t_var *var, char *str)
 {
@@ -27,7 +21,6 @@ static void	init_parts_num_vars(t_var *var, char *str)
 	var->len = (int)ft_strlen(str);
 	var->i = -1;
 }
->>>>>>> main
 
 int	find_parts_num(char *str)
 {
@@ -36,19 +29,9 @@ int	find_parts_num(char *str)
 	init_parts_num_vars(&var, str);
 	while (++var.i < var.len)
 	{
-<<<<<<< HEAD
-		if ((str[i] == '"' && str[i + 1] == '"') \
-		|| (str[i] == '\'' && str[i + 1] == '\''))
-		{
-			i++;
-			continue;
-		}
-		if ((str[i] == '"' || str[i] == '\'') && !quo_trigger)
-=======
 		if (var.i < var.len -1 && ((str[var.i] == '"' && str[var.i + 1] == '"') \
 		|| (str[var.i] == '\'' && str[var.i + 1] == '\'')) \
 		&& !var.qutrg)
->>>>>>> main
 		{
 			var.i++;
 			continue ;

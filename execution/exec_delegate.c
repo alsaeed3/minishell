@@ -6,34 +6,12 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:34:20 by habu-zua          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/13 19:25:31 by alsaeed          ###   ########.fr       */
-=======
-/*   Updated: 2024/02/21 16:09:43 by alsaeed          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/09/29 10:32:21 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-<<<<<<< HEAD
-void	exec_delegator(t_parse *data)
-{
-	int	ret;
-	int hrnum;
-
-	ret = 0;
-	hrnum = data->heredocs_num;
-	if (data->parts_num == 1)
-	{
-		data->h_index = 0;
-		ret = handle_single(data->cmds[0], data, 0);
-	}
-	else
-	{
-		data->h_index = -1;
-		ret = handle_pipe(data);
-=======
 void	exec_delegator(t_parse **data)
 {
 	int	ret;
@@ -50,22 +28,10 @@ void	exec_delegator(t_parse **data)
 	{
 		(*data)->h_index = -1;
 		ret = handle_pipe((*data));
->>>>>>> main
 	}
 	g_signal = 1;
 	while (hrnum)
 	{
-<<<<<<< HEAD
-		if (access(data->heredoc_tmp_files[hrnum - 1], F_OK) == 0)
-			unlink(data->heredoc_tmp_files[hrnum - 1]);
-		hrnum--;
-	}
-	data->exit_status = ret;
-}
-
-int	handle_single(char **inputs, t_parse *data, int x)
-{
-=======
 		if (access((*data)->heredoc_tmp_files[hrnum - 1], F_OK) == 0)
 			unlink((*data)->heredoc_tmp_files[hrnum - 1]);
 		hrnum--;
@@ -88,39 +54,11 @@ void	close_some_fds(t_parse *data)
 
 int	handle_single(char **inputs, t_parse *data)
 {
->>>>>>> main
 	int	ret;
 
 	ret = 0;
 	data->fds->oldfd[0] = dup(0);
 	data->fds->oldfd[1] = dup(1);
-<<<<<<< HEAD
-	if (data->in_rdr_num[x] > 0)
-		if (redirect_from(data, x))
-			return (1);
-	if (data->out_rdr_num[x] > 0)
-	{
-		ret = redirect_to(data, x);
-		if (ret == 127)
-			return (127);
-		else if (ret == 1)
-			return (0);
-	}
-	ret = choose_action(inputs, data, x);
-	dup2(data->fds->oldfd[0], 0);
-	if (data->fds->oldfd[0] != 0)
-	{
-		close(data->fds->oldfd[0]);
-		data->fds->oldfd[0] = 0;
-	}
-	dup2(data->fds->oldfd[1], 1);
-	if (data->fds->oldfd[1] != 1)
-	{
-		close(data->fds->oldfd[1]);
-		data->fds->oldfd[1] = 0;
-	}
-	// close_fds(data);
-=======
 	if (data->out_rdr_num[0] > 0)
 	{
 		ret = redirect_to(data);
@@ -139,7 +77,6 @@ int	handle_single(char **inputs, t_parse *data)
 	if (inputs[0])
 		ret = choose_action(inputs, data);
 	close_some_fds(data);
->>>>>>> main
 	return (ret);
 }
 

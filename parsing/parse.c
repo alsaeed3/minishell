@@ -6,11 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 21:27:39 by alsaeed           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/11 15:57:55 by habu-zua         ###   ########.fr       */
-=======
-/*   Updated: 2024/02/21 15:43:24 by alsaeed          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/09/29 10:26:05 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +20,6 @@ t_bool	parse_shell(char *cmd_line, char *str, t_parse **data)
 	if (!str[0])
 		return (free_set_null((void **)&str), TRUE);
 	str = conv_tabs2spcs(str);
-<<<<<<< HEAD
-	if (check_errors(str))
-	{
-		(*data)->exit_status = 258;
-		return (TRUE);
-	}
-=======
->>>>>>> main
 	str = delete_excess_spcs(str);
 	if (check_errors(str))
 		return ((*data)->exit_status = 258, TRUE);

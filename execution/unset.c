@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habu-zua <habu-zua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:23:49 by habu-zua          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/11 13:36:42 by habu-zua         ###   ########.fr       */
-=======
-/*   Updated: 2024/02/15 15:11:01 by alsaeed          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/09/29 10:30:53 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +47,8 @@ int	handle_unset(char **inputs, t_parse *data)
 	int	len;
 
 	i = 1;
-<<<<<<< HEAD
-	index = 0;
-	while (inputs[i])
-=======
 	len = ft_array_size(inputs);
 	while (i < len && inputs[i])
->>>>>>> main
 	{
 		if (check_export(inputs[i]))
 		{

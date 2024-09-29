@@ -6,99 +6,17 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:23:38 by habu-zua          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/13 19:10:44 by alsaeed          ###   ########.fr       */
-=======
-/*   Updated: 2024/02/19 21:37:40 by alsaeed          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/09/29 10:31:02 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/exec.h"
 
-<<<<<<< HEAD
-char	*get_file_name(t_parse *data, int x)
-{
-	int		i;
-	char	*filename;
-
-	filename = NULL;
-	i = -1;
-	while (++i < data->in_rdr_num[x])
-	{
-		if (data->inputs_tokens[x][i] == 0 && data->inputs_redirections[x][i])
-			filename = data->inputs_redirections[x][i];
-		else if (data->inputs_tokens[x][i] == 1 && data->heredocs_num \
-		&& data->h_index < data->heredocs_num)
-			filename = data->heredoc_tmp_files[data->h_index];
-        if (data->heredocs_num && filename && access(filename, F_OK) != 0)
-		{
-			ft_error(strerror(ENOENT));
-			return (NULL);
-		}
-	}
-	return (filename);
-}
-
-int redirect_from(t_parse *data, int x)
-=======
 int	redirect_from(t_parse *data)
->>>>>>> main
 {
     int fd;
     char *filename;
 
-<<<<<<< HEAD
-    filename = get_file_name(data, x);
-    if (!filename)
-        return 1;
-
-    fd = open(filename, O_RDONLY);
-    if (fd < 0)
-    {
-        ft_error(strerror(errno));
-        return 2;
-    }
-    if (dup2(fd, 0) == -1)
-    {
-        ft_putendl_fd("dup2 failed", 2);
-        close(fd);
-        return 1;
-    }
-    close(fd);
-    return 0;
-}
-
-int redirect_to(t_parse *data, int x)
-{
-    char *filename;
-    int fd;
-    int i;
-
-    i = 0;
-    while (i < data->out_rdr_num[x])
-    {
-        filename = data->outputs_redirections[x][i];
-        if (data->outputs_tokens[x][i] == 1)
-            fd = open(filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-        else
-            fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-        if (fd < 0) {
-            ft_putendl_fd("Error: wrong permissions", 2);
-            return 127;
-        }
-        i++;
-    }
-    if (dup2(fd, 1) == -1)
-    {
-        ft_putendl_fd("dup2 failed", 2);
-        close(fd);
-        return 1;
-    }
-    close(fd);
-    return 0;
-}
-=======
 	filename = get_file_name(data, 0);
 	if (!filename)
 		return (1);
@@ -211,4 +129,3 @@ int	redirect_to_pipe(t_parse *data, t_pipe *pipes)
 	}
 	return (fd);
 }
->>>>>>> main

@@ -6,11 +6,7 @@
 /*   By: alsaeed <alsaeed@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:24:39 by alsaeed           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/13 21:29:41 by alsaeed          ###   ########.fr       */
-=======
-/*   Updated: 2024/02/20 17:50:38 by alsaeed          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/09/29 10:30:04 by alsaeed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,27 +97,8 @@ char	*delete_excess_spcs(char *str)
 	init_del_exspc(&var, str, 1);
 	while (++var.i < var.len)
 	{
-<<<<<<< HEAD
-		if ((str[var.i] == '"' && str[var.i + 1] == '"') \
-		|| (str[var.i] == '\'' && str[var.i + 1] == '\''))
-		{
-			var.i++;
-			continue;
-		}
-		if ((str[var.i] == '\'' || str[var.i] == '"') && !var.qutrg)
-		{
-			var.qutrg = TRUE;
-			var.qchr = str[var.i];
-		}
-		else if (str[var.i] == var.qchr && var.qutrg)
-		{
-			var.qchr = '\0';
-			var.qutrg = FALSE;
-		}
-=======
 		if (del_consqut(str, &var))
 			continue ;
->>>>>>> main
 		jmp_mid_spcs(&var, str, 1);
 		if (var.i < var.len - 1 || (var.i == var.len - 1 \
 		&& str[var.len - 1] != ' '))
